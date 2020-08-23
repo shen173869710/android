@@ -23,6 +23,7 @@ import com.auto.di.guan.jobqueue.event.SendCmdEvent;
 import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.FloatWindowUtil;
+import com.auto.di.guan.utils.HuanXinUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
@@ -111,7 +112,12 @@ public class MainActivity extends SerialPortActivity {
             LevelInfoSql.insertLevelInfoList(levelInfos);
         }
         LogUtils.e("time", "time == "+System.currentTimeMillis());
+
+
+        HuanXinUtil.login();
     }
+
+
 
     public int getStatusBarHeight() {
         int result = 0;
@@ -308,4 +314,9 @@ public class MainActivity extends SerialPortActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        HuanXinUtil.stop();
+    }
 }

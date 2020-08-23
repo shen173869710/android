@@ -3,6 +3,7 @@ package com.auto.di.guan.api;
 
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.basemodel.model.respone.LoginRespone;
+import com.auto.di.guan.db.User;
 
 import java.util.Map;
 
@@ -32,5 +33,5 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/api/user/login")
-    Observable<BaseRespone<LoginRespone>> login(@FieldMap Map<String, Object> map);
+    Observable<BaseRespone<User>> login(@FieldMap Map<String, Object> map);
 }

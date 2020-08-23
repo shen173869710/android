@@ -10,9 +10,14 @@ import android.widget.Toast;
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.basemodel.view.ILoginView;
+import com.auto.di.guan.db.User;
+import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.Task;
+import com.auto.di.guan.utils.ToastUtils;
 import com.auto.di.guan.view.XEditText;
+import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.Logger;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -50,20 +55,19 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     @Override
     public void onClick(View v) {
         String id = userLoginName.getText().toString().trim();
-        id = "111";
+        id = "13300000000";
         if (id == null && TextUtils.isEmpty(id)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;
         }
         String pwd = userLoginPwd.getText().toString().trim();
-        pwd = "222";
+        pwd = "123456";
         if (pwd == null && TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
         }
-//        mPresenter.doLogin(id, pwd);
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
+        mPresenter.doLogin(id, pwd);
+
     }
 
     @Override
@@ -84,13 +88,19 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
 
     @Override
     public void loginSuccess(BaseRespone respone) {
+        LogUtils.e("---------",""+(new Gson().toJson(respone)));
 
+        if (respone.getData() != null) {
+            User user = (User) respone.getData();
+            BaseApp.setUser(user);
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     @Override
     public void loginFail(Throwable error, Integer code, String msg) {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
+        LogUtils.e("msg", "doHttpTaskWithDialog==onError===" +msg);
     }
 
     @Override

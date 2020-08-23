@@ -91,9 +91,9 @@ public class Entiy {
     public static final int VIDEO_READ_ERROR = 5;
 
     public static String ALERM_ACTION = "com.auto.di.guan.utils.LongRunningService";
-    public static int GEID_ALL_ITEM = BaseApp.getUser().getPileOutNum() * BaseApp.getUser().getTrunkPipeNum();
-    public static int GRID_COLUMNS = BaseApp.getUser().getPileOutNum();
-    public static int GRID_ROW = BaseApp.getUser().getTrunkPipeNum();
+    public static int GRID_ROW = 3;
+    public static int GRID_COLUMNS = 3;
+
     public static String []TAB_TITLE = {"增减阀控器",
             "绑定阀门",
             "轮灌分组",

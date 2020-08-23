@@ -77,7 +77,7 @@ public class MyGsonConverterFactory extends Converter.Factory{
                 writer = new OutputStreamWriter(buffer.outputStream(), Charset.forName("UTF-8"));
                 jsonWriter = mGson.newJsonWriter(writer);
                 String request = value.toString();
-                LogUtils.i("--------RequestBody  ",request.toString());
+                LogUtils.e("--------RequestBody  ",request.toString());
                 jsonWriter.close();
                 return RequestBody.create( mediaType, buffer.readByteString());
             }catch (Exception e){

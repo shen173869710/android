@@ -49,7 +49,7 @@ public class GwsOkHttpClient {
                         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                             @Override
                             public void log(String message) {
-                                LogUtils.i(TAG, "----request   " + message);
+                                LogUtils.e(TAG, "----request   " + message);
                             }
                         });
 

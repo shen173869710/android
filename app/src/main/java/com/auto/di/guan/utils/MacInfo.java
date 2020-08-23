@@ -33,7 +33,7 @@ public class MacInfo {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mac = getMacFromHardware();
         }
-        return "12345678910";
+        return mac;
     }
 
 

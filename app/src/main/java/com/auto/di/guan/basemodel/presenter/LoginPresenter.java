@@ -49,11 +49,11 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
      * 登录请求
      * **/
     public void doLogin(String userName, final String pwd) {
-        String password = Md5Util.md5(pwd);
+//        String password = Md5Util.md5(pwd);
         String mac = MacInfo.getMacAddress();
         TreeMap<String, Object> treeMap = new TreeMap<>();
         treeMap.put("loginName",userName);
-        treeMap.put("password",password);
+        treeMap.put("password",pwd);
         treeMap.put("mac", mac);
         doHttpTask(getApiService().login(BaseRequest.toMerchantTreeMap(treeMap)), new HttpManager.OnResultListener() {
             @Override

@@ -1,16 +1,15 @@
 package com.auto.di.guan.db;
 
-import android.text.TextUtils;
-
 import com.auto.di.guan.entity.Entiy;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by czl on 2017/11/28.
@@ -20,12 +19,12 @@ public class DeviceInfo implements Serializable{
     static final long serialVersionUID=3L;
     @Id(autoincrement = true)
     private Long id;
-    // 设备名称
-    @Property(nameInDb = "deviceName")
-    private String deviceName;
     // 设备id
     @Property(nameInDb = "deviceId")
     private int deviceId;
+    // 设备名称
+    @Property(nameInDb = "deviceName")
+    private String deviceName;
     // 设备位置
     @Property(nameInDb = "deviceSort")
     private int deviceSort;
@@ -59,15 +58,15 @@ public class DeviceInfo implements Serializable{
     @Property(nameInDb = "valveDeviceSwitchList")
     private ArrayList<ControlInfo>valveDeviceSwitchList;
 
-    @Generated(hash = 1105286998)
-    public DeviceInfo(Long id, String deviceName, int deviceId, int deviceSort,
+    @Generated(hash = 2079321104)
+    public DeviceInfo(Long id, int deviceId, String deviceName, int deviceSort,
             String protocalId, int userId, String deviceImagePath,
             String createTime, String createBy, int electricQuantity,
             int deviceStatus, String remark,
             ArrayList<ControlInfo> valveDeviceSwitchList) {
         this.id = id;
-        this.deviceName = deviceName;
         this.deviceId = deviceId;
+        this.deviceName = deviceName;
         this.deviceSort = deviceSort;
         this.protocalId = protocalId;
         this.userId = userId;

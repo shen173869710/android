@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
+import com.auto.di.guan.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.basemodel.view.ILoginView;
 import com.auto.di.guan.db.ControlInfo;
@@ -20,7 +21,9 @@ import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.mqtt.MqttSimple;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
+import com.auto.di.guan.utils.ToastUtils;
 import com.auto.di.guan.view.XEditText;
+import com.google.gson.Gson;
 import com.trello.rxlifecycle3.LifecycleTransformer;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -66,7 +69,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 					return;
 				}
 				String name = loginName.getText().toString().trim();
-				name = "18675570796";
+				name = "13300000000";
 				if (name == null && TextUtils.isEmpty(name)) {
 					Toast.makeText(ActivationActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
 					return;
@@ -117,48 +120,30 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 
 	@Override
 	public void activationSuccess(BaseRespone respone) {
+        LogUtils.e("---------",""+(new Gson().toJson(respone)));
+        if (respone.getData() != null) {
+			LoginRespone lr = (LoginRespone) respone.getData();
 
-        LogUtils.e("---------","activationSuccess");
+			if (lr.getSysRes() != null) {
+				User user = lr.getSysRes();
+				Entiy.GRID_COLUMNS =3;
+				Entiy.GRID_ROW = 3;
+				UserSql.insertUser(lr.getSysRes());
+				BaseApp.setUser(lr.getSysRes());
+			}
+			if (lr.getValveDeviceInfos() != null) {
+				List<DeviceInfo> deviceInfos =  lr.getValveDeviceInfos();
+				DeviceInfoSql.insertDeviceInfoList(deviceInfos);
+			}
+			startActivity(new Intent(ActivationActivity.this, LoginActivity.class));
+			finish();
+		}
 	}
 
 	@Override
 	public void activationFail(Throwable error, Integer code, String msg) {
         LogUtils.e("---------",""+msg);
-		User user = new User();
-		user.setAvatar("");
-		user.setLoginName("test");
-		user.setPhonenumber("18675570791");
-		user.setProjectName(Entiy.GUN_NAME);
-		user.setProjectId(Entiy.GUN_ID);
-		user.setProjectGroupId(Entiy.GUN_ID);
-		user.setPileOutNum(Entiy.GUN_ROW);
-		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
-		UserSql.insertUser(user);
-		BaseApp.setUser(user);
-		int num = user.getPileOutNum()*user.getTrunkPipeNum();
-
-		Entiy.GRID_COLUMNS = user.getPileOutNum();
-		Entiy.GRID_ROW = user.getTrunkPipeNum();
-		Entiy.GEID_ALL_ITEM = num;
-		List<DeviceInfo>deviceInfos = new ArrayList<>();
-		if(DeviceInfoSql.queryDeviceCount() <= 0) {
-			for (int i = 0 ; i < num; i++) {
-				DeviceInfo deviceInfo = new DeviceInfo();
-				deviceInfo.setDeviceName((i+1)+"");
-				deviceInfo.setDeviceStatus(0);
-				deviceInfo.setDeviceSort(i+1);
-				deviceInfo.setDeviceId(i+1);
-				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
-				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
-				controlInfos.add(new ControlInfo(0,"0"));
-				controlInfos.add(new ControlInfo(0,"1"));
-				deviceInfo.setValveDeviceSwitchList(controlInfos);
-				deviceInfos.add(deviceInfo);
-			}
-			DeviceInfoSql.insertDeviceInfoList(deviceInfos);
-		}
-		startActivity(new Intent(ActivationActivity.this, MainActivity.class));
-		finish();
+		ToastUtils.showLongToast(""+msg);
 	}
 
 

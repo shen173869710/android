@@ -28,8 +28,8 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property DeviceName = new Property(1, String.class, "deviceName", false, "deviceName");
-        public final static Property DeviceId = new Property(2, int.class, "deviceId", false, "deviceId");
+        public final static Property DeviceId = new Property(1, int.class, "deviceId", false, "deviceId");
+        public final static Property DeviceName = new Property(2, String.class, "deviceName", false, "deviceName");
         public final static Property DeviceSort = new Property(3, int.class, "deviceSort", false, "deviceSort");
         public final static Property ProtocalId = new Property(4, String.class, "protocalId", false, "PROTOCAL_ID");
         public final static Property UserId = new Property(5, int.class, "userId", false, "userId");
@@ -57,8 +57,8 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"DEVICE_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"deviceName\" TEXT," + // 1: deviceName
-                "\"deviceId\" INTEGER NOT NULL ," + // 2: deviceId
+                "\"deviceId\" INTEGER NOT NULL ," + // 1: deviceId
+                "\"deviceName\" TEXT," + // 2: deviceName
                 "\"deviceSort\" INTEGER NOT NULL ," + // 3: deviceSort
                 "\"PROTOCAL_ID\" TEXT," + // 4: protocalId
                 "\"userId\" INTEGER NOT NULL ," + // 5: userId
@@ -85,12 +85,12 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
+        stmt.bindLong(2, entity.getDeviceId());
  
         String deviceName = entity.getDeviceName();
         if (deviceName != null) {
-            stmt.bindString(2, deviceName);
+            stmt.bindString(3, deviceName);
         }
-        stmt.bindLong(3, entity.getDeviceId());
         stmt.bindLong(4, entity.getDeviceSort());
  
         String protocalId = entity.getProtocalId();
@@ -135,12 +135,12 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
+        stmt.bindLong(2, entity.getDeviceId());
  
         String deviceName = entity.getDeviceName();
         if (deviceName != null) {
-            stmt.bindString(2, deviceName);
+            stmt.bindString(3, deviceName);
         }
-        stmt.bindLong(3, entity.getDeviceId());
         stmt.bindLong(4, entity.getDeviceSort());
  
         String protocalId = entity.getProtocalId();
@@ -186,8 +186,8 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
     public DeviceInfo readEntity(Cursor cursor, int offset) {
         DeviceInfo entity = new DeviceInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // deviceName
-            cursor.getInt(offset + 2), // deviceId
+            cursor.getInt(offset + 1), // deviceId
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // deviceName
             cursor.getInt(offset + 3), // deviceSort
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // protocalId
             cursor.getInt(offset + 5), // userId
@@ -205,8 +205,8 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
     @Override
     public void readEntity(Cursor cursor, DeviceInfo entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setDeviceName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setDeviceId(cursor.getInt(offset + 2));
+        entity.setDeviceId(cursor.getInt(offset + 1));
+        entity.setDeviceName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setDeviceSort(cursor.getInt(offset + 3));
         entity.setProtocalId(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setUserId(cursor.getInt(offset + 5));
