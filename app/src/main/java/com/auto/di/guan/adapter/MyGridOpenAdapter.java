@@ -224,17 +224,17 @@ public class MyGridOpenAdapter extends BaseAdapter {
                  */
                 if (index == 0) {
                     TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_READ ,Entiy.ACTION_TYPE_4);
-                    TaskFactory.createReadEndTask();
+                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_READ);
                     TaskManager.getInstance().startTask();
                 }else if (index == 1) {
                     TaskFactory.createOpenTask(controlInfo);
                     TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_OPEN_READ ,Entiy.ACTION_TYPE_4);
-                    TaskFactory.createReadEndTask();
+                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_OPEN_READ);
                     TaskManager.getInstance().startTask();
                 }else if (index == 2) {
                     TaskFactory.createCloseTask(controlInfo);
                     TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_CLOSE_READ ,Entiy.ACTION_TYPE_4);
-                    TaskFactory.createReadEndTask();
+                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_CLOSE_READ);
                     TaskManager.getInstance().startTask();
                 }
             }

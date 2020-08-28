@@ -132,8 +132,8 @@ public class TaskFactory {
     /**
      * 创建读取结束标志位
      */
-    public static void createReadEndTask() {
-        TaskManager.getInstance().addTask(new SingleEndTask(0, ""));
+    public static void createReadEndTask(int taskType) {
+        TaskManager.getInstance().addTask(new SingleEndTask(taskType, ""));
     }
 
 
