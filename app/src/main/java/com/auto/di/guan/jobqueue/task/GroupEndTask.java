@@ -33,7 +33,7 @@ public class GroupEndTask extends BaseTask{
             }
             LogUtils.e(TAG, "分组手动开启     操作结束==========================  cmd =="+getTaskCmd());
 
-            NetSendMessage.sendGroupOptionMessage();
+            NetSendMessage.sendGroupOptionMessage(mGroupInfo);
         }else if (getTaskType() == TaskEntiy.TASK_OPTION_GROUP_CLOSE_READ_END) {
             if (mGroupInfo != null) {
                 mGroupInfo.setGroupStatus(0);
@@ -42,7 +42,7 @@ public class GroupEndTask extends BaseTask{
                 GroupInfoSql.updateGroup(mGroupInfo);
             }
             LogUtils.e(TAG, "分组手动关闭     操作结束==========================  cmd =="+getTaskCmd());
-            NetSendMessage.sendGroupOptionMessage();
+            NetSendMessage.sendGroupOptionMessage(mGroupInfo);
         }
         EventBus.getDefault().post(new Fragment31Event());
         EventBus.getDefault().post(new Fragment32Event());

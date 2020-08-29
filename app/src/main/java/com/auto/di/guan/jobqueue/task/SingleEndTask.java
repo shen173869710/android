@@ -35,13 +35,13 @@ public class SingleEndTask extends BaseTask{
          *   单个手动操作 读
          */
         if (getTaskType() == TaskEntiy.TASK_OPTION_READ) {
-            NetSendMessage.sendSingleOptionMessage();
+            NetSendMessage.sendSingleOptionMessage(getTaskInfo());
         }else if (getTaskType() == TaskEntiy.TASK_OPTION_OPEN_READ) {
             // 开启
-            NetSendMessage.sendSingleOptionMessage();
+            NetSendMessage.sendSingleOptionMessage(getTaskInfo());
         }else if (getTaskType() == TaskEntiy.TASK_OPTION_CLOSE_READ) {
             // 关闭
-            NetSendMessage.sendSingleOptionMessage();
+            NetSendMessage.sendSingleOptionMessage(getTaskInfo());
         }
         finishTask();
     }

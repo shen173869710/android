@@ -12,7 +12,6 @@ import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.event.Fragment4Event;
-import com.auto.di.guan.utils.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

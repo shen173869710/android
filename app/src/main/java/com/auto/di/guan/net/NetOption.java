@@ -3,6 +3,8 @@ package com.auto.di.guan.net;
 
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.Fragment32Event;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.ToastUtils;
@@ -81,12 +83,12 @@ public class NetOption {
 //        }else if (index == 1) {
 //            TaskFactory.createOpenTask(controlInfo);
 //            TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_OPEN_READ ,Entiy.ACTION_TYPE_4);
-            TaskFactory.createReadEndTask();
+//            TaskFactory.createReadEndTask();
 //            TaskManager.getInstance().startTask();
 //        }else if (index == 2) {
 //            TaskFactory.createCloseTask(controlInfo);
 //            TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_CLOSE_READ ,Entiy.ACTION_TYPE_4);
-            TaskFactory.createReadEndTask();
+//            TaskFactory.createReadEndTask();
 //            TaskManager.getInstance().startTask();
 //        }
     }
@@ -146,5 +148,22 @@ public class NetOption {
     private static void  doGroupSetting() {
 
     }
+
+
+    /**
+     *   暂停轮灌
+     */
+    public static void stopOrStart(boolean start) {
+
+//        info.setGroupStop(false);
+//        GroupInfoSql.updateGroup(info);
+//        EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, info));
+//        notifyDataSetChanged();
+    }
+
+    public static void doNextGroup (GroupInfo groupInfo) {
+
+    }
+
 
 }
