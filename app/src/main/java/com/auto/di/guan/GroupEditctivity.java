@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.adapter.GroupEditListAdapter;
 import com.auto.di.guan.db.ControlInfo;
-import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.LevelInfo;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
@@ -22,8 +20,6 @@ import com.auto.di.guan.dialog.MainShowDialog;
 import com.auto.di.guan.jobqueue.event.ChooseGroupEvent;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.ToastUtils;
-import com.facebook.stetho.common.LogUtil;
-import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 

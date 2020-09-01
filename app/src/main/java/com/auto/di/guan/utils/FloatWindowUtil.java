@@ -1,18 +1,10 @@
 package com.auto.di.guan.utils;
 
 import android.content.Context;
-import android.graphics.PointF;
-import android.os.Handler;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.BaseApp;
@@ -24,7 +16,7 @@ import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.floatWindow.FloatWindow;
 import com.auto.di.guan.floatWindow.MoveType;
 import com.auto.di.guan.floatWindow.Screen;
-import com.google.gson.Gson;
+import com.auto.di.guan.net.NetSendMessage;
 
 import java.util.ArrayList;
 
@@ -152,6 +144,8 @@ public class FloatWindowUtil {
                 adapter.notifyDataSetChanged();
                 mListView.scrollToPosition(adapter.getItemCount()-1);
             }
+
+            NetSendMessage.sendStatusMessage(alist);
 
         }
     }
