@@ -1,12 +1,13 @@
 package com.auto.di.guan.net;
 
 
+import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
-import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.Fragment32Event;
-import com.auto.di.guan.jobqueue.task.TaskFactory;
+import com.auto.di.guan.utils.HuanXinUtil;
+import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,24 +19,6 @@ import java.util.List;
  *   后台网络操作
  */
 public class NetOption {
-
-    public static String LOGIN = "login";
-    /**单个操作**/
-    public static String  SINGLE_READ = "single_read";
-    public static String SINGLE_OPEN  = "single_open";
-    public static String SINGLE_CLOSE = "single_close";
-
-    /**轮灌分组**/
-    public static String SET_GROUP = "set_group";
-
-    /**单租操作**/
-    public static String GROUP_OPEN = "group_open";
-    public static String GROUP_CLOSE = "group_close";
-
-    /****/
-
-    public static String GROUP_AUTO = "group_auto";
-
 
     public static void doOption(int type) {
         switch (type) {
@@ -70,6 +53,12 @@ public class NetOption {
      *   做登录
      */
     public static void doLogin() {
+
+
+
+        List<DeviceInfo> deviceInfos = DeviceInfoSql.queryDeviceList();
+//        LogUtils.e()
+        HuanXinUtil.sendMessage("");
     }
 
     /**

@@ -13,11 +13,9 @@ import com.auto.di.guan.basemodel.view.ILoginView;
 import com.auto.di.guan.db.User;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.Task;
-import com.auto.di.guan.utils.ToastUtils;
 import com.auto.di.guan.view.XEditText;
 import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.Logger;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 

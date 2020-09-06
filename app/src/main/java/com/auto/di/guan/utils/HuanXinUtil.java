@@ -101,4 +101,12 @@ public class HuanXinUtil {
     public static void stop(){
         EMClient.getInstance().chatManager().removeMessageListener(msgListener);
     }
+
+
+    public static void sendMessage(String json) {
+
+
+        EMMessage emMessage = EMMessage.createTxtSendMessage(json, BaseApp.getUser().getParentLoginName());
+        EMClient.getInstance().chatManager().sendMessage(emMessage);
+    }
 }

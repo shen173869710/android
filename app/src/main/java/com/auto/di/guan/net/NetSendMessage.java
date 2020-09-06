@@ -1,13 +1,28 @@
 package com.auto.di.guan.net;
 
 import com.auto.di.guan.db.ControlInfo;
+import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
 
 import java.util.List;
 
 public class NetSendMessage {
 
+
+
+    /**
+     *        发送登陆成功同步数据
+     * @param
+     */
+    public static void sendLoginMessage(){
+
+        List<DeviceInfo> deviceInfos = DeviceInfoSql.queryDeviceList();
+
+
+
+    }
 
 
     /**
