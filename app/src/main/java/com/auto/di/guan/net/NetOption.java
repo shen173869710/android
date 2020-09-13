@@ -3,10 +3,7 @@ package com.auto.di.guan.net;
 
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.GroupInfoSql;
-import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.Fragment32Event;
-import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;

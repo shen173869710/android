@@ -1,5 +1,7 @@
 package com.auto.di.guan.entity;
 
+import android.text.TextUtils;
+
 import com.auto.di.guan.BaseApp;
 
 /**
@@ -42,10 +44,10 @@ public class Entiy {
      *  施肥管理相关参数设置
      */
     public static String [] PUMP_PRAM = {
-            "参数1",
-            "参数2",
-            "参数3",
-            "参数4"
+            "电流",
+            "电压",
+            "状态",
+            "错误"
     };
 
 
@@ -276,4 +278,8 @@ public class Entiy {
     public static  String createProtocalId(int id) {
         return String.format("%03d",id);
     }
+
+
+
+
 }

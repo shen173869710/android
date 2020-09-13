@@ -198,7 +198,7 @@ public class FragmentTab32 extends BaseFragment {
 		if (adapter != null) {
 			initData();
 		}
-	};
+	}
 	/**
 	 *        自动轮灌组状态更新
 	 * @param event
@@ -208,7 +208,7 @@ public class FragmentTab32 extends BaseFragment {
 		if (adapter != null) {
 			initData();
 		}
-	};
+	}
 
 	/**
 	 *   接收自动轮灌相关操作

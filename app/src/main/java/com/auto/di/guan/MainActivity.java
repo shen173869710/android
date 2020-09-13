@@ -7,8 +7,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.TextView;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.LevelInfo;
 import com.auto.di.guan.db.sql.GroupInfoSql;
@@ -28,6 +30,7 @@ import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
 import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

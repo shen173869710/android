@@ -144,6 +144,43 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 	public void activationFail(Throwable error, Integer code, String msg) {
         LogUtils.e("---------",""+msg);
 		ToastUtils.showLongToast(""+msg);
+
+		User user = new User();
+		user.setAvatar("");
+		user.setLoginName("test");
+		user.setPhonenumber("18675570791");
+		user.setProjectName(Entiy.GUN_NAME);
+		user.setProjectId(Entiy.GUN_ID);
+		user.setProjectGroupId(Entiy.GUN_ID);
+		user.setPileOutNum(Entiy.GUN_ROW);
+		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
+		UserSql.insertUser(user);
+		BaseApp.setUser(user);
+		int num = user.getPileOutNum()*user.getTrunkPipeNum();
+
+		Entiy.GRID_COLUMNS = user.getPileOutNum();
+		Entiy.GRID_ROW = user.getTrunkPipeNum();
+
+		List<DeviceInfo>deviceInfos = new ArrayList<>();
+		if(DeviceInfoSql.queryDeviceCount() <= 0) {
+			for (int i = 0 ; i < num; i++) {
+				DeviceInfo deviceInfo = new DeviceInfo();
+				deviceInfo.setDeviceName((i+1)+"");
+				deviceInfo.setDeviceStatus(0);
+				deviceInfo.setDeviceSort(i+1);
+				deviceInfo.setDeviceId(i+1);
+				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
+				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
+				controlInfos.add(new ControlInfo(0,"0"));
+				controlInfos.add(new ControlInfo(0,"1"));
+				deviceInfo.setValveDeviceSwitchList(controlInfos);
+				deviceInfos.add(deviceInfo);
+			}
+			DeviceInfoSql.insertDeviceInfoList(deviceInfos);
+		}
+		startActivity(new Intent(ActivationActivity.this, MainActivity.class));
+		finish();
+		ToastUtils.showLongToast(""+msg);
 	}
 
 

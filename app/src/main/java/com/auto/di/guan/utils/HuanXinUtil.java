@@ -71,30 +71,30 @@ public class HuanXinUtil {
 
     public static void login() {
 
-        LogUtils.e(TAG, "user = "+BaseApp.getUser().getLoginName()+ "password = "+ BaseApp.getUser().getPassword());
-        EMClient.getInstance().login(BaseApp.getUser().getLoginName(),BaseApp.getUser().getPassword(),new EMCallBack() {//回调
-            @Override
-            public void onSuccess() {
-                EMClient.getInstance().groupManager().loadAllGroups();
-                EMClient.getInstance().chatManager().loadAllConversations();
-                LogUtils.e(TAG, "登录聊天服务器成功！");
-                //创建一条文本消息，content为消息文字内容，toChatUsername为对方用户或者群聊的id，后文皆是如此
-//                EMMessage emMessage = EMMessage.createTxtSendMessage("收到111", "100");
-//                EMClient.getInstance().chatManager().sendMessage(emMessage);
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                LogUtils.e(TAG, "登录聊天服务器失败！"+message);
-            }
-        });
-
-        EMClient.getInstance().chatManager().addMessageListener(msgListener);
+//        LogUtils.e(TAG, "user = "+BaseApp.getUser().getLoginName()+ "password = "+ BaseApp.getUser().getPassword());
+//        EMClient.getInstance().login(BaseApp.getUser().getLoginName(),BaseApp.getUser().getPassword(),new EMCallBack() {//回调
+//            @Override
+//            public void onSuccess() {
+//                EMClient.getInstance().groupManager().loadAllGroups();
+//                EMClient.getInstance().chatManager().loadAllConversations();
+//                LogUtils.e(TAG, "登录聊天服务器成功！");
+//                //创建一条文本消息，content为消息文字内容，toChatUsername为对方用户或者群聊的id，后文皆是如此
+////                EMMessage emMessage = EMMessage.createTxtSendMessage("收到111", "100");
+////                EMClient.getInstance().chatManager().sendMessage(emMessage);
+//            }
+//
+//            @Override
+//            public void onProgress(int progress, String status) {
+//
+//            }
+//
+//            @Override
+//            public void onError(int code, String message) {
+//                LogUtils.e(TAG, "登录聊天服务器失败！"+message);
+//            }
+//        });
+//
+//        EMClient.getInstance().chatManager().addMessageListener(msgListener);
     }
 
 
