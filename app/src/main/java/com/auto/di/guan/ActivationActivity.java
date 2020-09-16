@@ -18,15 +18,12 @@ import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.UserSql;
 import com.auto.di.guan.entity.ElecEvent;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.mqtt.MqttSimple;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.ToastUtils;
 import com.auto.di.guan.view.XEditText;
 import com.google.gson.Gson;
-import com.trello.rxlifecycle3.LifecycleTransformer;
 
-import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -46,8 +43,6 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 	@BindView(R.id.activiation)
 	Button activiation;
 
-	private MqttAndroidClient mqttAndroidClient;
-	MqttSimple mqttSimple;
 	@Override
 	protected int setLayout() {
 		return R.layout.activity_activation;
@@ -55,9 +50,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 
 	@Override
 	protected void init() {
-//		mqttAndroidClient = new MqttAndroidClient(getApplicationContext(), Config.serverUri, Config.clientId);
-//		mqttSimple = new MqttSimple(mqttAndroidClient);
-//		mqttSimple.init();
+
 	}
 
 	@Override
@@ -147,8 +140,9 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 
 		User user = new User();
 		user.setAvatar("");
-		user.setLoginName("test");
-		user.setPhonenumber("18675570791");
+		user.setLoginName("13300000000");
+		user.setParentId(123456l);
+		user.setPhonenumber("13300000000");
 		user.setProjectName(Entiy.GUN_NAME);
 		user.setProjectId(Entiy.GUN_ID);
 		user.setProjectGroupId(Entiy.GUN_ID);

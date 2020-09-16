@@ -3,6 +3,7 @@ package com.auto.di.guan.entity;
 import android.text.TextUtils;
 
 import com.auto.di.guan.BaseApp;
+import com.auto.di.guan.utils.LogUtils;
 
 /**
  * Created by Administrator on 2017/7/16.
@@ -271,6 +272,37 @@ public class Entiy {
     public static int ACTION_TYPE_ERROR = -1;
 
 
+    //对端已接收到点对点消息。
+    public static int PEER_MESSAGE_ERR_OK = 0;
+    public static String PEER_MESSAGE_ERR_OK_VALUE = "对端已接收到点对点消息";
+    //发送点对点消息失败。
+    public static int PEER_MESSAGE_ERR_FAILURE = 1;
+    public static String PEER_MESSAGE_ERR_FAILURE_VALUE = "发送点对点消息失败";
+    //发送点对点消息超时。超时时间设置为 10 秒。可能原因：用户正处于 CONNECTION_STATE_ABORTED 状态或 CONNECTION_STATE_RECONNECTING 状态。。
+    public static int PEER_MESSAGE_ERR_TIMEOUT = 2;
+    public static String PEER_MESSAGE_ERR_TIMEOUT_VALUE = "发送点对点消息超时。超时时间设置为 10 秒。可能原因：用户正处于 CONNECTION_STATE_ABORTED 状态或 CONNECTION_STATE_RECONNECTING 状态";
+    //对方不在线，发出的点对点消息未被收到。
+    public static int PEER_MESSAGE_ERR_PEER_UNREACHABLE = 3;
+    public static String PEER_MESSAGE_ERR_PEER_UNREACHABLE_VALUE = "对方不在线，发出的点对点消息未被收到";
+    //对方不在线，发出的离线点对点消息未被收到。但是服务器已经保存这条消息并将在用户上线后重新发送。
+    public static int PEER_MESSAGE_ERR_CACHED_BY_SERVER = 4;
+    public static String PEER_MESSAGE_ERR_CACHED_BY_SERVER_VALUE = "对方不在线，发出的离线点对点消息未被收到。但是服务器已经保存这条消息并将在用户上线后重新发送";
+    //（RTM SDK for Android Java）发送消息（点对点消息和频道消息一并计算在内）超过 每 3 秒 180 次的上限。（RTM SDK for Linux Java）发送消息（点对点消息和频道消息一并计算在内）超过每 3 秒 1500 次的上限。
+    public static int PEER_MESSAGE_ERR_TOO_OFTEN = 5;
+    public static String PEER_MESSAGE_ERR_TOO_OFTEN_VALUE = "发送消息（点对点消息和频道消息一并计算在内）超过 每 3 秒 180 次的上限。（RTM SDK for Linux Java）发送消息（点对点消息和频道消息一并计算在内）超过每 3 秒 1500 次的上限";
+    //用户 ID 无效。
+    public static int PEER_MESSAGE_ERR_INVALID_USERID = 6;
+    public static String PEER_MESSAGE_ERR_INVALID_USERID_VALUE = "用户 ID 无效";
+    //消息为 null 或超出 32 KB 的长度限制。
+    public static int PEER_MESSAGE_ERR_INVALID_MESSAGE = 7;
+    public static String PEER_MESSAGE_ERR_INVALID_MESSAGE_VALUE = "消息为 null 或超出 32 KB 的长度限制";
+    // SDK 未完成初始化。
+    public static int PEER_MESSAGE_ERR_NOT_INITIALIZED = 101;
+    public static String PEER_MESSAGE_ERR_NOT_INITIALIZED_VALUE = "SDK 未完成初始化";
+    // 发送点对点消息前未调用 login 方法或者 login 方法调用未成功。
+    public static int PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN = 102;
+    public static String PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN_VALUE = "发送点对点消息前未调用 login 方法或者 login 方法调用未成功";
+
     /**
      *  根据项目位置生成通信ID
      * @return
@@ -280,6 +312,40 @@ public class Entiy {
     }
 
 
+    public static void onPeerError(String TAG,int code) {
+        switch (code) {
+            case 0:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_OK_VALUE);
+                break;
+            case 1:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_FAILURE_VALUE);
+                break;
+            case 2:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_TIMEOUT_VALUE);
+                break;
+            case 3:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_PEER_UNREACHABLE_VALUE);
+                break;
+            case 4:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_CACHED_BY_SERVER_VALUE);
+                break;
+            case 5:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_TOO_OFTEN_VALUE);
+                break;
+            case 6:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_INVALID_USERID_VALUE);
+                break;
+            case 7:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_INVALID_MESSAGE_VALUE);
+                break;
+            case 101:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_NOT_INITIALIZED_VALUE);
+                break;
+            case 102:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN_VALUE);
+                break;
 
+        }
+    }
 
 }

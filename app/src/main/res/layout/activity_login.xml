@@ -80,7 +80,6 @@
             android:orientation="vertical">
             <Button
                 android:id="@+id/user_login"
-                style="@style/text_large"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/main_button_height"
                 android:background="@drawable/login_button_sel"

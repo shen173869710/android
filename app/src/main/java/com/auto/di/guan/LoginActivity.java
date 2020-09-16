@@ -13,11 +13,9 @@ import com.auto.di.guan.basemodel.view.ILoginView;
 import com.auto.di.guan.db.User;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.Task;
-import com.auto.di.guan.utils.ToastUtils;
 import com.auto.di.guan.view.XEditText;
 import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.Logger;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -56,13 +54,13 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     public void onClick(View v) {
         String id = userLoginName.getText().toString().trim();
         id = "13300000000";
-        if (id == null && TextUtils.isEmpty(id)) {
+        if (TextUtils.isEmpty(id)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;
         }
         String pwd = userLoginPwd.getText().toString().trim();
         pwd = "123456";
-        if (pwd == null && TextUtils.isEmpty(pwd)) {
+        if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
         }

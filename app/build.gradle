@@ -179,16 +179,8 @@ dependencies {
     implementation "com.jakewharton:butterknife:10.0.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
 
-
-    //mqtt
-    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
-    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
-    ///
-    implementation 'com.birbit:android-priority-jobqueue:2.0.1'
-
     implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
     implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-
-
-    api 'com.hyphenate:hyphenate-sdk-lite:3.6.8'
+    /**声网rtm**/
+    implementation 'io.agora.rtm:rtm-sdk:1.4.0'
 }

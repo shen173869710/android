@@ -24,8 +24,8 @@ import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.SendCmdEvent;
 import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
+import com.auto.di.guan.rtm.ChatManager;
 import com.auto.di.guan.utils.FloatWindowUtil;
-import com.auto.di.guan.utils.HuanXinUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
@@ -50,6 +50,9 @@ public class MainActivity extends SerialPortActivity {
      * 当前运行的剩余时间
      ***/
     public int curRunTime = 0;
+
+
+    private ChatManager chatManager;
 
     private Handler handler = new Handler() {
         @Override
@@ -117,7 +120,9 @@ public class MainActivity extends SerialPortActivity {
         LogUtils.e("time", "time == "+System.currentTimeMillis());
 
 
-        HuanXinUtil.login();
+        chatManager = BaseApp.getInstance().getChatManager();
+        chatManager.init();
+        chatManager.doLogin();
     }
 
 
@@ -195,6 +200,10 @@ public class MainActivity extends SerialPortActivity {
         }
         PollingUtils.stopPollingService(this);
         FloatWindowUtil.getInstance().distory();
+
+        if (chatManager != null) {
+            chatManager.doLogout();
+        }
     }
 
 
@@ -320,6 +329,5 @@ public class MainActivity extends SerialPortActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        HuanXinUtil.stop();
     }
 }
