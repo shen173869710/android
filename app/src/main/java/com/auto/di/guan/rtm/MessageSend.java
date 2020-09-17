@@ -1,11 +1,12 @@
 package com.auto.di.guan.rtm;
 
 
-
 import com.auto.di.guan.BaseApp;
-import com.auto.di.guan.IBaseActivity;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.sql.ControlInfoSql;
+import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.entity.CmdStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,110 +19,69 @@ public class MessageSend {
     /**
      *  登录
      */
-    public static void doLogin(String managerId) {
+    public static void syncLogin(String managerId) {
         MessageLoginInfo info  = new MessageLoginInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         send(info);
     }
 
+
     /**
-     *        单个读
-     * @param controlInfos
+     *  同步单个操作数据
      */
-    public static void doSingleRead(ArrayList<ControlInfo> controlInfos) {
+    public static void syncSingle(int type, ControlInfo controlInfo) {
         MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_SINGLE_READ);
-        info.setControlInfos(controlInfos);
+        info.setType(type);
+        info.setControlInfo(controlInfo);
         send(info);
     }
 
     /**
-     *        单个开
-     * @param controlInfos
+     *         更新单组
+     * @param groupInfo
      */
-    public static void doSingleOpen(ArrayList<ControlInfo> controlInfos) {
+    public static void syncGroup(int type, GroupInfo groupInfo) {
         MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_SINGLE_OPEN);
+        info.setType(type);
+        info.setGroupInfo(groupInfo);
+        List<ControlInfo>controlInfos = ControlInfoSql.queryControlList(groupInfo.getGroupId());
         info.setControlInfos(controlInfos);
         send(info);
     }
 
-    /**
-     *        单个关
-     * @param controlInfos
-     */
-    public static void doSingleClose(ArrayList<ControlInfo> controlInfos) {
-        MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_SINGLE_CLOSE);
-        info.setControlInfos(controlInfos);
-        send(info);
-    }
-
-    /**
-     *        单组开
-     * @param controlInfos
-     */
-    public static void doGroupOpen(ArrayList<ControlInfo> controlInfos, List<GroupInfo> groupInfos) {
-        MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_GROUP_OPEN);
-        info.setGroupInfos(groupInfos);
-        info.setControlInfos(controlInfos);
-        send(info);
-    }
-
-    /**
-     *        单组开
-     * @param controlInfos
-     */
-    public static void doGroupClose(ArrayList<ControlInfo> controlInfos, List<GroupInfo> groupInfos) {
-        MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_GROUP_CLOSE);
-        info.setGroupInfos(groupInfos);
-        info.setControlInfos(controlInfos);
-        send(info);
-    }
 
     /**
      *        自动轮灌开
-     * @param controlInfos
-     * @param groupInfos
      */
-    public static void doAutoOpen(ArrayList<ControlInfo> controlInfos, List<GroupInfo> groupInfos) {
+    public static void syncAuto(int type, GroupInfo groupInfo) {
         MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_AUTO_OPEN);
-        info.setGroupInfos(groupInfos);
-        info.setControlInfos(controlInfos);
+        info.setType(type);
+        info.setControlInfos(ControlInfoSql.queryControlList());
+        info.setGroupInfos(GroupInfoSql.queryGroupList());
         send(info);
     }
 
     /**
-     *        自动轮灌暂停
+     *        自动轮灌关闭
+     * @param type
      */
-    public static void doAutoStop() {
+    public static void syncAutoClose(int type) {
         MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_AUTO_STOP);
+        info.setType(MessageEntiy.TYPE_AUTO_CLOSE);
+        info.setControlInfos(ControlInfoSql.queryControlList());
+        info.setGroupInfos(GroupInfoSql.queryGroupList());
         send(info);
     }
 
     /**
-     *        自动轮灌开始
+     *        同步操作信息数据
+     * @param alist
      */
-    public static void doAutoStart() {
+    public static void syncOptionInfo(ArrayList<CmdStatus> alist) {
         MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_AUTO_START);
+        info.setType(MessageEntiy.TYPE_MESSAGE);
+        info.setCmdStatuses(alist);
         send(info);
     }
-
-    /**
-     *        自动轮灌下一组
-     */
-    public static void doAutoNext() {
-        MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_AUTO_NEXT);
-        send(info);
-    }
-
-
-
 
 }

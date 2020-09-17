@@ -2,6 +2,7 @@ package com.auto.di.guan.rtm;
 
 public class MessageEntiy {
 
+
     // 登录
     public static final int TYPE_LOGIN = 1;
     // 登出
@@ -22,9 +23,14 @@ public class MessageEntiy {
     public static final int TYPE_AUTO_STOP = 9;
     // 单组自动轮灌 开始
     public static final int TYPE_AUTO_START = 10;
+    // 单组自动轮灌 关闭
+    public static final int TYPE_AUTO_CLOSE = 11;
     // 单组自动轮灌 下一组
-    public static final int TYPE_AUTO_NEXT = 11;
-
+    public static final int TYPE_AUTO_NEXT = 12;
+    // 自动轮灌查询开启
+    public static final int TYPE_AUTO_POLL_START = 13;
+    // 自动轮灌查询关闭
+    public static final int TYPE_AUTO_POLL_CLOSE = 14;
     // 轮灌操作相关信息
     public static final int TYPE_MESSAGE = 100;
 

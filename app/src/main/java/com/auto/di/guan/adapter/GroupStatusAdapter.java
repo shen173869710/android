@@ -16,7 +16,6 @@ import com.auto.di.guan.dialog.OnDialogClick;
 import com.auto.di.guan.dialog.SetTimeDialog;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
@@ -133,7 +132,10 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     DialogUtil.showStartCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            MessageSend.doAutoStart();
+                            info.setGroupStop(false);
+                            GroupInfoSql.updateGroup(info);
+                            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, info));
+                            notifyDataSetChanged();
                         }
 
                         @Override
@@ -146,7 +148,10 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     DialogUtil.showStopCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            MessageSend.doAutoStop();
+                            info.setGroupStop(true);
+                            GroupInfoSql.updateGroup(info);
+                            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP));
+                            notifyDataSetChanged();
                         }
 
                         @Override
@@ -168,7 +173,8 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     ToastUtils.showLongToast("自动查询操作当中，请稍后");
                     return;
                 }
-                MessageSend.doAutoNext();
+                info.setGroupRunTime(info.getGroupTime());
+                GroupInfoSql.updateGroup(info);
             }
         });
 

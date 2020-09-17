@@ -6,7 +6,8 @@ import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.event.AutoCountEvent;
 import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
-import com.auto.di.guan.net.NetSendMessage;
+import com.auto.di.guan.rtm.MessageEntiy;
+import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.LogUtils;
 import com.google.gson.Gson;
 
@@ -34,13 +35,13 @@ public class GroupAutoEndTask extends BaseTask{
             EventBus.getDefault().post(new AutoTaskEvent(getGroupInfo()));
             EventBus.getDefault().post(new GroupStatusEvent(getGroupInfo()));
 
-            NetSendMessage.sendGroupAutoMessage(getGroupInfo());
+            MessageSend.syncAuto(MessageEntiy.TYPE_SINGLE_OPEN, getGroupInfo());
+
         }else if (getTaskType() == TaskEntiy.TASK_OPTION_AUTO_CLOSE) {
             LogUtils.e(TAG, "**********************************自动轮灌  关闭一组完成****************************\n"+(new Gson().toJson(getGroupInfo())));
             EventBus.getDefault().post(new AutoCountEvent(getGroupInfo()));
             EventBus.getDefault().post(new GroupStatusEvent(getGroupInfo()));
 
-            NetSendMessage.sendGroupAutoMessage(getGroupInfo());
         }else if (getTaskType() == TaskEntiy.TASK_OPTION_AUTO_NEXT) {
             LogUtils.e(TAG, "**********************************自动轮灌  开启一组完成  开始执行下一组轮灌****************************\n"+(new Gson().toJson(getGroupInfo())));
             GroupInfo nextInfo = GroupInfoSql.queryNextGroup();

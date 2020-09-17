@@ -16,10 +16,9 @@ import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.floatWindow.FloatWindow;
 import com.auto.di.guan.floatWindow.MoveType;
 import com.auto.di.guan.floatWindow.Screen;
-import com.auto.di.guan.net.NetSendMessage;
+import com.auto.di.guan.rtm.MessageSend;
 
 import java.util.ArrayList;
-
 /**
  * Created by Administrator on 2018/7/25.
  *   悬浮窗显示状态
@@ -144,9 +143,7 @@ public class FloatWindowUtil {
                 adapter.notifyDataSetChanged();
                 mListView.scrollToPosition(adapter.getItemCount()-1);
             }
-
-            NetSendMessage.sendStatusMessage(alist);
-
+            MessageSend.syncOptionInfo(alist);
         }
     }
 }
