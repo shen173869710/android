@@ -8,7 +8,6 @@ import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MessageSend {
@@ -49,7 +48,6 @@ public class MessageSend {
         send(info);
     }
 
-
     /**
      *        自动轮灌开
      */
@@ -75,12 +73,12 @@ public class MessageSend {
 
     /**
      *        同步操作信息数据
-     * @param alist
+     * @param cmdStatus
      */
-    public static void syncOptionInfo(ArrayList<CmdStatus> alist) {
+    public static void syncOptionInfo(CmdStatus  cmdStatus) {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_MESSAGE);
-        info.setCmdStatuses(alist);
+        info.setCmdStatus(cmdStatus);
         send(info);
     }
 

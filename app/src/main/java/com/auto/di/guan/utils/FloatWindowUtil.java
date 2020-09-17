@@ -105,6 +105,7 @@ public class FloatWindowUtil {
 
     public void onStatsuEvent(CmdStatus event) {
         if (event != null) {
+            MessageSend.syncOptionInfo(event);
             int size = alist.size();
             boolean isHas = false;
             for (int i = 0; i < size; i++) {
@@ -143,7 +144,7 @@ public class FloatWindowUtil {
                 adapter.notifyDataSetChanged();
                 mListView.scrollToPosition(adapter.getItemCount()-1);
             }
-            MessageSend.syncOptionInfo(alist);
+
         }
     }
 }

@@ -3,7 +3,6 @@ package com.auto.di.guan.rtm;
 
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupInfo;
-import com.auto.di.guan.db.UserAction;
 import com.auto.di.guan.entity.CmdStatus;
 import com.google.gson.Gson;
 
@@ -11,15 +10,12 @@ import java.util.List;
 
 public class MessageInfo {
 
-
     private int type;
     private ControlInfo controlInfo;
     private GroupInfo groupInfo;
     private List<ControlInfo> controlInfos;
     private List<GroupInfo>groupInfos;
-    private List<CmdStatus> cmdStatuses;
-
-
+    private CmdStatus cmdStatus;
 
     public ControlInfo getControlInfo() {
         return controlInfo;
@@ -61,12 +57,12 @@ public class MessageInfo {
         this.groupInfos = groupInfos;
     }
 
-    public List<CmdStatus> getCmdStatuses() {
-        return cmdStatuses;
+    public CmdStatus getCmdStatus() {
+        return cmdStatus;
     }
 
-    public void setCmdStatuses(List<CmdStatus> cmdStatuses) {
-        this.cmdStatuses = cmdStatuses;
+    public void setCmdStatus(CmdStatus cmdStatus) {
+        this.cmdStatus = cmdStatus;
     }
 
     public String toJson() {
