@@ -103,7 +103,7 @@ public class GroupOptionActivity extends Activity  {
 				}
 				GroupInfoSql.updateGroupList(groupInfos);
 				EventBus.getDefault().post(new Fragment32Event());
-				SPUtils.getInstance().putString(SPUtils.DEVICE_OPTION, new Gson().toJson(groupInfos));
+//				SPUtils.getInstance().putString(SPUtils.DEVICE_OPTION, new Gson().toJson(groupInfos));
 				GroupOptionActivity.this.finish();
 			}
 		});

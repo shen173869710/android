@@ -5,6 +5,7 @@ import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.ControlInfoSql;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
 
@@ -82,4 +83,15 @@ public class MessageSend {
         send(info);
     }
 
+    /**
+     *        同步所有组的信息和设备信息
+     * @param type
+     */
+    public static void syncGroupAndDeviceInfo(int type){
+        MessageInfo info = new MessageInfo();
+        info.setType(type);
+        info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
+        info.setGroupInfos(GroupInfoSql.queryGroupList());
+        send(info);
+    }
 }

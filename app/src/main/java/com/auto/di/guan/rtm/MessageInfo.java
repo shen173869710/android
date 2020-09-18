@@ -2,6 +2,7 @@ package com.auto.di.guan.rtm;
 
 
 import com.auto.di.guan.db.ControlInfo;
+import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.entity.CmdStatus;
 import com.google.gson.Gson;
@@ -16,6 +17,7 @@ public class MessageInfo {
     private List<ControlInfo> controlInfos;
     private List<GroupInfo>groupInfos;
     private CmdStatus cmdStatus;
+    private List<DeviceInfo> deviceInfos;
 
     public ControlInfo getControlInfo() {
         return controlInfo;
@@ -67,5 +69,13 @@ public class MessageInfo {
 
     public String toJson() {
         return new Gson().toJson(this);
+    }
+
+    public List<DeviceInfo> getDeviceInfos() {
+        return deviceInfos;
+    }
+
+    public void setDeviceInfos(List<DeviceInfo> deviceInfos) {
+        this.deviceInfos = deviceInfos;
     }
 }
