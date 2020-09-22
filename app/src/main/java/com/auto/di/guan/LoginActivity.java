@@ -67,8 +67,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
 //        mPresenter.doLogin(id, pwd);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
-
-
+        BaseApp.getUser().setPassword(pwd);
     }
 
     @Override

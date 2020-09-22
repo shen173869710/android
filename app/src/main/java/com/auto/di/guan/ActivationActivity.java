@@ -139,6 +139,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		ToastUtils.showLongToast(""+msg);
 
 		User user = new User();
+		user.setUserId(113l);
 		user.setAvatar("");
 		user.setLoginName("13300000000");
 		user.setParentId(123456l);
@@ -148,6 +149,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		user.setProjectGroupId(Entiy.GUN_ID);
 		user.setPileOutNum(Entiy.GUN_ROW);
 		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
+		user.setMemberId(109l);
 		UserSql.insertUser(user);
 		BaseApp.setUser(user);
 		int num = user.getPileOutNum()*user.getTrunkPipeNum();

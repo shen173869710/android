@@ -4,9 +4,7 @@ package com.auto.di.guan.api;
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.db.User;
-
 import java.util.Map;
-
 import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;

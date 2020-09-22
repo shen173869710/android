@@ -3,17 +3,18 @@ package com.auto.di.guan.rtm;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-
-
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.jobqueue.event.UserStatusEvent;
 import com.auto.di.guan.utils.LogUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import io.agora.rtm.ErrorInfo;
 import io.agora.rtm.ResultCallback;
 import io.agora.rtm.RtmClient;
@@ -58,7 +59,7 @@ public class ChatManager {
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
 
                     if (!TextUtils.isEmpty(peerId)) {
-                        String parentId = BaseApp.getUser().getParentId().toString();
+                        String parentId = BaseApp.getUser().getMemberId().toString();
                         if (peerId.equals(parentId)) {
                             MessageParse.praseData(rtmMessage.getText(), peerId);
                         }
@@ -103,14 +104,13 @@ public class ChatManager {
                     LogUtils.e(TAG, "onPeersOnlineStatusChanged" + status.toString());
                     for (String key : status.keySet()) {
                         int code = status.get(key);
+                        EventBus.getDefault().post(new UserStatusEvent(key, code));
                         if (code == 0) {
                             LogUtils.e(TAG, "  当前用户ID  peerId = " + key + " 当前状态在线 ");
                         }else {
                             LogUtils.e(TAG, "  当前用户ID  peerId = " + key + " 当前状态离线 ");
                         }
                     }
-
-
 
                 }
             });
@@ -131,13 +131,13 @@ public class ChatManager {
      *    用户登录
      */
     public void doLogin() {
-        mRtmClient.login(null, BaseApp.getUser().getLoginName(), new ResultCallback<Void>() {
+        mRtmClient.login(null, BaseApp.getUser().getUserId().toString(), new ResultCallback<Void>() {
             @Override
             public void onSuccess(Void responseInfo) {
                 LogUtils.e(TAG, "login success");
-//                runOnUiThread(() -> {
-//
-//                });
+                Set<String> user = new HashSet<>();
+                user.add(BaseApp.getUser().getMemberId().toString());
+                addPeersOnlineStatusListen(user);
             }
 
             @Override

@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.LevelInfo;
+import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
@@ -22,6 +23,7 @@ import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.event.AutoCountEvent;
 import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.SendCmdEvent;
+import com.auto.di.guan.jobqueue.event.UserStatusEvent;
 import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.rtm.ChatManager;
@@ -326,8 +328,18 @@ public class MainActivity extends SerialPortActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserStatusEvent(UserStatusEvent event) {
+        if (event == null || TextUtils.isEmpty(event.getPeerId())) {
+            return;
+        }
+        if (event.getPeerId().equals(BaseApp.getUser().getMemberId().toString())) {
+            if (event.getStatus() == 0) {
+                LogUtils.e(TAG, "管理员在线");
+            }else {
+                LogUtils.e(TAG, "管理员离线");
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.dialog.DialogUtil;
 import com.auto.di.guan.entity.CmdStatus;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class MessageSend {
         MessageLoginInfo info  = new MessageLoginInfo();
         info.setType(MessageEntiy.TYPE_LOGIN);
         send(info);
+//        DialogUtil.showStopCount();
     }
 
 
