@@ -39,11 +39,12 @@ public class MessageEntiy {
     public static final int TYPE_EXIT_GROUP = 22;
     // 解散一个小组
     public static final int TYPE_DISS_GROUP = 23;
-
-
     // 轮灌设置
     public static final int TYPE_GROUP_LEVEL = 30;
-
+    // 开泵
+    public static final int TYPE_BENG_OPEN = 40;
+    // 关崩
+    public static final int TYPE_BENG_CLOSE = 41;
     // 自动轮灌查询开启
     public static final int TYPE_AUTO_POLL_START = 1113;
     // 自动轮灌查询关闭

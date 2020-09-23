@@ -7,8 +7,8 @@ import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
-import com.auto.di.guan.dialog.DialogUtil;
 import com.auto.di.guan.entity.CmdStatus;
+import com.auto.di.guan.socket.SocketResult;
 
 import java.util.List;
 
@@ -27,7 +27,14 @@ public class MessageSend {
 //        DialogUtil.showStopCount();
     }
 
-
+    /**
+     *  登出
+     */
+    public static void syncLogout() {
+        MessageLoginInfo info  = new MessageLoginInfo();
+        info.setType(MessageEntiy.TYPE_LOGOUT);
+        send(info);
+    }
     /**
      *  同步单个操作数据
      */
@@ -94,6 +101,17 @@ public class MessageSend {
         info.setType(type);
         info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
         info.setGroupInfos(GroupInfoSql.queryGroupList());
+        send(info);
+    }
+
+    /**
+     *        同步所有水泵信息
+     * @param results
+     */
+    public static void syncBengInfo(List<SocketResult>results, int type){
+        MessageInfo info = new MessageInfo();
+        info.setType(type);
+        info.setSocketResults(results);
         send(info);
     }
 }

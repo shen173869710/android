@@ -10,6 +10,7 @@ import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
+import com.auto.di.guan.entity.BengEvent;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
@@ -118,6 +119,13 @@ public class MessageParse {
             case MessageEntiy.TYPE_GROUP_LEVEL:
                 dealGroupLevel(info.getGroupInfos());
                 MessageSend.syncGroupAndDeviceInfo(MessageEntiy.TYPE_GROUP_LEVEL);
+                break;
+
+            case MessageEntiy.TYPE_BENG_OPEN:
+                dealBengOpen(info.getPostion(),true);
+                break;
+            case MessageEntiy.TYPE_BENG_CLOSE:
+                dealBengOpen(info.getPostion(),false);
                 break;
             case MessageEntiy.TYPE_MESSAGE:
 
@@ -408,4 +416,11 @@ public class MessageParse {
         EventBus.getDefault().post(new Fragment32Event());
     }
 
+    /**
+     * =============================================================================================================================
+     *   开泵 管泵
+     */
+    public static void dealBengOpen(int postion, boolean open) {
+        EventBus.getDefault().post(new BengEvent(postion, open));
+    }
 }

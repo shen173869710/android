@@ -5,6 +5,7 @@ import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.entity.CmdStatus;
+import com.auto.di.guan.socket.SocketResult;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class MessageInfo {
     private List<GroupInfo>groupInfos;
     private CmdStatus cmdStatus;
     private List<DeviceInfo> deviceInfos;
+    private int postion;
+    private List<SocketResult> socketResults;
 
     public ControlInfo getControlInfo() {
         return controlInfo;
@@ -77,5 +80,21 @@ public class MessageInfo {
 
     public void setDeviceInfos(List<DeviceInfo> deviceInfos) {
         this.deviceInfos = deviceInfos;
+    }
+
+    public int getPostion() {
+        return postion;
+    }
+
+    public void setPostion(int postion) {
+        this.postion = postion;
+    }
+
+    public List<SocketResult> getSocketResults() {
+        return socketResults;
+    }
+
+    public void setSocketResults(List<SocketResult> socketResults) {
+        this.socketResults = socketResults;
     }
 }

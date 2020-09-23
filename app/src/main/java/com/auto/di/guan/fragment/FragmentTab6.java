@@ -13,6 +13,10 @@ import com.auto.di.guan.R;
 import com.auto.di.guan.adapter.PumpLeftAdapter;
 import com.auto.di.guan.dialog.DialogUtil;
 import com.auto.di.guan.dialog.OnDialogClick;
+import com.auto.di.guan.entity.BengEvent;
+import com.auto.di.guan.entity.BengOptionEvent;
+import com.auto.di.guan.rtm.MessageEntiy;
+import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.socket.SocketEntiy;
 import com.auto.di.guan.socket.SocketResult;
 import com.auto.di.guan.socket.UdpReceiveThread;
@@ -27,7 +31,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-
 /**
  *
  *
@@ -213,6 +216,23 @@ public class FragmentTab6 extends BaseFragment {
 		}
 	}
 
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onBengOptionEvent(BengOptionEvent event) {
+		if (infos != null && infos.size() > event.getPostion()) {
+			if (event.isOpen()) {
+//				new UdpSendThread(SocketEntiy.getSockenOpen(infos.get(event.getPostion()).getNameCode())).start();
+				LogUtils.e(TAG, "开泵"+infos.get(event.getPostion()).getNameCode());
+				infos.get(event.getPostion()).setStatusValue("2");
+				MessageSend.syncBengInfo(infos,MessageEntiy.TYPE_BENG_CLOSE);
+			}else {
+//				new UdpSendThread(SocketEntiy.getSockenClose(infos.get(event.getPostion()).getNameCode())).start();
+				LogUtils.e(TAG, "关泵"+infos.get(event.getPostion()).getNameCode());
+				infos.get(event.getPostion()).setStatusValue("3");
+				MessageSend.syncBengInfo(infos, MessageEntiy.TYPE_BENG_CLOSE);
+			}
+		}
+	}
 
 	@Override
 	public void onDestroy() {

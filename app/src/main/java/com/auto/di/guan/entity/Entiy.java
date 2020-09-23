@@ -97,7 +97,8 @@ public class Entiy {
     public static int GRID_ROW = 3;
     public static int GRID_COLUMNS = 3;
 
-    public static String []TAB_TITLE = {"增减阀控器",
+    public static String []TAB_TITLE =
+            {"增减阀控器",
             "绑定阀门",
             "轮灌分组",
             "轮灌操作",
@@ -105,7 +106,6 @@ public class Entiy {
             "查询用户",
             "水泵控制",
             "施肥管理",
-//            "读取参数",
             "视频监控",
             "农田管理",
             "退出登录"
