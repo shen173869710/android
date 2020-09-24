@@ -16,12 +16,14 @@ import com.auto.di.guan.db.LevelInfo;
 import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
+import com.auto.di.guan.dialog.InputPasswordDialog;
 import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.PollingEvent;
 import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.event.AutoCountEvent;
 import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
+import com.auto.di.guan.jobqueue.event.LoginEvent;
 import com.auto.di.guan.jobqueue.event.SendCmdEvent;
 import com.auto.di.guan.jobqueue.event.UserStatusEvent;
 import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
@@ -339,7 +341,16 @@ public class MainActivity extends SerialPortActivity {
                 LogUtils.e(TAG, "管理员在线");
             }else {
                 LogUtils.e(TAG, "管理员离线");
+
+                InputPasswordDialog.dismiss(MainActivity.this);
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent event) {
+       if (event != null && event.isLogin()) {
+           InputPasswordDialog.show(MainActivity.this);
+       }
     }
 }

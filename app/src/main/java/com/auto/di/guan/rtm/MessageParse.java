@@ -17,6 +17,7 @@ import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.ChooseGroupEvent;
 import com.auto.di.guan.jobqueue.event.Fragment32Event;
+import com.auto.di.guan.jobqueue.event.LoginEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -49,6 +50,7 @@ public class MessageParse {
             case MessageEntiy.TYPE_LOGIN:
                 // 登录
                 MessageSend.syncLogin(peerId);
+                EventBus.getDefault().post(new LoginEvent(true));
                 break;
             case MessageEntiy.TYPE_LOGOUT:
                 // 登出
