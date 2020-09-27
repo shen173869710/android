@@ -57,7 +57,7 @@ public class MainChooseIdAdapter extends BaseAdapter {
 		}else {
 			vHolder.main_choose_check.setBackgroundResource(R.drawable.img_unselected);
 		}
-		vHolder.main_choose_name.setText(users.get(position).getValve_name());
+		vHolder.main_choose_name.setText(users.get(position).getValveName());
 		return convertView;
 	}
 

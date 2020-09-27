@@ -17,12 +17,12 @@ public class ControlInfoSql extends BaseSql {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo_0 = deviceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo_1 = deviceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (info.getValve_id() == controlInfo_0.getValve_id()) {
-                controlInfo_0.setValve_group_id(0);
+            if (info.getValveId() == controlInfo_0.getValveId()) {
+                controlInfo_0.setValveGroupId(0);
                 controlInfo_0.setSelect(info.isSelect());
             }
-            if (info.getValve_id() == controlInfo_1.getValve_id()) {
-                controlInfo_1.setValve_group_id(0);
+            if (info.getValveId() == controlInfo_1.getValveId()) {
+                controlInfo_1.setValveGroupId(0);
                 controlInfo_1.setSelect(info.isSelect());
             }
         }
@@ -41,10 +41,10 @@ public class ControlInfoSql extends BaseSql {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo_0 = deviceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo_1 = deviceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (groupId == controlInfo_0.getValve_group_id()) {
+            if (groupId == controlInfo_0.getValveGroupId()) {
                 controlInfos.add(controlInfo_0);
             }
-            if (groupId == controlInfo_1.getValve_group_id()) {
+            if (groupId == controlInfo_1.getValveGroupId()) {
                 controlInfos.add(controlInfo_1);
             }
         }

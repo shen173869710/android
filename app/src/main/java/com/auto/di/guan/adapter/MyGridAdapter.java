@@ -3,7 +3,6 @@ package com.auto.di.guan.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +10,15 @@ import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.auto.di.guan.MainActivity;
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.entity.Entiy;
-
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Created by Administrator on 2017/6/27.
  */
@@ -90,7 +85,7 @@ public class MyGridAdapter extends BaseAdapter {
         }
         int itemWidth = screenWidth - (int)context.getResources().getDimension(R.dimen.main_table_list_width);
         int itemHeight = screenHight - (int)context.getResources().getDimension(R.dimen.main_grid_width)- MainActivity.windowTop;
-        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GRID_COLUMNS, itemWidth/ Entiy.GRID_COLUMNS);
+        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GUN_COLUMN, itemWidth/ Entiy.GUN_COLUMN);
         holder.grid_item_layout.setLayoutParams(layoutParams);
 
         final DeviceInfo deviceInfo = datas.get(position);
@@ -116,42 +111,37 @@ public class MyGridAdapter extends BaseAdapter {
             holder.grid_item_left_sel.setVisibility(View.GONE);
 
             ControlInfo controlInfo0 = deviceInfo.getValveDeviceSwitchList().get(0);
-            if (controlInfo0.getValve_group_id() == 0) {
+            if (controlInfo0.getValveGroupId() == 0) {
                 holder.grid_item_left_group.setVisibility(View.GONE);
             }else {
                 holder.grid_item_left_group.setVisibility(View.VISIBLE);
-                holder.grid_item_left_group.setText(controlInfo0.getValve_group_id()+"");
+                holder.grid_item_left_group.setText(controlInfo0.getValveGroupId()+"");
             }
-
-            if (controlInfo0.getValve_imgage_id() == 0) {
+            if (controlInfo0.getValveStatus() == 0) {
                 holder.grid_item_left_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_left_id.setText("");
             }else {
                 holder.grid_item_left_image.setVisibility(View.VISIBLE);
-                holder.grid_item_left_image.setImageResource(controlInfo0.getValve_imgage_id());
-                holder.grid_item_left_id.setText(controlInfo0.getValve_alias()+"");
+                holder.grid_item_left_image.setImageResource(Entiy.getImageResource(controlInfo0.getValveStatus()));
+                holder.grid_item_left_id.setText(controlInfo0.getValveAlias()+"");
             }
-
             holder.grid_item_right_layout.setVisibility(View.VISIBLE);
             holder.grid_item_right_sel.setVisibility(View.GONE);
-
             ControlInfo controlInfo1 = deviceInfo.getValveDeviceSwitchList().get(1);
-            if (controlInfo1.getValve_group_id() == 0) {
+            if (controlInfo1.getValveGroupId() == 0) {
                 holder.grid_item_right_group.setVisibility(View.GONE);
             }else {
                 holder.grid_item_right_group.setVisibility(View.VISIBLE);
-                holder.grid_item_right_group.setText(controlInfo1.getValve_group_id()+"");
+                holder.grid_item_right_group.setText(controlInfo1.getValveGroupId()+"");
             }
-            if (controlInfo1.getValve_imgage_id() == 0) {
+            if (controlInfo1.getValveStatus() == 0) {
                 holder.grid_item_right_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_right_id.setText("");
             }else {
                 holder.grid_item_right_image.setVisibility(View.VISIBLE);
-                holder.grid_item_right_image.setImageResource(controlInfo1.getValve_imgage_id());
-                holder.grid_item_right_id.setText(controlInfo1.getValve_alias()+"");
-
+                holder.grid_item_right_image.setImageResource(Entiy.getImageResource(controlInfo1.getValveStatus()));
+                holder.grid_item_right_id.setText(controlInfo1.getValveAlias()+"");
             }
-
         }
         return convertView;
     }

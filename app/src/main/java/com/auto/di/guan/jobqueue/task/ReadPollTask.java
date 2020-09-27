@@ -128,13 +128,13 @@ public class ReadPollTask extends BaseTask{
      * @param elect      当前的电量
      */
     public void doOptionControl(ControlInfo taskInfo, ControlInfo info,int postion,String elect) {
-        final DeviceInfo deviceInfo = DeviceInfoSql.queryDeviceById(taskInfo.getDevice_id());
+        final DeviceInfo deviceInfo = DeviceInfoSql.queryDeviceById(taskInfo.getDeviceId());
         if (deviceInfo == null) {
-            LogUtils.e(TAG, "---131---无法查询的设备id"+taskInfo.getDevice_id());
+            LogUtils.e(TAG, "---131---无法查询的设备id"+taskInfo.getDeviceId());
             return;
         }
         int type = -1;
-        int code = info.getValve_status();
+        int code = info.getValveStatus();
         int taskType = getTaskType();
         int valveStatus = 0;
         int imageId = 0;
@@ -279,8 +279,7 @@ public class ReadPollTask extends BaseTask{
             return;
         }
 
-        controlInfo.setValve_status(valveStatus);
-        controlInfo.setValve_imgage_id(imageId);
+        controlInfo.setValveStatus(valveStatus);
         if (!TextUtils.isEmpty(elect)) {
             try {
                 deviceInfo.setElectricQuantity(Integer.valueOf(elect));

@@ -76,7 +76,7 @@ public class MyChooseGridAdapter extends BaseAdapter {
         }
         int itemWidth = screenWidth - (int)context.getResources().getDimension(R.dimen.main_table_list_width);
         int itemHeight = screenHight - (int)context.getResources().getDimension(R.dimen.main_table_height)*2- MainActivity.windowTop;
-        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GRID_COLUMNS, itemHeight/Entiy.GRID_ROW);
+        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GUN_COLUMN, itemHeight/Entiy.GUN_COLUMN);
 
         holder.grid_item_layout.setLayoutParams(layoutParams);
         holder.grid_item_id.setText(datas.get(position).getProtocalId()+"");

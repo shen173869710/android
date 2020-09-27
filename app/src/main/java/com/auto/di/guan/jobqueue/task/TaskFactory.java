@@ -196,18 +196,18 @@ public class TaskFactory {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo0 = deveiceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo1 = deveiceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (controlInfo0.getValve_group_id() == openGroupId) {
+            if (controlInfo0.getValveGroupId() == openGroupId) {
                 openList.add(controlInfo0);
             }
-            if (controlInfo1.getValve_group_id() == openGroupId) {
+            if (controlInfo1.getValveGroupId() == openGroupId) {
                 openList.add(controlInfo1);
             }
 
             if (closeGroupId > 0) {
-                if (controlInfo0.getValve_group_id() == closeGroupId) {
+                if (controlInfo0.getValveGroupId() == closeGroupId) {
                     closeList.add(controlInfo0);
                 }
-                if (controlInfo1.getValve_group_id() == closeGroupId) {
+                if (controlInfo1.getValveGroupId() == closeGroupId) {
                     closeList.add(controlInfo1);
                 }
             }
@@ -283,10 +283,10 @@ public class TaskFactory {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo0 = deveiceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo1 = deveiceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (controlInfo0.getValve_group_id() == goupId) {
+            if (controlInfo0.getValveGroupId() == goupId) {
                 closeList.add(controlInfo0);
             }
-            if (controlInfo1.getValve_group_id() == goupId) {
+            if (controlInfo1.getValveGroupId() == goupId) {
                 closeList.add(controlInfo1);
             }
         }
@@ -439,10 +439,10 @@ public class TaskFactory {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo0 = deveiceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo1 = deveiceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (controlInfo0.getValve_group_id() == openGroupId) {
+            if (controlInfo0.getValveGroupId() == openGroupId) {
                 list.add(controlInfo0);
             }
-            if (controlInfo1.getValve_group_id() == openGroupId) {
+            if (controlInfo1.getValveGroupId() == openGroupId) {
                 list.add(controlInfo1);
             }
         }

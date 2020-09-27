@@ -8,6 +8,8 @@ import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
+import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.entity.Pro;
 import com.auto.di.guan.socket.SocketResult;
 
 import java.util.List;
@@ -21,8 +23,11 @@ public class MessageSend {
      *  登录
      */
     public static void syncLogin(String managerId) {
-        MessageLoginInfo info  = new MessageLoginInfo();
+        MessageInfo info  = new MessageInfo();
+        info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
+        info.setGroupInfos(GroupInfoSql.queryGroupList());
         info.setType(MessageEntiy.TYPE_LOGIN);
+        info.setCloumn(Entiy.GUN_COLUMN);
         send(info);
 //        DialogUtil.showStopCount();
     }
@@ -31,7 +36,7 @@ public class MessageSend {
      *  登出
      */
     public static void syncLogout() {
-        MessageLoginInfo info  = new MessageLoginInfo();
+        MessageInfo info  = new MessageInfo();
         info.setType(MessageEntiy.TYPE_LOGOUT);
         send(info);
     }

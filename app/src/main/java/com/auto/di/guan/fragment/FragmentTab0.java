@@ -34,7 +34,7 @@ public class FragmentTab0 extends BaseFragment {
 
         adapter = new MyGridAdapter(getActivity(), deviceInfos);
         mGridView.setAdapter(adapter);
-        mGridView.setNumColumns(Entiy.GRID_COLUMNS);
+        mGridView.setNumColumns(Entiy.GUN_COLUMN);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
@@ -43,22 +43,22 @@ public class FragmentTab0 extends BaseFragment {
                     MainShowDialog.ShowDialog(getActivity(), "添加阀控器", "添加阀控器到当前区域", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            info.bindDevice();
+                            info.bindDevice(info.getDeviceId());
                             DeviceInfoSql.updateDevice(info);
                             deviceInfos = DeviceInfoSql.queryDeviceList();
                             adapter.setData(deviceInfos);
                         }
                     });
                 }else {
-                    if (info.getValveDeviceSwitchList().get(0).getValve_group_id() > 0
-                            || info.getValveDeviceSwitchList().get(1).getValve_group_id() > 0) {
+                    if (info.getValveDeviceSwitchList().get(0).getValveGroupId() > 0
+                            || info.getValveDeviceSwitchList().get(1).getValveGroupId() > 0) {
                         showToast("该设备已经分组,不可以删除");
                         return;
                     }
                     MainShowDialog.ShowDialog(getActivity(), "删除阀控器", "是删除当前区域阀控器", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            info.unBindDevice();
+                            info.unBindDevice(info.getDeviceId());
                             DeviceInfoSql.updateDevice(info);
                             deviceInfos = DeviceInfoSql.queryDeviceList();
                             adapter.setData(deviceInfos);

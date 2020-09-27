@@ -116,11 +116,8 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
         LogUtils.e("---------",""+(new Gson().toJson(respone)));
         if (respone.getData() != null) {
 			LoginRespone lr = (LoginRespone) respone.getData();
-
 			if (lr.getSysRes() != null) {
 				User user = lr.getSysRes();
-				Entiy.GRID_COLUMNS =3;
-				Entiy.GRID_ROW = 3;
 				UserSql.insertUser(lr.getSysRes());
 				BaseApp.setUser(lr.getSysRes());
 			}
@@ -137,7 +134,6 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 	public void activationFail(Throwable error, Integer code, String msg) {
         LogUtils.e("---------",""+msg);
 		ToastUtils.showLongToast(""+msg);
-
 		User user = new User();
 		user.setUserId(113l);
 		user.setAvatar("");
@@ -154,21 +150,25 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		BaseApp.setUser(user);
 		int num = user.getPileOutNum()*user.getTrunkPipeNum();
 
-		Entiy.GRID_COLUMNS = user.getPileOutNum();
-		Entiy.GRID_ROW = user.getTrunkPipeNum();
+		Entiy.GUN_ROW = user.getPileOutNum();
+		Entiy.GUN_ROW = user.getTrunkPipeNum();
 
 		List<DeviceInfo>deviceInfos = new ArrayList<>();
 		if(DeviceInfoSql.queryDeviceCount() <= 0) {
 			for (int i = 0 ; i < num; i++) {
 				DeviceInfo deviceInfo = new DeviceInfo();
 				deviceInfo.setDeviceName((i+1)+"");
-				deviceInfo.setDeviceStatus(0);
+				deviceInfo.setDeviceStatus(1);
 				deviceInfo.setDeviceSort(i+1);
 				deviceInfo.setDeviceId(i+1);
 				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
 				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
-				controlInfos.add(new ControlInfo(0,"0"));
-				controlInfos.add(new ControlInfo(0,"1"));
+				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),"0", 1);
+				controlInfo0.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo0.getValveName());
+				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),"1",1);
+				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo1.getValveName());
+				controlInfos.add(controlInfo0);
+				controlInfos.add(controlInfo1);
 				deviceInfo.setValveDeviceSwitchList(controlInfos);
 				deviceInfos.add(deviceInfo);
 			}
@@ -178,7 +178,6 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		finish();
 		ToastUtils.showLongToast(""+msg);
 	}
-
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onElecEvent(ElecEvent elecEvent) {

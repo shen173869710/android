@@ -351,6 +351,8 @@ public class MainActivity extends SerialPortActivity {
     public void onLoginEvent(LoginEvent event) {
        if (event != null && event.isLogin()) {
            InputPasswordDialog.show(MainActivity.this);
+       }else {
+           InputPasswordDialog.dismiss(MainActivity.this);
        }
     }
 }

@@ -35,7 +35,7 @@ public class FragmentTab1 extends BaseFragment {
         mGridView = (GridView) view.findViewById(R.id.fragment_1_gridview);
         adapter = new MyGridAdapter(getActivity(), deviceInfos);
         mGridView.setAdapter(adapter);
-        mGridView.setNumColumns(Entiy.GRID_COLUMNS);
+        mGridView.setNumColumns(Entiy.GUN_COLUMN);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {

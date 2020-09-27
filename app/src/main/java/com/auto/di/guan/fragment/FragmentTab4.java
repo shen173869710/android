@@ -36,7 +36,7 @@ public class FragmentTab4 extends BaseFragment {
         deviceInfos = DeviceInfoSql.queryDeviceList();
         adapter = new MyGridOpenAdapter(getActivity(), deviceInfos);
         mGridView.setAdapter(adapter);
-        mGridView.setNumColumns(Entiy.GRID_COLUMNS);
+        mGridView.setNumColumns(Entiy.GUN_COLUMN);
         EventBus.getDefault().register(this);
         return view;
     }

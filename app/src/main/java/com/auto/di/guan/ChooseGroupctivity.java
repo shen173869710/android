@@ -62,7 +62,7 @@ public class ChooseGroupctivity extends Activity {
 		adapter = new ChooseGridAdapter(this, deviceInfos);
 		gridView.setAdapter(adapter);
 		groupInfo = new GroupInfo();
-		gridView.setNumColumns(Entiy.GRID_COLUMNS);
+		gridView.setNumColumns(Entiy.GUN_COLUMN);
 		gridView.setHorizontalSpacing(0);
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		gridView.setLayoutParams(layoutParams);
@@ -100,10 +100,10 @@ public class ChooseGroupctivity extends Activity {
 					}
 					for (int i = 0; i < size; i++) {
 						if (deviceInfos.get(i).getValveDeviceSwitchList().get(0).isSelect()) {
-							deviceInfos.get(i).getValveDeviceSwitchList().get(0).setValve_group_id(groupId);
+							deviceInfos.get(i).getValveDeviceSwitchList().get(0).setValveGroupId(groupId);
 						}
 						if (deviceInfos.get(i).getValveDeviceSwitchList().get(1).isSelect()) {
-							deviceInfos.get(i).getValveDeviceSwitchList().get(1).setValve_group_id(groupId);
+							deviceInfos.get(i).getValveDeviceSwitchList().get(1).setValveGroupId(groupId);
 						}
 					}
 					DeviceInfoSql.updateDeviceList(deviceInfos);

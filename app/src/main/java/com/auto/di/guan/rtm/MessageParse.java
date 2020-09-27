@@ -54,6 +54,7 @@ public class MessageParse {
                 break;
             case MessageEntiy.TYPE_LOGOUT:
                 // 登出
+                EventBus.getDefault().post(new LoginEvent(false));
                 break;
             case MessageEntiy.TYPE_SINGLE_READ:
                 // 单个操作 读
@@ -299,10 +300,10 @@ public class MessageParse {
             int size = list.size();
             for (int i = 0; i < size; i++) {
                 if (list.get(i).getValveDeviceSwitchList().get(0).isSelect()) {
-                    list.get(i).getValveDeviceSwitchList().get(0).setValve_group_id(groupId);
+                    list.get(i).getValveDeviceSwitchList().get(0).setValveGroupId(groupId);
                 }
                 if (list.get(i).getValveDeviceSwitchList().get(1).isSelect()) {
-                    list.get(i).getValveDeviceSwitchList().get(1).setValve_group_id(groupId);
+                    list.get(i).getValveDeviceSwitchList().get(1).setValveGroupId(groupId);
                 }
 
             }
@@ -320,9 +321,9 @@ public class MessageParse {
         int size = deviceInfos.size();
         for (int i = 0; i < size; i++) {
             DeviceInfo deviceInfo = deviceInfos.get(i);
-            deviceInfo.getValveDeviceSwitchList().get(0).setValve_group_id(0);
+            deviceInfo.getValveDeviceSwitchList().get(0).setValveGroupId(0);
             deviceInfo.getValveDeviceSwitchList().get(0).setSelect(false);
-            deviceInfo.getValveDeviceSwitchList().get(1).setValve_group_id(0);
+            deviceInfo.getValveDeviceSwitchList().get(1).setValveGroupId(0);
             deviceInfo.getValveDeviceSwitchList().get(1).setSelect(false);
         }
         DeviceInfoSql.updateDeviceList(deviceInfos);
@@ -351,7 +352,7 @@ public class MessageParse {
      */
     private static void dealExitGroup(ControlInfo info) {
         LogUtils.e(TAG, "收到退出当前分组");
-        info.setValve_group_id(0);
+        info.setValveGroupId(0);
         info.setSelect(false);
         ControlInfoSql.updateControl(info);
         EventBus.getDefault().post(new ChooseGroupEvent());
@@ -372,7 +373,7 @@ public class MessageParse {
         int size = controlInfos.size();
         for (int i = 0; i < size; i++) {
             ControlInfo info = controlInfos.get(i);
-            info.setValve_group_id(0);
+            info.setValveGroupId(0);
             info.setSelect(false);
             ControlInfoSql.updateControl(info);
         }

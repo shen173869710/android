@@ -8,19 +8,41 @@ import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.socket.SocketResult;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageInfo {
 
+    /**
+     *    管水员的ID
+     */
+    private Long managerId;
+    /**
+     *    管水员登录的ID
+     */
+    private String loginId;
+    /**
+     *   消息的类型
+     */
     private int type;
+    /**
+     *     item 点击的位置
+     */
+    private int postion;
+    /**
+     *     设备的列
+     */
+    private int cloumn;
+
+
     private ControlInfo controlInfo;
     private GroupInfo groupInfo;
     private List<ControlInfo> controlInfos;
     private List<GroupInfo>groupInfos;
     private CmdStatus cmdStatus;
-    private List<DeviceInfo> deviceInfos;
-    private int postion;
+
     private List<SocketResult> socketResults;
+    private List<DeviceInfo>deviceInfos;
 
     public ControlInfo getControlInfo() {
         return controlInfo;
@@ -96,5 +118,29 @@ public class MessageInfo {
 
     public void setSocketResults(List<SocketResult> socketResults) {
         this.socketResults = socketResults;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
+    public int getCloumn() {
+        return cloumn;
+    }
+
+    public void setCloumn(int cloumn) {
+        this.cloumn = cloumn;
     }
 }
