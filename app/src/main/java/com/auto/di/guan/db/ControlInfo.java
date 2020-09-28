@@ -9,9 +9,11 @@ import java.io.Serializable;
  */
 public class ControlInfo implements Serializable {
     static final long serialVersionUID=2L;
-
     @Id(autoincrement = true)
     private Long id;
+
+    private int valveSwitchId;
+
     private int valveGroupId;
     //设备 组 id
     private int deviceId;
@@ -178,5 +180,21 @@ public class ControlInfo implements Serializable {
 
     public void setSelect(boolean select) {
         isSelect = select;
+    }
+
+    public int getValveSwitchId() {
+        return valveSwitchId;
+    }
+
+    public void setValveSwitchId(int valveSwitchId) {
+        this.valveSwitchId = valveSwitchId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

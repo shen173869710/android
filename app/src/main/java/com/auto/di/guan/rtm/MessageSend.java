@@ -11,10 +11,13 @@ import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.Pro;
 import com.auto.di.guan.socket.SocketResult;
+import com.auto.di.guan.utils.LogUtils;
 
 import java.util.List;
 
 public class MessageSend {
+
+    private static final String TAG = "MessageSend";
     public static void send(MessageInfo info) {
         BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
     }
@@ -102,6 +105,7 @@ public class MessageSend {
      * @param type
      */
     public static void syncGroupAndDeviceInfo(int type){
+        LogUtils.e(TAG, "同步创建分组信息");
         MessageInfo info = new MessageInfo();
         info.setType(type);
         info.setDeviceInfos(DeviceInfoSql.queryDeviceList());

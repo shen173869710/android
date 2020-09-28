@@ -341,7 +341,6 @@ public class MainActivity extends SerialPortActivity {
                 LogUtils.e(TAG, "管理员在线");
             }else {
                 LogUtils.e(TAG, "管理员离线");
-
                 InputPasswordDialog.dismiss(MainActivity.this);
             }
         }

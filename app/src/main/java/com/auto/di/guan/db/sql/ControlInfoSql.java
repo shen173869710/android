@@ -2,6 +2,8 @@ package com.auto.di.guan.db.sql;
 
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
+import com.auto.di.guan.utils.LogUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,9 @@ import static com.auto.di.guan.db.sql.DeviceInfoSql.updateDeviceList;
 
 public class ControlInfoSql extends BaseSql {
 
-
     public static void updateControl(ControlInfo info) {
+
+        LogUtils.e("ControlInfoSql", "更新单个设备信息"+new Gson().toJson(info));
         List<DeviceInfo> deviceInfos = DeviceInfoSql.queryDeviceList();
         int size =  deviceInfos.size();
         for (int i = 0; i < size; i++) {

@@ -60,6 +60,8 @@ public class ChatManager {
 
                     if (!TextUtils.isEmpty(peerId)) {
                         String parentId = BaseApp.getUser().getMemberId().toString();
+
+                        LogUtils.e(TAG, "parentId =" + parentId + " 是否相等 =="+peerId.equals(parentId));
                         if (peerId.equals(parentId)) {
                             MessageParse.praseData(rtmMessage.getText(), peerId);
                         }

@@ -112,8 +112,11 @@ public class MessageParse {
                 MessageSend.syncGroupAndDeviceInfo(MessageEntiy.TYPE_DEL_GROUP);
                 break;
             case MessageEntiy.TYPE_EXIT_GROUP:
-                dealExitGroup(info.getControlInfo());
-                MessageSend.syncGroupAndDeviceInfo(MessageEntiy.TYPE_EXIT_GROUP);
+                LogUtils.e(TAG, "退出小组"+info.getGroupInfo());
+                if (info.getControlInfo() != null) {
+                    dealExitGroup(info.getControlInfo());
+                    MessageSend.syncGroupAndDeviceInfo(MessageEntiy.TYPE_EXIT_GROUP);
+                }
                 break;
             case MessageEntiy.TYPE_DISS_GROUP:
                 dealDissGroup(info.getGroupInfo());
@@ -282,7 +285,9 @@ public class MessageParse {
     private static void dealCreateGroup(GroupInfo groupInfo, List<DeviceInfo> list) {
         LogUtils.e(TAG, "收到创建分组");
         int groupId = 0;
-        if (groupInfo != null) {
+        if (groupInfo == null) {
+            groupInfo = new GroupInfo();
+        }else {
             groupId = groupInfo.getGroupId();
         }
         List<LevelInfo> levelInfos = LevelInfoSql.queryUserLevelInfoListByGroup(false);
@@ -308,8 +313,8 @@ public class MessageParse {
 
             }
             DeviceInfoSql.updateDeviceList(list);
-            EventBus.getDefault().post(new ChooseGroupEvent());
         }
+        EventBus.getDefault().post(new ChooseGroupEvent());
     }
 
     /**
@@ -345,6 +350,7 @@ public class MessageParse {
             }
             LevelInfoSql.insertLevelInfoList(levelInfos);
         }
+        EventBus.getDefault().post(new ChooseGroupEvent());
     }
 
     /**
@@ -392,6 +398,10 @@ public class MessageParse {
      */
     public static void dealGroupLevel(List<GroupInfo> groupInfos) {
         LogUtils.e(TAG, "轮灌设置");
+        if(groupInfos == null) {
+            LogUtils.e(TAG, "轮灌设置组信息为null");
+            return;
+        }
         int size = groupInfos.size();
         HashMap<Integer, Integer> lv = new HashMap<>();
         for (int i = 0; i < size; i++) {

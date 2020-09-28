@@ -233,7 +233,7 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                     controlInfo_0.setDeviceId(info.getDeviceId());
                     controlInfo_0.setValveName(controlName1);
                     controlInfo_0.setValveAlias(nick1);
-                    controlInfo_0.setValveId(Integer.valueOf(info.getDeviceSort()) * 2 - 1);
+                    controlInfo_0.setValveId(info.getDeviceSort() * 2 - 1);
                     controlInfo_0.setProtocalId("0");
                     controlInfo_0.setDeviceProtocalId(info.getProtocalId());
 //					controlInfo_0.imageId = R.mipmap.lighe_1;
@@ -257,7 +257,7 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                     controlInfo_1.setDeviceId(info.getDeviceId());
                     controlInfo_1.setValveName(controlName2);
                     controlInfo_1.setValveAlias(nick2);
-                    controlInfo_1.setValveId(Integer.valueOf(info.getDeviceId()) * 2);
+                    controlInfo_1.setValveId(info.getDeviceId() * 2);
                     controlInfo_1.setDeviceProtocalId(info.getProtocalId());
                     controlInfo_1.setProtocalId("1");
 //					controlInfo_1.imageId = R.mipmap.lighe_1;
