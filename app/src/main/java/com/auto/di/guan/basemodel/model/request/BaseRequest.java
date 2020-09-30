@@ -1,10 +1,8 @@
 package com.auto.di.guan.basemodel.model.request;
 
 
-import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.BuildConfig;
 import com.auto.di.guan.api.GlobalConstant;
-import com.auto.di.guan.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.utils.Md5Util;
 
 import java.util.TreeMap;

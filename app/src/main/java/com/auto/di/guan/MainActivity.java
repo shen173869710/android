@@ -158,9 +158,9 @@ public class MainActivity extends SerialPortActivity {
 
     @Override
     protected void onDataReceived(byte[] buffer, int size) {
-        final String receive = new String(buffer, 0, size);
+        final String receive = new String(buffer, 0, buffer.length);
         int length = receive.trim().length();
-//        LogUtils.e(TAG, "收到 -------------------" + receive + "    length = " + length);
+        LogUtils.e(TAG, "收到 -------------------" + receive + "    length = " + length);
 
         if (TextUtils.isEmpty(receive)) {
             ToastUtils.showLongToast("错误命令" + receive);
@@ -216,7 +216,7 @@ public class MainActivity extends SerialPortActivity {
         FloatWindowUtil.getInstance().onStatsuEvent(event);
     }
 
-
+    public static boolean isOpen = false;
     /**
      *        接收taks 发送过来的命令 写入
      * @param event
@@ -236,12 +236,36 @@ public class MainActivity extends SerialPortActivity {
             showDialog();
         }
         LogUtils.e(TAG, "-----写入命令" + event.getCmd());
+//        try {
+//            mOutputStream.write(new String(event.getCmd()).getBytes());
+//            mOutputStream.write('\n');
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        // kf 012 004 0 ok
+        // gf 012 004 0 ok
+        //zt 012 004 xxxx
+        // zt 102 002 1100 090
+        String buf= "";
+        if (event.getCmd().contains("kf")) {
+           buf = "kf 10000 001 0 ok";
+            isOpen = true;
+        }else if (event.getCmd().contains("gf")) {
+            buf = "gf 10000 001 0 ok";
+            isOpen = false;
+        }else if (event.getCmd().contains("rs")) {
+            if (isOpen) {
+                buf = "zt 10000 001 1110 010";
+            }else {
+                buf = "zt 10000 001 1100 010";
+            }
+        }
         try {
-            mOutputStream.write(new String(event.getCmd()).getBytes());
-            mOutputStream.write('\n');
-        } catch (IOException e) {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        onDataReceived(buf.getBytes(), 22);
     }
     /**
      * 异常报警
@@ -263,7 +287,6 @@ public class MainActivity extends SerialPortActivity {
              */
             if(event.getType() == Entiy.RUN_DO_FINISH) {
                 handler.removeMessages(HANDLER_WHAT_FALG);
-
                 LogUtils.e(TAG, "---------自动轮灌结束--------- ");
             }  else if (event.getType() == Entiy.RUN_DO_STOP) {
                 /**
@@ -349,8 +372,10 @@ public class MainActivity extends SerialPortActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginEvent(LoginEvent event) {
        if (event != null && event.isLogin()) {
+            BaseApp.webLogin = true;
            InputPasswordDialog.show(MainActivity.this);
        }else {
+           BaseApp.webLogin = false;
            InputPasswordDialog.dismiss(MainActivity.this);
        }
     }

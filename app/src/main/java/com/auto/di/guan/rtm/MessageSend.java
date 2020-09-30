@@ -9,7 +9,6 @@ import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.entity.Pro;
 import com.auto.di.guan.socket.SocketResult;
 import com.auto.di.guan.utils.LogUtils;
 
@@ -32,7 +31,6 @@ public class MessageSend {
         info.setType(MessageEntiy.TYPE_LOGIN);
         info.setCloumn(Entiy.GUN_COLUMN);
         send(info);
-//        DialogUtil.showStopCount();
     }
 
     /**
@@ -47,9 +45,10 @@ public class MessageSend {
      *  同步单个操作数据
      */
     public static void syncSingle(int type, ControlInfo controlInfo) {
+        LogUtils.e(TAG, "同步单个操作信息 type ="+type);
         MessageInfo info = new MessageInfo();
         info.setType(type);
-        info.setControlInfo(controlInfo);
+        info.setControlInfo(ControlInfoSql.findControlById(controlInfo.getValveId()));
         send(info);
     }
 
@@ -58,6 +57,7 @@ public class MessageSend {
      * @param groupInfo
      */
     public static void syncGroup(int type, GroupInfo groupInfo) {
+        LogUtils.e(TAG, "同步单组操作信息");
         MessageInfo info = new MessageInfo();
         info.setType(type);
         info.setGroupInfo(groupInfo);
@@ -67,11 +67,22 @@ public class MessageSend {
     }
 
     /**
-     *        自动轮灌开
+     *   同步轮灌命令执行
      */
-    public static void syncAuto(int type, GroupInfo groupInfo) {
+    public static void syncAuto(int type) {
         MessageInfo info = new MessageInfo();
         info.setType(type);
+        info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
+        info.setGroupInfos(GroupInfoSql.queryGroupList());
+        send(info);
+    }
+
+    /**
+     *  同步阀门的状态
+     */
+    public static void syncAutoStatus() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_AUTO_STATUS);
         info.setControlInfos(ControlInfoSql.queryControlList());
         info.setGroupInfos(GroupInfoSql.queryGroupList());
         send(info);
@@ -79,9 +90,8 @@ public class MessageSend {
 
     /**
      *        自动轮灌关闭
-     * @param type
      */
-    public static void syncAutoClose(int type) {
+    public static void syncAutoClose() {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_AUTO_CLOSE);
         info.setControlInfos(ControlInfoSql.queryControlList());
@@ -94,6 +104,7 @@ public class MessageSend {
      * @param cmdStatus
      */
     public static void syncOptionInfo(CmdStatus  cmdStatus) {
+       // LogUtils.e(TAG, "同步单个操作通讯信息");
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_MESSAGE);
         info.setCmdStatus(cmdStatus);
@@ -121,6 +132,17 @@ public class MessageSend {
         MessageInfo info = new MessageInfo();
         info.setType(type);
         info.setSocketResults(results);
+        send(info);
+    }
+
+    /**
+     *   同步自动轮灌时间
+     */
+    public static void syncAutoTime(GroupInfo groupInfo) {
+        LogUtils.e(TAG, "同步自动轮灌时间");
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_AUTO_TIME);
+        info.setGroupInfo(groupInfo);
         send(info);
     }
 }

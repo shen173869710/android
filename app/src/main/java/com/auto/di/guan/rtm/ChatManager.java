@@ -173,6 +173,10 @@ public class ChatManager {
 
 
     public void sendPeerMessage( String content) {
+        if (!BaseApp.webLogin) {
+            LogUtils.e(TAG, "web端未登录, 不发送消息");
+            return;
+        }
         final RtmMessage message = mRtmClient.createMessage();
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();

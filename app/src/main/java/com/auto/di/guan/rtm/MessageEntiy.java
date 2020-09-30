@@ -13,23 +13,27 @@ public class MessageEntiy {
     public static final int TYPE_SINGLE_OPEN= 4;
     // 单个操作 关
     public static final int TYPE_SINGLE_CLOSE = 5;
+
     // 单组操作 开
     public static final int TYPE_GROUP_OPEN = 6;
     // 单组操作 关
     public static final int TYPE_GROUP_CLOSE = 7;
-    // 单组自动轮灌开
-    public static final int TYPE_AUTO_OPEN = 8;
-    // 单组自动轮灌 暂停
-    public static final int TYPE_AUTO_STOP = 9;
-    // 单组自动轮灌 开始
-    public static final int TYPE_AUTO_START = 10;
-    // 单组自动轮灌 关闭
-    public static final int TYPE_AUTO_CLOSE = 11;
-    // 单组自动轮灌 下一组
-    public static final int TYPE_AUTO_NEXT = 12;
-    // 单组自动轮灌 下一组
-    public static final int TYPE_AUTO_TIME = 13;
 
+
+    // 自动轮灌开
+    public static final int TYPE_AUTO_OPEN = 8;
+    // 自动轮灌 暂停
+    public static final int TYPE_AUTO_STOP = 9;
+    // 自动轮灌 开始
+    public static final int TYPE_AUTO_START = 10;
+    // 自动轮灌 关闭
+    public static final int TYPE_AUTO_CLOSE = 11;
+    // 自动轮灌 下一组
+    public static final int TYPE_AUTO_NEXT = 12;
+    // 自动轮灌 轮灌时间
+    public static final int TYPE_AUTO_TIME = 13;
+    // 自动轮灌 设备状态
+    public static final int TYPE_AUTO_STATUS = 14;
 
     // 创建分组
     public static final int TYPE_CREATE_GROUP = 20;
@@ -43,8 +47,9 @@ public class MessageEntiy {
     public static final int TYPE_GROUP_LEVEL = 30;
     // 开泵
     public static final int TYPE_BENG_OPEN = 40;
-    // 关崩
+    // 关泵
     public static final int TYPE_BENG_CLOSE = 41;
+
     // 自动轮灌查询开启
     public static final int TYPE_AUTO_POLL_START = 1113;
     // 自动轮灌查询关闭

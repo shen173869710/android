@@ -35,7 +35,6 @@ import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 /**
  * Created by Administrator on 2017/6/28.
  */
@@ -68,6 +67,7 @@ public class BaseApp extends Application {
 
     private static Context mContext=null;//上下文
 
+    public static boolean webLogin;
 
     private ChatManager mChatManager;
 

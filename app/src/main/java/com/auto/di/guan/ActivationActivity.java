@@ -141,8 +141,8 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		user.setParentId(123456l);
 		user.setPhonenumber("13300000000");
 		user.setProjectName(Entiy.GUN_NAME);
-		user.setProjectId(Entiy.GUN_ID);
-		user.setProjectGroupId(Entiy.GUN_ID);
+		user.setProjectId("10000");
+		user.setProjectGroupId("10000");
 		user.setPileOutNum(Entiy.GUN_ROW);
 		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
 		user.setMemberId(109l);
@@ -165,11 +165,14 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
 				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_0", 1);
 				controlInfo0.setValveId(deviceInfo.getDeviceSort()*2-1);
-
+				controlInfo0.setProtocalId("0");
+				controlInfo0.setDeviceProtocalId("10000");
 				controlInfo0.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo0.getValveName());
 				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_1",1);
 				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo1.getValveName());
 				controlInfo1.setValveId(deviceInfo.getDeviceSort()*2);
+				controlInfo1.setProtocalId("1");
+				controlInfo1.setDeviceProtocalId("10000");
 				controlInfos.add(controlInfo0);
 				controlInfos.add(controlInfo1);
 				deviceInfo.setValveDeviceSwitchList(controlInfos);

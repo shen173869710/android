@@ -126,7 +126,6 @@ public class MessageParse {
                 dealGroupLevel(info.getGroupInfos());
                 MessageSend.syncGroupAndDeviceInfo(MessageEntiy.TYPE_GROUP_LEVEL);
                 break;
-
             case MessageEntiy.TYPE_BENG_OPEN:
                 dealBengOpen(info.getPostion(),true);
                 break;
@@ -148,19 +147,19 @@ public class MessageParse {
         if (type == MessageEntiy.TYPE_SINGLE_READ) {
             LogUtils.e(TAG, "收到单个读操作");
             TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_READ, Entiy.ACTION_TYPE_4);
-            TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_READ);
+            TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_READ,controlInfo);
             TaskManager.getInstance().startTask();
         } else if (type == MessageEntiy.TYPE_SINGLE_OPEN) {
             LogUtils.e(TAG, "收到单个开启操作");
             TaskFactory.createOpenTask(controlInfo);
             TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_OPEN_READ, Entiy.ACTION_TYPE_4);
-            TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_OPEN_READ);
+            TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_OPEN_READ,controlInfo);
             TaskManager.getInstance().startTask();
         } else if (type == MessageEntiy.TYPE_SINGLE_CLOSE) {
             LogUtils.e(TAG, "收到单个关闭操作");
             TaskFactory.createCloseTask(controlInfo);
             TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_CLOSE_READ, Entiy.ACTION_TYPE_4);
-            TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_CLOSE_READ);
+            TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_CLOSE_READ,controlInfo);
             TaskManager.getInstance().startTask();
         }
     }
@@ -185,6 +184,7 @@ public class MessageParse {
     /**
      * =============================================================================================================================
      */
+
     /**
      * 处理自动轮灌开启
      */
@@ -199,6 +199,7 @@ public class MessageParse {
             PollingUtils.stopPollingService(BaseApp.getContext());
             TaskFactory.createAutoGroupOpenTask(groupInfos.get(0));
             TaskManager.getInstance().startTask();
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_OPEN);
         }
     }
 
@@ -218,8 +219,7 @@ public class MessageParse {
             GroupInfoSql.updateGroupList(groupInfos);
             PollingUtils.stopPollingService(BaseApp.getContext());
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_FINISH));
-
-            MessageSend.syncAutoClose(MessageEntiy.TYPE_AUTO_CLOSE);
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_CLOSE);
         }
     }
 
@@ -236,7 +236,7 @@ public class MessageParse {
             groupInfo.setGroupStop(false);
             GroupInfoSql.updateGroup(groupInfo);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, groupInfo));
-            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_START, groupInfo);
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_START);
         }
     }
 
@@ -253,8 +253,7 @@ public class MessageParse {
             groupInfo.setGroupStop(true);
             GroupInfoSql.updateGroup(groupInfo);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP, groupInfo));
-
-            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_STOP, groupInfo);
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_STOP);
         }
     }
 
@@ -270,7 +269,7 @@ public class MessageParse {
             GroupInfo groupInfo = groupInfos.get(0);
             groupInfo.setGroupRunTime(info.getGroupTime());
             GroupInfoSql.updateGroup(groupInfo);
-            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_NEXT, groupInfo);
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_NEXT);
         }
     }
 
