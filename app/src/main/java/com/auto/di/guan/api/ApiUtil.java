@@ -2,14 +2,20 @@ package com.auto.di.guan.api;
 
 import com.auto.di.guan.BuildConfig;
 import com.auto.di.guan.utils.LogUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by czl on 2019-7-9.
@@ -54,6 +60,33 @@ public class ApiUtil {
             }
         }
         return merchantApiService;
+    }
+
+
+
+    public static ApiService createApiService() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                LogUtils.e(TAG, "----request   " + message);
+            }
+        });
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+        okHttpClientBuilder.connectTimeout(15, TimeUnit.SECONDS);
+        okHttpClientBuilder.readTimeout(15 , TimeUnit.SECONDS);
+        okHttpClientBuilder.retryOnConnectionFailure(true);
+        OkHttpClient client = okHttpClientBuilder.addInterceptor(httpLoggingInterceptor).build();
+        Gson mGson  = new GsonBuilder()
+                .setLenient()
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.http_post_url)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return retrofit.create(ApiService.class);
     }
 
     /**

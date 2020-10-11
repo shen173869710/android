@@ -86,9 +86,9 @@ public class SendUtils {
      */
     public static  void sendopen(String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
-        cmdStatus.setControlName(info.getValve_alias());
+        cmdStatus.setControlName(info.getValveAlias());
         cmdStatus.setCmd_start(LOG_OPEN_START+desc);
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
 
@@ -100,8 +100,8 @@ public class SendUtils {
     public static  void sendClose( String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
         cmdStatus.setCmd_start(LOG_CLOSE_START+desc);
-        cmdStatus.setControlName(info.getValve_alias());
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControlName(info.getValveAlias());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
 
@@ -113,8 +113,8 @@ public class SendUtils {
     public static  void sendOpenEnd(String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
         cmdStatus.setCmd_end(LOG_OPEN_SUC+desc);
-        cmdStatus.setControlName(info.getValve_alias());
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControlName(info.getValveAlias());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
 
@@ -126,8 +126,8 @@ public class SendUtils {
     public static  void sendOpenRet(String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
         cmdStatus.setCmd_end(LOG_OPEN_RET+desc);
-        cmdStatus.setControlName(info.getValve_alias());
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControlName(info.getValveAlias());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
 
@@ -139,8 +139,8 @@ public class SendUtils {
     public static  void sendCloseEnd(String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
         cmdStatus.setCmd_end(LOG_CLOSE_SUC+desc);
-        cmdStatus.setControlName(info.getValve_alias());
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControlName(info.getValveAlias());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
 
@@ -152,24 +152,24 @@ public class SendUtils {
     public static  void sendCloseRet(String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
         cmdStatus.setCmd_end(LOG_CLOSE_RET+desc );
-        cmdStatus.setControlName(info.getValve_alias());
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControlName(info.getValveAlias());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
 
     public static  void sendOpenError(String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
         cmdStatus.setCmd_end(LOG_OPEN_FALIE+desc);
-        cmdStatus.setControl_id(info.getValve_id());
-        cmdStatus.setControlName(info.getValve_alias());
+        cmdStatus.setControl_id(info.getValveId());
+        cmdStatus.setControlName(info.getValveAlias());
         EventBus.getDefault().post(cmdStatus);
     }
 
     public static  void sendCloseError(String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
         cmdStatus.setCmd_end(LOG_CLOSE_FALIE+desc);
-        cmdStatus.setControl_id(info.getValve_id());
-        cmdStatus.setControlName(info.getValve_alias());
+        cmdStatus.setControl_id(info.getValveId());
+        cmdStatus.setControlName(info.getValveAlias());
         EventBus.getDefault().post(cmdStatus);
     }
 
@@ -181,9 +181,9 @@ public class SendUtils {
      */
     public static  void sendReadStart( String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
-        cmdStatus.setControlName(info.getValve_alias());
+        cmdStatus.setControlName(info.getValveAlias());
         cmdStatus.setCmd_read_start(LOG_READ_START+desc);
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
     /**
@@ -193,9 +193,9 @@ public class SendUtils {
      */
     public static  void sendReadMiddle( String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
-        cmdStatus.setControlName(info.getValve_alias());
+        cmdStatus.setControlName(info.getValveAlias());
         cmdStatus.setCmd_read_middle(LOG_READ_SUC+desc);
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
     /**
@@ -205,9 +205,9 @@ public class SendUtils {
      */
     public static  void sendReadTryMiddle( String desc, ControlInfo info) {
         CmdStatus cmdStatus = new CmdStatus();
-        cmdStatus.setControlName(info.getValve_alias());
+        cmdStatus.setControlName(info.getValveAlias());
         cmdStatus.setCmd_read_middle(LOG_READ_RET+desc);
-        cmdStatus.setControl_id(info.getValve_id());
+        cmdStatus.setControl_id(info.getValveId());
         EventBus.getDefault().post(cmdStatus);
     }
 
@@ -218,13 +218,13 @@ public class SendUtils {
      */
     public static void  sendReadEnd( ControlInfo info, int cmd_type, int optionType, int type, boolean isSaveDb) {
         CmdStatus cmdStatus = new CmdStatus();
-        String name = info.getValve_alias();
-        int controlId = info.getValve_id();
+        String name = info.getValveAlias();
+        int controlId = info.getValveId();
         String desc = "";
-        boolean isNormal = false;
+        int isNormal = 0;
         switch (type) {
             case OPTION_OPEN_SUCESS:
-                isNormal = true;
+                isNormal = 1;
                 desc = OPTION_OPEN_SUCESS_VALUE;
                 break;
             case OPTION_OPEN_FAILE:
@@ -240,7 +240,7 @@ public class SendUtils {
                 desc = OPTION_OPEN_OTHER_VALUE;
                 break;
             case OPTION_CLOSE_SUCESS:
-                isNormal = true;
+                isNormal = 1;
                 desc = OPTION_CLOSE_SUCESS_VALUE;
                 break;
             case OPTION_CLOSE_FAILE:

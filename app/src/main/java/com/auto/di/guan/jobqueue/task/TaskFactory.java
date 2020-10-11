@@ -185,7 +185,7 @@ public class TaskFactory {
         LogUtils.e(TAG, "********************单组操作开始****************");
         //  2. 更新当前组的状态
             groupInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
-            groupInfo.setGroupStop(false);
+            groupInfo.setGroupStop(0);
             GroupInfoSql.updateGroup(groupInfo);
         //  3. 获取所有组的设备
         ArrayList<ControlInfo> openList = new ArrayList<>();
@@ -196,18 +196,18 @@ public class TaskFactory {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo0 = deveiceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo1 = deveiceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (controlInfo0.getValve_group_id() == openGroupId) {
+            if (controlInfo0.getValveGroupId() == openGroupId) {
                 openList.add(controlInfo0);
             }
-            if (controlInfo1.getValve_group_id() == openGroupId) {
+            if (controlInfo1.getValveGroupId() == openGroupId) {
                 openList.add(controlInfo1);
             }
 
             if (closeGroupId > 0) {
-                if (controlInfo0.getValve_group_id() == closeGroupId) {
+                if (controlInfo0.getValveGroupId() == closeGroupId) {
                     closeList.add(controlInfo0);
                 }
-                if (controlInfo1.getValve_group_id() == closeGroupId) {
+                if (controlInfo1.getValveGroupId() == closeGroupId) {
                     closeList.add(controlInfo1);
                 }
             }
@@ -227,7 +227,7 @@ public class TaskFactory {
         if (closeGroupId > 0 && closeList.size() > 0) {
             // 7 修改需要关闭组的状态为关闭
             closeGroupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
-            closeGroupInfo.setGroupStop(false);
+            closeGroupInfo.setGroupStop(0);
             LogUtils.e(TAG, "********************单组操作有需要关闭的组****************");
             // 8 添加关闭其他组task
             addOpenGroupTask(closeList, false);
@@ -283,10 +283,10 @@ public class TaskFactory {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo0 = deveiceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo1 = deveiceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (controlInfo0.getValve_group_id() == goupId) {
+            if (controlInfo0.getValveGroupId() == goupId) {
                 closeList.add(controlInfo0);
             }
-            if (controlInfo1.getValve_group_id() == goupId) {
+            if (controlInfo1.getValveGroupId() == goupId) {
                 closeList.add(controlInfo1);
             }
         }
@@ -322,7 +322,7 @@ public class TaskFactory {
         LogUtils.e(TAG, "**********************************自动轮灌开启****************************");
         //  1. 更新当前组的状态为运行
         groupInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
-        groupInfo.setGroupStop(false);
+        groupInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(groupInfo);
         //  2. 获取所有组的设备
         ArrayList<ControlInfo> openList = getControlInfo(groupInfo);
@@ -351,7 +351,7 @@ public class TaskFactory {
         LogUtils.e(TAG, "**********************************自动轮灌开启****************************");
         //  1. 更新当前组的状态为运行
         curInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
-        curInfo.setGroupStop(false);
+        curInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(curInfo);
         //  2. 获取所有组的设备
         ArrayList<ControlInfo> openList = getControlInfo(curInfo);
@@ -380,7 +380,7 @@ public class TaskFactory {
         groupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
         groupInfo.setGroupRunTime(0);
         groupInfo.setGroupTime(0);
-        groupInfo.setGroupStop(false);
+        groupInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(groupInfo);
         //  2. 获取组的设备信息
         ArrayList<ControlInfo> closeList  = getControlInfo(groupInfo);
@@ -415,7 +415,7 @@ public class TaskFactory {
             groupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
             groupInfo.setGroupTime(0);
             groupInfo.setGroupRunTime(0);
-            groupInfo.setGroupStop(false);
+            groupInfo.setGroupStop(0);
             GroupInfoSql.updateGroup(groupInfo);
             createAutoGroupOpenNextTask(groupList.get(0));
             createAutoGroupCloseTask(groupInfo);
@@ -439,10 +439,10 @@ public class TaskFactory {
         for (int i = 0; i < size; i++) {
             ControlInfo controlInfo0 = deveiceInfos.get(i).getValveDeviceSwitchList().get(0);
             ControlInfo controlInfo1 = deveiceInfos.get(i).getValveDeviceSwitchList().get(1);
-            if (controlInfo0.getValve_group_id() == openGroupId) {
+            if (controlInfo0.getValveGroupId() == openGroupId) {
                 list.add(controlInfo0);
             }
-            if (controlInfo1.getValve_group_id() == openGroupId) {
+            if (controlInfo1.getValveGroupId() == openGroupId) {
                 list.add(controlInfo1);
             }
         }

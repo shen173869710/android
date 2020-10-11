@@ -37,14 +37,14 @@ public class UserAction {
     /**执行操作的描述**/
     private String actionTypeName;
     /**执行操作的状态**/
-    private boolean actionStatus;
+    private int actionStatus;
     /**执行操作的状态显示的内容**/
     private String actionStatusName;
     private String userName;
-    @Generated(hash = 935423754)
+    @Generated(hash = 2058972118)
     public UserAction(Long id, String userId, String actionCmd, String actionName,
             int controlId, long actionTime, int actionId, int actionType,
-            String actionTypeName, boolean actionStatus, String actionStatusName,
+            String actionTypeName, int actionStatus, String actionStatusName,
             String userName) {
         this.id = id;
         this.userId = userId;
@@ -116,10 +116,10 @@ public class UserAction {
     public void setActionTypeName(String actionTypeName) {
         this.actionTypeName = actionTypeName;
     }
-    public boolean getActionStatus() {
+    public int getActionStatus() {
         return this.actionStatus;
     }
-    public void setActionStatus(boolean actionStatus) {
+    public void setActionStatus(int actionStatus) {
         this.actionStatus = actionStatus;
     }
     public String getActionStatusName() {
@@ -134,6 +134,7 @@ public class UserAction {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
 
 
 }

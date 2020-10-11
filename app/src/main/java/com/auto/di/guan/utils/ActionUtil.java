@@ -21,10 +21,10 @@ public class ActionUtil {
 	 * @param optionType     执行的类型
 	 * @param isNormal        是否操作正常
 	 */
-	public static void saveAction( ControlInfo info, int com_type, int optionType, String desc, boolean isNormal) {
+	public static void saveAction( ControlInfo info, int com_type, int optionType, String desc, int isNormal) {
 		UserAction action = new UserAction();
 		int operateResult = -1;
-		String name = info.getValve_alias();
+		String name = info.getValveAlias();
 		if (com_type == TaskEntiy.TASK_OPTION_OPEN_READ) {
 			operateResult =1;
 			action.setActionName(name+ "开启");

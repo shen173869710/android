@@ -84,7 +84,7 @@ public class GroupEditctivity extends Activity {
 						}
 						for (int i = 0; i < size; i++) {
 							ControlInfo info = controls.get(i);
-							info.setValve_group_id(0);
+							info.setValveGroupId(0);
 							info.setSelect(false);
 							ControlInfoSql.updateControl(info);
 						}

@@ -12,22 +12,24 @@ public class ControlInfo implements Serializable {
     static final long serialVersionUID=2L;
     @Id(autoincrement = true)
     private Long id;
-    private int valve_group_id;
+    private int valveSwitchId;
+
+    private int valveGroupId;
     //设备 组 id
-    private int device_id;
+    private int deviceId;
     //设备id
-    private int valve_id;
+    private int valveId;
     // 阀门图片地址
-    private String valve_imgage_path;
+    private String valveImgagePath;
     // 阀门图片id地址
-    private int valve_imgage_id;
+    private int valveImgageId;
     // 阀门的通信id
-    private String valve_name;
+    private String valveName;
     /**
      * 绑定设备的ID
      *  显示的名字
      */
-    private String valve_alias;
+    private String valveAlias;
     /**
      *   0  未添加
      *   1  已经添加
@@ -35,15 +37,15 @@ public class ControlInfo implements Serializable {
      *   3  工作当中
      *   4  异常当中
      */
-    private int valve_status;
+    private int valveStatus;
     //创建者
-    private String create_by;
+    private String createBy;
     //创建时间
-    private String create_time;
+    private String createTime;
     // 更新者
-    private String update_by;
+    private String updateBy;
     //更新时间
-    private String update_time;
+    private String updateTime;
     //通信协议项目ID
     private String protocalId;
     //通信协议ID
@@ -55,125 +57,113 @@ public class ControlInfo implements Serializable {
 
     }
     public ControlInfo(int imageId, String name) {
-        this.valve_imgage_id = imageId;
-        this.valve_name = name;
+        this.valveImgageId = imageId;
+        this.valveName = name;
     }
 
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public int getValveSwitchId() {
+        return valveSwitchId;
     }
 
-    public Long getId() {
-        return id;
+    public void setValveSwitchId(int valveSwitchId) {
+        this.valveSwitchId = valveSwitchId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public int getValveGroupId() {
+        return valveGroupId;
     }
 
-    public int getValve_group_id() {
-        return valve_group_id;
+    public void setValveGroupId(int valveGroupId) {
+        this.valveGroupId = valveGroupId;
     }
 
-    public void setValve_group_id(int valve_group_id) {
-        this.valve_group_id = valve_group_id;
+    public int getDeviceId() {
+        return deviceId;
     }
 
-    public int getDevice_id() {
-        return device_id;
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
     }
 
-    public void setDevice_id(int device_id) {
-        this.device_id = device_id;
+    public int getValveId() {
+        return valveId;
     }
 
-    public int getValve_id() {
-        return valve_id;
+    public void setValveId(int valveId) {
+        this.valveId = valveId;
     }
 
-    public void setValve_id(int valve_id) {
-        this.valve_id = valve_id;
+    public String getValveImgagePath() {
+        return valveImgagePath;
     }
 
-    public String getValve_imgage_path() {
-        return valve_imgage_path;
+    public void setValveImgagePath(String valveImgagePath) {
+        this.valveImgagePath = valveImgagePath;
     }
 
-    public void setValve_imgage_path(String valve_imgage_path) {
-        this.valve_imgage_path = valve_imgage_path;
+    public int getValveImgageId() {
+        return valveImgageId;
     }
 
-    public int getValve_imgage_id() {
-        return valve_imgage_id;
+    public void setValveImgageId(int valveImgageId) {
+        this.valveImgageId = valveImgageId;
     }
 
-    public void setValve_imgage_id(int valve_imgage_id) {
-        this.valve_imgage_id = valve_imgage_id;
+    public String getValveName() {
+        return valveName;
     }
 
-    public String getValve_name() {
-        return valve_name;
+    public void setValveName(String valveName) {
+        this.valveName = valveName;
     }
 
-    public void setValve_name(String valve_name) {
-        this.valve_name = valve_name;
+    public String getValveAlias() {
+        return valveAlias;
     }
 
-    public String getValve_alias() {
-        return valve_alias;
+    public void setValveAlias(String valveAlias) {
+        this.valveAlias = valveAlias;
     }
 
-    public void setValve_alias(String valve_alias) {
-        this.valve_alias = valve_alias;
+    public int getValveStatus() {
+        return valveStatus;
     }
 
-    public int getValve_status() {
-        return valve_status;
+    public void setValveStatus(int valveStatus) {
+        this.valveStatus = valveStatus;
     }
 
-    public void setValve_status(int valve_status) {
-        this.valve_status = valve_status;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public String getCreate_by() {
-        return create_by;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
-    public void setCreate_by(String create_by) {
-        this.create_by = create_by;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public String getCreate_time() {
-        return create_time;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
+    public String getUpdateBy() {
+        return updateBy;
     }
 
-    public String getUpdate_by() {
-        return update_by;
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
     }
 
-    public void setUpdate_by(String update_by) {
-        this.update_by = update_by;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public String getUpdate_time() {
-        return update_time;
-    }
-
-    public void setUpdate_time(String update_time) {
-        this.update_time = update_time;
-    }
-
-    public boolean isSelect() {
-        return isSelect;
-    }
-
-    public void setSelect(boolean select) {
-        isSelect = select;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getProtocalId() {
@@ -190,5 +180,13 @@ public class ControlInfo implements Serializable {
 
     public void setDeviceProtocalId(String deviceProtocalId) {
         this.deviceProtocalId = deviceProtocalId;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
     }
 }

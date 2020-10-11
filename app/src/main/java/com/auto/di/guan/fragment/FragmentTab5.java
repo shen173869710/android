@@ -86,8 +86,8 @@ public class FragmentTab5 extends BaseFragment {
 		List<ControlInfo>controlInfoList = new ArrayList<>();
 		ControlInfo info1 = new ControlInfo();
 		ControlInfo info2 = new ControlInfo();
-		info1.setValve_name("删除全部");
-		info2.setValve_name("删除报警");
+		info1.setValveName("删除全部");
+		info2.setValveName("删除报警");
 		controlInfoList.add(info1);
 		controlInfoList.add(info2);
 		final MainChooseIdDialog chooseDialog = new MainChooseIdDialog(getActivity(), controlInfoList);
@@ -154,11 +154,11 @@ public class FragmentTab5 extends BaseFragment {
 		ControlInfo info3 = new ControlInfo();
 		ControlInfo info4 = new ControlInfo();
 		ControlInfo info5 = new ControlInfo();
-		info1.setValve_name("全部") ;
-		info2.setValve_name("只看手动单个轮灌") ;
-		info3.setValve_name("只看手动分组轮灌") ;
-		info4.setValve_name("只看自动分组轮灌") ;
-		info5.setValve_name("只看报警") ;
+		info1.setValveName("全部") ;
+		info2.setValveName("只看手动单个轮灌") ;
+		info3.setValveName("只看手动分组轮灌") ;
+		info4.setValveName("只看自动分组轮灌") ;
+		info5.setValveName("只看报警") ;
 		controlInfoList.add(info1);
 		controlInfoList.add(info2);
 		controlInfoList.add(info3);

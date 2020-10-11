@@ -79,9 +79,9 @@ public class FragmentTab2 extends BaseFragment {
 						int size = deviceInfos.size();
 						for (int i = 0; i < size; i++) {
 							DeviceInfo deviceInfo = deviceInfos.get(i);
-							deviceInfo.getValveDeviceSwitchList().get(0).setValve_group_id(0);
+							deviceInfo.getValveDeviceSwitchList().get(0).setValveGroupId(0);
 							deviceInfo.getValveDeviceSwitchList().get(0).setSelect(false);
-							deviceInfo.getValveDeviceSwitchList().get(1).setValve_group_id(0);
+							deviceInfo.getValveDeviceSwitchList().get(1).setValveGroupId(0);
 							deviceInfo.getValveDeviceSwitchList().get(1).setSelect(false);
 						}
 						DeviceInfoSql.updateDeviceList(deviceInfos);
@@ -131,7 +131,7 @@ public class FragmentTab2 extends BaseFragment {
 				groupList.controlInfos = new ArrayList<>();
 				groupList.groupInfo = groupInfo;
 				for (int j = 0; j < controlSize; j++) {
-					if (controlInfos.get(j).getValve_group_id() == groupInfo.getGroupId()) {
+					if (controlInfos.get(j).getValveGroupId() == groupInfo.getGroupId()) {
 						groupList.controlInfos.add(controlInfos.get(j));
 					}
 

@@ -138,13 +138,13 @@ public class FragmentTab32 extends BaseFragment {
         	ControlInfo controlInfo_0 = deviceInfo.getValveDeviceSwitchList().get(0);
 			ControlInfo controlInfo_1 = deviceInfo.getValveDeviceSwitchList().get(1);
 
-            if (groupInfo.getGroupId() == controlInfo_0.getValve_group_id()) {
-				controlInfo_0.setValve_status(status);
-				controlInfo_0.setValve_imgage_id(imageId);
+            if (groupInfo.getGroupId() == controlInfo_0.getValveGroupId()) {
+				controlInfo_0.setValveStatus(status);
+				controlInfo_0.setValveImgageId(imageId);
             }
-            if (groupInfo.getGroupId() == controlInfo_1.getValve_group_id()) {
-				controlInfo_1.setValve_status(status);
-				controlInfo_1.setValve_imgage_id(imageId);
+            if (groupInfo.getGroupId() == controlInfo_1.getValveGroupId()) {
+				controlInfo_1.setValveStatus(status);
+				controlInfo_1.setValveImgageId(imageId);
             }
         }
 		DeviceInfoSql.updateDeviceList(deveiceInfo);

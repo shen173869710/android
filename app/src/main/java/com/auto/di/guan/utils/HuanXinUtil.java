@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.entity.Pro;
+import com.auto.di.guan.net.NetSendMessage;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
@@ -25,18 +26,28 @@ public class HuanXinUtil {
             EMTextMessageBody body = (EMTextMessageBody) message.getBody();
             LogUtils.e(TAG, "onMessageReceived------"+(body.getMessage()) );
 
+            if (!TextUtils.isEmpty(body.getMessage())
+                    && body.getMessage().contains("waterLogin")) {
 
 
+                LogUtils.e(TAG, "onMessageReceived------收到登陆消息");
+                NetSendMessage.sendLoginMessage();
 
-            if (!TextUtils.isEmpty(body.getMessage()) && body.getMessage().contains("loginName")) {
-                Pro pro = new Pro();
-                Pro.Message msg = new Pro.Message();
-                msg.loginId = BaseApp.getUser().getUserId()+"";
-                pro.event = "waterLogin";
-                pro.content = msg;
-                LogUtils.e(TAG, "发送消息------"+BaseApp.getUser().getParentLoginName() );
-                EMMessage emMessage = EMMessage.createTxtSendMessage(new Gson().toJson(pro), BaseApp.getUser().getParentLoginName());
-                EMClient.getInstance().chatManager().sendMessage(emMessage);
+//                Pro pro = new Gson().fromJson(body.getMessage(), Pro.class);
+//
+//                if (pro != null && TextUtils.isEmpty(pro.event) && pro.event.equals("waterLogin")) {
+//                    LogUtils.e(TAG, "onMessageReceived------收到登陆消息");
+//                    NetSendMessage.sendLoginMessage();
+//                }
+
+//                Pro pro = new Pro();
+//                Pro.Message msg = new Pro.Message();
+//                msg.loginId = BaseApp.getUser().getUserId()+"";
+//                pro.event = "waterLogin";
+//                pro.content = msg;
+//                LogUtils.e(TAG, "发送消息------"+BaseApp.getUser().getParentLoginName() );
+//                EMMessage emMessage = EMMessage.createTxtSendMessage(new Gson().toJson(pro), BaseApp.getUser().getParentLoginName());
+//                EMClient.getInstance().chatManager().sendMessage(emMessage);
             }
         }
 
@@ -103,10 +114,9 @@ public class HuanXinUtil {
     }
 
 
-    public static void sendMessage(String json) {
-
-
-        EMMessage emMessage = EMMessage.createTxtSendMessage(json, BaseApp.getUser().getParentLoginName());
-        EMClient.getInstance().chatManager().sendMessage(emMessage);
-    }
+//    public static void sendMessage(String json) {
+//        LogUtils.e(TAG, "     sendMessage   ----->"+json);
+//        EMMessage emMessage = EMMessage.createTxtSendMessage(json, BaseApp.getUser().getParentLoginName());
+//        EMClient.getInstance().chatManager().sendMessage(emMessage);
+//    }
 }

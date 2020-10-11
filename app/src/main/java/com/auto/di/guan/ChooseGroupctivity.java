@@ -100,10 +100,10 @@ public class ChooseGroupctivity extends Activity {
 					}
 					for (int i = 0; i < size; i++) {
 						if (deviceInfos.get(i).getValveDeviceSwitchList().get(0).isSelect()) {
-							deviceInfos.get(i).getValveDeviceSwitchList().get(0).setValve_group_id(groupId);
+							deviceInfos.get(i).getValveDeviceSwitchList().get(0).setValveGroupId(groupId);
 						}
 						if (deviceInfos.get(i).getValveDeviceSwitchList().get(1).isSelect()) {
-							deviceInfos.get(i).getValveDeviceSwitchList().get(1).setValve_group_id(groupId);
+							deviceInfos.get(i).getValveDeviceSwitchList().get(1).setValveGroupId(groupId);
 						}
 					}
 					DeviceInfoSql.updateDeviceList(deviceInfos);

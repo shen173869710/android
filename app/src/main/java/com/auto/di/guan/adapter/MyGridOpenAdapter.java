@@ -130,20 +130,20 @@ public class MyGridOpenAdapter extends BaseAdapter {
 
 
             ControlInfo controlInfo_0 = deviceInfo.getValveDeviceSwitchList().get(0);
-            if (controlInfo_0.getValve_group_id() == 0) {
+            if (controlInfo_0.getValveGroupId() == 0) {
                 holder.grid_item_left_group.setVisibility(View.GONE);
             }else {
                 holder.grid_item_left_group.setVisibility(View.VISIBLE);
-                holder.grid_item_left_group.setText(controlInfo_0.getValve_group_id()+"");
+                holder.grid_item_left_group.setText(controlInfo_0.getValveGroupId()+"");
             }
 
-            if (controlInfo_0.getValve_imgage_id() == 0) {
+            if (controlInfo_0.getValveImgageId() == 0) {
                 holder.grid_item_left_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_left_layout.setOnClickListener(null);
             }else {
                 holder.grid_item_left_image.setVisibility(View.VISIBLE);
-                holder.grid_item_left_image.setImageResource(controlInfo_0.getValve_imgage_id());
-                holder.grid_item_left_id.setText(""+controlInfo_0.getValve_alias());
+                holder.grid_item_left_image.setImageResource(controlInfo_0.getValveImgageId());
+                holder.grid_item_left_id.setText(""+controlInfo_0.getValveAlias());
 
                 holder.grid_item_left_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,19 +159,19 @@ public class MyGridOpenAdapter extends BaseAdapter {
             holder.grid_item_right_layout.setVisibility(View.VISIBLE);
             holder.grid_item_right_sel.setVisibility(View.GONE);
 
-            if (controlInfo_1.getValve_group_id() == 0) {
+            if (controlInfo_1.getValveGroupId() == 0) {
                 holder.grid_item_right_group.setVisibility(View.GONE);
             }else {
                 holder.grid_item_right_group.setVisibility(View.VISIBLE);
-                holder.grid_item_right_group.setText(controlInfo_1.getValve_group_id()+"");
+                holder.grid_item_right_group.setText(controlInfo_1.getValveGroupId()+"");
             }
-            if (controlInfo_1.getValve_imgage_id() == 0) {
+            if (controlInfo_1.getValveImgageId() == 0) {
                 holder.grid_item_right_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_right_layout.setOnClickListener(null);
             }else {
                 holder.grid_item_right_image.setVisibility(View.VISIBLE);
-                holder.grid_item_right_image.setImageResource(controlInfo_1.getValve_imgage_id());
-                holder.grid_item_right_id.setText(""+controlInfo_1.getValve_alias());
+                holder.grid_item_right_image.setImageResource(controlInfo_1.getValveImgageId());
+                holder.grid_item_right_id.setText(""+controlInfo_1.getValveAlias());
 
 
                 holder.grid_item_right_layout.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +211,7 @@ public class MyGridOpenAdapter extends BaseAdapter {
 
     private void openDevice(final ControlInfo controlInfo) {
         String status = "关闭";
-        if (controlInfo.getValve_status() == Entiy.CONTROL_STATUS＿RUN) {
+        if (controlInfo.getValveStatus() == Entiy.CONTROL_STATUS＿RUN) {
             status = "开启";
         }
         MainoptionDialog.ShowDialog((Activity) context,controlInfo , "手动操作",status,new MainoptionDialog.ItemClick() {

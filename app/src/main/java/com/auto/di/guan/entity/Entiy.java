@@ -154,14 +154,15 @@ public class Entiy {
      *    设备已经添加
      */
     public static final int DEVEICE_BIND = 1;
+
     /**控制阀已经链接成功**/
-    public static final int CONTROL_STATUS＿CONNECT = 100;
+    public static final int CONTROL_STATUS＿CONNECT = 1;
     /**设备已经处于运行状态**/
-    public static final int CONTROL_STATUS＿RUN = 200;
+    public static final int CONTROL_STATUS＿RUN = 2;
     /**设备已经处于错误状态**/
-    public static final int CONTROL_STATUS＿ERROR = 300;
+    public static final int CONTROL_STATUS＿ERROR = 3;
     /**设备无法关闭**/
-    public static final int CONTROL_STATUS＿NOTCLOSE = 400;
+    public static final int CONTROL_STATUS＿NOTCLOSE = 4;
     /**设备断开链接**/
     public static final int CONTROL_STATUS＿DISCONNECT = 0;
 

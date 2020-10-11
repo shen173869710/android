@@ -126,29 +126,29 @@ public class ChooseGridAdapter extends BaseAdapter {
             holder.grid_item_device_value.setText(deviceInfo.getElectricQuantity()+"%");
             ControlInfo info1 = deviceInfo.getValveDeviceSwitchList().get(0);
 
-            if (info1.getValve_imgage_id() == 0) {
+            if (info1.getValveImgageId() == 0) {
                 holder.grid_item_left_layout.setVisibility(View.INVISIBLE);
                 holder.grid_item_left_layout.setOnClickListener(null);
             }else {
                 holder.grid_item_left_layout.setVisibility(View.VISIBLE);
                 holder.grid_item_left_image.setVisibility(View.VISIBLE);
-                holder.grid_item_left_image.setImageResource(info1.getValve_imgage_id());
+                holder.grid_item_left_image.setImageResource(info1.getValveImgageId());
                 holder.grid_item_left_sel.setVisibility(View.VISIBLE);
-                holder.grid_item_left_id.setText(info1.getValve_alias()+"");
+                holder.grid_item_left_id.setText(info1.getValveAlias()+"");
                 if (info1.isSelect()) {
                     holder.grid_item_left_sel.setBackgroundResource(R.drawable.img_selected);
                 }else {
                     holder.grid_item_left_sel.setBackgroundResource(R.drawable.img_unselected);
                 }
 
-                if (info1.getValve_group_id() == 0) {
+                if (info1.getValveGroupId() == 0) {
                     holder.grid_item_left_group.setVisibility(View.INVISIBLE);
                 }else {
                     holder.grid_item_left_group.setVisibility(View.VISIBLE);
-                    holder.grid_item_left_group.setText(info1.getValve_group_id()+"");
+                    holder.grid_item_left_group.setText(info1.getValveGroupId()+"");
                 }
 
-                if (info1.getValve_group_id() > 0) {
+                if (info1.getValveGroupId() > 0) {
                     holder.grid_item_left_sel.setVisibility(View.GONE);
                     deviceInfo.getValveDeviceSwitchList().get(0).setSelect(false);
                 }else {
@@ -166,28 +166,28 @@ public class ChooseGridAdapter extends BaseAdapter {
             }
 
             ControlInfo info2 = deviceInfo.getValveDeviceSwitchList().get(1);
-            if (info2.getValve_imgage_id() == 0) {
+            if (info2.getValveImgageId() == 0) {
                 holder.grid_item_right_layout.setVisibility(View.INVISIBLE);
             }else {
                 holder.grid_item_right_layout.setVisibility(View.VISIBLE);
                 holder.grid_item_right_image.setVisibility(View.VISIBLE);
-                holder.grid_item_right_image.setImageResource(info1.getValve_imgage_id());
+                holder.grid_item_right_image.setImageResource(info1.getValveImgageId());
                 holder.grid_item_right_sel.setVisibility(View.VISIBLE);
-                holder.grid_item_right_id.setText(info2.getValve_alias()+"");
+                holder.grid_item_right_id.setText(info2.getValveAlias()+"");
                 if (info2.isSelect()) {
                     holder.grid_item_right_sel.setBackgroundResource(R.drawable.img_selected);
                 }else {
                     holder.grid_item_right_sel.setBackgroundResource(R.drawable.img_unselected);
                 }
 
-                if (info2.getValve_group_id() == 0) {
+                if (info2.getValveGroupId() == 0) {
                     holder.grid_item_right_group.setVisibility(View.INVISIBLE);
                 }else {
                     holder.grid_item_right_group.setVisibility(View.VISIBLE);
-                    holder.grid_item_right_group.setText(info2.getValve_group_id()+"");
+                    holder.grid_item_right_group.setText(info2.getValveGroupId()+"");
                 }
 
-                if (info2.getValve_group_id() > 0) {
+                if (info2.getValveGroupId() > 0) {
                     holder.grid_item_right_sel.setVisibility(View.GONE);
                     deviceInfo.getValveDeviceSwitchList().get(1).setSelect(false);
                 }else {

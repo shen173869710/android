@@ -80,7 +80,7 @@ public class QuareUserAdapter extends BaseAdapter {
 		}else if (type == Entiy.ACTION_TYPE_32) {
 			color = ctx.getResources().getColor(R.color.none_transparent);
 		}
-		 if (!action.getActionStatus()){
+		 if (action.getActionStatus() == 0){
 			 color = ctx.getResources().getColor(R.color.red);
 		 }
 

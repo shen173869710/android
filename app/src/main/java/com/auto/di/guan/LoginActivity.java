@@ -75,16 +75,6 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
 
 
     @Override
-    public void showDialog() {
-
-    }
-
-    @Override
-    public void dismissDialog() {
-
-    }
-
-    @Override
     public void loginSuccess(BaseRespone respone) {
         LogUtils.e("---------",""+(new Gson().toJson(respone)));
 

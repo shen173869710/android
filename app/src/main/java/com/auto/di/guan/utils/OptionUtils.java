@@ -149,8 +149,8 @@ public class OptionUtils {
                     valueStatus1 = Entiy.CONTROL_STATUS＿ERROR;
                 }
             }
-            controlInfo0.setValve_status(valueStatus0);
-            controlInfo1.setValve_status(valueStatus1);
+            controlInfo0.setValveStatus(valueStatus0);
+            controlInfo1.setValveStatus(valueStatus1);
             controlInfos.add(controlInfo0);
             controlInfos.add(controlInfo1);
             info.setValveDeviceSwitchList(controlInfos);

@@ -33,7 +33,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         public final static Property ActionId = new Property(6, int.class, "actionId", false, "ACTION_ID");
         public final static Property ActionType = new Property(7, int.class, "actionType", false, "ACTION_TYPE");
         public final static Property ActionTypeName = new Property(8, String.class, "actionTypeName", false, "ACTION_TYPE_NAME");
-        public final static Property ActionStatus = new Property(9, boolean.class, "actionStatus", false, "ACTION_STATUS");
+        public final static Property ActionStatus = new Property(9, int.class, "actionStatus", false, "ACTION_STATUS");
         public final static Property ActionStatusName = new Property(10, String.class, "actionStatusName", false, "ACTION_STATUS_NAME");
         public final static Property UserName = new Property(11, String.class, "userName", false, "USER_NAME");
     }
@@ -103,7 +103,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         if (actionTypeName != null) {
             stmt.bindString(9, actionTypeName);
         }
-        stmt.bindLong(10, entity.getActionStatus() ? 1L: 0L);
+        stmt.bindLong(10, entity.getActionStatus());
  
         String actionStatusName = entity.getActionStatusName();
         if (actionStatusName != null) {
@@ -148,7 +148,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         if (actionTypeName != null) {
             stmt.bindString(9, actionTypeName);
         }
-        stmt.bindLong(10, entity.getActionStatus() ? 1L: 0L);
+        stmt.bindLong(10, entity.getActionStatus());
  
         String actionStatusName = entity.getActionStatusName();
         if (actionStatusName != null) {
@@ -178,7 +178,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
             cursor.getInt(offset + 6), // actionId
             cursor.getInt(offset + 7), // actionType
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // actionTypeName
-            cursor.getShort(offset + 9) != 0, // actionStatus
+            cursor.getInt(offset + 9), // actionStatus
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // actionStatusName
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // userName
         );
@@ -196,7 +196,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         entity.setActionId(cursor.getInt(offset + 6));
         entity.setActionType(cursor.getInt(offset + 7));
         entity.setActionTypeName(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setActionStatus(cursor.getShort(offset + 9) != 0);
+        entity.setActionStatus(cursor.getInt(offset + 9));
         entity.setActionStatusName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setUserName(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }

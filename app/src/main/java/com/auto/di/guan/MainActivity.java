@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.TextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
 import com.auto.di.guan.jobqueue.event.SendCmdEvent;
 import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
+import com.auto.di.guan.net.NetSendMessage;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.HuanXinUtil;
 import com.auto.di.guan.utils.LogUtils;
@@ -115,6 +117,15 @@ public class MainActivity extends SerialPortActivity {
 
 
         HuanXinUtil.login();
+
+
+        findViewById(R.id.title_bar_title).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetSendMessage.sendLoginMessage();
+            }
+        });
+
     }
 
 
@@ -317,6 +328,6 @@ public class MainActivity extends SerialPortActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        HuanXinUtil.stop();
+//        HuanXinUtil.stop();
     }
 }

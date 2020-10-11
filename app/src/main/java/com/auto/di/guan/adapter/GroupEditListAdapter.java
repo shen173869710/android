@@ -28,11 +28,11 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
     @Override
     protected void convert(BaseViewHolder holder, ControlInfo info) {
 
-        holder.setText(R.id.group_item_name,info.getValve_id() + "阀控器" );
-        holder.setText(R.id.group_item_id,"名称"+info.getValve_alias());
+        holder.setText(R.id.group_item_name,info.getValveId() + "阀控器" );
+        holder.setText(R.id.group_item_id,"名称"+info.getValveAlias());
 
         String stutes = "";
-        int valveStatus = info.getValve_status();
+        int valveStatus = info.getValveStatus();
         if (valveStatus == Entiy.CONTROL_STATUS＿RUN) {
             stutes = "工作当中";
         } else if (valveStatus == Entiy.CONTROL_STATUS＿ERROR) {
@@ -55,7 +55,7 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
                                 return;
                             }
 
-                            info.setValve_group_id(0);
+                            info.setValveGroupId(0);
                             info.setSelect(false);
                             getData().remove(holder.getAdapterPosition());
                             notifyDataSetChanged();

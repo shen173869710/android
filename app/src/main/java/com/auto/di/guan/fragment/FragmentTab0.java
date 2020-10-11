@@ -50,8 +50,8 @@ public class FragmentTab0 extends BaseFragment {
                         }
                     });
                 }else {
-                    if (info.getValveDeviceSwitchList().get(0).getValve_group_id() > 0
-                            || info.getValveDeviceSwitchList().get(1).getValve_group_id() > 0) {
+                    if (info.getValveDeviceSwitchList().get(0).getValveGroupId() > 0
+                            || info.getValveDeviceSwitchList().get(1).getValveGroupId() > 0) {
                         showToast("该设备已经分组,不可以删除");
                         return;
                     }
