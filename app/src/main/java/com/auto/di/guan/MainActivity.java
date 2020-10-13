@@ -362,8 +362,10 @@ public class MainActivity extends SerialPortActivity {
         if (event.getPeerId().equals(BaseApp.getUser().getMemberId().toString())) {
             if (event.getStatus() == 0) {
                 LogUtils.e(TAG, "管理员在线");
+                BaseApp.webLogin = true;
             }else {
                 LogUtils.e(TAG, "管理员离线");
+                BaseApp.webLogin = false;
                 InputPasswordDialog.dismiss(MainActivity.this);
             }
         }

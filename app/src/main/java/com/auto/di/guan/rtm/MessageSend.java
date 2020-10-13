@@ -145,4 +145,13 @@ public class MessageSend {
         info.setGroupInfo(groupInfo);
         send(info);
     }
+
+    /**
+     *   同步点击事件
+     */
+    public static void syncClickEvent() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_CLICK);
+        send(info);
+    }
 }

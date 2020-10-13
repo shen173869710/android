@@ -1,67 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:orientation="horizontal">
+    android:orientation="vertical">
+    <ExpandableListView
+        android:id ="@+id/fragment_3_expand"
+        android:layout_width ="match_parent"
+        android:layout_height ="match_parent"
+        android:layout_marginBottom="60dp"
+        />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/option_title_1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="手动操作"
-                android:textSize="16sp"
-                android:textColor="@color/main_item_color"
-                />
-            <View
-                android:id="@+id/option_title_1_drive"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/blue"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="1sp"
-            android:layout_height="match_parent"
-            android:background="@color/main_divider" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="43dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/option_title_2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="自动操作"
-                android:textColor="@color/main_item_color"
-                android:textSize="16sp" />
-
-            <View
-                android:id="@+id/option_title_2_drive"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/blue" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/option_viewpage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         >
-    </androidx.viewpager.widget.ViewPager>
-</LinearLayout>
+    <Button
+        android:id="@+id/fragment_3_setting"
+        android:layout_width="150dp"
+        android:layout_height="@dimen/main_button_height"
+        android:text="轮灌设置"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_red_buttom_rect"
+        />
+</RelativeLayout>

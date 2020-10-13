@@ -43,7 +43,7 @@ public class FragmentTab31 extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_3_1, null);
 		expandableListView =(ExpandableListView)view.findViewById(R.id.fragment_3_1_expand);
-		adapter = new GroupExpandableListViewaAdapter31(getActivity(), groupLists, this);
+//		adapter = new GroupExpandableListViewaAdapter31(getActivity(), groupLists, this);
 		expandableListView.setAdapter(adapter);
 		expandableListView.setGroupIndicator(null);
 		EventBus.getDefault().register(this);

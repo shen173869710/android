@@ -57,7 +57,7 @@
         <activity android:name=".ControlBindActivity" android:screenOrientation="landscape"/>
         <activity android:name=".GroupOptionActivity" android:screenOrientation="landscape"/>
         <activity android:name=".GroupStatusActivity" android:screenOrientation="landscape"/>
-
+        <activity android:name=".WebviewActivity" android:screenOrientation="landscape"/>
         <activity android:name=".SerialPortActivity" android:screenOrientation="landscape"/>
         <activity android:name=".ConsoleActivity" android:screenOrientation="landscape"/>
         <receiver android:name="com.auto.di.guan.utils.AlarmReceiver"/>

@@ -1,259 +1,154 @@
 package com.auto.di.guan.fragment;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ExpandableListView;
 
 import com.auto.di.guan.R;
-import com.auto.di.guan.adapter.QuareUserAdapter;
+import com.auto.di.guan.adapter.GroupExpandableListViewaAdapter31;
 import com.auto.di.guan.db.ControlInfo;
-import com.auto.di.guan.db.User;
-import com.auto.di.guan.db.UserAction;
-import com.auto.di.guan.db.sql.UserActionSql;
-import com.auto.di.guan.db.sql.UserSql;
-import com.auto.di.guan.dialog.MainChooseDialog;
-import com.auto.di.guan.dialog.MainChooseIdDialog;
+import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.GroupList;
+import com.auto.di.guan.db.sql.ControlInfoSql;
+import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.dialog.Main31Dialog;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.utils.NoFastClickUtils;
+import com.auto.di.guan.jobqueue.TaskManager;
+import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
+import com.auto.di.guan.jobqueue.event.Fragment31Event;
+import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
+import com.auto.di.guan.jobqueue.task.TaskFactory;
+import com.auto.di.guan.utils.LogUtils;
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
+
 public class FragmentTab5 extends BaseFragment {
-	private TextView requeryByTime, requeryById;
+
 	private View view;
-	private ListView listView;
-	private QuareUserAdapter adapter;
-	private List<User>users = new ArrayList<>();
-	private List<UserAction>userActions = new ArrayList<>();
-	private List<ControlInfo>controlInfo = new ArrayList<>();
-	int i= 0;
+	private ExpandableListView expandableListView;
+	private GroupExpandableListViewaAdapter31 adapter;
+	private List<GroupList> groupLists = new ArrayList<>();
+	private  List<GroupInfo> groupInfos = new ArrayList<>();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_5, null);
-		requeryByTime = (TextView) view.findViewById(R.id.querybytime);
-		requeryById = (TextView) view.findViewById(R.id.querybyid);
-
-		listView = (ListView) view.findViewById(R.id.querylistview);
-		adapter = new QuareUserAdapter(getActivity(), userActions);
-		listView.setAdapter(adapter);
-//		requeryByName.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				showChooseDialog(requeryByName);
-//			}
-//
-//
-//		});
-		requeryByTime.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(NoFastClickUtils.isFastClick()){
-					return;
-				}
-				showChooseTimeDialog(requeryByTime);
-			}
-		});
-
-		requeryById.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(NoFastClickUtils.isFastClick()){
-					return;
-				}
-				showChooseIdDialog(requeryById);
-			}
-		});
-
+		expandableListView =(ExpandableListView)view.findViewById(R.id.fragment_5_expand);
+		adapter = new GroupExpandableListViewaAdapter31(getActivity(), groupLists, this);
+		expandableListView.setAdapter(adapter);
+		expandableListView.setGroupIndicator(null);
+		EventBus.getDefault().register(this);
+		initData();
+		LogUtils.e("fragmnet31", "time == "+System.currentTimeMillis());
 		return view;
 	}
 
 
-//	@Override
-//	public void onResume() {
-//		super.onResume();
-//		showListByType(0);
-//	}
 
-	private void showChooseTimeDialog(final TextView tv) {
-		List<ControlInfo>controlInfoList = new ArrayList<>();
-		ControlInfo info1 = new ControlInfo();
-		ControlInfo info2 = new ControlInfo();
-		info1.setValveName("删除全部");
-		info2.setValveName("删除报警");
-		controlInfoList.add(info1);
-		controlInfoList.add(info2);
-		final MainChooseIdDialog chooseDialog = new MainChooseIdDialog(getActivity(), controlInfoList);
-		chooseDialog.setOnPositiveListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(NoFastClickUtils.isFastClick()){
-					return;
-				}
-				showChooseListByTime(chooseDialog.currentItem);
-				chooseDialog.dismiss();
-			}
-
-
-		});
-		chooseDialog.setOnNegativeListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				chooseDialog.dismiss();
-			}
-		});
-		chooseDialog.show();
-	}
-
-	private void showChooseDialog(final TextView tv) {
-		users = UserSql.queryUserList();
-		if (users == null && users.size() == 0) {
-			Toast.makeText(getActivity(), "暂无可以查询的用户", Toast.LENGTH_LONG).show();
-			return;
-		}
-		final  MainChooseDialog chooseDialog = new MainChooseDialog(getActivity(), users);
-		chooseDialog.setOnPositiveListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(NoFastClickUtils.isFastClick()){
-					return;
-				}
-				if (chooseDialog.currentItem >= 0) {
-					String name = users.get(chooseDialog.currentItem).getUserName();
-					tv.setText(name);
-					showChooseListByName(chooseDialog.currentItem);
-				}else {
-					Toast.makeText(getActivity(), "暂无可以查询的信息", Toast.LENGTH_LONG).show();
-				}
-				chooseDialog.dismiss();
-			}
-
-
-		});
-		chooseDialog.setOnNegativeListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				chooseDialog.dismiss();
-			}
-		});
-		chooseDialog.show();
-	}
-
-
-	private void showChooseIdDialog(final TextView tv) {
-		List<ControlInfo>controlInfoList = new ArrayList<>();
-		ControlInfo info1 = new ControlInfo();
-		ControlInfo info2 = new ControlInfo();
-		ControlInfo info3 = new ControlInfo();
-		ControlInfo info4 = new ControlInfo();
-		ControlInfo info5 = new ControlInfo();
-		info1.setValveName("全部") ;
-		info2.setValveName("只看手动单个轮灌") ;
-		info3.setValveName("只看手动分组轮灌") ;
-		info4.setValveName("只看自动分组轮灌") ;
-		info5.setValveName("只看报警") ;
-		controlInfoList.add(info1);
-		controlInfoList.add(info2);
-		controlInfoList.add(info3);
-		controlInfoList.add(info4);
-		controlInfoList.add(info5);
-		final MainChooseIdDialog chooseDialog = new MainChooseIdDialog(getActivity(), controlInfoList);
-		chooseDialog.setOnPositiveListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(NoFastClickUtils.isFastClick()){
-					return;
-				}
-				int type = 0;
-				switch (chooseDialog.currentItem) {
-					case 0:
-						type = 0;
-						break;
-					case 1:
-						type = Entiy.ACTION_TYPE_4;
-						break;
-					case 2:
-						type = Entiy.ACTION_TYPE_31;
-						break;
-					case 3:
-						type = Entiy.ACTION_TYPE_32;
-						break;
-					case 4:
-						type = Entiy.ACTION_TYPE_ERROR;
-						break;
-				}
-				showListByType(type);
-				chooseDialog.dismiss();
-			}
-
-
-		});
-		chooseDialog.setOnNegativeListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				chooseDialog.dismiss();
-			}
-		});
-		chooseDialog.show();
-	}
-
-	private void showChooseListByName(int postion) {
-//		List<UserAction>action = UserActionSql.queryUserActionlList(users.get(postion).getLoginName());
-//		showEnd(action);
-	}
-
-	private void showListByType(int type) {
-		List<UserAction>action= new ArrayList<>();
-		if (type == 0) {
-			action	= UserActionSql.queryUserActionlList();
+	public void startWork(final GroupInfo groupInfo) {
+		String title;
+		if (groupInfo.getGroupStatus() == 0) {
+			title = "当前分组处于关闭状态";
 		}else {
-			if (type == Entiy.ACTION_TYPE_ERROR) {
-				action	= UserActionSql.queryUserActionlListByEnd(false);
-			}else {
-				action	= UserActionSql.queryUserActionlListByType(type);
+			title = "当前分组处于运行状态";
+		}
+
+		Main31Dialog.ShowDialog(getActivity(),title, new Main31Dialog.ItemClick(){
+
+			@Override
+			public void onItemClick(int index) {
+				if (index == 1) {
+					TaskFactory.createGroupOpenTask(groupInfo);
+					TaskManager.getInstance().startTask();
+				}else if (index == 2) {
+					TaskFactory.createGroupCloseTask(groupInfo);
+					TaskManager.getInstance().startTask();
+				}
+			}
+		});
+	}
+
+	public void initData() {
+		groupInfos.clear();
+		groupLists.clear();
+		groupInfos = GroupInfoSql.queryGroupList();
+		int size = groupInfos.size();
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				List<ControlInfo>clist = ControlInfoSql.queryControlList(groupInfos.get(i).getGroupId());
+				if (clist.size() > 0) {
+					GroupList list = new GroupList();
+					list.groupInfo = groupInfos.get(i);
+					list.controlInfos.addAll(clist);
+					groupLists.add(list);
+				}
 			}
 
-		}
-		showEnd(action);
-	}
-
-	private void showChooseListByTime(int type) {
-		List<UserAction>action= new ArrayList<>();
-		if (type == 0) {
-			UserActionSql.deleteUserActionAll();
-		}else {
-			UserActionSql.deleteUserActionType();
-		}
-		action	= UserActionSql.queryUserActionlList(0);
-		showEnd(action);
-	}
-
-	private void showEnd(List<UserAction>action) {
-		if (action.size() == 0) {
-			Toast.makeText(getActivity(), "暂无可以查询的信息", Toast.LENGTH_LONG).show();
-			userActions.clear();
-			adapter.notifyDataSetChanged();
-		}else {
-			userActions.clear();
-			userActions.addAll(action);
-			adapter.notifyDataSetChanged();
+			if (adapter != null) {
+				adapter.setData(groupLists);
+			}
 		}
 	}
+	@Override
+	public void adapterUpdate() {
+		super.adapterUpdate();
+		adapter.notifyDataSetChanged();
+	}
 
-	private void showChooseListById(int id) {
-		List<UserAction>action = UserActionSql.queryUserActionlList(id);
-		showEnd(action);
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onFragment31Update(Fragment31Event event) {
+		if (adapter != null) {
+			initData();
+		}
+	};
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 	}
 
 	@Override
 	public void refreshData() {
-
+		LogUtils.e("-------------", "313131");
+		if (adapter != null) {
+			initData();
+		}
 	}
+
+	/**
+	 *        自动轮灌组状态更新
+	 * @param event
+	 */
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onGroupStatusEvent(GroupStatusEvent event) {
+		if (adapter != null) {
+			initData();
+		}
+	};
+
+
+	/**
+	 *   接收自动轮灌相关操作
+	 */
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onAutoTaskEvent(AutoTaskEvent event) {
+		if (event != null) {
+			if (event.getType() == Entiy.RUN_DO_FINISH) {
+				if (adapter != null) {
+					initData();
+				}
+			}
+		}
+	}
+
 }

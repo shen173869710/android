@@ -1,14 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_6_list"
+    android:orientation="vertical">
+
+    <ExpandableListView
+        android:id="@+id/fragment_6_expand"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/main_bg"
-        android:scrollbars="none"
-        android:fadingEdge="none"
-        android:listSelector="@drawable/dialogue_listview_selector" />
+        android:layout_above="@+id/fragment_3_2_start_layout"
+        android:layout_marginBottom="70dp" />
+
+    <Button
+        android:id="@+id/fragment_6_start"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_red_buttom_rect"
+        android:text="开启轮灌"
+        android:textColor="@color/white" />
 </RelativeLayout>

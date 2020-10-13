@@ -1,6 +1,5 @@
 package com.auto.di.guan.rtm;
 
-
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
@@ -10,8 +9,9 @@ import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
-import com.auto.di.guan.entity.BengEvent;
+import com.auto.di.guan.entity.BengOptionEvent;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.entity.TabClickEvent;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
@@ -134,6 +134,10 @@ public class MessageParse {
                 break;
             case MessageEntiy.TYPE_MESSAGE:
 
+                break;
+            case MessageEntiy.TYPE_CLICK:
+                EventBus.getDefault().post(new TabClickEvent(info.getIndex()));
+                MessageSend.syncClickEvent();
                 break;
         }
     }
@@ -433,6 +437,6 @@ public class MessageParse {
      *   开泵 管泵
      */
     public static void dealBengOpen(int postion, boolean open) {
-        EventBus.getDefault().post(new BengEvent(postion, open));
+        EventBus.getDefault().post(new BengOptionEvent(postion,open));
     }
 }

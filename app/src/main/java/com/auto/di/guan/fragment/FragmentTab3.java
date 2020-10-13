@@ -1,98 +1,148 @@
 package com.auto.di.guan.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
+import com.auto.di.guan.GroupOptionActivity;
+import com.auto.di.guan.OptionSettingActivity;
 import com.auto.di.guan.R;
-import com.auto.di.guan.adapter.MyFragmentAdapter;
-import com.auto.di.guan.utils.LogUtils;
+import com.auto.di.guan.adapter.GroupExpandableListViewaAdapter;
+import com.auto.di.guan.db.ControlInfo;
+import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.GroupList;
+import com.auto.di.guan.db.sql.ControlInfoSql;
+import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
+import com.auto.di.guan.jobqueue.event.Fragment32Event;
+import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
 import com.auto.di.guan.utils.NoFastClickUtils;
 
-import java.util.ArrayList;
-/**
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+
+/**
+ * 轮灌设置
  *
+ * 胡 130 2620 2047
  */
 public class FragmentTab3 extends BaseFragment {
-	private TextView option_title_1,option_title_2;
-	private View option_title_1_drive, option_title_2_drive;
-	private View view;
-	private ViewPager option_viewpage;
-	private MyFragmentAdapter adapter;
-	private ArrayList<Fragment> fragments = new ArrayList<>();
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_3, null);
-		option_title_1 = (TextView) view.findViewById(R.id.option_title_1);
-		option_title_2 = (TextView)view.findViewById(R.id.option_title_2);
-		option_title_1_drive = view.findViewById(R.id.option_title_1_drive);
-		option_title_2_drive = view.findViewById(R.id.option_title_2_drive);
-		option_title_2_drive.setVisibility(View.INVISIBLE);
-		fragments.add(new FragmentTab31());
-		fragments.add(new FragmentTab32());
-		option_title_1.setOnClickListener(new View.OnClickListener() {
+
+
+    private View view;
+    ExpandableListView fragment3Expand;
+    Button fragment3Setting;
+
+    private List<GroupList> groupLists = new ArrayList<>();
+    private List<GroupInfo> groupInfos = new ArrayList<>();
+    private GroupExpandableListViewaAdapter adapter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_3, null);
+		EventBus.getDefault().register(this);
+		fragment3Expand = view.findViewById(R.id.fragment_3_expand);
+		fragment3Setting = view.findViewById(R.id.fragment_3_setting);
+
+		adapter = new GroupExpandableListViewaAdapter(getActivity(), groupLists);
+		fragment3Expand.setGroupIndicator(null);
+		fragment3Expand.setAdapter(adapter);
+
+//		fragment3Expand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				Intent intent = new Intent(getActivity(), OptionSettingActivity.class);
+//				intent.putExtra("id",groupLists.get(position).groupInfo.getGroupId());
+//				startActivity(intent);
+//			}
+//		});
+		fragment3Setting.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(NoFastClickUtils.isFastClick()){
 					return;
 				}
-				option_viewpage.setCurrentItem(0);
+				activity.startActivity(new Intent(activity, GroupOptionActivity.class));
 			}
 		});
-		option_title_2.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(NoFastClickUtils.isFastClick()){
-					return;
+        return view;
+    }
+
+
+    @Override
+    public void refreshData() {
+		initData();
+    }
+
+
+	private void initData() {
+		groupInfos.clear();
+		groupLists.clear();
+		groupInfos = GroupInfoSql.queryGroupSettingList();
+		int size = groupInfos.size();
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				List<ControlInfo>clist = ControlInfoSql.queryControlList(groupInfos.get(i).getGroupId());
+				if (clist.size() > 0) {
+					GroupList list = new GroupList();
+					list.groupInfo = groupInfos.get(i);
+					list.controlInfos.addAll(clist);
+					groupLists.add(list);
 				}
-				option_viewpage.setCurrentItem(1);
 			}
-		});
-		option_viewpage = (ViewPager)view.findViewById(R.id.option_viewpage);
-		adapter = new MyFragmentAdapter(getChildFragmentManager(), fragments);
-		option_viewpage.setAdapter(adapter);
-		option_viewpage.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			@Override
-			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+			if (adapter != null) {
+				adapter.setData(groupLists);
 			}
+		}
+	}
 
-			@Override
-			public void onPageSelected(int position) {
-				if (position == 0) {
-					option_title_1_drive.setVisibility(View.VISIBLE);
-					option_title_2_drive.setVisibility(View.INVISIBLE);
-				}else {
-					option_title_1_drive.setVisibility(View.INVISIBLE);
-					option_title_2_drive.setVisibility(View.VISIBLE);
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onFragment32Update(Fragment32Event event) {
+		if (adapter != null) {
+			initData();
+		}
+	}
+	/**
+	 *        自动轮灌组状态更新
+	 * @param event
+	 */
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onGroupStatusEvent(GroupStatusEvent event) {
+		if (adapter != null) {
+			initData();
+		}
+	}
+
+	/**
+	 *   接收自动轮灌相关操作
+	 */
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onAutoTaskEvent(AutoTaskEvent event) {
+		if (event != null) {
+			if (event.getType() == Entiy.RUN_DO_FINISH) {
+				if (adapter != null) {
+					initData();
 				}
-
 			}
-
-			@Override
-			public void onPageScrollStateChanged(int state) {
-
-			}
-		});
-		return view;
+		}
 	}
 
 
 	@Override
-	public void refreshData() {
-		LogUtils.e("-------------", "333333");
-		int size = fragments.size();
-		if (size == 2) {
-			FragmentTab31 fragmentTab31 = (FragmentTab31) fragments.get(0);
-			fragmentTab31.refreshData();
-			FragmentTab32 fragmentTab32 = (FragmentTab32) fragments.get(1);
-			fragmentTab32.refreshData();
-		}
+	public void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 	}
 }

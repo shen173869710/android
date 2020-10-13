@@ -2,33 +2,30 @@ package com.auto.di.guan;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
-
 import com.auto.di.guan.adapter.MyListAdapter;
-import com.auto.di.guan.entity.BengEvent;
-import com.auto.di.guan.entity.BengOptionEvent;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.entity.TabClickEvent;
 import com.auto.di.guan.fragment.FragmentTab0;
 import com.auto.di.guan.fragment.FragmentTab1;
 import com.auto.di.guan.fragment.FragmentTab10;
 import com.auto.di.guan.fragment.FragmentTab11;
+import com.auto.di.guan.fragment.FragmentTab12;
 import com.auto.di.guan.fragment.FragmentTab2;
 import com.auto.di.guan.fragment.FragmentTab3;
 import com.auto.di.guan.fragment.FragmentTab4;
 import com.auto.di.guan.fragment.FragmentTab5;
 import com.auto.di.guan.fragment.FragmentTab6;
 import com.auto.di.guan.fragment.FragmentTab7;
+import com.auto.di.guan.fragment.FragmentTab8;
 import com.auto.di.guan.fragment.FragmentTab9;
-import com.auto.di.guan.utils.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +34,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 public class ArticleListFragment extends ListFragment {
-	public MyListAdapter adapter;
+	private MyListAdapter adapter;
 	private FragmentManager manager;
 	private FragmentTransaction transaction;
 	private ArrayList<Fragment>fragments = new ArrayList<Fragment>(10);
@@ -65,10 +62,11 @@ public class ArticleListFragment extends ListFragment {
 		fragments.add(new FragmentTab5());
 		fragments.add(new FragmentTab6());
 		fragments.add(new FragmentTab7());
-//		fragments.add(new FragmentTab8());
+		fragments.add(new FragmentTab8());
+		fragments.add(new FragmentTab9());
 		fragments.add(new FragmentTab10());
 		fragments.add(new FragmentTab11());
-		fragments.add(new FragmentTab9());
+		fragments.add(new FragmentTab12());
 		transaction = manager.beginTransaction();
 		transaction.add(R.id.right, fragments.get(0), Entiy.TAB_TITLE[0]).show(fragments.get(0));
 		transaction.commitAllowingStateLoss();
@@ -80,24 +78,7 @@ public class ArticleListFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 		activity.setTitle(Entiy.TAB_TITLE[position]);
 		adapter.setSelectedPosition(position);
-//
-//		for (int i = 0; i < fragments.size(); i++) {
-//			if (position  == i) {
-//                if (fragments.get(i).isAdded()) {
-//                    transaction.show(fragments.get(i));
-//                }else {
-//                    transaction.add(R.id.right, fragments.get(i)).show(fragments.get(i));
-//                }
-//			}else {
-//                if (fragments.get(i).isAdded()) {
-//                    transaction.hide(fragments.get(i));
-//                }else {
-//                    transaction.add(R.id.right, fragments.get(i)).hide(fragments.get(i));
-//                }
-//			}
-//		}
-//		transaction.commitAllowingStateLoss();
-		LogUtils.e("ArticleListFragment", "start = "+System.currentTimeMillis());
+
 		showFragment(fragments.get(position));
 		adapter.notifyDataSetChanged();
 	}
@@ -146,16 +127,13 @@ public class ArticleListFragment extends ListFragment {
 
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
-	public void onBengEvent(BengEvent event) {
+	public void onTabClickEvent(TabClickEvent event) {
 		if (fragments != null) {
-			showFragment(fragments.get(6));
-			adapter.setSelectedPosition(6);
-			new Handler().postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					EventBus.getDefault().post(new BengOptionEvent(event.getPostion(), event.isOpen()));
-				}
-			}, 1000);
+			int postion = event.getIndex();
+			showFragment(fragments.get(postion));
+			adapter.setSelectedPosition(postion);
+			adapter.notifyDataSetChanged();
+			getListView().smoothScrollToPosition(postion);
 		}
 	}
 }

@@ -57,12 +57,11 @@ public class ChatManager {
 //                        }
 //                    }
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
-
                     if (!TextUtils.isEmpty(peerId)) {
                         String parentId = BaseApp.getUser().getMemberId().toString();
-
                         LogUtils.e(TAG, "parentId =" + parentId + " 是否相等 =="+peerId.equals(parentId));
                         if (peerId.equals(parentId)) {
+                            BaseApp.webLogin = true;
                             MessageParse.praseData(rtmMessage.getText(), peerId);
                         }
                     }
