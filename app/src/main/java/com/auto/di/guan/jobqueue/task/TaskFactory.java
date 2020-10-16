@@ -10,7 +10,7 @@ import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;

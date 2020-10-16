@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auto.di.guan.adapter.RecyclerListAdapter;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.GroupInfoSql;
-import com.auto.di.guan.jobqueue.event.Fragment32Event;
+import com.auto.di.guan.event.Fragment32Event;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.SPUtils;

@@ -1,4 +1,4 @@
-package com.auto.di.guan.entity;
+package com.auto.di.guan.event;
 
 
 /**

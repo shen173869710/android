@@ -1,10 +1,8 @@
 package com.auto.di.guan.jobqueue.task;
 
-import android.os.Handler;
-
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.SendCmdEvent;
+import com.auto.di.guan.event.SendCmdEvent;
 import com.auto.di.guan.utils.LogUtils;
 import org.greenrobot.eventbus.EventBus;
 

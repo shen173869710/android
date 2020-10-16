@@ -20,7 +20,7 @@ import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
 import com.auto.di.guan.dialog.MainShowDialog;
-import com.auto.di.guan.jobqueue.event.ChooseGroupEvent;
+import com.auto.di.guan.event.ChooseGroupEvent;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import org.greenrobot.eventbus.EventBus;

@@ -1,5 +1,6 @@
 package com.auto.di.guan;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,22 +14,23 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.LevelInfo;
-import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
 import com.auto.di.guan.dialog.InputPasswordDialog;
 import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.PollingEvent;
+import com.auto.di.guan.event.ActivityEvent;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoCountEvent;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.LoginEvent;
-import com.auto.di.guan.jobqueue.event.SendCmdEvent;
-import com.auto.di.guan.jobqueue.event.UserStatusEvent;
-import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
+import com.auto.di.guan.event.AutoCountEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.LoginEvent;
+import com.auto.di.guan.event.SendCmdEvent;
+import com.auto.di.guan.event.UserStatusEvent;
+import com.auto.di.guan.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.rtm.ChatManager;
+import com.auto.di.guan.rtm.MessageEntiy;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -39,7 +41,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -208,6 +209,7 @@ public class MainActivity extends SerialPortActivity {
         if (chatManager != null) {
             chatManager.doLogout();
         }
+        InputPasswordDialog.dismiss(this);
     }
 
 
@@ -380,5 +382,13 @@ public class MainActivity extends SerialPortActivity {
            BaseApp.webLogin = false;
            InputPasswordDialog.dismiss(MainActivity.this);
        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onActivityEvent(ActivityEvent event) {
+        if (event.getIndex() == MessageEntiy.TYPE_ACTIVITY_STATUS_START) {
+            startActivity(new Intent(MainActivity.this, GroupStatusActivity.class));
+        }
     }
 }

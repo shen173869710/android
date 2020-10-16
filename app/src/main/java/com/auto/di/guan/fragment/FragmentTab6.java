@@ -19,9 +19,9 @@ import com.auto.di.guan.db.GroupList;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.Fragment32Event;
-import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.Fragment32Event;
+import com.auto.di.guan.event.GroupStatusEvent;
 import com.auto.di.guan.utils.NoFastClickUtils;
 
 import org.greenrobot.eventbus.EventBus;

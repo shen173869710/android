@@ -62,29 +62,12 @@ public class MessageEntiy {
      *   tab点击事件
      */
     public static final int TYPE_CLICK = 999999;
-    public static final int OPTION_TAB_0 = 100000;
-    public static final int OPTION_TAB_1 = 100001;
-    public static final int OPTION_TAB_2 = 100002;
-    public static final int OPTION_TAB_3 = 100003;
-    public static final int OPTION_TAB_4 = 100004;
-    public static final int OPTION_TAB_5 = 100005;
-    public static final int OPTION_TAB_6 = 100006;
-    public static final int OPTION_TAB_7 = 100007;
-    public static final int OPTION_TAB_8 = 100008;
-    public static final int OPTION_TAB_9 = 100009;
+    /**
+     *   Activity 跳转
+     */
+    public static final int TYPE_ACTIVITY = 10000000;
+    public static final int TYPE_ACTIVITY_STATUS_START = 100000001;
+    public static final int TYPE_ACTIVITY_STATUS_FINISH = 100000002;
 
-
-    public static int [] OPTION_TAB = {
-            OPTION_TAB_0,
-            OPTION_TAB_1,
-            OPTION_TAB_2,
-            OPTION_TAB_3,
-            OPTION_TAB_4,
-            OPTION_TAB_5,
-            OPTION_TAB_6,
-            OPTION_TAB_7,
-            OPTION_TAB_8,
-            OPTION_TAB_9
-    };
 
 }

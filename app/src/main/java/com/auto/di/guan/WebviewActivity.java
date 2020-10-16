@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.auto.di.guan.basemodel.presenter.LoginPresenter;
-import com.auto.di.guan.jobqueue.event.LoginEvent;
+import com.auto.di.guan.event.LoginEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

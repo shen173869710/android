@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 import com.auto.di.guan.adapter.MyListAdapter;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.entity.TabClickEvent;
+import com.auto.di.guan.event.TabClickEvent;
 import com.auto.di.guan.fragment.FragmentTab0;
 import com.auto.di.guan.fragment.FragmentTab1;
 import com.auto.di.guan.fragment.FragmentTab10;

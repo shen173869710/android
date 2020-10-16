@@ -154,4 +154,13 @@ public class MessageSend {
         info.setType(MessageEntiy.TYPE_CLICK);
         send(info);
     }
+
+    /**
+     *   同步activity 点击事件
+     */
+    public static void syncActivityEvent() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_ACTIVITY);
+        send(info);
+    }
 }

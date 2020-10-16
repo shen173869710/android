@@ -1,4 +1,4 @@
-package com.auto.di.guan.jobqueue.event;
+package com.auto.di.guan.event;
 
 
 /**

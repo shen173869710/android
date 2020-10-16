@@ -11,13 +11,14 @@ import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
 import com.auto.di.guan.entity.BengOptionEvent;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.entity.TabClickEvent;
+import com.auto.di.guan.event.ActivityEvent;
+import com.auto.di.guan.event.TabClickEvent;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.ChooseGroupEvent;
-import com.auto.di.guan.jobqueue.event.Fragment32Event;
-import com.auto.di.guan.jobqueue.event.LoginEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.ChooseGroupEvent;
+import com.auto.di.guan.event.Fragment32Event;
+import com.auto.di.guan.event.LoginEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -100,7 +101,12 @@ public class MessageParse {
                     dealAutoNext(groupInfo);
                 }
                 break;
-
+            case MessageEntiy.TYPE_AUTO_TIME:
+                // 单组自动轮灌 下一组
+                if (groupInfo != null) {
+                    dealAutoTime(groupInfo);
+                }
+                break;
             case MessageEntiy.TYPE_CREATE_GROUP:
                 if (info.getDeviceInfos() != null) {
                     dealCreateGroup(info.getGroupInfo(), info.getDeviceInfos());
@@ -138,6 +144,10 @@ public class MessageParse {
             case MessageEntiy.TYPE_CLICK:
                 EventBus.getDefault().post(new TabClickEvent(info.getIndex()));
                 MessageSend.syncClickEvent();
+                break;
+            case MessageEntiy.TYPE_ACTIVITY:
+                EventBus.getDefault().post(new ActivityEvent(info.getIndex()));
+                MessageSend.syncActivityEvent();
                 break;
         }
     }
@@ -265,6 +275,23 @@ public class MessageParse {
      * 处理自动轮毂下一组
      */
     private static void dealAutoNext(GroupInfo info) {
+        LogUtils.e(TAG, "收到自动轮灌开启下一组操作");
+        List<GroupInfo> groupInfos = GroupInfoSql.queryGroupInfoById(info.getGroupId());
+        if (groupInfos == null || groupInfos.size() != 1) {
+            LogUtils.e(TAG, "自动轮灌暂停,当前组不存在");
+        } else {
+            GroupInfo groupInfo = groupInfos.get(0);
+            groupInfo.setGroupRunTime(info.getGroupTime());
+            GroupInfoSql.updateGroup(groupInfo);
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_NEXT);
+        }
+    }
+
+
+    /**
+     * 处理自动轮毂设置时间
+     */
+    private static void dealAutoTime(GroupInfo info) {
         LogUtils.e(TAG, "收到自动轮灌开启下一组操作");
         List<GroupInfo> groupInfos = GroupInfoSql.queryGroupInfoById(info.getGroupId());
         if (groupInfos == null || groupInfos.size() != 1) {

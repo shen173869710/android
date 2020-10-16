@@ -3,9 +3,11 @@ package com.auto.di.guan;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.adapter.GroupStatusAdapter;
 import com.auto.di.guan.adapter.StatusAdapter;
 import com.auto.di.guan.db.ControlInfo;
@@ -14,20 +16,24 @@ import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.dialog.GroupOptionDialog;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.event.ActivityEvent;
+import com.auto.di.guan.event.AutoCountEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.GroupStatusEvent;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoCountEvent;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
+import com.auto.di.guan.rtm.MessageEntiy;
 import com.auto.di.guan.utils.DiffStatusCallback;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
 import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +86,6 @@ public class GroupStatusActivity extends FragmentActivity  {
         view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 GroupStatusActivity.this.finish();
             }
         });
@@ -104,13 +109,12 @@ public class GroupStatusActivity extends FragmentActivity  {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 
-        @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     *        自动轮灌时间同步
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAutoCountEvent(AutoCountEvent event) {
         if (adapter != null && event != null && event.getGroupInfo() != null) {
             GroupInfo groupInfo = event.getGroupInfo();
@@ -122,16 +126,15 @@ public class GroupStatusActivity extends FragmentActivity  {
                     position = i;
                 }
             }
-
             adapter.getData().set(position, groupInfo);
             adapter.notifyItemChanged(position, position);
-
             if (openInfos != null && openInfos.size() == 0) {
                 GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);
                 onGroupStatusEvent(groupStatusEvent);
             }
         }
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGroupStatusEvent(GroupStatusEvent event) {
@@ -196,5 +199,19 @@ public class GroupStatusActivity extends FragmentActivity  {
                 PollingUtils.startPollingService(GroupStatusActivity.this, Entiy.ALERM_TIME);
             }
         }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onActivityEvent(ActivityEvent event) {
+        if (event.getIndex() == MessageEntiy.TYPE_ACTIVITY_STATUS_FINISH) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

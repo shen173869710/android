@@ -7,7 +7,7 @@ import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.OptionStatus;
 import com.auto.di.guan.jobqueue.TaskEntiy;
-import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
+import com.auto.di.guan.event.VideoPlayEcent;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.OptionUtils;
 import com.auto.di.guan.utils.SendUtils;

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.UserStatusEvent;
+import com.auto.di.guan.event.UserStatusEvent;
 import com.auto.di.guan.utils.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

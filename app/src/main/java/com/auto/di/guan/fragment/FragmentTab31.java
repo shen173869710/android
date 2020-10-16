@@ -1,7 +1,6 @@
 package com.auto.di.guan.fragment;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,11 @@ import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.dialog.Main31Dialog;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.Fragment31Event;
-import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.Fragment31Event;
+import com.auto.di.guan.event.GroupStatusEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.LogUtils;
-import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

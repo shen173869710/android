@@ -1,12 +1,9 @@
 package com.auto.di.guan.jobqueue.task;
 
-import com.auto.di.guan.jobqueue.event.BindSucessEvent;
+import com.auto.di.guan.event.BindSucessEvent;
 import com.auto.di.guan.utils.LogUtils;
-import com.auto.di.guan.utils.SendUtils;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.io.OutputStream;
 
 /**
  *   读取设备的任务

@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.auto.di.guan.GroupOptionActivity;
-import com.auto.di.guan.OptionSettingActivity;
 import com.auto.di.guan.R;
 import com.auto.di.guan.adapter.GroupExpandableListViewaAdapter;
 import com.auto.di.guan.db.ControlInfo;
@@ -19,9 +17,9 @@ import com.auto.di.guan.db.GroupList;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.Fragment32Event;
-import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.Fragment32Event;
+import com.auto.di.guan.event.GroupStatusEvent;
 import com.auto.di.guan.utils.NoFastClickUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,8 +28,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * 轮灌设置

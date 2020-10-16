@@ -15,7 +15,7 @@ import com.auto.di.guan.dialog.DialogUtil;
 import com.auto.di.guan.dialog.OnDialogClick;
 import com.auto.di.guan.dialog.SetTimeDialog;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
@@ -103,7 +103,6 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                                 if (!TextUtils.isEmpty(tag)) {
                                     int i = Integer.valueOf(tag);
                                     if (i <= 0) {
-
                                         Toast.makeText(getContext(), "设置的时间不能小于20分钟", Toast.LENGTH_LONG).show();
                                         return;
                                     }
