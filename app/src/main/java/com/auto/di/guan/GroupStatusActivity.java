@@ -106,34 +106,10 @@ public class GroupStatusActivity extends FragmentActivity  {
         closeList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         closeAdapter = new StatusAdapter(closeInfos);
         closeList.setAdapter(closeAdapter);
-
     }
 
 
-    /**
-     *        自动轮灌时间同步
-     * @param event
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAutoCountEvent(AutoCountEvent event) {
-        if (adapter != null && event != null && event.getGroupInfo() != null) {
-            GroupInfo groupInfo = event.getGroupInfo();
-            int groupId = groupInfo.getGroupId();
-            int size = groupInfos.size();
-            int position = 0;
-            for (int i = 0; i < size; i++) {
-                if (groupId == groupInfos.get(i).getGroupId()) {
-                    position = i;
-                }
-            }
-            adapter.getData().set(position, groupInfo);
-            adapter.notifyItemChanged(position, position);
-            if (openInfos != null && openInfos.size() == 0) {
-                GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);
-                onGroupStatusEvent(groupStatusEvent);
-            }
-        }
-    }
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -200,22 +176,56 @@ public class GroupStatusActivity extends FragmentActivity  {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAutoTaskEvent(AutoTaskEvent event) {
-        if (event.getType() == Entiy.RUN_DO_STOP
-        || event.getType() == Entiy.RUN_DO_START
-                || event.getType() == Entiy.RUN_DO_NEXT
-                || event.getType() == Entiy.RUN_DO_TIME) {
-            if (adapter != null) {
-                adapter.notifyDataSetChanged();
-            }
-         }else if (event.getType() == Entiy.RUN_DO_FINISH) {
+
+
+        if (event.getType() == Entiy.RUN_DO_FINISH) {
+            LogUtils.e("GroupStatusActivity", "自动轮灌结束");
+            groupInfos = GroupInfoSql.queryGroupSettingList();
             adapter = new GroupStatusAdapter(groupInfos);
             recyclerView.setAdapter(adapter);
             openAdapter.setData(new ArrayList<>());
             closeAdapter.setData(new ArrayList<>());
         }
+        if (event.getGroupInfo() == null) {
+            return;
+        }
+        if (event.getType() == Entiy.RUN_DO_STOP
+        || event.getType() == Entiy.RUN_DO_START
+                || event.getType() == Entiy.RUN_DO_NEXT
+                || event.getType() == Entiy.RUN_DO_TIME
+               ) {
+            if (adapter != null) {
+                onAutoCountEvent(new AutoCountEvent(event.getGroupInfo()));
+            }
+         }
     }
 
 
+
+    /**
+     *        自动轮灌时间同步
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAutoCountEvent(AutoCountEvent event) {
+        if (adapter != null && event != null && event.getGroupInfo() != null) {
+            GroupInfo groupInfo = event.getGroupInfo();
+            int groupId = groupInfo.getGroupId();
+            int size = groupInfos.size();
+            int position = 0;
+            for (int i = 0; i < size; i++) {
+                if (groupId == groupInfos.get(i).getGroupId()) {
+                    position = i;
+                }
+            }
+            adapter.getData().set(position, groupInfo);
+            adapter.notifyItemChanged(position, position);
+            if (openInfos != null && openInfos.size() == 0) {
+                GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);
+                onGroupStatusEvent(groupStatusEvent);
+            }
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onActivityEvent(ActivityEvent event) {

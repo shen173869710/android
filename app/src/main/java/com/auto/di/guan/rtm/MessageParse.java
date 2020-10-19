@@ -299,7 +299,7 @@ public class MessageParse {
             LogUtils.e(TAG, "收到轮灌设置时间,当前组不存在");
         } else {
             GroupInfo groupInfo = groupInfos.get(0);
-            groupInfo.setGroupRunTime(info.getGroupTime());
+            groupInfo.setGroupTime(info.getGroupTime());
             GroupInfoSql.updateGroup(groupInfo);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_TIME, groupInfo));
             MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_TIME);
