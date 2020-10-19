@@ -182,10 +182,7 @@ public class GroupStatusActivity extends FragmentActivity  {
             GroupInfoSql.updateGroupList(groupInfos);
             PollingUtils.stopPollingService(GroupStatusActivity.this);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_FINISH));
-            adapter = new GroupStatusAdapter(groupInfos);
-            recyclerView.setAdapter(adapter);
-            openAdapter.setData(new ArrayList<>());
-            closeAdapter.setData(new ArrayList<>());
+
         }else if (index == 3) {
             if(!TaskManager.getInstance().hasTask()) {
                 ToastUtils.showLongToast("轮灌操作执行当中,请稍后操作");
@@ -200,6 +197,24 @@ public class GroupStatusActivity extends FragmentActivity  {
             }
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAutoTaskEvent(AutoTaskEvent event) {
+        if (event.getType() == Entiy.RUN_DO_STOP
+        || event.getType() == Entiy.RUN_DO_START
+                || event.getType() == Entiy.RUN_DO_NEXT
+                || event.getType() == Entiy.RUN_DO_TIME) {
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
+            }
+         }else if (event.getType() == Entiy.RUN_DO_FINISH) {
+            adapter = new GroupStatusAdapter(groupInfos);
+            recyclerView.setAdapter(adapter);
+            openAdapter.setData(new ArrayList<>());
+            closeAdapter.setData(new ArrayList<>());
+        }
+    }
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -153,6 +153,6 @@ public class GroupInfoSql extends BaseSql {
 //
 //        }
         GroupInfoSql.updateGroup(groupInfo);
-        MessageSend.syncAutoTime(groupInfo);
+        MessageSend.syncAutoTimeCount(groupInfo);
     }
 }

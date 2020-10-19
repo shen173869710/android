@@ -108,6 +108,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                                     }
                                     info.setGroupTime(i * Entiy.RUN_TIME + info.getGroupTime());
                                     GroupInfoSql.updateGroup(info);
+                                    EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_TIME));
                                 }
                             }
                         });
@@ -134,7 +135,6 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                             info.setGroupStop(false);
                             GroupInfoSql.updateGroup(info);
                             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, info));
-                            notifyDataSetChanged();
                         }
 
                         @Override
@@ -150,7 +150,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                             info.setGroupStop(true);
                             GroupInfoSql.updateGroup(info);
                             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP));
-                            notifyDataSetChanged();
+
                         }
 
                         @Override

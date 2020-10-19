@@ -102,7 +102,7 @@ public class MessageParse {
                 }
                 break;
             case MessageEntiy.TYPE_AUTO_TIME:
-                // 单组自动轮灌 下一组
+                // 自动轮灌 设置时间
                 if (groupInfo != null) {
                     dealAutoTime(groupInfo);
                 }
@@ -283,6 +283,7 @@ public class MessageParse {
             GroupInfo groupInfo = groupInfos.get(0);
             groupInfo.setGroupRunTime(info.getGroupTime());
             GroupInfoSql.updateGroup(groupInfo);
+            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_NEXT, groupInfo));
             MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_NEXT);
         }
     }
@@ -292,15 +293,16 @@ public class MessageParse {
      * 处理自动轮毂设置时间
      */
     private static void dealAutoTime(GroupInfo info) {
-        LogUtils.e(TAG, "收到自动轮灌开启下一组操作");
+        LogUtils.e(TAG, "收到轮灌设置时间");
         List<GroupInfo> groupInfos = GroupInfoSql.queryGroupInfoById(info.getGroupId());
         if (groupInfos == null || groupInfos.size() != 1) {
-            LogUtils.e(TAG, "自动轮灌暂停,当前组不存在");
+            LogUtils.e(TAG, "收到轮灌设置时间,当前组不存在");
         } else {
             GroupInfo groupInfo = groupInfos.get(0);
             groupInfo.setGroupRunTime(info.getGroupTime());
             GroupInfoSql.updateGroup(groupInfo);
-            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_NEXT);
+            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_TIME, groupInfo));
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_TIME);
         }
     }
 
