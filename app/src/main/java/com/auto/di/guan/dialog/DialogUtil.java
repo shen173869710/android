@@ -48,4 +48,27 @@ public class DialogUtil {
         content.ok = "关闭";
         OptionDialog.show(context,content,onDialogClick);
     }
+
+
+    /**
+     *   关闭水泵
+     */
+    public static void addBeng(Context context, String name,OnDialogClick onDialogClick) {
+        DialogContent content = new DialogContent();
+        content.desc = "是否添加水泵"+name;
+        content.cancle = "取消";
+        content.ok = "确定";
+        OptionDialog.show(context,content,onDialogClick);
+    }
+
+    /**
+     *   关闭水泵
+     */
+    public static void delBeng(Context context, String name,OnDialogClick onDialogClick) {
+        DialogContent content = new DialogContent();
+        content.desc = "是否删除水泵"+name;
+        content.cancle = "取消";
+        content.ok = "确定";
+        OptionDialog.show(context,content,onDialogClick);
+    }
 }

@@ -17,8 +17,7 @@ public class FragmentTab12 extends BaseFragment {
 
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_10, null);
 		login_out = (Button) view.findViewById(R.id.login_out);
 		login_out.setText("退出登录");

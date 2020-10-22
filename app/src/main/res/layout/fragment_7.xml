@@ -10,5 +10,34 @@
         android:divider="@color/main_bg"
         android:scrollbars="none"
         android:fadingEdge="none"
+        android:layout_marginBottom="70dp"
         android:listSelector="@drawable/dialogue_listview_selector" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/fragment_7_del"
+            android:layout_width="@dimen/main_button_width"
+            android:layout_height="@dimen/main_button_height"
+            android:background="@drawable/bg_red_buttom_rect"
+            android:text="删除水泵"
+            android:layout_gravity="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/fragment_7_add"
+            android:layout_width="@dimen/main_button_width"
+            android:layout_height="@dimen/main_button_height"
+            android:background="@drawable/bg_red_buttom_rect"
+            android:layout_marginLeft="20dp"
+            android:text="添加水泵"
+            android:layout_gravity="center"
+            android:textColor="@color/white" />
+    </LinearLayout>
 </RelativeLayout>

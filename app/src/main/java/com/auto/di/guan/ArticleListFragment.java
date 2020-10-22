@@ -133,7 +133,15 @@ public class ArticleListFragment extends ListFragment {
 			showFragment(fragments.get(postion));
 			adapter.setSelectedPosition(postion);
 			adapter.notifyDataSetChanged();
-			getListView().smoothScrollToPosition(postion);
+
+			View view = getView();
+			if (view != null) {
+				ListView mListView=(ListView) view.findViewById(android.R.id.list);
+				if (mListView != null) {
+					mListView.smoothScrollToPosition(postion);
+				}
+			}
+
 		}
 	}
 }

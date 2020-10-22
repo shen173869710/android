@@ -364,10 +364,10 @@ public class MainActivity extends SerialPortActivity {
         if (event.getPeerId().equals(BaseApp.getUser().getMemberId().toString())) {
             if (event.getStatus() == 0) {
                 LogUtils.e(TAG, "管理员在线");
-                BaseApp.webLogin = true;
+                BaseApp.setWebLogin(true);
             }else {
                 LogUtils.e(TAG, "管理员离线");
-                BaseApp.webLogin = false;
+                BaseApp.setWebLogin(false);
                 InputPasswordDialog.dismiss(MainActivity.this);
             }
         }
@@ -376,10 +376,10 @@ public class MainActivity extends SerialPortActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginEvent(LoginEvent event) {
        if (event != null && event.isLogin()) {
-            BaseApp.webLogin = true;
+           BaseApp.setWebLogin(true);
            InputPasswordDialog.show(MainActivity.this);
        }else {
-           BaseApp.webLogin = false;
+           BaseApp.setWebLogin(false);
            InputPasswordDialog.dismiss(MainActivity.this);
        }
     }

@@ -1,17 +1,20 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
+
+
     <include
         android:id="@+id/title_bar"
         layout="@layout/main_title_bar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/group_option_view"
@@ -23,6 +26,7 @@
             android:fadingEdge="none"
             android:listSelector="@drawable/dialogue_listview_selector"
             android:scrollbars="none" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="185dp"
@@ -47,11 +51,11 @@
                 android:scrollbars="none" />
 
             <TextView
-                android:text="轮灌关闭中的设备"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="轮灌关闭中的设备"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size_16"/>
+                android:textSize="@dimen/size_16" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/group_option_close"
@@ -64,4 +68,11 @@
                 android:scrollbars="none" />
         </LinearLayout>
     </RelativeLayout>
-</LinearLayout>
+
+    <View
+        android:id="@+id/group_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translucent2"
+        />
+</RelativeLayout>

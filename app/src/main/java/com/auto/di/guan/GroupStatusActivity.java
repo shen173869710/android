@@ -48,6 +48,8 @@ public class GroupStatusActivity extends FragmentActivity  {
     private List<GroupInfo> groupInfos = new ArrayList<>();
     private GroupStatusAdapter adapter;
 
+    private View group_status_view;
+
     private StatusAdapter openAdapter;
     private RecyclerView openList;
     private StatusAdapter closeAdapter;
@@ -106,10 +108,20 @@ public class GroupStatusActivity extends FragmentActivity  {
         closeList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         closeAdapter = new StatusAdapter(closeInfos);
         closeList.setAdapter(closeAdapter);
+
+        group_status_view = findViewById(R.id.group_status_view);
+        if (BaseApp.isWebLogin()) {
+            group_status_view.setVisibility(View.VISIBLE);
+            group_status_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }else {
+            group_status_view.setVisibility(View.GONE);
+        }
     }
-
-
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -176,8 +188,6 @@ public class GroupStatusActivity extends FragmentActivity  {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAutoTaskEvent(AutoTaskEvent event) {
-
-
         if (event.getType() == Entiy.RUN_DO_FINISH) {
             LogUtils.e("GroupStatusActivity", "自动轮灌结束");
             groupInfos = GroupInfoSql.queryGroupSettingList();

@@ -6,6 +6,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.auto.di.guan.socket.SocketResult;
 import com.auto.di.guan.socket.UdpReceiveThread;
 import com.auto.di.guan.socket.UdpSendThread;
 import com.auto.di.guan.utils.LogUtils;
+import com.auto.di.guan.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.google.gson.Gson;
@@ -51,6 +53,10 @@ public class FragmentTab7 extends BaseFragment {
 	private ArrayList<SocketResult> infos = new ArrayList<>();
 	private RecyclerView list;
 
+	private Button fragment_7_del;
+	private Button fragment_7_add;
+
+
 	private boolean isStart = false;
 
 	private android.os.Handler handler = new Handler() {
@@ -59,7 +65,6 @@ public class FragmentTab7 extends BaseFragment {
 			if (msg.obj == null) {
 				return;
 			}
-
 			LogUtils.e(TAG, "handle what = "+msg.what);
 			if (msg.what == SocketEntiy.STATUS_2_HANDLER) {
 				SocketResult result = (SocketResult) msg.obj;
@@ -76,9 +81,26 @@ public class FragmentTab7 extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_7, null);
 		EventBus.getDefault().register(this);
+
+		list = view.findViewById(R.id.fragment_7_list);
+		list.setLayoutManager(new LinearLayoutManager(activity));
+
+		fragment_7_del = view.findViewById(R.id.fragment_7_del);
+		fragment_7_add = view.findViewById(R.id.fragment_7_add);
+
+		adapter = new PumpLeftAdapter(infos);
+		list.setAdapter(adapter);
+		for (int i= 0; i < 2; i++) {
+			initData(i+"");
+		}
+		setListen();
+		return view;
+	}
+
+	private void initData(String name) {
 		SocketResult result = new SocketResult();
-		result.setName("水泵0");
-		result.setNameCode("0");
+		result.setName("水泵" + name);
+		result.setNameCode(name);
 		result.setVoltage("电压");
 		result.setElectricity("电流");
 		result.setStatus("状态");
@@ -87,32 +109,12 @@ public class FragmentTab7 extends BaseFragment {
 		result.setElectricityValue("");
 		result.setStatusValue("");
 		result.setErrorCodeValue("");
-		SocketResult result1 = new SocketResult();
-		result1.setName("水泵1");
-		result1.setNameCode("1");
-		result1.setVoltage("电压");
-		result1.setElectricity("电流");
-		result1.setStatus("状态");
-		result1.setErrorCode("错误");
-		result1.setVoltageValue("");
-		result1.setElectricityValue("");
-		result1.setStatusValue("");
-		result1.setErrorCodeValue("");
 		infos.add(result);
-		infos.add(result1);
-		list = view.findViewById(R.id.fragment_7_list);
-		list.setLayoutManager(new LinearLayoutManager(activity));
-		adapter = new PumpLeftAdapter(infos);
-		list.setAdapter(adapter);
-		setData();
-
 		new UdpSendThread(SocketEntiy.getSockenRead(result.getNameCode())).start();
-		new UdpSendThread(SocketEntiy.getSockenRead(result1.getNameCode())).start();
-		return view;
+
 	}
 
-
-	public void setData() {
+	public void setListen() {
 		adapter.addChildClickViewIds(R.id.item_open, R.id.item_close, R.id.item_1_value);
 		adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
 			@Override
@@ -150,6 +152,49 @@ public class FragmentTab7 extends BaseFragment {
 			}
 		});
 
+
+		fragment_7_del.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int size = infos.size() - 1;
+				if (size < 0) {
+					ToastUtils.showLongToast("操作失败");
+					return;
+				}
+
+				DialogUtil.delBeng(activity, String.valueOf(size), new OnDialogClick() {
+					@Override
+					public void onDialogOkClick(String value) {
+						infos.remove(size);
+						adapter.notifyDataSetChanged();
+					}
+
+					@Override
+					public void onDialogCloseClick(String value) {
+
+					}
+				});
+			}
+		});
+
+		fragment_7_add.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				DialogUtil.addBeng(activity, infos.size() + "", new OnDialogClick() {
+					@Override
+					public void onDialogOkClick(String value) {
+						int size = infos.size();
+						initData(String.valueOf(size));
+						adapter.notifyDataSetChanged();
+					}
+
+					@Override
+					public void onDialogCloseClick(String value) {
+
+					}
+				});
+			}
+		});
 		new UdpReceiveThread().start();
 	}
 
