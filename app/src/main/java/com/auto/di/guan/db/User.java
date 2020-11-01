@@ -11,7 +11,8 @@ import org.greenrobot.greendao.annotation.Property;
 @Entity
 public class User implements Serializable {
     static final long serialVersionUID=1L;
-
+    @Id(autoincrement = true)
+    private Long id;
     /** 用户ID */
     @Property(nameInDb = "userId")
     private Long userId;
@@ -103,15 +104,17 @@ public class User implements Serializable {
     // 项目经纬度
     @Property(nameInDb = "parentLoginName")
     private String parentLoginName;
-    @Generated(hash = 374523583)
-    public User(Long userId, Long memberId, Long deptId, Long parentId, Long roleId,
-            String loginName, String userName, String userType, String email,
-            String phonenumber, String sex, String avatar, String password,
-            String salt, String status, String delFlag, String loginIp,
-            Date loginDate, String mac, String projectId, String projectGroupId,
-            int trunkPipeNum, int trunkPipeMaxNum, int pileOutNum,
-            String projectName, String projectDesc, String projectRemarks,
-            String longitudeLatitude, String parentLoginName) {
+    @Generated(hash = 1899944912)
+    public User(Long id, Long userId, Long memberId, Long deptId, Long parentId,
+            Long roleId, String loginName, String userName, String userType,
+            String email, String phonenumber, String sex, String avatar,
+            String password, String salt, String status, String delFlag,
+            String loginIp, Date loginDate, String mac, String projectId,
+            String projectGroupId, int trunkPipeNum, int trunkPipeMaxNum,
+            int pileOutNum, String projectName, String projectDesc,
+            String projectRemarks, String longitudeLatitude,
+            String parentLoginName) {
+        this.id = id;
         this.userId = userId;
         this.memberId = memberId;
         this.deptId = deptId;
@@ -319,5 +322,12 @@ public class User implements Serializable {
     public void setParentLoginName(String parentLoginName) {
         this.parentLoginName = parentLoginName;
     }
+    public Long getId() {
+        return this.id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
 }

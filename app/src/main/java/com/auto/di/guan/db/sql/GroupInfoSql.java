@@ -1,8 +1,10 @@
 package com.auto.di.guan.db.sql;
 
 import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.greendao.DaoSession;
 import com.auto.di.guan.db.greendao.GroupInfoDao;
+import com.auto.di.guan.db.greendao.UserDao;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.rtm.MessageSend;
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -155,4 +157,5 @@ public class GroupInfoSql extends BaseSql {
         GroupInfoSql.updateGroup(groupInfo);
         MessageSend.syncAutoTimeCount(groupInfo);
     }
+
 }

@@ -34,7 +34,7 @@ public class FragmentTab11 extends BaseFragment {
     private List<User>users = new ArrayList<>();
     private List<UserAction>userActions = new ArrayList<>();
     private List<ControlInfo>controlInfo = new ArrayList<>();
-    int i= 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_11, null);
@@ -215,9 +215,9 @@ public class FragmentTab11 extends BaseFragment {
             action	= UserActionSql.queryUserActionlList();
         }else {
             if (type == Entiy.ACTION_TYPE_ERROR) {
-                action	= UserActionSql.queryUserActionlListByEnd(false);
+                action	= UserActionSql.queryUserActionlListByEnd(0);
             }else {
-                action	= UserActionSql.queryUserActionlListByType(type);
+                action	= UserActionSql.queryUserActionlListByType(1);
             }
 
         }

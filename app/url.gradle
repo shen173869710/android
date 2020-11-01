@@ -12,7 +12,7 @@ ext {
             ],
 
             uat  : [
-                    http_post_url   : '\"http://192.168.1.100:8080\"',      //行业商户http请求地址
+                    http_post_url   : '\"http://192.168.3.100:7080\"',      //行业商户http请求地址
                     mqtt_host       : '\"192.168.10.61\"',            //mqtt通信
                     mqtt_host_port  : '\"1883\"',                     //mqtt端口
                     mqtt_user_name  : '\"admin\"',                     //mqtt账号

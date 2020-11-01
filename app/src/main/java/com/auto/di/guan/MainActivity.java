@@ -12,22 +12,26 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.auto.di.guan.api.ApiUtil;
+import com.auto.di.guan.api.HttpManager;
+import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.db.GroupInfo;
-import com.auto.di.guan.db.LevelInfo;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
-import com.auto.di.guan.db.sql.LevelInfoSql;
+import com.auto.di.guan.db.sql.UserActionSql;
 import com.auto.di.guan.dialog.InputPasswordDialog;
 import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.PollingEvent;
+import com.auto.di.guan.entity.SyncData;
 import com.auto.di.guan.event.ActivityEvent;
-import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.event.AutoCountEvent;
 import com.auto.di.guan.event.AutoTaskEvent;
 import com.auto.di.guan.event.LoginEvent;
 import com.auto.di.guan.event.SendCmdEvent;
 import com.auto.di.guan.event.UserStatusEvent;
 import com.auto.di.guan.event.VideoPlayEcent;
+import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.rtm.ChatManager;
 import com.auto.di.guan.rtm.MessageEntiy;
@@ -41,7 +45,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends SerialPortActivity {
@@ -111,23 +114,12 @@ public class MainActivity extends SerialPortActivity {
         transaction.add(R.id.center, articleListFragment, "center");
         transaction.commitAllowingStateLoss();
         windowTop = getStatusBarHeight();
-        if (LevelInfoSql.queryLevelInfoList().size() == 0) {
-            List<LevelInfo> levelInfos = new ArrayList<>();
-            for (int i = 1; i < 200; i++) {
-                LevelInfo info = new LevelInfo();
-                info.setLevelId(i);
-                info.setIsGroupUse(false);
-                info.setIsLevelUse(false);
-                levelInfos.add(info);
-            }
-            LevelInfoSql.insertLevelInfoList(levelInfos);
-        }
-        LogUtils.e("time", "time == "+System.currentTimeMillis());
-
 
         chatManager = BaseApp.getInstance().getChatManager();
         chatManager.init();
         chatManager.doLogin();
+
+        syncData();
     }
 
 
@@ -390,5 +382,30 @@ public class MainActivity extends SerialPortActivity {
         if (event.getIndex() == MessageEntiy.TYPE_ACTIVITY_STATUS_START) {
             startActivity(new Intent(MainActivity.this, GroupStatusActivity.class));
         }
+    }
+
+    /**
+     *  数据同步
+     */
+    public void syncData() {
+
+        SyncData data = new SyncData();
+        data.setDevices(DeviceInfoSql.queryDeviceList());
+
+        data.setActions(UserActionSql.queryUserActionlList());
+        data.setGroups(GroupInfoSql.queryGroupList());
+
+        HttpManager.syncData(ApiUtil.createApiService().sync(data), new HttpManager.OnResultListener() {
+            @Override
+            public void onSuccess(BaseRespone t) {
+                LogUtils.e(TAG, "同步数据成功");
+            }
+
+            @Override
+            public void onError(Throwable error, Integer code, String msg) {
+                LogUtils.e(TAG, "同步数据失败");
+            }
+        });
+
     }
 }

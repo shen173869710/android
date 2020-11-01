@@ -6,8 +6,8 @@ import com.auto.di.guan.utils.LogUtils;
  * Created by Administrator on 2017/7/16.
  */
 public class Entiy {
-    /*设置项目的行数*/
-    public static  int GUN_ROW = 5;
+//    /*设置项目的行数*/
+//    public static  int GUN_ROW = 5;
     /*设置项目的列数*/
     public static  int GUN_COLUMN = 5;
     /**设置项目的通讯id**/

@@ -115,7 +115,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
             }
         });
 
-        if (info.getGroupStop()) {
+        if (info.getGroupStop() == 1) {
             status_stop.setText("开启计时");
         } else {
             status_stop.setText("暂停计时");
@@ -128,11 +128,11 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     return;
                 }
 
-                if (info.getGroupStop()) {
+                if (info.getGroupStop() == 1) {
                     DialogUtil.showStartCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            info.setGroupStop(false);
+                            info.setGroupStop(0);
                             GroupInfoSql.updateGroup(info);
                             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, info));
                         }
@@ -147,7 +147,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     DialogUtil.showStopCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            info.setGroupStop(true);
+                            info.setGroupStop(1);
                             GroupInfoSql.updateGroup(info);
                             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP));
 

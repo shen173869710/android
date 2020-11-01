@@ -18,7 +18,7 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
     @Override
     public void attachView(T baseView) {
         mBaseView = baseView;
-        apiService = ApiUtil.createMerchantAPIService();
+        apiService = ApiUtil.createApiService();
         httpManager = new HttpManager();
     }
 

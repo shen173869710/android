@@ -21,7 +21,8 @@ public class HttpManager {
     public static final String TAG = "HttpManager";
 
     /**
-     *    有loading 的请求
+     * 有loading 的请求
+     *
      * @param baseView
      * @param observable
      * @param onResultListener
@@ -33,41 +34,39 @@ public class HttpManager {
 
         DisposableObserver disposableObserver = new DisposableObserver() {
             @Override
-            public void onNext( Object obj) {
-                try{
-                    if(!isDisposed()){
-                        if (baseView != null) {
-                            baseView.dismissDialog();
-                            BaseRespone respone =  (BaseRespone) obj;
-                            if(null == respone) {
-                                onResultListener.onError(new Exception(),500, GlobalConstant.SERVER_ERROR);
-                            }else{
-                                if(respone.isOk()){
-                                    onResultListener.onSuccess(respone);
-                                }else if (respone.getCode() == 401){
+            public void onNext(Object obj) {
+                try {
+                    if (baseView != null) {
+                        baseView.dismissDialog();
+                        BaseRespone respone = (BaseRespone) obj;
+                        if (null == respone) {
+                            onResultListener.onError(new Exception(), 500, GlobalConstant.SERVER_ERROR);
+                        } else {
+                            if (respone.isOk()) {
+                                onResultListener.onSuccess(respone);
+                            } else if (respone.getCode() == 401) {
 
-                                }else {
-                                    String message = respone.getMessage();
-                                    if(TextUtils.isEmpty(message)){
-                                        message = GlobalConstant.SERVER_ERROR;
-                                    }
-                                    onResultListener.onError(new Exception(),respone.getCode(), message);
+                            } else {
+                                String message = respone.getMessage();
+                                if (TextUtils.isEmpty(message)) {
+                                    message = GlobalConstant.SERVER_ERROR;
                                 }
+                                onResultListener.onError(new Exception(), respone.getCode(), message);
                             }
                         }
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
+                    LogUtils.e(TAG, e.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                if(!isDisposed()){
-                    LogUtils.e(TAG, "doHttpTaskWithDialog==onError===" + e.toString());
-                    if (baseView != null) {
-                        baseView.dismissDialog();
-                        onResultListener.onError(e, 500,GlobalConstant.SERVER_ERROR);
-                    }
+
+                LogUtils.e(TAG, "doHttpTaskWithDialog==onError===" + e.toString());
+                if (baseView != null) {
+                    baseView.dismissDialog();
+                    onResultListener.onError(e, 500, GlobalConstant.SERVER_ERROR);
                 }
             }
 
@@ -77,7 +76,7 @@ public class HttpManager {
                     baseView.dismissDialog();
                 }
 
-                if(!isDisposed()){
+                if (!isDisposed()) {
                     dispose();
                 }
             }
@@ -92,51 +91,53 @@ public class HttpManager {
     }
 
     /**
-     *         无loading 的请求
+     * 无loading 的请求
+     *
      * @param baseView
      * @param observable
      * @param onResultListener
      */
-    public static void  doHttpTask(final BaseView baseView, Observable observable, final OnResultListener onResultListener) {
+    public static void doHttpTask(final BaseView baseView, Observable observable, final OnResultListener onResultListener) {
         DisposableObserver disposableObserver = new DisposableObserver() {
             @Override
             public void onNext(Object obj) {
-                try{
-                    if(!isDisposed()){
+                try {
+                    if (!isDisposed()) {
                         if (baseView != null) {
                             baseView.dismissDialog();
-                            BaseRespone respone =  (BaseRespone) obj;
-                            if(null == respone) {
-                                onResultListener.onError(new Exception() ,500, GlobalConstant.SERVER_ERROR);
-                            }else{
-                                if(respone.isOk()){
+                            BaseRespone respone = (BaseRespone) obj;
+                            if (null == respone) {
+                                onResultListener.onError(new Exception(), 500, GlobalConstant.SERVER_ERROR);
+                            } else {
+                                if (respone.isOk()) {
                                     onResultListener.onSuccess(respone);
-                                }else{
+                                } else {
                                     String message = respone.getMessage();
-                                    if(TextUtils.isEmpty(message)){
+                                    if (TextUtils.isEmpty(message)) {
                                         message = "网络开小差,请重试";
                                     }
-                                    onResultListener.onError(new Exception() , respone.getCode(), message);
+                                    onResultListener.onError(new Exception(), respone.getCode(), message);
                                 }
                             }
                         }
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
+
             @Override
             public void onError(Throwable e) {
                 LogUtils.e(TAG, "onError===" + e.toString());
-                if(!isDisposed()){
+                if (!isDisposed()) {
                     if (baseView != null) {
-                        onResultListener.onError(e, 500,GlobalConstant.SERVER_ERROR);
+                        onResultListener.onError(e, 500, GlobalConstant.SERVER_ERROR);
                     }
                 }
             }
 
             @Override
             public void onComplete() {
-                if(!isDisposed()){
+                if (!isDisposed()) {
                     dispose();
                 }
             }
@@ -154,6 +155,7 @@ public class HttpManager {
     //接口回调
     public interface OnResultListener {
         void onSuccess(BaseRespone t);
+
         void onError(Throwable error, Integer code, String msg);
     }
 
@@ -166,4 +168,51 @@ public class HttpManager {
             return Observable.error(FactoryException.analysisExcetpion(throwable));
         }
     };
+
+
+    public static void syncData(Observable observable, final OnResultListener onResultListener) {
+        DisposableObserver disposableObserver = new DisposableObserver() {
+            @Override
+            public void onNext(Object obj) {
+                try {
+                    if (!isDisposed()) {
+                        BaseRespone respone = (BaseRespone) obj;
+                        if (null == respone) {
+                            onResultListener.onError(new Exception(), 500, GlobalConstant.SERVER_ERROR);
+                        } else {
+                            if (respone.isOk()) {
+                                onResultListener.onSuccess(respone);
+                            } else {
+                                String message = respone.getMessage();
+                                if (TextUtils.isEmpty(message)) {
+                                    message = "网络开小差,请重试";
+                                }
+                                onResultListener.onError(new Exception(), respone.getCode(), message);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.e(TAG, "onError===" + e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+                if (!isDisposed()) {
+                    dispose();
+                }
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .onErrorResumeNext(funcException)
+                .observeOn(AndroidSchedulers.mainThread())
+                .onTerminateDetach()// 当执行了d.dispose()方法后将解除上下游的引用
+                .subscribeWith(disposableObserver);
+    }
 }

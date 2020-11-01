@@ -6,18 +6,24 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.basemodel.view.ILoginView;
+import com.auto.di.guan.db.ControlInfo;
+import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.User;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
+import com.auto.di.guan.db.sql.UserSql;
+import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.Task;
 import com.auto.di.guan.view.XEditText;
 import com.google.gson.Gson;
-
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -64,10 +70,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
         }
-//        mPresenter.doLogin(id, pwd);
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
-        BaseApp.getUser().setPassword(pwd);
+        mPresenter.doLogin(id, pwd);
     }
 
     @Override
@@ -88,11 +91,12 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
 
     @Override
     public void loginSuccess(BaseRespone respone) {
-        LogUtils.e("---------",""+(new Gson().toJson(respone)));
-
+        LogUtils.e("---------", "" + (new Gson().toJson(respone)));
         if (respone.getData() != null) {
             User user = (User) respone.getData();
+            UserSql.updateUser(user);
             BaseApp.setUser(user);
+            Entiy.GUN_COLUMN = user.getTrunkPipeNum();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }

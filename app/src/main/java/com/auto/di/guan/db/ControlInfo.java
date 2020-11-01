@@ -2,6 +2,7 @@ package com.auto.di.guan.db;
 
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
+
 import java.io.Serializable;
 
 /**

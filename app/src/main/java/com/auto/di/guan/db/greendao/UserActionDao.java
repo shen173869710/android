@@ -25,7 +25,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
+        public final static Property UserId = new Property(1, Long.class, "userId", false, "USER_ID");
         public final static Property ActionCmd = new Property(2, String.class, "actionCmd", false, "ACTION_CMD");
         public final static Property ActionName = new Property(3, String.class, "actionName", false, "ACTION_NAME");
         public final static Property ControlId = new Property(4, int.class, "controlId", false, "CONTROL_ID");
@@ -33,7 +33,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         public final static Property ActionId = new Property(6, int.class, "actionId", false, "ACTION_ID");
         public final static Property ActionType = new Property(7, int.class, "actionType", false, "ACTION_TYPE");
         public final static Property ActionTypeName = new Property(8, String.class, "actionTypeName", false, "ACTION_TYPE_NAME");
-        public final static Property ActionStatus = new Property(9, boolean.class, "actionStatus", false, "ACTION_STATUS");
+        public final static Property ActionStatus = new Property(9, int.class, "actionStatus", false, "ACTION_STATUS");
         public final static Property ActionStatusName = new Property(10, String.class, "actionStatusName", false, "ACTION_STATUS_NAME");
         public final static Property UserName = new Property(11, String.class, "userName", false, "USER_NAME");
     }
@@ -52,7 +52,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_ACTION\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"USER_ID\" TEXT," + // 1: userId
+                "\"USER_ID\" INTEGER," + // 1: userId
                 "\"ACTION_CMD\" TEXT," + // 2: actionCmd
                 "\"ACTION_NAME\" TEXT," + // 3: actionName
                 "\"CONTROL_ID\" INTEGER NOT NULL ," + // 4: controlId
@@ -80,9 +80,9 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
             stmt.bindLong(1, id);
         }
  
-        String userId = entity.getUserId();
+        Long userId = entity.getUserId();
         if (userId != null) {
-            stmt.bindString(2, userId);
+            stmt.bindLong(2, userId);
         }
  
         String actionCmd = entity.getActionCmd();
@@ -103,7 +103,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         if (actionTypeName != null) {
             stmt.bindString(9, actionTypeName);
         }
-        stmt.bindLong(10, entity.getActionStatus() ? 1L: 0L);
+        stmt.bindLong(10, entity.getActionStatus());
  
         String actionStatusName = entity.getActionStatusName();
         if (actionStatusName != null) {
@@ -125,9 +125,9 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
             stmt.bindLong(1, id);
         }
  
-        String userId = entity.getUserId();
+        Long userId = entity.getUserId();
         if (userId != null) {
-            stmt.bindString(2, userId);
+            stmt.bindLong(2, userId);
         }
  
         String actionCmd = entity.getActionCmd();
@@ -148,7 +148,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         if (actionTypeName != null) {
             stmt.bindString(9, actionTypeName);
         }
-        stmt.bindLong(10, entity.getActionStatus() ? 1L: 0L);
+        stmt.bindLong(10, entity.getActionStatus());
  
         String actionStatusName = entity.getActionStatusName();
         if (actionStatusName != null) {
@@ -170,7 +170,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
     public UserAction readEntity(Cursor cursor, int offset) {
         UserAction entity = new UserAction( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userId
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // userId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // actionCmd
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // actionName
             cursor.getInt(offset + 4), // controlId
@@ -178,7 +178,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
             cursor.getInt(offset + 6), // actionId
             cursor.getInt(offset + 7), // actionType
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // actionTypeName
-            cursor.getShort(offset + 9) != 0, // actionStatus
+            cursor.getInt(offset + 9), // actionStatus
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // actionStatusName
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // userName
         );
@@ -188,7 +188,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
     @Override
     public void readEntity(Cursor cursor, UserAction entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setActionCmd(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setActionName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setControlId(cursor.getInt(offset + 4));
@@ -196,7 +196,7 @@ public class UserActionDao extends AbstractDao<UserAction, Long> {
         entity.setActionId(cursor.getInt(offset + 6));
         entity.setActionType(cursor.getInt(offset + 7));
         entity.setActionTypeName(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setActionStatus(cursor.getShort(offset + 9) != 0);
+        entity.setActionStatus(cursor.getInt(offset + 9));
         entity.setActionStatusName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setUserName(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }

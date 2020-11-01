@@ -180,7 +180,7 @@ public class ChatManager {
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();
         option.enableOfflineMessaging = false;
-        mRtmClient.sendMessageToPeer("109", message, option, new ResultCallback<Void>() {
+        mRtmClient.sendMessageToPeer(BaseApp.getUser().getMemberId().toString(), message, option, new ResultCallback<Void>() {
 
             @Override
             public void onSuccess(Void aVoid) {

@@ -247,7 +247,7 @@ public class MessageParse {
             LogUtils.e(TAG, "自动轮灌开始,当前组不存在");
         } else {
             GroupInfo groupInfo = groupInfos.get(0);
-            groupInfo.setGroupStop(false);
+            groupInfo.setGroupStop(0);
             GroupInfoSql.updateGroup(groupInfo);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, groupInfo));
             MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_START);
@@ -264,7 +264,7 @@ public class MessageParse {
             LogUtils.e(TAG, "自动轮灌暂停,当前组不存在");
         } else {
             GroupInfo groupInfo = groupInfos.get(0);
-            groupInfo.setGroupStop(true);
+            groupInfo.setGroupStop(1);
             GroupInfoSql.updateGroup(groupInfo);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP, groupInfo));
             MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_STOP);
@@ -438,7 +438,7 @@ public class MessageParse {
         HashMap<Integer, Integer> lv = new HashMap<>();
         for (int i = 0; i < size; i++) {
             GroupInfo groupInfo = groupInfos.get(i);
-            if (groupInfo.getGroupIsJoin()) {
+            if (groupInfo.getGroupIsJoin() == 1) {
                 if (groupInfo.getGroupTime() == 0 || groupInfo.getGroupLevel() == 0) {
                     ToastUtils.showLongToast("轮灌优先级或者轮灌时长不能为0");
                     return;
