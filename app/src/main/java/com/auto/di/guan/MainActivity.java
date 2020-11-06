@@ -45,6 +45,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends SerialPortActivity {
@@ -230,36 +231,36 @@ public class MainActivity extends SerialPortActivity {
             showDialog();
         }
         LogUtils.e(TAG, "-----写入命令" + event.getCmd());
-//        try {
-//            mOutputStream.write(new String(event.getCmd()).getBytes());
-//            mOutputStream.write('\n');
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        // kf 012 004 0 ok
-        // gf 012 004 0 ok
-        //zt 012 004 xxxx
-        // zt 102 002 1100 090
-        String buf= "";
-        if (event.getCmd().contains("kf")) {
-           buf = "kf 10000 001 0 ok";
-            isOpen = true;
-        }else if (event.getCmd().contains("gf")) {
-            buf = "gf 10000 001 0 ok";
-            isOpen = false;
-        }else if (event.getCmd().contains("rs")) {
-            if (isOpen) {
-                buf = "zt 10000 001 1110 010";
-            }else {
-                buf = "zt 10000 001 1100 010";
-            }
-        }
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+            mOutputStream.write(new String(event.getCmd()).getBytes());
+            mOutputStream.write('\n');
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        onDataReceived(buf.getBytes(), 22);
+//        // kf 012 004 0 ok
+//        // gf 012 004 0 ok
+//        //zt 012 004 xxxx
+//        // zt 102 002 1100 090
+//        String buf= "";
+//        if (event.getCmd().contains("kf")) {
+//           buf = "kf 10000 001 0 ok";
+//            isOpen = true;
+//        }else if (event.getCmd().contains("gf")) {
+//            buf = "gf 10000 001 0 ok";
+//            isOpen = false;
+//        }else if (event.getCmd().contains("rs")) {
+//            if (isOpen) {
+//                buf = "zt 10000 001 1110 010";
+//            }else {
+//                buf = "zt 10000 001 1100 010";
+//            }
+//        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        onDataReceived(buf.getBytes(), 22);
     }
     /**
      * 异常报警
