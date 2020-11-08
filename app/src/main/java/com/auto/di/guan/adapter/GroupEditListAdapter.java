@@ -9,12 +9,9 @@ import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.dialog.MainShowDialog;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.ChooseGroupEvent;
-import com.auto.di.guan.utils.LogUtils;
-import com.auto.di.guan.utils.NoFastClickUtils;
+import com.auto.di.guan.event.ChooseGroupEvent;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 

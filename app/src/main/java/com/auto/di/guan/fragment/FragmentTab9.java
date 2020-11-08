@@ -24,12 +24,7 @@ public class FragmentTab9 extends BaseFragment {
 		view = inflater.inflate(R.layout.fragment_9, null);
 		login_out = (Button) view.findViewById(R.id.login_out);
 
-		login_out.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				activity.finish();
-			}
-		});
+
 
 		return view;
 	}

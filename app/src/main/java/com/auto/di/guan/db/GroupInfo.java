@@ -13,6 +13,7 @@ public class GroupInfo {
     @Id(autoincrement = true)
     private Long id;
     private int groupId;
+    private int userId;
     private String groupName;
     /**轮灌的状态 **/
     private int groupStatus;
@@ -24,16 +25,16 @@ public class GroupInfo {
     /** 已经运行的时间**/
     private int groupRunTime;
     // 是否参与轮灌设置
-    private boolean groupIsJoin;
+    private int groupIsJoin;
     /**轮灌是否已经暂停计时**/
-    private boolean groupStop;
-
-    @Generated(hash = 2042897297)
-    public GroupInfo(Long id, int groupId, String groupName, int groupStatus,
-            int groupImage, int groupLevel, int groupTime, int groupRunTime,
-            boolean groupIsJoin, boolean groupStop) {
+    private int groupStop;
+    @Generated(hash = 376949468)
+    public GroupInfo(Long id, int groupId, int userId, String groupName,
+            int groupStatus, int groupImage, int groupLevel, int groupTime,
+            int groupRunTime, int groupIsJoin, int groupStop) {
         this.id = id;
         this.groupId = groupId;
+        this.userId = userId;
         this.groupName = groupName;
         this.groupStatus = groupStatus;
         this.groupImage = groupImage;
@@ -94,17 +95,25 @@ public class GroupInfo {
     public void setGroupRunTime(int groupRunTime) {
         this.groupRunTime = groupRunTime;
     }
-    public boolean getGroupIsJoin() {
+    public int getGroupIsJoin() {
         return this.groupIsJoin;
     }
-    public void setGroupIsJoin(boolean groupIsJoin) {
+    public void setGroupIsJoin(int groupIsJoin) {
         this.groupIsJoin = groupIsJoin;
     }
-    public boolean getGroupStop() {
+
+
+    public int getGroupStop() {
         return this.groupStop;
     }
-    public void setGroupStop(boolean groupStop) {
+    public void setGroupStop(int groupStop) {
         this.groupStop = groupStop;
+    }
+    public int getUserId() {
+        return this.userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
 }

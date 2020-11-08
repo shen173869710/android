@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.event.UserStatusEvent;
+import com.auto.di.guan.event.UserStatusEvent;
 import com.auto.di.guan.utils.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,12 +57,11 @@ public class ChatManager {
 //                        }
 //                    }
                     LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
-
                     if (!TextUtils.isEmpty(peerId)) {
                         String parentId = BaseApp.getUser().getMemberId().toString();
-
                         LogUtils.e(TAG, "parentId =" + parentId + " 是否相等 =="+peerId.equals(parentId));
                         if (peerId.equals(parentId)) {
+                            BaseApp.setWebLogin(true);
                             MessageParse.praseData(rtmMessage.getText(), peerId);
                         }
                     }
@@ -173,7 +172,7 @@ public class ChatManager {
 
 
     public void sendPeerMessage( String content) {
-        if (!BaseApp.webLogin) {
+        if (!BaseApp.isWebLogin()) {
             LogUtils.e(TAG, "web端未登录, 不发送消息");
             return;
         }
@@ -181,7 +180,7 @@ public class ChatManager {
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();
         option.enableOfflineMessaging = false;
-        mRtmClient.sendMessageToPeer("109", message, option, new ResultCallback<Void>() {
+        mRtmClient.sendMessageToPeer(BaseApp.getUser().getMemberId().toString(), message, option, new ResultCallback<Void>() {
 
             @Override
             public void onSuccess(Void aVoid) {

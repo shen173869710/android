@@ -5,9 +5,19 @@ import com.auto.di.guan.api.HttpManager;
 import com.auto.di.guan.basemodel.model.request.BaseRequest;
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.basemodel.view.ILoginView;
+import com.auto.di.guan.db.DeviceInfo;
+import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.UserAction;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
+import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.db.sql.UserActionSql;
+import com.auto.di.guan.entity.SyncData;
+import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.MacInfo;
 import com.auto.di.guan.utils.Md5Util;
+import com.google.gson.Gson;
 
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -21,7 +31,8 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
      *  设备激
      * **/
     public void doDeviceActivation(String loginName,String pwd) {
-        String mac = MacInfo.getMacAddress();
+//        String mac = MacInfo.getMacAddress();
+        String mac = "EC:89:14:3A:00:79";
        TreeMap<String, Object> treeMap = new TreeMap<>();
        treeMap.put("loginName",loginName);
        treeMap.put("password", pwd);
@@ -50,7 +61,9 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
      * **/
     public void doLogin(String userName, final String pwd) {
 //        String password = Md5Util.md5(pwd);
-        String mac = MacInfo.getMacAddress();
+//        String mac = MacInfo.getMacAddress();
+
+        String mac = "EC:89:14:3A:00:79";
         TreeMap<String, Object> treeMap = new TreeMap<>();
         treeMap.put("loginName",userName);
         treeMap.put("password",pwd);
@@ -65,6 +78,27 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
                 getBaseView().loginFail(error,code,msg);
             }
         });
+    }
+
+
+    public void doSyncData() {
+        SyncData data = new SyncData();
+        data.setDevices(DeviceInfoSql.queryDeviceList());
+
+        data.setActions(UserActionSql.queryUserActionlList());
+        data.setGroups(GroupInfoSql.queryGroupList());
+
+        doHttpTask(getApiService().sync(data), new HttpManager.OnResultListener() {
+            @Override
+            public void onSuccess(BaseRespone respone) {
+                LogUtils.e("----", new Gson().toJson(respone));
+            }
+            @Override
+            public void onError(Throwable error, Integer code,String msg) {
+                LogUtils.e("----", msg);
+            }
+        });
+
     }
 
 }

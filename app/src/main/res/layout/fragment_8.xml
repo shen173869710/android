@@ -1,36 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context=".MainActivity" >
+    android:orientation="vertical">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="20dp"
+        >
+        <Button
+            android:id="@+id/fragment_8_local"
+            android:layout_width="@dimen/main_button_width"
+            android:layout_height="@dimen/main_button_height"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_red_buttom_rect"
+            android:text="网络"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/fragment_8_net"
+            android:layout_width="@dimen/main_button_width"
+            android:layout_height="@dimen/main_button_height"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_red_buttom_rect"
+            android:text="天气"
+            android:textColor="@color/white" />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/read_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="暂无数据"
-            android:textSize="@dimen/text_size_16"
-            android:textColor="@color/main_title_color"
-            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="300dp"
+            android:background="@mipmap/gun_test_bg"></ImageView>
 
-        <Button
-            android:id="@+id/read_data"
-            android:layout_width="@dimen/main_button_width"
-            android:layout_height="@dimen/main_button_height"
-            android:text="读取参数"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_red_buttom_rect"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
-            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_8_list"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

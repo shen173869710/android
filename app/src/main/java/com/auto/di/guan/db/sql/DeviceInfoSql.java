@@ -12,6 +12,16 @@ public class DeviceInfoSql extends BaseSql {
 
     public static List<DeviceInfo> deviceInfos = new ArrayList<>();
 
+
+    /**
+     * 获取所有设备列表
+     */
+    public static void delAllDeviceList() {
+        DaoSession daoSession = getDaoWriteSession();
+        DeviceInfoDao userDao = daoSession.getDeviceInfoDao();
+        userDao.deleteAll();
+    }
+
     /**
      * 获取所有设备列表
      */
@@ -57,6 +67,20 @@ public class DeviceInfoSql extends BaseSql {
         DaoSession daoSession = getDaoWriteSession();
         DeviceInfoDao userDao = daoSession.getDeviceInfoDao();
         userDao.insertInTx(deviceInfos);
+    }
+
+
+    /**
+     * 插入
+     *
+     */
+    public static void insertDevice(DeviceInfo deviceInfo) {
+        if (deviceInfo == null) {
+            return;
+        }
+        DaoSession daoSession = getDaoWriteSession();
+        DeviceInfoDao userDao = daoSession.getDeviceInfoDao();
+        userDao.insert(deviceInfo);
     }
 
     /**

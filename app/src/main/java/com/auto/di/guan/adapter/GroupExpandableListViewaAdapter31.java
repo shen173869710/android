@@ -13,6 +13,7 @@ import com.auto.di.guan.fragment.FragmentTab31;
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupList;
+import com.auto.di.guan.fragment.FragmentTab5;
 import com.auto.di.guan.utils.NoFastClickUtils;
 
 import java.util.List;
@@ -24,11 +25,11 @@ import java.util.List;
 public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter {
     private Context context;
     private List<GroupList> groupLists;//组列表
-    private FragmentTab31 fragmentTab31;
-    public GroupExpandableListViewaAdapter31(Context a, List<GroupList> groupArray, FragmentTab31 fragmentTab31) {
+    private FragmentTab5 fragmentTab5;
+    public GroupExpandableListViewaAdapter31(Context a, List<GroupList> groupArray, FragmentTab5 fragmentTab5) {
         this.groupLists = groupArray;
         this.context = a;
-        this.fragmentTab31 = fragmentTab31;
+        this.fragmentTab5 = fragmentTab5;
     }
 
     public void setData(List<GroupList> groupLists) {
@@ -135,7 +136,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                     if(NoFastClickUtils.isFastClick()){
                         return;
                     }
-                    fragmentTab31.startWork(groupLists.get(groupPosition).groupInfo);
+                    fragmentTab5.startWork(groupLists.get(groupPosition).groupInfo);
                 }
             });
         }else {
@@ -146,7 +147,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
                     if(NoFastClickUtils.isFastClick()){
                         return;
                     }
-                    fragmentTab31.startWork(groupLists.get(groupPosition).groupInfo);
+                    fragmentTab5.startWork(groupLists.get(groupPosition).groupInfo);
                 }
             });
         }

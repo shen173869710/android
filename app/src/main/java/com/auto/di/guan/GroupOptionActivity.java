@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auto.di.guan.adapter.RecyclerListAdapter;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.GroupInfoSql;
-import com.auto.di.guan.jobqueue.event.Fragment32Event;
+import com.auto.di.guan.event.Fragment32Event;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.SPUtils;
@@ -81,7 +81,7 @@ public class GroupOptionActivity extends Activity  {
 				HashMap<Integer, Integer> lv = new HashMap<>();
 				for (int i = 0; i < size; i++) {
 					GroupInfo groupInfo = groupInfos.get(i);
-					if (groupInfo.getGroupIsJoin()) {
+					if (groupInfo.getGroupIsJoin() == 1) {
 						if (groupInfo.getGroupTime() == 0 || groupInfo.getGroupLevel() == 0) {
 							ToastUtils.showLongToast("轮灌优先级或者轮灌时长不能为0");
 							return;
@@ -118,12 +118,6 @@ public class GroupOptionActivity extends Activity  {
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
 	}
-
-
 
 }

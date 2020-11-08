@@ -67,7 +67,7 @@ public class BaseApp extends Application {
 
     private static Context mContext=null;//上下文
 
-    public static boolean webLogin;
+    private static boolean webLogin;
 
     private ChatManager mChatManager;
 
@@ -340,4 +340,12 @@ public class BaseApp extends Application {
         return mChatManager;
     }
 
+
+    public static boolean isWebLogin() {
+        return webLogin;
+    }
+
+    public static void setWebLogin(boolean webLogin) {
+        BaseApp.webLogin = webLogin;
+    }
 }

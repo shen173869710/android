@@ -142,6 +142,18 @@ public class MyGridAdapter extends BaseAdapter {
                 holder.grid_item_right_image.setImageResource(Entiy.getImageResource(controlInfo1.getValveStatus()));
                 holder.grid_item_right_id.setText(controlInfo1.getValveAlias()+"");
             }
+
+            if (controlInfo0.getValveStatus() == 0) {
+                holder.grid_item_left_layout.setVisibility(View.INVISIBLE);
+            }else{
+                holder.grid_item_left_layout.setVisibility(View.VISIBLE);
+            }
+
+            if (controlInfo1.getValveStatus() == 0) {
+                holder.grid_item_right_layout.setVisibility(View.INVISIBLE);
+            }else{
+                holder.grid_item_right_layout.setVisibility(View.VISIBLE);
+            }
         }
         return convertView;
     }

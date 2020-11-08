@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: io.agora.rtm:rtm-sdk:1.4.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f311845d0c190671fe73df25b7dcf05f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f311845d0c190671fe73df25b7dcf05f/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f311845d0c190671fe73df25b7dcf05f/jars/libs/agora-rtm-sdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.agora.rtm/rtm-sdk/1.4.0/d55ff76384dd857ea80c6e95608ef959a15d6437/rtm-sdk-1.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

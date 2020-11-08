@@ -1,6 +1,7 @@
 package com.auto.di.guan.basemodel.model.respone;
 
 import com.auto.di.guan.db.DeviceInfo;
+import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.User;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public class LoginRespone {
     private User sysRes;
     private List<DeviceInfo> valveDeviceInfos;
+    private List<GroupInfo> deviceGroupList;
+
 
     public User getSysRes() {
         return sysRes;
@@ -26,5 +29,13 @@ public class LoginRespone {
 
     public void setValveDeviceInfos(List<DeviceInfo> valveDeviceInfos) {
         this.valveDeviceInfos = valveDeviceInfos;
+    }
+
+    public List<GroupInfo> getDeviceGroupList() {
+        return deviceGroupList;
+    }
+
+    public void setDeviceGroupList(List<GroupInfo> deviceGroupList) {
+        this.deviceGroupList = deviceGroupList;
     }
 }

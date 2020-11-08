@@ -3,9 +3,11 @@ package com.auto.di.guan;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.adapter.GroupStatusAdapter;
 import com.auto.di.guan.adapter.StatusAdapter;
 import com.auto.di.guan.db.ControlInfo;
@@ -14,20 +16,24 @@ import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.dialog.GroupOptionDialog;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.event.ActivityEvent;
+import com.auto.di.guan.event.AutoCountEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.GroupStatusEvent;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoCountEvent;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.GroupStatusEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
+import com.auto.di.guan.rtm.MessageEntiy;
 import com.auto.di.guan.utils.DiffStatusCallback;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
 import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +47,8 @@ public class GroupStatusActivity extends FragmentActivity  {
     private RecyclerView recyclerView;
     private List<GroupInfo> groupInfos = new ArrayList<>();
     private GroupStatusAdapter adapter;
+
+    private View group_status_view;
 
     private StatusAdapter openAdapter;
     private RecyclerView openList;
@@ -80,7 +88,6 @@ public class GroupStatusActivity extends FragmentActivity  {
         view.findViewById(R.id.title_bar_back_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 GroupStatusActivity.this.finish();
             }
         });
@@ -102,36 +109,20 @@ public class GroupStatusActivity extends FragmentActivity  {
         closeAdapter = new StatusAdapter(closeInfos);
         closeList.setAdapter(closeAdapter);
 
-    }
+        group_status_view = findViewById(R.id.group_status_view);
+        if (BaseApp.isWebLogin()) {
+            group_status_view.setVisibility(View.VISIBLE);
+            group_status_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-        @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAutoCountEvent(AutoCountEvent event) {
-        if (adapter != null && event != null && event.getGroupInfo() != null) {
-            GroupInfo groupInfo = event.getGroupInfo();
-            int groupId = groupInfo.getGroupId();
-            int size = groupInfos.size();
-            int position = 0;
-            for (int i = 0; i < size; i++) {
-                if (groupId == groupInfos.get(i).getGroupId()) {
-                    position = i;
                 }
-            }
-
-            adapter.getData().set(position, groupInfo);
-            adapter.notifyItemChanged(position, position);
-
-            if (openInfos != null && openInfos.size() == 0) {
-                GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);
-                onGroupStatusEvent(groupStatusEvent);
-            }
+            });
+        }else {
+            group_status_view.setVisibility(View.GONE);
         }
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGroupStatusEvent(GroupStatusEvent event) {
@@ -179,10 +170,7 @@ public class GroupStatusActivity extends FragmentActivity  {
             GroupInfoSql.updateGroupList(groupInfos);
             PollingUtils.stopPollingService(GroupStatusActivity.this);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_FINISH));
-            adapter = new GroupStatusAdapter(groupInfos);
-            recyclerView.setAdapter(adapter);
-            openAdapter.setData(new ArrayList<>());
-            closeAdapter.setData(new ArrayList<>());
+
         }else if (index == 3) {
             if(!TaskManager.getInstance().hasTask()) {
                 ToastUtils.showLongToast("轮灌操作执行当中,请稍后操作");
@@ -196,5 +184,69 @@ public class GroupStatusActivity extends FragmentActivity  {
                 PollingUtils.startPollingService(GroupStatusActivity.this, Entiy.ALERM_TIME);
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAutoTaskEvent(AutoTaskEvent event) {
+        if (event.getType() == Entiy.RUN_DO_FINISH) {
+            LogUtils.e("GroupStatusActivity", "自动轮灌结束");
+            groupInfos = GroupInfoSql.queryGroupSettingList();
+            adapter = new GroupStatusAdapter(groupInfos);
+            recyclerView.setAdapter(adapter);
+            openAdapter.setData(new ArrayList<>());
+            closeAdapter.setData(new ArrayList<>());
+        }
+        if (event.getGroupInfo() == null) {
+            return;
+        }
+        if (event.getType() == Entiy.RUN_DO_STOP
+        || event.getType() == Entiy.RUN_DO_START
+                || event.getType() == Entiy.RUN_DO_NEXT
+                || event.getType() == Entiy.RUN_DO_TIME
+               ) {
+            if (adapter != null) {
+                onAutoCountEvent(new AutoCountEvent(event.getGroupInfo()));
+            }
+         }
+    }
+
+
+
+    /**
+     *        自动轮灌时间同步
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAutoCountEvent(AutoCountEvent event) {
+        if (adapter != null && event != null && event.getGroupInfo() != null) {
+            GroupInfo groupInfo = event.getGroupInfo();
+            int groupId = groupInfo.getGroupId();
+            int size = groupInfos.size();
+            int position = 0;
+            for (int i = 0; i < size; i++) {
+                if (groupId == groupInfos.get(i).getGroupId()) {
+                    position = i;
+                }
+            }
+            adapter.getData().set(position, groupInfo);
+            adapter.notifyItemChanged(position, position);
+            if (openInfos != null && openInfos.size() == 0) {
+                GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);
+                onGroupStatusEvent(groupStatusEvent);
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onActivityEvent(ActivityEvent event) {
+        if (event.getIndex() == MessageEntiy.TYPE_ACTIVITY_STATUS_FINISH) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

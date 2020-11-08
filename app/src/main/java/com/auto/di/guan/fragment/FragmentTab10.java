@@ -23,7 +23,6 @@ public class FragmentTab10 extends BaseFragment {
 		view = inflater.inflate(R.layout.fragment_10, null);
 		login_out = (Button) view.findViewById(R.id.login_out);
 
-
 		return view;
 	}
 

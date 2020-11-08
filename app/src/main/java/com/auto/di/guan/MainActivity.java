@@ -1,5 +1,6 @@
 package com.auto.di.guan;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,24 +12,29 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.auto.di.guan.api.ApiUtil;
+import com.auto.di.guan.api.HttpManager;
+import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.db.GroupInfo;
-import com.auto.di.guan.db.LevelInfo;
-import com.auto.di.guan.db.User;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
-import com.auto.di.guan.db.sql.LevelInfoSql;
+import com.auto.di.guan.db.sql.UserActionSql;
 import com.auto.di.guan.dialog.InputPasswordDialog;
 import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.PollingEvent;
+import com.auto.di.guan.entity.SyncData;
+import com.auto.di.guan.event.ActivityEvent;
+import com.auto.di.guan.event.AutoCountEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.LoginEvent;
+import com.auto.di.guan.event.SendCmdEvent;
+import com.auto.di.guan.event.UserStatusEvent;
+import com.auto.di.guan.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoCountEvent;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.LoginEvent;
-import com.auto.di.guan.jobqueue.event.SendCmdEvent;
-import com.auto.di.guan.jobqueue.event.UserStatusEvent;
-import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.rtm.ChatManager;
+import com.auto.di.guan.rtm.MessageEntiy;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -40,7 +46,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends SerialPortActivity {
@@ -110,23 +115,12 @@ public class MainActivity extends SerialPortActivity {
         transaction.add(R.id.center, articleListFragment, "center");
         transaction.commitAllowingStateLoss();
         windowTop = getStatusBarHeight();
-        if (LevelInfoSql.queryLevelInfoList().size() == 0) {
-            List<LevelInfo> levelInfos = new ArrayList<>();
-            for (int i = 1; i < 200; i++) {
-                LevelInfo info = new LevelInfo();
-                info.setLevelId(i);
-                info.setIsGroupUse(false);
-                info.setIsLevelUse(false);
-                levelInfos.add(info);
-            }
-            LevelInfoSql.insertLevelInfoList(levelInfos);
-        }
-        LogUtils.e("time", "time == "+System.currentTimeMillis());
-
 
         chatManager = BaseApp.getInstance().getChatManager();
         chatManager.init();
         chatManager.doLogin();
+
+        syncData();
     }
 
 
@@ -208,6 +202,7 @@ public class MainActivity extends SerialPortActivity {
         if (chatManager != null) {
             chatManager.doLogout();
         }
+        InputPasswordDialog.dismiss(this);
     }
 
 
@@ -236,36 +231,36 @@ public class MainActivity extends SerialPortActivity {
             showDialog();
         }
         LogUtils.e(TAG, "-----写入命令" + event.getCmd());
-//        try {
-//            mOutputStream.write(new String(event.getCmd()).getBytes());
-//            mOutputStream.write('\n');
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        // kf 012 004 0 ok
-        // gf 012 004 0 ok
-        //zt 012 004 xxxx
-        // zt 102 002 1100 090
-        String buf= "";
-        if (event.getCmd().contains("kf")) {
-           buf = "kf 10000 001 0 ok";
-            isOpen = true;
-        }else if (event.getCmd().contains("gf")) {
-            buf = "gf 10000 001 0 ok";
-            isOpen = false;
-        }else if (event.getCmd().contains("rs")) {
-            if (isOpen) {
-                buf = "zt 10000 001 1110 010";
-            }else {
-                buf = "zt 10000 001 1100 010";
-            }
-        }
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+            mOutputStream.write(new String(event.getCmd()).getBytes());
+            mOutputStream.write('\n');
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        onDataReceived(buf.getBytes(), 22);
+//        // kf 012 004 0 ok
+//        // gf 012 004 0 ok
+//        //zt 012 004 xxxx
+//        // zt 102 002 1100 090
+//        String buf= "";
+//        if (event.getCmd().contains("kf")) {
+//           buf = "kf 10000 001 0 ok";
+//            isOpen = true;
+//        }else if (event.getCmd().contains("gf")) {
+//            buf = "gf 10000 001 0 ok";
+//            isOpen = false;
+//        }else if (event.getCmd().contains("rs")) {
+//            if (isOpen) {
+//                buf = "zt 10000 001 1110 010";
+//            }else {
+//                buf = "zt 10000 001 1100 010";
+//            }
+//        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        onDataReceived(buf.getBytes(), 22);
     }
     /**
      * 异常报警
@@ -362,8 +357,10 @@ public class MainActivity extends SerialPortActivity {
         if (event.getPeerId().equals(BaseApp.getUser().getMemberId().toString())) {
             if (event.getStatus() == 0) {
                 LogUtils.e(TAG, "管理员在线");
+                BaseApp.setWebLogin(true);
             }else {
                 LogUtils.e(TAG, "管理员离线");
+                BaseApp.setWebLogin(false);
                 InputPasswordDialog.dismiss(MainActivity.this);
             }
         }
@@ -372,11 +369,44 @@ public class MainActivity extends SerialPortActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginEvent(LoginEvent event) {
        if (event != null && event.isLogin()) {
-            BaseApp.webLogin = true;
+           BaseApp.setWebLogin(true);
            InputPasswordDialog.show(MainActivity.this);
        }else {
-           BaseApp.webLogin = false;
+           BaseApp.setWebLogin(false);
            InputPasswordDialog.dismiss(MainActivity.this);
        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onActivityEvent(ActivityEvent event) {
+        if (event.getIndex() == MessageEntiy.TYPE_ACTIVITY_STATUS_START) {
+            startActivity(new Intent(MainActivity.this, GroupStatusActivity.class));
+        }
+    }
+
+    /**
+     *  数据同步
+     */
+    public void syncData() {
+
+        SyncData data = new SyncData();
+        data.setDevices(DeviceInfoSql.queryDeviceList());
+
+        data.setActions(UserActionSql.queryUserActionlList());
+        data.setGroups(GroupInfoSql.queryGroupList());
+
+        HttpManager.syncData(ApiUtil.createApiService().sync(data), new HttpManager.OnResultListener() {
+            @Override
+            public void onSuccess(BaseRespone t) {
+                LogUtils.e(TAG, "同步数据成功");
+            }
+
+            @Override
+            public void onError(Throwable error, Integer code, String msg) {
+                LogUtils.e(TAG, "同步数据失败");
+            }
+        });
+
     }
 }

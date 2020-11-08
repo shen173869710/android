@@ -56,7 +56,13 @@ public class ActionUtil {
 		action.setActionStatusName(desc);
 		action.setActionTime(System.currentTimeMillis());
 		action.setActionType(actionType);
-		action.setActionStatus(isNormal);
+
+		action.setUserId(BaseApp.getUser().getUserId());
+		if (isNormal == 1) {
+			action.setActionStatus(1);
+		}else {
+			action.setActionStatus(0);
+		}
 		LogUtils.e(TAG,"----------插入数据");
 		UserActionSql.insertUserAction(action);
 		List<UserAction> actions = UserActionSql.queryUserActionlList();

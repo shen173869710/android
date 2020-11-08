@@ -12,7 +12,7 @@ public class UserAction {
     @Id(autoincrement = true)
     private Long id;
 
-    private String userId;
+    private Long userId;
     /**
      *   执行的命令
      *   开阀
@@ -41,8 +41,8 @@ public class UserAction {
     /**执行操作的状态显示的内容**/
     private String actionStatusName;
     private String userName;
-    @Generated(hash = 2058972118)
-    public UserAction(Long id, String userId, String actionCmd, String actionName,
+    @Generated(hash = 1928686877)
+    public UserAction(Long id, Long userId, String actionCmd, String actionName,
             int controlId, long actionTime, int actionId, int actionType,
             String actionTypeName, int actionStatus, String actionStatusName,
             String userName) {
@@ -68,10 +68,10 @@ public class UserAction {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getUserId() {
+    public Long getUserId() {
         return this.userId;
     }
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
     public String getActionCmd() {

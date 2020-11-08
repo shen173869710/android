@@ -1,6 +1,5 @@
 package com.auto.di.guan.rtm;
 
-
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
@@ -10,14 +9,16 @@ import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
-import com.auto.di.guan.entity.BengEvent;
+import com.auto.di.guan.entity.BengOptionEvent;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.event.ActivityEvent;
+import com.auto.di.guan.event.TabClickEvent;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
-import com.auto.di.guan.jobqueue.event.ChooseGroupEvent;
-import com.auto.di.guan.jobqueue.event.Fragment32Event;
-import com.auto.di.guan.jobqueue.event.LoginEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.ChooseGroupEvent;
+import com.auto.di.guan.event.Fragment32Event;
+import com.auto.di.guan.event.LoginEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -100,7 +101,12 @@ public class MessageParse {
                     dealAutoNext(groupInfo);
                 }
                 break;
-
+            case MessageEntiy.TYPE_AUTO_TIME:
+                // 自动轮灌 设置时间
+                if (groupInfo != null) {
+                    dealAutoTime(groupInfo);
+                }
+                break;
             case MessageEntiy.TYPE_CREATE_GROUP:
                 if (info.getDeviceInfos() != null) {
                     dealCreateGroup(info.getGroupInfo(), info.getDeviceInfos());
@@ -134,6 +140,14 @@ public class MessageParse {
                 break;
             case MessageEntiy.TYPE_MESSAGE:
 
+                break;
+            case MessageEntiy.TYPE_CLICK:
+                EventBus.getDefault().post(new TabClickEvent(info.getIndex()));
+                MessageSend.syncClickEvent();
+                break;
+            case MessageEntiy.TYPE_ACTIVITY:
+                EventBus.getDefault().post(new ActivityEvent(info.getIndex()));
+                MessageSend.syncActivityEvent();
                 break;
         }
     }
@@ -233,7 +247,7 @@ public class MessageParse {
             LogUtils.e(TAG, "自动轮灌开始,当前组不存在");
         } else {
             GroupInfo groupInfo = groupInfos.get(0);
-            groupInfo.setGroupStop(false);
+            groupInfo.setGroupStop(0);
             GroupInfoSql.updateGroup(groupInfo);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, groupInfo));
             MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_START);
@@ -250,7 +264,7 @@ public class MessageParse {
             LogUtils.e(TAG, "自动轮灌暂停,当前组不存在");
         } else {
             GroupInfo groupInfo = groupInfos.get(0);
-            groupInfo.setGroupStop(true);
+            groupInfo.setGroupStop(1);
             GroupInfoSql.updateGroup(groupInfo);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP, groupInfo));
             MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_STOP);
@@ -269,7 +283,26 @@ public class MessageParse {
             GroupInfo groupInfo = groupInfos.get(0);
             groupInfo.setGroupRunTime(info.getGroupTime());
             GroupInfoSql.updateGroup(groupInfo);
+            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_NEXT, groupInfo));
             MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_NEXT);
+        }
+    }
+
+
+    /**
+     * 处理自动轮毂设置时间
+     */
+    private static void dealAutoTime(GroupInfo info) {
+        LogUtils.e(TAG, "收到轮灌设置时间");
+        List<GroupInfo> groupInfos = GroupInfoSql.queryGroupInfoById(info.getGroupId());
+        if (groupInfos == null || groupInfos.size() != 1) {
+            LogUtils.e(TAG, "收到轮灌设置时间,当前组不存在");
+        } else {
+            GroupInfo groupInfo = groupInfos.get(0);
+            groupInfo.setGroupTime(info.getGroupTime());
+            GroupInfoSql.updateGroup(groupInfo);
+            EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_TIME, groupInfo));
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_TIME);
         }
     }
 
@@ -405,7 +438,7 @@ public class MessageParse {
         HashMap<Integer, Integer> lv = new HashMap<>();
         for (int i = 0; i < size; i++) {
             GroupInfo groupInfo = groupInfos.get(i);
-            if (groupInfo.getGroupIsJoin()) {
+            if (groupInfo.getGroupIsJoin() == 1) {
                 if (groupInfo.getGroupTime() == 0 || groupInfo.getGroupLevel() == 0) {
                     ToastUtils.showLongToast("轮灌优先级或者轮灌时长不能为0");
                     return;
@@ -433,6 +466,6 @@ public class MessageParse {
      *   开泵 管泵
      */
     public static void dealBengOpen(int postion, boolean open) {
-        EventBus.getDefault().post(new BengEvent(postion, open));
+        EventBus.getDefault().post(new BengOptionEvent(postion,open));
     }
 }

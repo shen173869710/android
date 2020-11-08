@@ -2,7 +2,7 @@ package com.auto.di.guan.jobqueue.task;
 
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.jobqueue.TaskEntiy;
-import com.auto.di.guan.jobqueue.event.Fragment4Event;
+import com.auto.di.guan.event.Fragment4Event;
 import com.auto.di.guan.rtm.MessageEntiy;
 import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.LogUtils;

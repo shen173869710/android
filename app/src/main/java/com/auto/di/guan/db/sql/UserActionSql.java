@@ -69,7 +69,7 @@ public class UserActionSql extends BaseSql {
 
     }
 
-    public static List<UserAction> queryUserActionlListByEnd(boolean type) {
+    public static List<UserAction> queryUserActionlListByEnd(int type) {
         DaoSession daoSession = getDaoWriteSession();
         UserActionDao userDao = daoSession.getUserActionDao();
         QueryBuilder<UserAction> qb = userDao.queryBuilder();

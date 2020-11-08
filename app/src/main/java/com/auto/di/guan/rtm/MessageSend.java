@@ -138,11 +138,29 @@ public class MessageSend {
     /**
      *   同步自动轮灌时间
      */
-    public static void syncAutoTime(GroupInfo groupInfo) {
+    public static void syncAutoTimeCount(GroupInfo groupInfo) {
         LogUtils.e(TAG, "同步自动轮灌时间");
         MessageInfo info = new MessageInfo();
-        info.setType(MessageEntiy.TYPE_AUTO_TIME);
+        info.setType(MessageEntiy.TYPE_TIME_COUNT);
         info.setGroupInfo(groupInfo);
+        send(info);
+    }
+
+    /**
+     *   同步点击事件
+     */
+    public static void syncClickEvent() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_CLICK);
+        send(info);
+    }
+
+    /**
+     *   同步activity 点击事件
+     */
+    public static void syncActivityEvent() {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_ACTIVITY);
         send(info);
     }
 }

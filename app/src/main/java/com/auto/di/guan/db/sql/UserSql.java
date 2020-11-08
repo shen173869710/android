@@ -3,6 +3,7 @@ package com.auto.di.guan.db.sql;
 import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.greendao.DaoSession;
 import com.auto.di.guan.db.greendao.UserDao;
+import com.auto.di.guan.utils.CopyObject;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -56,6 +57,12 @@ public class UserSql extends BaseSql {
         userDao.delete(user);
     }
 
+    public static void deleteAllUser() {
+        DaoSession daoSession = getDaoWriteSession();
+        UserDao userDao = daoSession.getUserDao();
+        userDao.deleteAll();
+    }
+
     /**
      * 更新一条记录
      *
@@ -64,7 +71,10 @@ public class UserSql extends BaseSql {
     public static void updateUser(User user) {
         DaoSession daoSession = getDaoWriteSession();
         UserDao userDao = daoSession.getUserDao();
-        userDao.update(user);
+        QueryBuilder<User> qb = userDao.queryBuilder();
+        User u = qb.where(UserDao.Properties.UserId.eq(user.getUserId())).list().get(0);
+        CopyObject.copyUserData(u, user);
+        userDao.update(u);
     }
 
 

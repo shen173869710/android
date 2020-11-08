@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.auto.di.guan.BaseApp;
@@ -22,7 +24,8 @@ public class InputPasswordDialog extends Dialog {
     private static InputPasswordDialog dialog;
     private Context context;
     private String inputPassword;
-
+    private LinearLayout linearLayout;
+    private ImageView handoverShow;
 
     public InputPasswordDialog(Context context) {
         super(context, R.style.MyDialog);
@@ -34,7 +37,7 @@ public class InputPasswordDialog extends Dialog {
         setContentView(R.layout.dialog_input_password_manager);
         //弹出后会点击屏幕或物理返回键dialog消失
         setCancelable(false);
-
+        linearLayout = findViewById(R.id.hondover_input_password_LinearLayout);
         XEditText xEditText = findViewById(R.id.handover_input_password_edittext);
 //        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
 //        imm.hideSoftInputFromWindow(xEditText.getWindowToken(),0);
@@ -61,6 +64,24 @@ public class InputPasswordDialog extends Dialog {
                 dismiss();
             }
         });
+
+        handoverShow = findViewById(R.id.handover_show);
+        findViewById(R.id.handover_hide).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linearLayout.setVisibility(View.GONE);
+                handoverShow.setVisibility(View.VISIBLE);
+            }
+        });
+        handoverShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linearLayout.setVisibility(View.VISIBLE);
+                handoverShow.setVisibility(View.GONE);
+            }
+        });
+
+
     }
 
 

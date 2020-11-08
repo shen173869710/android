@@ -6,19 +6,36 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="AvailableLibraryUpdateStorage">
     <last-search-timestamp>1580803204252</last-search-timestamp>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7dd5271-1711-4806-8d11-3d300b2eea4e" name="Default Changelist" comment="">
+    <list default="true" id="d7dd5271-1711-4806-8d11-3d300b2eea4e" name="Default Changelist" comment="提交解散分组相关代码">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_agora_rtm_rtm_sdk_1_4_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_debug_db_base_1_0_6_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_debug_db_base_1_0_6_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_birbit_android_priority_jobqueue_2_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_stetho_stetho_1_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_stetho_stetho_1_5_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_CymChad_BaseRecyclerViewAdapterHelper_3_0_0_beta11_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_CymChad_BaseRecyclerViewAdapterHelper_3_0_0_beta11_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_crashreport_3_2_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_7_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_7_471_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_yuweiguocn_GreenDaoUpgradeHelper_2_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_yuweiguocn_GreenDaoUpgradeHelper_2_2_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_drakeet_support_toastcompat_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_drakeet_support_toastcompat_1_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_paho_org_eclipse_paho_android_service_1_1_1_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_paho_org_eclipse_paho_client_mqttv3_1_1_0_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/ChooseGroupctivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/ChooseGroupctivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/GroupEditctivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/GroupEditctivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/adapter/GroupEditListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/adapter/GroupEditListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/db/sql/ControlInfoSql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/db/sql/ControlInfoSql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/GroupStatusActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/GroupStatusActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageEntiy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageEntiy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageSend.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +93,7 @@
     <property name="DEBUGGABLE_PROCESS" value="com.auto.di.guan" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="127.0.0.1:62001" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-06-22T10:39:34.378Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-19T10:12:27.773Z" />
     <property name="ExportApk.ApkPath" value="F:\guan\android\app" />
     <property name="ExportApk.BuildVariants" value="proRelease&#10;uatRelease" />
     <property name="ExportApk.SignV1" value="true" />
@@ -97,22 +114,25 @@
     <option name="LAST_EDITED_SIGNING_CONFIG" value="release" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\android_gun\android\app\src\main\res\raw" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.auto.di.guan.adapter" />
-      <recent name="com.auto.di.guan.jobqueue.task" />
-      <recent name="com.auto.di.guan.dialog" />
-      <recent name="com.auto.di.guan.utils" />
-      <recent name="com.auto.di.guan.base.model.respone" />
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.auto.di.guan" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\android_gun\android\app\src\main\res\layout" />
+      <recent name="E:\android_gun\android\app\src\main\java\com\auto\di\guan\dialog" />
+      <recent name="E:\android_gun\android\app\src\main\java\com\auto\di\guan" />
+      <recent name="E:\android_gun\android\app" />
       <recent name="F:\guan\android\app\src\main\res\drawable" />
-      <recent name="F:\guan\android\app\src\main\res\mipmap-xxhdpi" />
-      <recent name="F:\guan\android\app\src\main\res\drawable-xhdpi" />
-      <recent name="F:\guan\android\app\src\main\java\com\auto\di\guan\base\model" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.auto.di.guan" />
+      <recent name="com.auto.di.guan.fragment" />
+      <recent name="com.auto.di.guan.entity" />
+      <recent name="com.auto.di.guan.jobqueue.event" />
+      <recent name="com.auto.di.guan.adapter" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\android_gun\android\app\src\main\res\raw" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -368,28 +388,190 @@
       <option name="project" value="LOCAL" />
       <updated>1592822522969</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="提交解散分组相关代码">
+      <created>1592823202586</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1592823202586</updated>
+    </task>
+    <task id="LOCAL-00019" summary="提交和后台交互相关接口">
+      <created>1598608531281</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1598608531281</updated>
+    </task>
+    <task id="LOCAL-00020" summary="提交网络通信相关代码">
+      <created>1598691016849</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1598691016849</updated>
+    </task>
+    <task id="LOCAL-00021" summary="提交相关文档">
+      <created>1599029169238</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1599029169238</updated>
+    </task>
+    <task id="LOCAL-00022" summary="提交水泵相关代码">
+      <created>1600010477572</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1600010477572</updated>
+    </task>
+    <task id="LOCAL-00023" summary="提交通讯协议代码修改">
+      <created>1600254140206</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1600254140206</updated>
+    </task>
+    <task id="LOCAL-00024" summary="提交轮灌回复消息相关代码">
+      <created>1600332312105</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1600332312105</updated>
+    </task>
+    <task id="LOCAL-00025" summary="设置轮灌分组">
+      <created>1600338547311</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1600338547311</updated>
+    </task>
+    <task id="LOCAL-00026" summary="修改通讯协议相关代码">
+      <created>1600421146682</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1600421146682</updated>
+    </task>
+    <task id="LOCAL-00027" summary="提交通讯代码修改">
+      <created>1600766400086</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1600766400086</updated>
+    </task>
+    <task id="LOCAL-00028" summary="提交开泵相关逻辑">
+      <created>1600845547882</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1600845547882</updated>
+    </task>
+    <task id="LOCAL-00029" summary="提交登录锁屏">
+      <created>1600915069723</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1600915069723</updated>
+    </task>
+    <task id="LOCAL-00030" summary="提交同步登录登出状态">
+      <created>1601201290340</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1601201290340</updated>
+    </task>
+    <task id="LOCAL-00031" summary="修改轮灌分组设置相关代码">
+      <created>1601286870880</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1601286870880</updated>
+    </task>
+    <task id="LOCAL-00032" summary="提交自动轮灌相关代码">
+      <created>1601457458471</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1601457458471</updated>
+    </task>
+    <task id="LOCAL-00033" summary="修改tab改动">
+      <created>1602582658396</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1602582658396</updated>
+    </task>
+    <task id="LOCAL-00034" summary="提交代码修改">
+      <created>1602844207769</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1602844207769</updated>
+    </task>
+    <task id="LOCAL-00035" summary="提交bug修改">
+      <created>1603097901606</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1603097901606</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:E:/android_gun/android/app" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
+              <option name="BEK_SORT_TYPE" value="1" />
               <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="提交代码修改" />
-    <MESSAGE value="提交更新库" />
-    <MESSAGE value="提交自动查询" />
-    <MESSAGE value="提交保存最后一次用户操作" />
-    <MESSAGE value="修改自动轮灌相关操作" />
     <MESSAGE value="修改mqtt配置" />
     <MESSAGE value="修改轮灌结束标志bug修改" />
     <MESSAGE value="提交悬浮窗自动滚动问题" />
@@ -398,6 +580,54 @@
     <MESSAGE value="设置全局可配置的变量" />
     <MESSAGE value="提交施肥管理相关" />
     <MESSAGE value="提交解散分组相关代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="提交解散分组相关代码" />
+    <MESSAGE value="提交和后台交互相关接口" />
+    <MESSAGE value="提交网络通信相关代码" />
+    <MESSAGE value="提交相关文档" />
+    <MESSAGE value="提交水泵相关代码" />
+    <MESSAGE value="提交通讯协议代码修改" />
+    <MESSAGE value="提交轮灌回复消息相关代码" />
+    <MESSAGE value="设置轮灌分组" />
+    <MESSAGE value="修改通讯协议相关代码" />
+    <MESSAGE value="提交通讯代码修改" />
+    <MESSAGE value="提交开泵相关逻辑" />
+    <MESSAGE value="提交登录锁屏" />
+    <MESSAGE value="提交同步登录登出状态" />
+    <MESSAGE value="修改轮灌分组设置相关代码" />
+    <MESSAGE value="提交自动轮灌相关代码" />
+    <MESSAGE value="修改tab改动" />
+    <MESSAGE value="提交代码修改" />
+    <MESSAGE value="提交bug修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="提交bug修改" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/socket/UdpClient.java</url>
+          <line>169</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/socket/SocketEntiy.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java</url>
+          <line>391</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java</url>
+          <line>121</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

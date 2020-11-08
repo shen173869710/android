@@ -2,7 +2,6 @@ package com.auto.di.guan.entity;
 
 import com.auto.di.guan.R;
 import com.auto.di.guan.utils.LogUtils;
-
 /**
  * Created by Administrator on 2017/7/16.
  *
@@ -12,10 +11,9 @@ import com.auto.di.guan.utils.LogUtils;
  *           4. 界面同步
  *
  */
-
 public class Entiy {
-    /*设置项目的行数*/
-    public static  int GUN_ROW = 5;
+//    /*设置项目的行数*/
+//    public static  int GUN_ROW = 5;
     /*设置项目的列数*/
     public static  int GUN_COLUMN = 5;
     /**设置项目的通讯id**/
@@ -72,6 +70,11 @@ public class Entiy {
      *    自动轮灌完成
      */
     public static final int RUN_DO_FINISH = 4;
+
+    /**
+     *    自动轮灌完成
+     */
+    public static final int RUN_DO_TIME = 5;
     /**
      *  报警信息
      */
@@ -119,13 +122,18 @@ public class Entiy {
             {"增减阀控器",
             "绑定阀门",
             "轮灌分组",
-            "轮灌操作",
-            "手动操作",
-            "查询用户",
+            "轮灌设置",
+
+            "单个操作",
+            "单组操作",
+            "自动轮灌",
+
             "水泵控制",
-            "施肥管理",
+            "农田信息",
             "视频监控",
-            "农田管理",
+
+            "施肥管理",
+            "操作信息",
             "退出登录"
     };
     /**

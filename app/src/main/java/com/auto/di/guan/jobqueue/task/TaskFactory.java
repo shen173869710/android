@@ -10,7 +10,7 @@ import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
-import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
+import com.auto.di.guan.event.AutoTaskEvent;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -185,7 +185,7 @@ public class TaskFactory {
         LogUtils.e(TAG, "********************单组操作开始****************");
         //  2. 更新当前组的状态
             groupInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
-            groupInfo.setGroupStop(false);
+            groupInfo.setGroupStop(0);
             GroupInfoSql.updateGroup(groupInfo);
         //  3. 获取所有组的设备
         ArrayList<ControlInfo> openList = new ArrayList<>();
@@ -227,7 +227,7 @@ public class TaskFactory {
         if (closeGroupId > 0 && closeList.size() > 0) {
             // 7 修改需要关闭组的状态为关闭
             closeGroupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
-            closeGroupInfo.setGroupStop(false);
+            closeGroupInfo.setGroupStop(0);
             LogUtils.e(TAG, "********************单组操作有需要关闭的组****************");
             // 8 添加关闭其他组task
             addOpenGroupTask(closeList, false);
@@ -322,7 +322,7 @@ public class TaskFactory {
         LogUtils.e(TAG, "**********************************自动轮灌开启****************************");
         //  1. 更新当前组的状态为运行
         groupInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
-        groupInfo.setGroupStop(false);
+        groupInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(groupInfo);
         //  2. 获取所有组的设备
         ArrayList<ControlInfo> openList = getControlInfo(groupInfo);
@@ -351,7 +351,7 @@ public class TaskFactory {
         LogUtils.e(TAG, "**********************************自动轮灌开启****************************");
         //  1. 更新当前组的状态为运行
         curInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
-        curInfo.setGroupStop(false);
+        curInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(curInfo);
         //  2. 获取所有组的设备
         ArrayList<ControlInfo> openList = getControlInfo(curInfo);
@@ -380,7 +380,7 @@ public class TaskFactory {
         groupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
         groupInfo.setGroupRunTime(0);
         groupInfo.setGroupTime(0);
-        groupInfo.setGroupStop(false);
+        groupInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(groupInfo);
         //  2. 获取组的设备信息
         ArrayList<ControlInfo> closeList  = getControlInfo(groupInfo);
@@ -415,7 +415,7 @@ public class TaskFactory {
             groupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
             groupInfo.setGroupTime(0);
             groupInfo.setGroupRunTime(0);
-            groupInfo.setGroupStop(false);
+            groupInfo.setGroupStop(0);
             GroupInfoSql.updateGroup(groupInfo);
             createAutoGroupOpenNextTask(groupList.get(0));
             createAutoGroupCloseTask(groupInfo);

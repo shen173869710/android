@@ -1,6 +1,5 @@
 package com.auto.di.guan.socket;
 
-import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.utils.LogUtils;
 
 import java.net.DatagramPacket;

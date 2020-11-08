@@ -19,6 +19,7 @@ public class LevelInfoSql extends BaseSql {
         return list;
     }
 
+
     /**
      *        查询可用的level
      * @param level

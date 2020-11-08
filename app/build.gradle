@@ -170,7 +170,8 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.0'
 
     //调试查看同网段数据库
-    debugImplementation 'com.amitshekhar.android:debug-db-encrypt:1.0.6'
+//    debugImplementation 'com.amitshekhar.android:debug-db-encrypt:1.0.6'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0-beta11'
     //Toast组件
