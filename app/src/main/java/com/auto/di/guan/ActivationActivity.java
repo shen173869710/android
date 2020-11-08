@@ -18,15 +18,12 @@ import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.UserSql;
 import com.auto.di.guan.entity.ElecEvent;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.mqtt.MqttSimple;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.auto.di.guan.utils.ToastUtils;
 import com.auto.di.guan.view.XEditText;
 import com.google.gson.Gson;
-import com.trello.rxlifecycle3.LifecycleTransformer;
 
-import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -46,8 +43,6 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 	@BindView(R.id.activiation)
 	Button activiation;
 
-	private MqttAndroidClient mqttAndroidClient;
-	MqttSimple mqttSimple;
 	@Override
 	protected int setLayout() {
 		return R.layout.activity_activation;
@@ -55,9 +50,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 
 	@Override
 	protected void init() {
-//		mqttAndroidClient = new MqttAndroidClient(getApplicationContext(), Config.serverUri, Config.clientId);
-//		mqttSimple = new MqttSimple(mqttAndroidClient);
-//		mqttSimple.init();
+
 	}
 
 	@Override
@@ -123,11 +116,8 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
         LogUtils.e("---------",""+(new Gson().toJson(respone)));
         if (respone.getData() != null) {
 			LoginRespone lr = (LoginRespone) respone.getData();
-
 			if (lr.getSysRes() != null) {
 				User user = lr.getSysRes();
-				Entiy.GRID_COLUMNS =3;
-				Entiy.GRID_ROW = 3;
 				UserSql.insertUser(lr.getSysRes());
 				BaseApp.setUser(lr.getSysRes());
 			}
@@ -144,8 +134,56 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 	public void activationFail(Throwable error, Integer code, String msg) {
         LogUtils.e("---------",""+msg);
 		ToastUtils.showLongToast(""+msg);
-	}
+		User user = new User();
+		user.setUserId(113l);
+		user.setAvatar("");
+		user.setLoginName("13300000000");
+		user.setParentId(123456l);
+		user.setPhonenumber("13300000000");
+		user.setProjectName(Entiy.GUN_NAME);
+		user.setProjectId("10000");
+		user.setProjectGroupId("10000");
+		user.setPileOutNum(Entiy.GUN_ROW);
+		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
+		user.setMemberId(109l);
+		UserSql.insertUser(user);
+		BaseApp.setUser(user);
+		int num = user.getPileOutNum()*user.getTrunkPipeNum();
 
+		Entiy.GUN_ROW = user.getPileOutNum();
+		Entiy.GUN_ROW = user.getTrunkPipeNum();
+
+		List<DeviceInfo>deviceInfos = new ArrayList<>();
+		if(DeviceInfoSql.queryDeviceCount() <= 0) {
+			for (int i = 0 ; i < num; i++) {
+				DeviceInfo deviceInfo = new DeviceInfo();
+				deviceInfo.setDeviceName((i+1)+"");
+				deviceInfo.setDeviceStatus(1);
+				deviceInfo.setDeviceSort(i+1);
+				deviceInfo.setDeviceId(i+1);
+				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
+				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
+				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_0", 1);
+				controlInfo0.setValveId(deviceInfo.getDeviceSort()*2-1);
+				controlInfo0.setProtocalId("0");
+				controlInfo0.setDeviceProtocalId("10000");
+				controlInfo0.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo0.getValveName());
+				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_1",1);
+				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo1.getValveName());
+				controlInfo1.setValveId(deviceInfo.getDeviceSort()*2);
+				controlInfo1.setProtocalId("1");
+				controlInfo1.setDeviceProtocalId("10000");
+				controlInfos.add(controlInfo0);
+				controlInfos.add(controlInfo1);
+				deviceInfo.setValveDeviceSwitchList(controlInfos);
+				deviceInfos.add(deviceInfo);
+			}
+			DeviceInfoSql.insertDeviceInfoList(deviceInfos);
+		}
+		startActivity(new Intent(ActivationActivity.this, MainActivity.class));
+		finish();
+		ToastUtils.showLongToast(""+msg);
+	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onElecEvent(ElecEvent elecEvent) {

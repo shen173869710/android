@@ -81,7 +81,7 @@ public class GroupOptionActivity extends Activity  {
 				HashMap<Integer, Integer> lv = new HashMap<>();
 				for (int i = 0; i < size; i++) {
 					GroupInfo groupInfo = groupInfos.get(i);
-					if (groupInfo.getGroupIsJoin() == 1) {
+					if (groupInfo.getGroupIsJoin()) {
 						if (groupInfo.getGroupTime() == 0 || groupInfo.getGroupLevel() == 0) {
 							ToastUtils.showLongToast("轮灌优先级或者轮灌时长不能为0");
 							return;
@@ -103,7 +103,7 @@ public class GroupOptionActivity extends Activity  {
 				}
 				GroupInfoSql.updateGroupList(groupInfos);
 				EventBus.getDefault().post(new Fragment32Event());
-				SPUtils.getInstance().putString(SPUtils.DEVICE_OPTION, new Gson().toJson(groupInfos));
+//				SPUtils.getInstance().putString(SPUtils.DEVICE_OPTION, new Gson().toJson(groupInfos));
 				GroupOptionActivity.this.finish();
 			}
 		});

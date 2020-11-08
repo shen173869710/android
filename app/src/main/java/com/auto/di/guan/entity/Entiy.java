@@ -1,16 +1,23 @@
 package com.auto.di.guan.entity;
 
-import com.auto.di.guan.BaseApp;
+import com.auto.di.guan.R;
+import com.auto.di.guan.utils.LogUtils;
 
 /**
  * Created by Administrator on 2017/7/16.
+ *
+ *           1. 外部殇情信息
+ *           2. 外部气象信息
+ *           3. 泵的数据  增加减少
+ *           4. 界面同步
+ *
  */
 
 public class Entiy {
     /*设置项目的行数*/
-    public static final int GUN_ROW = 16;
+    public static  int GUN_ROW = 5;
     /*设置项目的列数*/
-    public static final int GUN_COLUMN = 16;
+    public static  int GUN_COLUMN = 5;
     /**设置项目的通讯id**/
     public static final String GUN_ID = "00002";
     /**设置项目的名称**/
@@ -18,34 +25,19 @@ public class Entiy {
     /**
      *   数据保存本地时间间隔 单位毫秒
      */
-    public static final int DB_SAVE_TIME = 2 * 60 * 1000;
+    public static final int DB_SAVE_TIME = 1 * 60 * 1000;
     /**
      *  自动查询 时间间隔 单位秒
      **/
     public static final int ALERM_TIME = 10 * 60;
-
-    /**
-     *   绑定     上开关  右
-     *            下开关  右
-     *            按下复位  写
-     *
-     *   操作     上开关  左
-     *            按下复位
-     *            操作
-     *
-     *
-     *
-     *
-     */
-
     /**
      *  施肥管理相关参数设置
      */
     public static String [] PUMP_PRAM = {
-            "参数1",
-            "参数2",
-            "参数3",
-            "参数4"
+            "电流",
+            "电压",
+            "状态",
+            "错误"
     };
 
 
@@ -91,10 +83,40 @@ public class Entiy {
     public static final int VIDEO_READ_ERROR = 5;
 
     public static String ALERM_ACTION = "com.auto.di.guan.utils.LongRunningService";
-    public static int GRID_ROW = 3;
-    public static int GRID_COLUMNS = 3;
 
-    public static String []TAB_TITLE = {"增减阀控器",
+    /**控制阀已经链接成功**/
+    public static final int CONTROL_STATUS＿CONNECT = 1;
+    /**设备已经处于运行状态**/
+    public static final int CONTROL_STATUS＿RUN = 2;
+    /**设备已经处于错误状态**/
+    public static final int CONTROL_STATUS＿ERROR = 3;
+    /**设备无法关闭**/
+    public static final int CONTROL_STATUS＿NOTCLOSE = 4;
+    /**设备断开链接**/
+    public static final int CONTROL_STATUS＿DISCONNECT = 0;
+
+    /**
+     *   根据状态获取图片信息
+     */
+    public static int getImageResource(int status) {
+        int resourceId = 0;
+        switch (status) {
+            case CONTROL_STATUS＿CONNECT:
+                resourceId = R.mipmap.lighe_1;
+                break;
+            case CONTROL_STATUS＿RUN:
+                resourceId = R.mipmap.lighe_2;
+                break;
+            case CONTROL_STATUS＿NOTCLOSE:
+            case CONTROL_STATUS＿ERROR:
+                resourceId = R.mipmap.lighe_3;
+                break;
+        }
+        return resourceId;
+    }
+
+    public static String []TAB_TITLE =
+            {"增减阀控器",
             "绑定阀门",
             "轮灌分组",
             "轮灌操作",
@@ -102,7 +124,6 @@ public class Entiy {
             "查询用户",
             "水泵控制",
             "施肥管理",
-//            "读取参数",
             "视频监控",
             "农田管理",
             "退出登录"
@@ -155,16 +176,6 @@ public class Entiy {
      */
     public static final int DEVEICE_BIND = 1;
 
-    /**控制阀已经链接成功**/
-    public static final int CONTROL_STATUS＿CONNECT = 1;
-    /**设备已经处于运行状态**/
-    public static final int CONTROL_STATUS＿RUN = 2;
-    /**设备已经处于错误状态**/
-    public static final int CONTROL_STATUS＿ERROR = 3;
-    /**设备无法关闭**/
-    public static final int CONTROL_STATUS＿NOTCLOSE = 4;
-    /**设备断开链接**/
-    public static final int CONTROL_STATUS＿DISCONNECT = 0;
 
 
     public static  String writeBid(String bid) {
@@ -270,6 +281,37 @@ public class Entiy {
     public static int ACTION_TYPE_ERROR = -1;
 
 
+    //对端已接收到点对点消息。
+    public static int PEER_MESSAGE_ERR_OK = 0;
+    public static String PEER_MESSAGE_ERR_OK_VALUE = "对端已接收到点对点消息";
+    //发送点对点消息失败。
+    public static int PEER_MESSAGE_ERR_FAILURE = 1;
+    public static String PEER_MESSAGE_ERR_FAILURE_VALUE = "发送点对点消息失败";
+    //发送点对点消息超时。超时时间设置为 10 秒。可能原因：用户正处于 CONNECTION_STATE_ABORTED 状态或 CONNECTION_STATE_RECONNECTING 状态。。
+    public static int PEER_MESSAGE_ERR_TIMEOUT = 2;
+    public static String PEER_MESSAGE_ERR_TIMEOUT_VALUE = "发送点对点消息超时。超时时间设置为 10 秒。可能原因：用户正处于 CONNECTION_STATE_ABORTED 状态或 CONNECTION_STATE_RECONNECTING 状态";
+    //对方不在线，发出的点对点消息未被收到。
+    public static int PEER_MESSAGE_ERR_PEER_UNREACHABLE = 3;
+    public static String PEER_MESSAGE_ERR_PEER_UNREACHABLE_VALUE = "对方不在线，发出的点对点消息未被收到";
+    //对方不在线，发出的离线点对点消息未被收到。但是服务器已经保存这条消息并将在用户上线后重新发送。
+    public static int PEER_MESSAGE_ERR_CACHED_BY_SERVER = 4;
+    public static String PEER_MESSAGE_ERR_CACHED_BY_SERVER_VALUE = "对方不在线，发出的离线点对点消息未被收到。但是服务器已经保存这条消息并将在用户上线后重新发送";
+    //（RTM SDK for Android Java）发送消息（点对点消息和频道消息一并计算在内）超过 每 3 秒 180 次的上限。（RTM SDK for Linux Java）发送消息（点对点消息和频道消息一并计算在内）超过每 3 秒 1500 次的上限。
+    public static int PEER_MESSAGE_ERR_TOO_OFTEN = 5;
+    public static String PEER_MESSAGE_ERR_TOO_OFTEN_VALUE = "发送消息（点对点消息和频道消息一并计算在内）超过 每 3 秒 180 次的上限。（RTM SDK for Linux Java）发送消息（点对点消息和频道消息一并计算在内）超过每 3 秒 1500 次的上限";
+    //用户 ID 无效。
+    public static int PEER_MESSAGE_ERR_INVALID_USERID = 6;
+    public static String PEER_MESSAGE_ERR_INVALID_USERID_VALUE = "用户 ID 无效";
+    //消息为 null 或超出 32 KB 的长度限制。
+    public static int PEER_MESSAGE_ERR_INVALID_MESSAGE = 7;
+    public static String PEER_MESSAGE_ERR_INVALID_MESSAGE_VALUE = "消息为 null 或超出 32 KB 的长度限制";
+    // SDK 未完成初始化。
+    public static int PEER_MESSAGE_ERR_NOT_INITIALIZED = 101;
+    public static String PEER_MESSAGE_ERR_NOT_INITIALIZED_VALUE = "SDK 未完成初始化";
+    // 发送点对点消息前未调用 login 方法或者 login 方法调用未成功。
+    public static int PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN = 102;
+    public static String PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN_VALUE = "发送点对点消息前未调用 login 方法或者 login 方法调用未成功";
+
     /**
      *  根据项目位置生成通信ID
      * @return
@@ -277,4 +319,42 @@ public class Entiy {
     public static  String createProtocalId(int id) {
         return String.format("%03d",id);
     }
+
+
+    public static void onPeerError(String TAG,int code) {
+        switch (code) {
+            case 0:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_OK_VALUE);
+                break;
+            case 1:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_FAILURE_VALUE);
+                break;
+            case 2:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_TIMEOUT_VALUE);
+                break;
+            case 3:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_PEER_UNREACHABLE_VALUE);
+                break;
+            case 4:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_CACHED_BY_SERVER_VALUE);
+                break;
+            case 5:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_TOO_OFTEN_VALUE);
+                break;
+            case 6:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_INVALID_USERID_VALUE);
+                break;
+            case 7:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_INVALID_MESSAGE_VALUE);
+                break;
+            case 101:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_NOT_INITIALIZED_VALUE);
+                break;
+            case 102:
+                LogUtils.e(TAG, PEER_MESSAGE_ERR_USER_NOT_LOGGED_IN_VALUE);
+                break;
+
+        }
+    }
+
 }

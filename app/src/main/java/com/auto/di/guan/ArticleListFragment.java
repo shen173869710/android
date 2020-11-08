@@ -2,6 +2,7 @@ package com.auto.di.guan;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
@@ -13,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 
 import com.auto.di.guan.adapter.MyListAdapter;
+import com.auto.di.guan.entity.BengEvent;
+import com.auto.di.guan.entity.BengOptionEvent;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.fragment.FragmentTab0;
 import com.auto.di.guan.fragment.FragmentTab1;
@@ -26,6 +29,10 @@ import com.auto.di.guan.fragment.FragmentTab6;
 import com.auto.di.guan.fragment.FragmentTab7;
 import com.auto.di.guan.fragment.FragmentTab9;
 import com.auto.di.guan.utils.LogUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -47,6 +54,7 @@ public class ArticleListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		manager = getFragmentManager();
 
+		EventBus.getDefault().register(this);
 		adapter = new MyListAdapter(activity, Entiy.TAB_TITLE);
 		setListAdapter(adapter);
 		fragments.add(new FragmentTab0());
@@ -133,6 +141,21 @@ public class ArticleListFragment extends ListFragment {
 				}
 				ft.commitAllowingStateLoss();
 			}
+		}
+	}
+
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onBengEvent(BengEvent event) {
+		if (fragments != null) {
+			showFragment(fragments.get(6));
+			adapter.setSelectedPosition(6);
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					EventBus.getDefault().post(new BengOptionEvent(event.getPostion(), event.isOpen()));
+				}
+			}, 1000);
 		}
 	}
 }

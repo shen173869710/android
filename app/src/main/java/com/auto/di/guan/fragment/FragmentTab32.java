@@ -140,11 +140,9 @@ public class FragmentTab32 extends BaseFragment {
 
             if (groupInfo.getGroupId() == controlInfo_0.getValveGroupId()) {
 				controlInfo_0.setValveStatus(status);
-				controlInfo_0.setValveImgageId(imageId);
             }
             if (groupInfo.getGroupId() == controlInfo_1.getValveGroupId()) {
 				controlInfo_1.setValveStatus(status);
-				controlInfo_1.setValveImgageId(imageId);
             }
         }
 		DeviceInfoSql.updateDeviceList(deveiceInfo);
@@ -198,7 +196,7 @@ public class FragmentTab32 extends BaseFragment {
 		if (adapter != null) {
 			initData();
 		}
-	};
+	}
 	/**
 	 *        自动轮灌组状态更新
 	 * @param event
@@ -208,7 +206,7 @@ public class FragmentTab32 extends BaseFragment {
 		if (adapter != null) {
 			initData();
 		}
-	};
+	}
 
 	/**
 	 *   接收自动轮灌相关操作

@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.fragment.FragmentTab31;
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
@@ -72,7 +73,7 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
     private void bindChildView(final ChildHolder holder, final int groupPosition, int childPosition) {
         ControlInfo controlInfo = groupLists.get(groupPosition).controlInfos.get(childPosition);
         holder.group_item_name.setText(controlInfo.getValveName()+" 号控制阀");
-        holder.group_item_icon.setImageResource(controlInfo.getValveImgageId());
+        holder.group_item_icon.setImageResource(Entiy.getImageResource(controlInfo.getValveStatus()));
         holder.group_item_type.setText(controlInfo.getValveAlias());
     }
 

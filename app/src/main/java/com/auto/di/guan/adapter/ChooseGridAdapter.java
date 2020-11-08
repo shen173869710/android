@@ -74,13 +74,11 @@ public class ChooseGridAdapter extends BaseAdapter {
             holder.grid_item_device_id = (TextView) convertView.findViewById(R.id.grid_item_device_id);
             holder.grid_item_device_value = (TextView) convertView.findViewById(R.id.grid_item_device_value);
             holder.grid_item_device_name = (TextView) convertView.findViewById(R.id.grid_item_device_name);
-
             holder.grid_item_left_layout = (RelativeLayout) convertView.findViewById(R.id.grid_item_left_layout);
             holder.grid_item_left_image = (ImageView) convertView.findViewById(R.id.grid_item_left_image);
             holder.grid_item_left_group = (TextView) convertView.findViewById(R.id.grid_item_left_group);
             holder.grid_item_left_sel = (TextView) convertView.findViewById(R.id.grid_item_left_sel);
             holder.grid_item_left_id = (TextView) convertView.findViewById(R.id.grid_item_left_id);
-
             holder.grid_item_right_layout = (RelativeLayout) convertView.findViewById(R.id.grid_item_right_layout);
             holder.grid_item_right_image = (ImageView) convertView.findViewById(R.id.grid_item_right_image);
             holder.grid_item_right_group = (TextView) convertView.findViewById(R.id.grid_item_right_group);
@@ -91,11 +89,11 @@ public class ChooseGridAdapter extends BaseAdapter {
             int itemHeight = screenHight - (int)context.getResources().getDimension(R.dimen.main_grid_width)- MainActivity.windowTop;
             AbsListView.LayoutParams layoutParams = (AbsListView.LayoutParams) convertView.getLayoutParams();
             if (layoutParams == null) {
-                layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GRID_COLUMNS, itemWidth/ Entiy.GRID_COLUMNS);
+                layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GUN_COLUMN, itemWidth/ Entiy.GUN_COLUMN);
                 holder.grid_item_layout.setLayoutParams(layoutParams);
             }else {
-                layoutParams.width = itemWidth/ Entiy.GRID_COLUMNS;
-                layoutParams.height = itemWidth/ Entiy.GRID_COLUMNS;
+                layoutParams.width = itemWidth/ Entiy.GUN_COLUMN;
+                layoutParams.height = itemWidth/ Entiy.GUN_COLUMN;
             }
 
             convertView.setTag(holder);
@@ -126,13 +124,13 @@ public class ChooseGridAdapter extends BaseAdapter {
             holder.grid_item_device_value.setText(deviceInfo.getElectricQuantity()+"%");
             ControlInfo info1 = deviceInfo.getValveDeviceSwitchList().get(0);
 
-            if (info1.getValveImgageId() == 0) {
+            if (info1.getValveStatus() == 0) {
                 holder.grid_item_left_layout.setVisibility(View.INVISIBLE);
                 holder.grid_item_left_layout.setOnClickListener(null);
             }else {
                 holder.grid_item_left_layout.setVisibility(View.VISIBLE);
                 holder.grid_item_left_image.setVisibility(View.VISIBLE);
-                holder.grid_item_left_image.setImageResource(info1.getValveImgageId());
+                holder.grid_item_left_image.setImageResource(Entiy.getImageResource(info1.getValveStatus()));
                 holder.grid_item_left_sel.setVisibility(View.VISIBLE);
                 holder.grid_item_left_id.setText(info1.getValveAlias()+"");
                 if (info1.isSelect()) {
@@ -166,12 +164,12 @@ public class ChooseGridAdapter extends BaseAdapter {
             }
 
             ControlInfo info2 = deviceInfo.getValveDeviceSwitchList().get(1);
-            if (info2.getValveImgageId() == 0) {
+            if (info2.getValveStatus() == 0) {
                 holder.grid_item_right_layout.setVisibility(View.INVISIBLE);
             }else {
                 holder.grid_item_right_layout.setVisibility(View.VISIBLE);
                 holder.grid_item_right_image.setVisibility(View.VISIBLE);
-                holder.grid_item_right_image.setImageResource(info1.getValveImgageId());
+                holder.grid_item_right_image.setImageResource(Entiy.getImageResource(info2.getValveStatus()));
                 holder.grid_item_right_sel.setVisibility(View.VISIBLE);
                 holder.grid_item_right_id.setText(info2.getValveAlias()+"");
                 if (info2.isSelect()) {

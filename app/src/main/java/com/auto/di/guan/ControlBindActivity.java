@@ -229,12 +229,11 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                 ControlInfo controlInfo_0 = info.getValveDeviceSwitchList().get(0);
                 ControlInfo controlInfo_1 = info.getValveDeviceSwitchList().get(1);
                 if (bind_control_sel_1.isChecked()) {
-                    controlInfo_0.setValveImgageId(R.mipmap.lighe_1);
-                    controlInfo_0.setValveStatus(Entiy.DEVEICE_BIND);
+                    controlInfo_0.setValveStatus(Entiy.CONTROL_STATUS＿CONNECT);
                     controlInfo_0.setDeviceId(info.getDeviceId());
                     controlInfo_0.setValveName(controlName1);
                     controlInfo_0.setValveAlias(nick1);
-                    controlInfo_0.setValveId(Integer.valueOf(info.getDeviceId()) * 2 - 1);
+                    controlInfo_0.setValveId(info.getDeviceSort() * 2 - 1);
                     controlInfo_0.setProtocalId("0");
                     controlInfo_0.setDeviceProtocalId(info.getProtocalId());
 //					controlInfo_0.imageId = R.mipmap.lighe_1;
@@ -247,7 +246,6 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
 //					controlInfo_0.bindId = info.getDeviceId();
                     DeviceInfoSql.updateDevice(info);
                 } else {
-                    controlInfo_0.setValveImgageId(0);
                     controlInfo_0.setValveStatus(0);
                     controlInfo_0.setValveId(0);
 //					controlInfo_0.imageId = 0;
@@ -255,12 +253,11 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
 //					controlInfo_0.controId = 0;
                 }
                 if (bind_control_sel_2.isChecked()) {
-                    controlInfo_1.setValveImgageId(R.mipmap.lighe_1);
-                    controlInfo_1.setValveStatus(Entiy.DEVEICE_BIND);
+                    controlInfo_1.setValveStatus(Entiy.CONTROL_STATUS＿CONNECT);
                     controlInfo_1.setDeviceId(info.getDeviceId());
                     controlInfo_1.setValveName(controlName2);
                     controlInfo_1.setValveAlias(nick2);
-                    controlInfo_1.setValveId(Integer.valueOf(info.getDeviceId()) * 2);
+                    controlInfo_1.setValveId(info.getDeviceId() * 2);
                     controlInfo_1.setDeviceProtocalId(info.getProtocalId());
                     controlInfo_1.setProtocalId("1");
 //					controlInfo_1.imageId = R.mipmap.lighe_1;
@@ -273,10 +270,8 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
 //					controlInfo_1.bindId = info.getDeviceId();
                     DeviceInfoSql.updateDevice(info);
                 } else {
-                    controlInfo_1.setValveImgageId(0);
                     controlInfo_1.setValveStatus(0);
                     controlInfo_1.setValveId(0);
-
                 }
                 finish();
                 break;

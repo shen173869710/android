@@ -2,7 +2,6 @@ package com.auto.di.guan.db;
 
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
-
 import java.io.Serializable;
 
 /**
@@ -12,6 +11,7 @@ public class ControlInfo implements Serializable {
     static final long serialVersionUID=2L;
     @Id(autoincrement = true)
     private Long id;
+
     private int valveSwitchId;
 
     private int valveGroupId;
@@ -56,18 +56,10 @@ public class ControlInfo implements Serializable {
     public ControlInfo() {
 
     }
-    public ControlInfo(int imageId, String name) {
-        this.valveImgageId = imageId;
+    public ControlInfo(int deviceId, String name, int valueStatus) {
+        this.deviceId = deviceId;
         this.valveName = name;
-    }
-
-
-    public int getValveSwitchId() {
-        return valveSwitchId;
-    }
-
-    public void setValveSwitchId(int valveSwitchId) {
-        this.valveSwitchId = valveSwitchId;
+        this.valveStatus = valueStatus;
     }
 
     public int getValveGroupId() {
@@ -188,5 +180,21 @@ public class ControlInfo implements Serializable {
 
     public void setSelect(boolean select) {
         isSelect = select;
+    }
+
+    public int getValveSwitchId() {
+        return valveSwitchId;
+    }
+
+    public void setValveSwitchId(int valveSwitchId) {
+        this.valveSwitchId = valveSwitchId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

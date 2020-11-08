@@ -275,9 +275,7 @@ public class ReadTask extends BaseTask{
             LogUtils.e(TAG, "阀门设备异常 postion = "+postion);
             return;
         }
-
         controlInfo.setValveStatus(valveStatus);
-        controlInfo.setValveImgageId(imageId);
         if (!TextUtils.isEmpty(elect)) {
             try {
                 deviceInfo.setElectricQuantity(Integer.valueOf(elect));

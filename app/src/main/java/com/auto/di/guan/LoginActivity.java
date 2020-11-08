@@ -54,18 +54,20 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     public void onClick(View v) {
         String id = userLoginName.getText().toString().trim();
         id = "13300000000";
-        if (id == null && TextUtils.isEmpty(id)) {
+        if (TextUtils.isEmpty(id)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;
         }
         String pwd = userLoginPwd.getText().toString().trim();
         pwd = "123456";
-        if (pwd == null && TextUtils.isEmpty(pwd)) {
+        if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
         }
-        mPresenter.doLogin(id, pwd);
-
+//        mPresenter.doLogin(id, pwd);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+        BaseApp.getUser().setPassword(pwd);
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.auto.di.guan.GroupEditctivity;
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupList;
+import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.ImageInfo;
 import com.auto.di.guan.entity.ImageStatus;
 
@@ -75,7 +76,7 @@ public class GroupExpandableListViewaAdapter extends BaseExpandableListAdapter {
     private void bindChildView(final ChildHolder holder, final int groupPosition, int childPosition) {
         ControlInfo controlInfo = groupLists.get(groupPosition).controlInfos.get(childPosition);
         holder.group_item_name.setText(controlInfo.getValveName()+" 号控制阀");
-        holder.group_item_icon.setImageResource(controlInfo.getValveImgageId());
+        holder.group_item_icon.setImageResource(Entiy.getImageResource(controlInfo.getValveStatus()));
         holder.group_item_type.setText(controlInfo.getValveAlias());
     }
 

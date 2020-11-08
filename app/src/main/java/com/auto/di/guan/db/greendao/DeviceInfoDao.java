@@ -28,18 +28,18 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property DeviceId = new Property(1, int.class, "deviceId", false, "deviceId");
-        public final static Property DeviceName = new Property(2, String.class, "deviceName", false, "deviceName");
-        public final static Property DeviceSort = new Property(3, int.class, "deviceSort", false, "deviceSort");
+        public final static Property DeviceId = new Property(1, int.class, "deviceId", false, "device_id");
+        public final static Property DeviceName = new Property(2, String.class, "deviceName", false, "device_name");
+        public final static Property DeviceSort = new Property(3, int.class, "deviceSort", false, "device_sort");
         public final static Property ProtocalId = new Property(4, String.class, "protocalId", false, "PROTOCAL_ID");
-        public final static Property UserId = new Property(5, int.class, "userId", false, "userId");
-        public final static Property DeviceImagePath = new Property(6, String.class, "deviceImagePath", false, "deviceImagePath");
-        public final static Property CreateTime = new Property(7, String.class, "createTime", false, "createTime");
-        public final static Property CreateBy = new Property(8, String.class, "createBy", false, "createBy");
-        public final static Property ElectricQuantity = new Property(9, int.class, "electricQuantity", false, "electricQuantity");
-        public final static Property DeviceStatus = new Property(10, int.class, "deviceStatus", false, "deviceStatus");
+        public final static Property UserId = new Property(5, int.class, "userId", false, "user_id");
+        public final static Property DeviceImagePath = new Property(6, String.class, "deviceImagePath", false, "device_image_path");
+        public final static Property CreateTime = new Property(7, String.class, "createTime", false, "create_time");
+        public final static Property CreateBy = new Property(8, String.class, "createBy", false, "create_by");
+        public final static Property ElectricQuantity = new Property(9, int.class, "electricQuantity", false, "electric_quantity");
+        public final static Property DeviceStatus = new Property(10, int.class, "deviceStatus", false, "device_status");
         public final static Property Remark = new Property(11, String.class, "remark", false, "remark");
-        public final static Property ValveDeviceSwitchList = new Property(12, String.class, "valveDeviceSwitchList", false, "valveDeviceSwitchList");
+        public final static Property ValveDeviceSwitchList = new Property(12, String.class, "valveDeviceSwitchList", false, "valve_device_switch_list");
     }
 
     private final ControlConvert valveDeviceSwitchListConverter = new ControlConvert();
@@ -57,18 +57,18 @@ public class DeviceInfoDao extends AbstractDao<DeviceInfo, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"DEVICE_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"deviceId\" INTEGER NOT NULL ," + // 1: deviceId
-                "\"deviceName\" TEXT," + // 2: deviceName
-                "\"deviceSort\" INTEGER NOT NULL ," + // 3: deviceSort
+                "\"device_id\" INTEGER NOT NULL ," + // 1: deviceId
+                "\"device_name\" TEXT," + // 2: deviceName
+                "\"device_sort\" INTEGER NOT NULL ," + // 3: deviceSort
                 "\"PROTOCAL_ID\" TEXT," + // 4: protocalId
-                "\"userId\" INTEGER NOT NULL ," + // 5: userId
-                "\"deviceImagePath\" TEXT," + // 6: deviceImagePath
-                "\"createTime\" TEXT," + // 7: createTime
-                "\"createBy\" TEXT," + // 8: createBy
-                "\"electricQuantity\" INTEGER NOT NULL ," + // 9: electricQuantity
-                "\"deviceStatus\" INTEGER NOT NULL ," + // 10: deviceStatus
+                "\"user_id\" INTEGER NOT NULL ," + // 5: userId
+                "\"device_image_path\" TEXT," + // 6: deviceImagePath
+                "\"create_time\" TEXT," + // 7: createTime
+                "\"create_by\" TEXT," + // 8: createBy
+                "\"electric_quantity\" INTEGER NOT NULL ," + // 9: electricQuantity
+                "\"device_status\" INTEGER NOT NULL ," + // 10: deviceStatus
                 "\"remark\" TEXT," + // 11: remark
-                "\"valveDeviceSwitchList\" TEXT);"); // 12: valveDeviceSwitchList
+                "\"valve_device_switch_list\" TEXT);"); // 12: valveDeviceSwitchList
     }
 
     /** Drops the underlying database table. */

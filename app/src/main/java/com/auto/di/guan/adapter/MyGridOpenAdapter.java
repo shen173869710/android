@@ -93,11 +93,11 @@ public class MyGridOpenAdapter extends BaseAdapter {
             int itemHeight = screenHight - (int)context.getResources().getDimension(R.dimen.main_grid_width)- MainActivity.windowTop;
             AbsListView.LayoutParams layoutParams = (AbsListView.LayoutParams) convertView.getLayoutParams();
             if (layoutParams == null) {
-                layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GRID_COLUMNS, itemWidth/ Entiy.GRID_COLUMNS);
+                layoutParams = new AbsListView.LayoutParams(itemWidth/ Entiy.GUN_COLUMN, itemWidth/ Entiy.GUN_COLUMN);
                 holder.grid_item_layout.setLayoutParams(layoutParams);
             }else {
-                layoutParams.width = itemWidth/ Entiy.GRID_COLUMNS;
-                layoutParams.height = itemWidth/ Entiy.GRID_COLUMNS;
+                layoutParams.width = itemWidth/ Entiy.GUN_COLUMN;
+                layoutParams.height = itemWidth/ Entiy.GUN_COLUMN;
             }
             convertView.setTag(holder);
         } else {
@@ -137,12 +137,12 @@ public class MyGridOpenAdapter extends BaseAdapter {
                 holder.grid_item_left_group.setText(controlInfo_0.getValveGroupId()+"");
             }
 
-            if (controlInfo_0.getValveImgageId() == 0) {
+            if (controlInfo_0.getValveStatus() == 0) {
                 holder.grid_item_left_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_left_layout.setOnClickListener(null);
             }else {
                 holder.grid_item_left_image.setVisibility(View.VISIBLE);
-                holder.grid_item_left_image.setImageResource(controlInfo_0.getValveImgageId());
+                holder.grid_item_left_image.setImageResource(Entiy.getImageResource(controlInfo_0.getValveStatus()));
                 holder.grid_item_left_id.setText(""+controlInfo_0.getValveAlias());
 
                 holder.grid_item_left_layout.setOnClickListener(new View.OnClickListener() {
@@ -165,12 +165,12 @@ public class MyGridOpenAdapter extends BaseAdapter {
                 holder.grid_item_right_group.setVisibility(View.VISIBLE);
                 holder.grid_item_right_group.setText(controlInfo_1.getValveGroupId()+"");
             }
-            if (controlInfo_1.getValveImgageId() == 0) {
+            if (controlInfo_1.getValveStatus() == 0) {
                 holder.grid_item_right_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_right_layout.setOnClickListener(null);
             }else {
                 holder.grid_item_right_image.setVisibility(View.VISIBLE);
-                holder.grid_item_right_image.setImageResource(controlInfo_1.getValveImgageId());
+                holder.grid_item_right_image.setImageResource(Entiy.getImageResource(controlInfo_1.getValveStatus()));
                 holder.grid_item_right_id.setText(""+controlInfo_1.getValveAlias());
 
 
@@ -224,17 +224,17 @@ public class MyGridOpenAdapter extends BaseAdapter {
                  */
                 if (index == 0) {
                     TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_READ ,Entiy.ACTION_TYPE_4);
-                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_READ);
+                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_READ,controlInfo);
                     TaskManager.getInstance().startTask();
                 }else if (index == 1) {
                     TaskFactory.createOpenTask(controlInfo);
                     TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_OPEN_READ ,Entiy.ACTION_TYPE_4);
-                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_OPEN_READ);
+                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_OPEN_READ,controlInfo);
                     TaskManager.getInstance().startTask();
                 }else if (index == 2) {
                     TaskFactory.createCloseTask(controlInfo);
                     TaskFactory.createReadSingleTask(controlInfo, TaskEntiy.TASK_OPTION_CLOSE_READ ,Entiy.ACTION_TYPE_4);
-                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_CLOSE_READ);
+                    TaskFactory.createReadEndTask(TaskEntiy.TASK_OPTION_CLOSE_READ,controlInfo);
                     TaskManager.getInstance().startTask();
                 }
             }

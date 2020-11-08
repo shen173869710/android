@@ -280,7 +280,6 @@ public class ReadPollTask extends BaseTask{
         }
 
         controlInfo.setValveStatus(valveStatus);
-        controlInfo.setValveImgageId(imageId);
         if (!TextUtils.isEmpty(elect)) {
             try {
                 deviceInfo.setElectricQuantity(Integer.valueOf(elect));

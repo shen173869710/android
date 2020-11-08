@@ -6,7 +6,8 @@ import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.event.Fragment31Event;
 import com.auto.di.guan.jobqueue.event.Fragment32Event;
-import com.auto.di.guan.net.NetSendMessage;
+import com.auto.di.guan.rtm.MessageEntiy;
+import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.LogUtils;
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,8 +33,9 @@ public class GroupEndTask extends BaseTask{
                 GroupInfoSql.updateGroup(mGroupInfo);
             }
             LogUtils.e(TAG, "分组手动开启     操作结束==========================  cmd =="+getTaskCmd());
-
-            NetSendMessage.sendGroupOptionMessage(mGroupInfo);
+            EventBus.getDefault().post(new Fragment31Event());
+            EventBus.getDefault().post(new Fragment32Event());
+            MessageSend.syncGroup(MessageEntiy.TYPE_GROUP_OPEN,mGroupInfo);
         }else if (getTaskType() == TaskEntiy.TASK_OPTION_GROUP_CLOSE_READ_END) {
             if (mGroupInfo != null) {
                 mGroupInfo.setGroupStatus(0);
@@ -42,10 +44,10 @@ public class GroupEndTask extends BaseTask{
                 GroupInfoSql.updateGroup(mGroupInfo);
             }
             LogUtils.e(TAG, "分组手动关闭     操作结束==========================  cmd =="+getTaskCmd());
-            NetSendMessage.sendGroupOptionMessage(mGroupInfo);
+            EventBus.getDefault().post(new Fragment31Event());
+            EventBus.getDefault().post(new Fragment32Event());
+            MessageSend.syncGroup(MessageEntiy.TYPE_GROUP_CLOSE,mGroupInfo);
         }
-        EventBus.getDefault().post(new Fragment31Event());
-        EventBus.getDefault().post(new Fragment32Event());
         finishTask();
     }
 

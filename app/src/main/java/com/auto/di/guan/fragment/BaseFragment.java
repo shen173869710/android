@@ -7,10 +7,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-/**
- * Created by Administrator on 2017/7/16.
- */
-
 public abstract class BaseFragment extends Fragment implements AdapterListener{
 
     public Activity activity;
@@ -24,9 +20,6 @@ public abstract class BaseFragment extends Fragment implements AdapterListener{
     public void setTitle(String title) {
         activity.setTitle(title);
     }
-
-
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {

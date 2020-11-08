@@ -40,7 +40,7 @@ public class RecyclerListAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHol
         option_level.setText("");
         option_time_value.setText("");
 
-        if (info.getGroupIsJoin() == 1) {
+        if (info.getGroupIsJoin()) {
             option_time.setVisibility(View.VISIBLE);
             option_level.setVisibility(View.VISIBLE);
             holder.setBackgroundResource(R.id.option_switch, R.mipmap.select_bg_yellow);
@@ -154,13 +154,8 @@ public class RecyclerListAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHol
                     ToastUtils.showLongToast("设备处于运行状态,无法关闭");
                     return;
                 }
-
-                if (info.getGroupIsJoin() == 1) {
-                    info.setGroupIsJoin(0);
-                }else {
-                    info.setGroupIsJoin(1);
-                }
-                if (info.getGroupIsJoin() == 0) {
+                info.setGroupIsJoin(!info.getGroupIsJoin());
+                if (!info.getGroupIsJoin()) {
                     info.setGroupTime(0);
                     info.setGroupRunTime(0);
                 }

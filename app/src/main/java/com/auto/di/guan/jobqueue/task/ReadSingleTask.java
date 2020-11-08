@@ -1,6 +1,7 @@
 package com.auto.di.guan.jobqueue.task;
 
 import android.text.TextUtils;
+
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
@@ -278,7 +279,6 @@ public class ReadSingleTask extends BaseTask{
         }
 
         controlInfo.setValveStatus(valveStatus);
-        controlInfo.setValveImgageId(imageId);
         if (!TextUtils.isEmpty(elect)) {
             try {
                 deviceInfo.setElectricQuantity(Integer.valueOf(elect));

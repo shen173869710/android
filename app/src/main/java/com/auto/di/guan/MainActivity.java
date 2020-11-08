@@ -6,30 +6,35 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.TextView;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.LevelInfo;
+import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
+import com.auto.di.guan.dialog.InputPasswordDialog;
 import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.entity.PollingEvent;
 import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.event.AutoCountEvent;
 import com.auto.di.guan.jobqueue.event.AutoTaskEvent;
+import com.auto.di.guan.jobqueue.event.LoginEvent;
 import com.auto.di.guan.jobqueue.event.SendCmdEvent;
+import com.auto.di.guan.jobqueue.event.UserStatusEvent;
 import com.auto.di.guan.jobqueue.event.VideoPlayEcent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
-import com.auto.di.guan.net.NetSendMessage;
+import com.auto.di.guan.rtm.ChatManager;
 import com.auto.di.guan.utils.FloatWindowUtil;
-import com.auto.di.guan.utils.HuanXinUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
 import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -49,6 +54,9 @@ public class MainActivity extends SerialPortActivity {
      * 当前运行的剩余时间
      ***/
     public int curRunTime = 0;
+
+
+    private ChatManager chatManager;
 
     private Handler handler = new Handler() {
         @Override
@@ -116,16 +124,9 @@ public class MainActivity extends SerialPortActivity {
         LogUtils.e("time", "time == "+System.currentTimeMillis());
 
 
-        HuanXinUtil.login();
-
-
-        findViewById(R.id.title_bar_title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NetSendMessage.sendLoginMessage();
-            }
-        });
-
+        chatManager = BaseApp.getInstance().getChatManager();
+        chatManager.init();
+        chatManager.doLogin();
     }
 
 
@@ -157,9 +158,9 @@ public class MainActivity extends SerialPortActivity {
 
     @Override
     protected void onDataReceived(byte[] buffer, int size) {
-        final String receive = new String(buffer, 0, size);
+        final String receive = new String(buffer, 0, buffer.length);
         int length = receive.trim().length();
-//        LogUtils.e(TAG, "收到 -------------------" + receive + "    length = " + length);
+        LogUtils.e(TAG, "收到 -------------------" + receive + "    length = " + length);
 
         if (TextUtils.isEmpty(receive)) {
             ToastUtils.showLongToast("错误命令" + receive);
@@ -203,6 +204,10 @@ public class MainActivity extends SerialPortActivity {
         }
         PollingUtils.stopPollingService(this);
         FloatWindowUtil.getInstance().distory();
+
+        if (chatManager != null) {
+            chatManager.doLogout();
+        }
     }
 
 
@@ -211,7 +216,7 @@ public class MainActivity extends SerialPortActivity {
         FloatWindowUtil.getInstance().onStatsuEvent(event);
     }
 
-
+    public static boolean isOpen = false;
     /**
      *        接收taks 发送过来的命令 写入
      * @param event
@@ -231,12 +236,36 @@ public class MainActivity extends SerialPortActivity {
             showDialog();
         }
         LogUtils.e(TAG, "-----写入命令" + event.getCmd());
+//        try {
+//            mOutputStream.write(new String(event.getCmd()).getBytes());
+//            mOutputStream.write('\n');
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        // kf 012 004 0 ok
+        // gf 012 004 0 ok
+        //zt 012 004 xxxx
+        // zt 102 002 1100 090
+        String buf= "";
+        if (event.getCmd().contains("kf")) {
+           buf = "kf 10000 001 0 ok";
+            isOpen = true;
+        }else if (event.getCmd().contains("gf")) {
+            buf = "gf 10000 001 0 ok";
+            isOpen = false;
+        }else if (event.getCmd().contains("rs")) {
+            if (isOpen) {
+                buf = "zt 10000 001 1110 010";
+            }else {
+                buf = "zt 10000 001 1100 010";
+            }
+        }
         try {
-            mOutputStream.write(new String(event.getCmd()).getBytes());
-            mOutputStream.write('\n');
-        } catch (IOException e) {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        onDataReceived(buf.getBytes(), 22);
     }
     /**
      * 异常报警
@@ -258,7 +287,6 @@ public class MainActivity extends SerialPortActivity {
              */
             if(event.getType() == Entiy.RUN_DO_FINISH) {
                 handler.removeMessages(HANDLER_WHAT_FALG);
-
                 LogUtils.e(TAG, "---------自动轮灌结束--------- ");
             }  else if (event.getType() == Entiy.RUN_DO_STOP) {
                 /**
@@ -325,9 +353,30 @@ public class MainActivity extends SerialPortActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        HuanXinUtil.stop();
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserStatusEvent(UserStatusEvent event) {
+        if (event == null || TextUtils.isEmpty(event.getPeerId())) {
+            return;
+        }
+        if (event.getPeerId().equals(BaseApp.getUser().getMemberId().toString())) {
+            if (event.getStatus() == 0) {
+                LogUtils.e(TAG, "管理员在线");
+            }else {
+                LogUtils.e(TAG, "管理员离线");
+                InputPasswordDialog.dismiss(MainActivity.this);
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent event) {
+       if (event != null && event.isLogin()) {
+            BaseApp.webLogin = true;
+           InputPasswordDialog.show(MainActivity.this);
+       }else {
+           BaseApp.webLogin = false;
+           InputPasswordDialog.dismiss(MainActivity.this);
+       }
     }
 }

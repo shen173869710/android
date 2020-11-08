@@ -9,9 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
-
 import androidx.multidex.MultiDex;
-
 import com.auto.di.guan.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.User;
@@ -20,18 +18,15 @@ import com.auto.di.guan.db.greendao.DaoSession;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.UserSql;
 import com.auto.di.guan.db.update.MySQLiteOpenHelper;
+import com.auto.di.guan.rtm.ChatManager;
 import com.auto.di.guan.utils.CrashHandler;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.GsonUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.SPUtils;
 import com.facebook.stetho.Stetho;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMOptions;
 import com.tencent.bugly.crashreport.CrashReport;
-
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +35,6 @@ import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 /**
  * Created by Administrator on 2017/6/28.
  */
@@ -73,6 +67,10 @@ public class BaseApp extends Application {
 
     private static Context mContext=null;//上下文
 
+    public static boolean webLogin;
+
+    private ChatManager mChatManager;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -86,18 +84,8 @@ public class BaseApp extends Application {
 
         CrashHandler.getInstance().init(this);
 
-        EMOptions options = new EMOptions();
-// 默认添加好友时，是不需要验证的，改成需要验证
-        options.setAcceptInvitationAlways(false);
-// 是否自动将消息附件上传到环信服务器，默认为True是使用环信服务器上传下载，如果设为 false，需要开发者自己处理附件消息的上传和下载
-        options.setAutoTransferMessageAttachments(true);
-// 是否自动下载附件类消息的缩略图等，默认为 true 这里和上边这个参数相关联
-        options.setAutoDownloadThumbnail(true);
-//初始化
-        EMClient.getInstance().init(this, options);
-//在做打包混淆时，关闭debug模式，避免消耗不必要的资源
-        EMClient.getInstance().setDebugMode(true);
-
+        mChatManager = new ChatManager(this);
+        mChatManager.init();
     }
 
 
@@ -345,6 +333,11 @@ public class BaseApp extends Application {
 
     public static String getProjectId() {
         return user.getProjectId();
+    }
+
+
+    public ChatManager getChatManager() {
+        return mChatManager;
     }
 
 }

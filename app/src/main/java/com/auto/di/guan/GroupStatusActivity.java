@@ -116,14 +116,15 @@ public class GroupStatusActivity extends FragmentActivity  {
             GroupInfo groupInfo = event.getGroupInfo();
             int groupId = groupInfo.getGroupId();
             int size = groupInfos.size();
-            int positin = 0;
+            int position = 0;
             for (int i = 0; i < size; i++) {
                 if (groupId == groupInfos.get(i).getGroupId()) {
-                    positin = i;
+                    position = i;
                 }
             }
-            adapter.getData().set(positin, groupInfo);
-            adapter.notifyItemChanged(positin, positin);
+
+            adapter.getData().set(position, groupInfo);
+            adapter.notifyItemChanged(position, position);
 
             if (openInfos != null && openInfos.size() == 0) {
                 GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);

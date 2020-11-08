@@ -2,7 +2,6 @@ package com.auto.di.guan.basemodel.presenter;
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.api.ApiService;
 import com.auto.di.guan.api.ApiUtil;
-import com.auto.di.guan.api.GlobalConstant;
 import com.auto.di.guan.api.HttpManager;
 import com.auto.di.guan.basemodel.view.BaseView;
 import com.auto.di.guan.utils.ToastUtils;
@@ -50,7 +49,7 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
         if (BaseApp.getInstance().isConnectNomarl()) {
             httpManager.doHttpTaskWithDialog(getBaseView(), observable,onResultListener);
         }else {
-            String error = GlobalConstant.SERVER_ERROR;
+            String error = "网络异常";
             if (onResultListener != null) {
                 onResultListener.onError(null,500, error);
             }
@@ -62,7 +61,7 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
         if (BaseApp.getInstance().isConnectNomarl()) {
             httpManager.doHttpTaskWithDialog(getBaseView(), observable,onResultListener);
         }else {
-            String error = GlobalConstant.SERVER_ERROR;
+            String error = "网络异常";
             if (onResultListener != null) {
                 onResultListener.onError(null,500, error);
             }

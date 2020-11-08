@@ -20,42 +20,42 @@ public class DeviceInfo implements Serializable{
     @Id(autoincrement = true)
     private Long id;
     // 设备id
-    @Property(nameInDb = "deviceId")
+    @Property(nameInDb = "device_id")
     private int deviceId;
     // 设备名称
-    @Property(nameInDb = "deviceName")
+    @Property(nameInDb = "device_name")
     private String deviceName;
     // 设备位置
-    @Property(nameInDb = "deviceSort")
+    @Property(nameInDb = "device_sort")
     private int deviceSort;
     // 本地通信协议ID
     private String protocalId;
     //所有者ID
-    @Property(nameInDb = "userId")
+    @Property(nameInDb = "user_id")
     private int userId;
     // 设备图片
-    @Property(nameInDb = "deviceImagePath")
+    @Property(nameInDb = "device_image_path")
     private String deviceImagePath;
     // 创建时间
-    @Property(nameInDb = "createTime")
+    @Property(nameInDb = "create_time")
     private String createTime;
     // 创建者
-    @Property(nameInDb = "createBy")
+    @Property(nameInDb = "create_by")
     private String createBy;
     // 设备电量
-    @Property(nameInDb = "electricQuantity")
+    @Property(nameInDb = "electric_quantity")
     private int electricQuantity;
     /**
      *   0  未添加
      *   1  已经添加
      */
-    @Property(nameInDb = "deviceStatus")
+    @Property(nameInDb = "device_status")
     private int deviceStatus;
     @Property(nameInDb = "remark")
     private String remark;
 
     @Convert(columnType =String.class, converter = ControlConvert.class)
-    @Property(nameInDb = "valveDeviceSwitchList")
+    @Property(nameInDb = "valve_device_switch_list")
     private ArrayList<ControlInfo>valveDeviceSwitchList;
 
     @Generated(hash = 2079321104)
@@ -183,21 +183,21 @@ public class DeviceInfo implements Serializable{
     /**
      *  绑定设备
      */
-    public void bindDevice() {
+    public void bindDevice(int id) {
         setDeviceStatus(Entiy.DEVEICE_BIND);
         ArrayList<ControlInfo> controlInfos = new ArrayList<>();
-        controlInfos.add(new ControlInfo(0,"0"));
-        controlInfos.add(new ControlInfo(0,"1"));
+        controlInfos.add(new ControlInfo(id,"0",0));
+        controlInfos.add(new ControlInfo(id, "1",0));
         setValveDeviceSwitchList(controlInfos);
     }
     /**
      *  解除绑定设备
      */
-    public void unBindDevice() {
+    public void unBindDevice(int id) {
         setDeviceStatus(Entiy.DEVEICE_UNBIND);
         ArrayList<ControlInfo> controlInfos = new ArrayList<>();
-        controlInfos.add(new ControlInfo(0,"0"));
-        controlInfos.add(new ControlInfo(0,"1"));
+        controlInfos.add(new ControlInfo(id,"0", 0));
+        controlInfos.add(new ControlInfo(id,"1",0));
         setValveDeviceSwitchList(controlInfos);
     }
 

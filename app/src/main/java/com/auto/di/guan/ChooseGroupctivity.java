@@ -62,7 +62,7 @@ public class ChooseGroupctivity extends Activity {
 		adapter = new ChooseGridAdapter(this, deviceInfos);
 		gridView.setAdapter(adapter);
 		groupInfo = new GroupInfo();
-		gridView.setNumColumns(Entiy.GRID_COLUMNS);
+		gridView.setNumColumns(Entiy.GUN_COLUMN);
 		gridView.setHorizontalSpacing(0);
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		gridView.setLayoutParams(layoutParams);

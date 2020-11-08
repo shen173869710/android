@@ -5,9 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
-
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.GroupInfoSql;
@@ -115,7 +113,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
             }
         });
 
-        if (info.getGroupStop() == 1) {
+        if (info.getGroupStop()) {
             status_stop.setText("开启计时");
         } else {
             status_stop.setText("暂停计时");
@@ -128,11 +126,11 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     return;
                 }
 
-                if (info.getGroupStop() == 1) {
+                if (info.getGroupStop()) {
                     DialogUtil.showStartCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            info.setGroupStop(0);
+                            info.setGroupStop(false);
                             GroupInfoSql.updateGroup(info);
                             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_START, info));
                             notifyDataSetChanged();
@@ -148,7 +146,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                     DialogUtil.showStopCount(getContext(), new OnDialogClick() {
                         @Override
                         public void onDialogOkClick(String value) {
-                            info.setGroupStop(1);
+                            info.setGroupStop(true);
                             GroupInfoSql.updateGroup(info);
                             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_STOP));
                             notifyDataSetChanged();

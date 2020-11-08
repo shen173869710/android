@@ -2,6 +2,8 @@ package com.auto.di.guan.db.sql;
 
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
+import com.auto.di.guan.utils.LogUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,8 @@ import static com.auto.di.guan.db.sql.DeviceInfoSql.updateDeviceList;
 
 public class ControlInfoSql extends BaseSql {
 
-
     public static void updateControl(ControlInfo info) {
+        LogUtils.e("ControlInfoSql", "更新单个设备信息"+new Gson().toJson(info));
         List<DeviceInfo> deviceInfos = DeviceInfoSql.queryDeviceList();
         int size =  deviceInfos.size();
         for (int i = 0; i < size; i++) {
@@ -75,9 +77,24 @@ public class ControlInfoSql extends BaseSql {
         int size =  deviceInfos.size();
         for (int i = 0; i < size; i++) {
 
-
-
         }
         return controlInfos;
+    }
+
+    public static ControlInfo findControlById(int valueId) {
+        ControlInfo controlInfo = null;
+        List<DeviceInfo>deviceInfos = DeviceInfoSql.queryDeviceList();
+        int size = deviceInfos.size();
+        for (int i = 0; i < size; i++) {
+            ControlInfo controlInfo_0 = deviceInfos.get(i).getValveDeviceSwitchList().get(0);
+            ControlInfo controlInfo_1 = deviceInfos.get(i).getValveDeviceSwitchList().get(1);
+            if (valueId == controlInfo_0.getValveId()) {
+                controlInfo = controlInfo_0;
+            }
+            if (valueId == controlInfo_1.getValveId()) {
+                controlInfo= controlInfo_1;
+            }
+        }
+        return controlInfo;
     }
 }
