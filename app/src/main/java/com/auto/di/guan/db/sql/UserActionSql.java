@@ -58,7 +58,7 @@ public class UserActionSql extends BaseSql {
         DaoSession daoSession = getDaoWriteSession();
         UserActionDao userDao = daoSession.getUserActionDao();
         QueryBuilder<UserAction> qb = userDao.queryBuilder();
-        qb.where(UserActionDao.Properties.ActionStatus.notEq("操作正常")).orderDesc(UserActionDao.Properties.ActionTime);
+        qb.where(UserActionDao.Properties.ActionStatus.notEq(1)).orderDesc(UserActionDao.Properties.ActionTime);
         List<UserAction> list = qb.list();
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
