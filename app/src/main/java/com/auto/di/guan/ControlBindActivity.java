@@ -26,6 +26,7 @@ import com.auto.di.guan.event.BindSucessEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.Task;
+import com.auto.di.guan.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -339,16 +340,16 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
         }
 
         if (!event.isOk()) {
-            showToastLongMsg("写入失败");
+            ToastUtils.showToast("写入失败");
             return;
         }
         LogUtils.e("BaseTask == ", "onBindSucessEvent"+event.getType());
         if (event.getType() == TaskEntiy.TASK_READ_GID) {
             isPeroJectId = true;
-            showToastLongMsg("写入项目ID成功");
+            ToastUtils.showToast("写入项目ID成功");
         }else if (event.getType() == TaskEntiy.TASK_READ_BID) {
             isGroupId = true;
-            showToastLongMsg("写入组ID成功");
+            ToastUtils.showToast("写入组ID成功");
         }
 
 
