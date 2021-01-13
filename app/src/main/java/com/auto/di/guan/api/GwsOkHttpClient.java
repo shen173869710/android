@@ -6,6 +6,8 @@ import android.os.Build;
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.BuildConfig;
 import com.auto.di.guan.utils.LogUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
@@ -21,8 +23,10 @@ import javax.net.ssl.X509TrustManager;
 import okhttp3.ConnectionPool;
 import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
 
 public class GwsOkHttpClient {
 
@@ -153,4 +157,8 @@ public class GwsOkHttpClient {
             }
         }
     }
+
+
+
+
 }

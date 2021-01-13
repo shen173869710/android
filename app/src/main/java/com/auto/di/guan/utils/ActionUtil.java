@@ -21,7 +21,7 @@ public class ActionUtil {
 	 * @param optionType     执行的类型
 	 * @param isNormal        是否操作正常
 	 */
-	public static void saveAction( ControlInfo info, int com_type, int optionType, String desc, boolean isNormal) {
+	public static void saveAction( ControlInfo info, int com_type, int optionType, String desc, int isNormal) {
 		UserAction action = new UserAction();
 		int operateResult = -1;
 		String name = info.getValveAlias();
@@ -58,7 +58,7 @@ public class ActionUtil {
 		action.setActionType(actionType);
 
 		action.setUserId(BaseApp.getUser().getUserId());
-		if (isNormal) {
+		if (isNormal == 1) {
 			action.setActionStatus(1);
 		}else {
 			action.setActionStatus(0);

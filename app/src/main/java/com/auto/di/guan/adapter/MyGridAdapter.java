@@ -74,11 +74,14 @@ public class MyGridAdapter extends BaseAdapter {
             holder.grid_item_left_group = (TextView) convertView.findViewById(R.id.grid_item_left_group);
             holder.grid_item_left_sel = (TextView) convertView.findViewById(R.id.grid_item_left_sel);
             holder.grid_item_left_id = (TextView) convertView.findViewById(R.id.grid_item_left_id);
+            holder.grid_item_left_alias = (TextView) convertView.findViewById(R.id.grid_item_left_alias);
+
             holder.grid_item_right_layout = (RelativeLayout) convertView.findViewById(R.id.grid_item_right_layout);
             holder.grid_item_right_image = (ImageView) convertView.findViewById(R.id.grid_item_right_image);
             holder.grid_item_right_group = (TextView) convertView.findViewById(R.id.grid_item_right_group);
             holder.grid_item_right_sel = (TextView) convertView.findViewById(R.id.grid_item_right_sel);
             holder.grid_item_right_id = (TextView) convertView.findViewById(R.id.grid_item_right_id);
+            holder.grid_item_right_alias = (TextView) convertView.findViewById(R.id.grid_item_right_alias);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -120,10 +123,12 @@ public class MyGridAdapter extends BaseAdapter {
             if (controlInfo0.getValveStatus() == 0) {
                 holder.grid_item_left_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_left_id.setText("");
+                holder.grid_item_left_alias.setText("");
             }else {
                 holder.grid_item_left_image.setVisibility(View.VISIBLE);
                 holder.grid_item_left_image.setImageResource(Entiy.getImageResource(controlInfo0.getValveStatus()));
-                holder.grid_item_left_id.setText(controlInfo0.getValveAlias()+"");
+                holder.grid_item_left_id.setText(controlInfo0.getValveName()+"");
+                holder.grid_item_left_alias.setText(controlInfo0.getValveAlias()+"");
             }
             holder.grid_item_right_layout.setVisibility(View.VISIBLE);
             holder.grid_item_right_sel.setVisibility(View.GONE);
@@ -137,10 +142,12 @@ public class MyGridAdapter extends BaseAdapter {
             if (controlInfo1.getValveStatus() == 0) {
                 holder.grid_item_right_image.setVisibility(View.INVISIBLE);
                 holder.grid_item_right_id.setText("");
+                holder.grid_item_right_alias.setText("");
             }else {
                 holder.grid_item_right_image.setVisibility(View.VISIBLE);
                 holder.grid_item_right_image.setImageResource(Entiy.getImageResource(controlInfo1.getValveStatus()));
-                holder.grid_item_right_id.setText(controlInfo1.getValveAlias()+"");
+                holder.grid_item_right_id.setText(controlInfo1.getValveName()+"");
+                holder.grid_item_right_alias.setText(controlInfo1.getValveAlias()+"");
             }
 
             if (controlInfo0.getValveStatus() == 0) {
@@ -174,6 +181,7 @@ public class MyGridAdapter extends BaseAdapter {
         public ImageView grid_item_left_image;
         public TextView grid_item_left_group;
         public TextView grid_item_left_id;
+        public TextView grid_item_left_alias;
         public TextView grid_item_left_sel;
 
         public RelativeLayout grid_item_right_layout;
@@ -181,6 +189,7 @@ public class MyGridAdapter extends BaseAdapter {
         public TextView grid_item_right_group;
         public TextView grid_item_right_sel;
         public TextView grid_item_right_id;
+        public TextView grid_item_right_alias;
 
     }
 }

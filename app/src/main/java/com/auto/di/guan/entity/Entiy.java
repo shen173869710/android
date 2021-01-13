@@ -4,6 +4,12 @@ import com.auto.di.guan.R;
 import com.auto.di.guan.utils.LogUtils;
 /**
  * Created by Administrator on 2017/7/16.
+ *
+ *           1. 外部殇情信息
+ *           2. 外部气象信息
+ *           3. 泵的数据  增加减少
+ *           4. 界面同步
+ *
  */
 public class Entiy {
 //    /*设置项目的行数*/

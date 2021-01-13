@@ -221,10 +221,10 @@ public class SendUtils {
         String name = info.getValveAlias();
         int controlId = info.getValveId();
         String desc = "";
-        boolean isNormal = false;
+        int isNormal = 0;
         switch (type) {
             case OPTION_OPEN_SUCESS:
-                isNormal = true;
+                isNormal = 1;
                 desc = OPTION_OPEN_SUCESS_VALUE;
                 break;
             case OPTION_OPEN_FAILE:
@@ -240,7 +240,7 @@ public class SendUtils {
                 desc = OPTION_OPEN_OTHER_VALUE;
                 break;
             case OPTION_CLOSE_SUCESS:
-                isNormal = true;
+                isNormal = 1;
                 desc = OPTION_CLOSE_SUCESS_VALUE;
                 break;
             case OPTION_CLOSE_FAILE:
