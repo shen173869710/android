@@ -14,8 +14,10 @@ import com.auto.di.guan.adapter.MyGridAdapter;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.event.BindIdEvent;
 import com.auto.di.guan.event.BindSucessEvent;
 import com.auto.di.guan.utils.LogUtils;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,7 +66,7 @@ public class FragmentTab1 extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onBindIdEvent(BindSucessEvent event) {
+    public void onBindIdEvent(BindIdEvent event) {
         LogUtils.e("FragmentTab1", "onBindIdEvent（）");
        refreshData();
     };

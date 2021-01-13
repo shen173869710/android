@@ -1,5 +1,6 @@
 package com.auto.di.guan;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
+import com.auto.di.guan.dialog.LoadingDialog;
 import com.auto.di.guan.dialog.WaitingDialog;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskEntiy;
@@ -69,7 +71,7 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
 
     private List<ControlInfo> controlInfos;
 
-    private WaitingDialog dialog;
+    private LoadingDialog mLoadingDailog;
 
     /***是否写入项目ID**/
     private boolean isPeroJectId;
@@ -89,7 +91,7 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_bind);
-        dialog = new WaitingDialog(this, R.style.dialog);
+
         isPeroJectId = false;
         isGroupId = false;
         init();
@@ -274,19 +276,19 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                     controlInfo_1.setValveStatus(0);
                     controlInfo_1.setValveId(0);
                 }
+                EventBus.getDefault().post(new BindIdEvent());
                 finish();
                 break;
             case R.id.bind_deivce_id:
                 isGroupClick = true;
-                if(dialog != null && !dialog.isShowing()) {
-                    dialog.show();
-                }
+                showWaitingDialog();
                 TaskFactory.createGidTak();
 //				EventBus.getDefault().post(new ReadEvent(Entiy.writeGid(groupName),0));
 //                BindEvent event = new BindEvent("ok");
 //                onControlStatusEvent(event);
                 break;
             case R.id.bind_deivce_control_id:
+                showWaitingDialog();
                 isGroupClick = false;
                 TaskFactory.createBidTak(info.getProtocalId());
 //				EventBus.getDefault().post(new ReadEvent(Entiy.writeBid(info.getDeviceId()+""),1));
@@ -331,33 +333,58 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onBindSucessEvent(BindSucessEvent event) {
-        if (dialog != null) {
-            dialog.dismiss();
-        }
+        hideWaitingDialog();
 
         if (event == null) {
             return;
         }
 
         if (!event.isOk()) {
-            ToastUtils.showToast("写入失败");
+            Toast.makeText(this, "写入失败", Toast.LENGTH_SHORT).show();
             return;
         }
-        LogUtils.e("BaseTask == ", "onBindSucessEvent"+event.getType());
+        LogUtils.e("BaseTask == ", "onBindSucessEvent"+event.getType() );
+        boolean is = false;
+        if (event.getType() == TaskEntiy.TASK_READ_GID) {
+            is = true;
+        }
+        LogUtils.e("BaseTask == ", "is = "+is);
         if (event.getType() == TaskEntiy.TASK_READ_GID) {
             isPeroJectId = true;
-            ToastUtils.showToast("写入项目ID成功");
+            Toast.makeText(ControlBindActivity.this, "写入项目ID成功", Toast.LENGTH_LONG).show();
+//            ToastUtils.showToast("111111111111111111111111111111111");
         }else if (event.getType() == TaskEntiy.TASK_READ_BID) {
             isGroupId = true;
-            ToastUtils.showToast("写入组ID成功");
+            Toast.makeText(ControlBindActivity.this, "写入组ID成功", Toast.LENGTH_LONG).show();
+//            ToastUtils.showToast("22222222222222222222222222222222222222222");
         }
-
-        showToastLongMsg("操作成功");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+
+
+
+    public void showWaitingDialog() {
+        if (null == mLoadingDailog) {
+            mLoadingDailog = new LoadingDialog(this, R.style.CustomDialog);
+        }
+        if (!mLoadingDailog.isShowing()) {
+            mLoadingDailog.show();
+        }
+    }
+
+    /**
+     * 隐藏等待提示框
+     */
+    public void hideWaitingDialog() {
+        if (mLoadingDailog != null && mLoadingDailog.isShowing()) {
+            mLoadingDailog.dismiss();
+            mLoadingDailog = null;
+        }
     }
 }
