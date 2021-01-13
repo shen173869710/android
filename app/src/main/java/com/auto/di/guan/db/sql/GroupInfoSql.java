@@ -89,7 +89,7 @@ public class GroupInfoSql extends BaseSql {
         DaoSession daoSession = getDaoWriteSession();
         GroupInfoDao dao = daoSession.getGroupInfoDao();
         QueryBuilder<GroupInfo> qb = dao.queryBuilder();
-        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(true));
+        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(1));
         qb.orderAsc(GroupInfoDao.Properties.GroupLevel);
         List<GroupInfo> list = qb.list();
         return list;
@@ -103,7 +103,7 @@ public class GroupInfoSql extends BaseSql {
         GroupInfoDao dao = daoSession.getGroupInfoDao();
         QueryBuilder<GroupInfo> qb = dao.queryBuilder();
         qb.where(GroupInfoDao.Properties.GroupStatus.eq(1));
-        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(true));
+        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(1));
         qb.orderAsc(GroupInfoDao.Properties.GroupLevel);
         List<GroupInfo> list = qb.list();
         if(list != null && list.size() > 0) {
@@ -120,7 +120,7 @@ public class GroupInfoSql extends BaseSql {
         GroupInfoDao dao = daoSession.getGroupInfoDao();
         QueryBuilder<GroupInfo> qb = dao.queryBuilder();
         qb.where(GroupInfoDao.Properties.GroupTime.gt(0));
-        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(true));
+        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(1));
         qb.orderAsc(GroupInfoDao.Properties.GroupLevel);
         List<GroupInfo> list = qb.list();
         if(list != null && list.size() > 0) {
@@ -138,7 +138,7 @@ public class GroupInfoSql extends BaseSql {
         QueryBuilder<GroupInfo> qb = dao.queryBuilder();
         qb.where(GroupInfoDao.Properties.GroupTime.gt(0));
         qb.where(GroupInfoDao.Properties.GroupId.notEq(groupId));
-        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(true));
+        qb.where(GroupInfoDao.Properties.GroupIsJoin.eq(1));
         qb.orderAsc(GroupInfoDao.Properties.GroupLevel);
         List<GroupInfo> list = qb.list();
         if(list != null && list.size() > 0) {

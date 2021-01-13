@@ -83,12 +83,15 @@ public class MyGridOpenAdapter extends BaseAdapter {
             holder.grid_item_left_group = (TextView) convertView.findViewById(R.id.grid_item_left_group);
             holder.grid_item_left_sel = (TextView) convertView.findViewById(R.id.grid_item_left_sel);
             holder.grid_item_left_id = (TextView) convertView.findViewById(R.id.grid_item_left_id);
+            holder.grid_item_left_alias = (TextView) convertView.findViewById(R.id.grid_item_left_alias);
 
             holder.grid_item_right_layout = (RelativeLayout) convertView.findViewById(R.id.grid_item_right_layout);
             holder.grid_item_right_image = (ImageView) convertView.findViewById(R.id.grid_item_right_image);
             holder.grid_item_right_group = (TextView) convertView.findViewById(R.id.grid_item_right_group);
             holder.grid_item_right_sel = (TextView) convertView.findViewById(R.id.grid_item_right_sel);
             holder.grid_item_right_id = (TextView) convertView.findViewById(R.id.grid_item_right_id);
+            holder.grid_item_right_alias = (TextView) convertView.findViewById(R.id.grid_item_right_alias);
+
             int itemWidth = screenWidth - (int)context.getResources().getDimension(R.dimen.main_table_list_width);
             int itemHeight = screenHight - (int)context.getResources().getDimension(R.dimen.main_grid_width)- MainActivity.windowTop;
             AbsListView.LayoutParams layoutParams = (AbsListView.LayoutParams) convertView.getLayoutParams();
@@ -143,7 +146,8 @@ public class MyGridOpenAdapter extends BaseAdapter {
             }else {
                 holder.grid_item_left_image.setVisibility(View.VISIBLE);
                 holder.grid_item_left_image.setImageResource(Entiy.getImageResource(controlInfo_0.getValveStatus()));
-                holder.grid_item_left_id.setText(""+controlInfo_0.getValveAlias());
+                holder.grid_item_left_id.setText(controlInfo_0.getValveName()+"");
+                holder.grid_item_left_alias.setText(controlInfo_0.getValveAlias()+"");
 
                 holder.grid_item_left_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -171,7 +175,8 @@ public class MyGridOpenAdapter extends BaseAdapter {
             }else {
                 holder.grid_item_right_image.setVisibility(View.VISIBLE);
                 holder.grid_item_right_image.setImageResource(Entiy.getImageResource(controlInfo_1.getValveStatus()));
-                holder.grid_item_right_id.setText(""+controlInfo_1.getValveAlias());
+                holder.grid_item_right_id.setText(controlInfo_1.getValveName()+"");
+                holder.grid_item_right_alias.setText(controlInfo_1.getValveAlias()+"");
 
 
                 holder.grid_item_right_layout.setOnClickListener(new View.OnClickListener() {
@@ -213,12 +218,14 @@ public class MyGridOpenAdapter extends BaseAdapter {
         public TextView grid_item_left_group;
         public TextView grid_item_left_sel;
         public TextView grid_item_left_id;
+        public TextView grid_item_left_alias;
 
         public RelativeLayout grid_item_right_layout;
         public ImageView grid_item_right_image;
         public TextView grid_item_right_group;
         public TextView grid_item_right_sel;
         public TextView grid_item_right_id;
+        public TextView grid_item_right_alias;
     }
 
     private void openDevice(final ControlInfo controlInfo) {

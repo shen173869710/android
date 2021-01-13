@@ -198,6 +198,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		user.setPileOutNum(Entiy.GUN_COLUMN);
 		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
 		user.setMemberId(109l);
+		user.setPassword("123456");
 		UserSql.insertUser(user);
 		BaseApp.setUser(user);
 		int num = user.getPileOutNum()*user.getTrunkPipeNum();
@@ -231,6 +232,20 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 			}
 			DeviceInfoSql.insertDeviceInfoList(deviceInfos);
 		}
+
+
+		if (LevelInfoSql.queryLevelInfoList().size() == 0) {
+			List<LevelInfo> levelInfos = new ArrayList<>();
+			for (int i = 1; i < 200; i++) {
+				LevelInfo info = new LevelInfo();
+				info.setLevelId(i);
+				info.setIsGroupUse(false);
+				info.setIsLevelUse(false);
+				levelInfos.add(info);
+			}
+			LevelInfoSql.insertLevelInfoList(levelInfos);
+		}
+
 		startActivity(new Intent(ActivationActivity.this, MainActivity.class));
 		finish();
 		ToastUtils.showLongToast(""+msg);

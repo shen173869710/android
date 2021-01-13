@@ -237,10 +237,10 @@ public class MainActivity extends SerialPortActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        // kf 012 004 0 ok
-//        // gf 012 004 0 ok
-//        //zt 012 004 xxxx
-//        // zt 102 002 1100 090
+        // kf 012 004 0 ok
+        // gf 012 004 0 ok
+        //zt 012 004 xxxx
+        // zt 102 002 1100 090
 //        String buf= "";
 //        if (event.getCmd().contains("kf")) {
 //           buf = "kf 10000 001 0 ok";

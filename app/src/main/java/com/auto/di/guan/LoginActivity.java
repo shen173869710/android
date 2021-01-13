@@ -6,24 +6,20 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.basemodel.presenter.LoginPresenter;
 import com.auto.di.guan.basemodel.view.ILoginView;
-import com.auto.di.guan.db.ControlInfo;
-import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.User;
-import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.UserSql;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.Task;
 import com.auto.di.guan.view.XEditText;
 import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -95,6 +91,9 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     @Override
     public void loginFail(Throwable error, Integer code, String msg) {
         LogUtils.e("msg", "doHttpTaskWithDialog==onError===" +msg);
+
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override

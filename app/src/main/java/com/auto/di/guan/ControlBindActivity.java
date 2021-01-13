@@ -351,7 +351,7 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
             showToastLongMsg("写入组ID成功");
         }
 
-
+        showToastLongMsg("操作成功");
     }
 
     @Override
