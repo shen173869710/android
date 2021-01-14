@@ -83,7 +83,7 @@ public class MessageSend {
     public static void syncAutoStatus() {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_AUTO_STATUS);
-        info.setControlInfos(ControlInfoSql.queryControlList());
+        info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
         info.setGroupInfos(GroupInfoSql.queryGroupList());
         send(info);
     }
@@ -94,7 +94,7 @@ public class MessageSend {
     public static void syncAutoClose() {
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_AUTO_CLOSE);
-        info.setControlInfos(ControlInfoSql.queryControlList());
+        info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
         info.setGroupInfos(GroupInfoSql.queryGroupList());
         send(info);
     }
