@@ -332,7 +332,8 @@ public class BaseApp extends Application {
 
 
     public static String getProjectId() {
-        return user.getProjectId();
+        
+      return user.getProjectId();
     }
 
 

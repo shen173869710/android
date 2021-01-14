@@ -1,6 +1,7 @@
 package com.auto.di.guan.jobqueue.task;
 
 import com.auto.di.guan.db.ControlInfo;
+import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.event.SendCmdEvent;
 import com.auto.di.guan.utils.LogUtils;
@@ -104,7 +105,7 @@ public abstract class BaseTask {
         TaskManager.getInstance().finishTask();
         LogUtils.e("BaseTask", "############################################完成一次操作#############################################");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(Entiy.CMD_TIME);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
