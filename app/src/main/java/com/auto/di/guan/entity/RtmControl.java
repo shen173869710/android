@@ -1,16 +1,9 @@
-package com.auto.di.guan.db;
+package com.auto.di.guan.entity;
 
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
 
-import java.io.Serializable;
-
-/**
- * Created by Administrator on 2017/6/29.
- */
-public class ControlInfo implements Serializable {
-    static final long serialVersionUID=2L;
-    @Id(autoincrement = true)
+public class RtmControl {
     private Long id;
     private int valveSwitchId;
     private int valveGroupId;
@@ -18,8 +11,6 @@ public class ControlInfo implements Serializable {
     private int deviceId;
     //设备id
     private int valveId;
-    // 阀门图片地址
-    private String valveImgagePath;
     // 阀门图片id地址
     private int valveImgageId;
     // 阀门的通信id
@@ -37,28 +28,26 @@ public class ControlInfo implements Serializable {
      *   4  异常当中
      */
     private int valveStatus;
-    //创建者
-    private String createBy;
-    //创建时间
-    private String createTime;
-    // 更新者
-    private String updateBy;
-    //更新时间
-    private String updateTime;
     //通信协议项目ID
     private String protocalId;
     //通信协议ID
     private String deviceProtocalId;
-    @Transient
     private boolean isSelect;
 
-    public ControlInfo() {
-
+    public Long getId() {
+        return id;
     }
-    public ControlInfo(int deviceId, String name, int valueStatus) {
-        this.deviceId = deviceId;
-        this.valveName = name;
-        this.valveStatus = valueStatus;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getValveSwitchId() {
+        return valveSwitchId;
+    }
+
+    public void setValveSwitchId(int valveSwitchId) {
+        this.valveSwitchId = valveSwitchId;
     }
 
     public int getValveGroupId() {
@@ -83,14 +72,6 @@ public class ControlInfo implements Serializable {
 
     public void setValveId(int valveId) {
         this.valveId = valveId;
-    }
-
-    public String getValveImgagePath() {
-        return valveImgagePath;
-    }
-
-    public void setValveImgagePath(String valveImgagePath) {
-        this.valveImgagePath = valveImgagePath;
     }
 
     public int getValveImgageId() {
@@ -125,38 +106,6 @@ public class ControlInfo implements Serializable {
         this.valveStatus = valveStatus;
     }
 
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public String getProtocalId() {
         return protocalId;
     }
@@ -179,21 +128,5 @@ public class ControlInfo implements Serializable {
 
     public void setSelect(boolean select) {
         isSelect = select;
-    }
-
-    public int getValveSwitchId() {
-        return valveSwitchId;
-    }
-
-    public void setValveSwitchId(int valveSwitchId) {
-        this.valveSwitchId = valveSwitchId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

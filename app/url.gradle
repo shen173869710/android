@@ -2,7 +2,7 @@ ext {
     androidUrl = [
             //以下为各个环境的网络地址  pro 线上正式版本 uat 测试环境,uattest测试外网  sit  开发环境
             pro  : [
-                    http_post_url   : '\"http://111.231.204.79:8080\"',      //行业商户http请求地址
+                    http_post_url   : '\"http://111.231.204.79:7080\"',      //行业商户http请求地址
                     http_pay_post_url : '\"http://cbpay.wuzhenpay.com\"',   //支付接口请求地址
                     mqtt_host       : '\"112.124.194.148\"',            //mqtt通信
                     mqtt_host_port  : '\"2883\"',                     //mqtt端口

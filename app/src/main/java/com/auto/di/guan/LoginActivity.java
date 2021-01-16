@@ -55,7 +55,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     @Override
     public void onClick(View v) {
         String id = userLoginName.getText().toString().trim();
-        id = "13300000000";
+//        id = "13300000000";
         if (TextUtils.isEmpty(id)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;

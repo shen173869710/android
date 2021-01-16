@@ -4,7 +4,9 @@ package com.auto.di.guan.rtm;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
+import com.auto.di.guan.entity.RtmDevice;
 import com.auto.di.guan.socket.SocketResult;
 import com.google.gson.Gson;
 
@@ -104,6 +106,9 @@ public class MessageInfo {
     }
 
     public void setDeviceInfos(List<DeviceInfo> deviceInfos) {
+
+
+
         this.deviceInfos = deviceInfos;
     }
 
@@ -154,4 +159,7 @@ public class MessageInfo {
     public void setIndex(int index) {
         this.index = index;
     }
+
+
+
 }
