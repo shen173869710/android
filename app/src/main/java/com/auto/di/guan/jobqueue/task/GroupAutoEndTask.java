@@ -46,6 +46,7 @@ public class GroupAutoEndTask extends BaseTask{
                 EventBus.getDefault().post(new AutoTaskEvent(nextInfo));
             }
             EventBus.getDefault().post(new GroupStatusEvent(getGroupInfo()));
+            MessageSend.syncAutoStatus();
             finishTask();
         }
 

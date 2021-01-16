@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
+import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.GroupStatusActivity;
 import com.auto.di.guan.OptionSettingActivity;
 import com.auto.di.guan.R;
@@ -64,6 +65,8 @@ public class FragmentTab6 extends BaseFragment {
 				if(NoFastClickUtils.isFastClick()){
 					return;
 				}
+
+				BaseApp.setWebLogin(false);
 				activity.startActivity(new Intent(activity, GroupStatusActivity.class));
 
 			}

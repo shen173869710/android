@@ -28,6 +28,11 @@ public class Entiy {
      *  自动查询 时间间隔 单位秒
      **/
     public static final int ALERM_TIME = 10 * 60;
+
+    /**
+     *  发送命令的时间间隔
+     **/
+    public static final int CMD_TIME = 4000;
     /**
      *  施肥管理相关参数设置
      */

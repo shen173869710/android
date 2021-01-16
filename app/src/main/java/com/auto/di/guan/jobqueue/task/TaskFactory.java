@@ -1,12 +1,16 @@
 package com.auto.di.guan.jobqueue.task;
 
+import android.text.TextUtils;
+
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.db.sql.UserSql;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
@@ -52,7 +56,7 @@ public class TaskFactory {
      * @param info
      */
     public static void createPollReadTask(ControlInfo info, int type, int actionType) {
-        final String cmd = Entiy.cmdRead(BaseApp.getProjectId(), info.getDeviceProtocalId());
+        final String cmd = Entiy.cmdRead(getProjectId(), info.getDeviceProtocalId());
         TaskManager.getInstance().addTask(new ReadTask(type, cmd, info,actionType));
     }
     /**
@@ -71,7 +75,7 @@ public class TaskFactory {
      *  创建写入和读取gid  task
      */
     public static void createGidTak() {
-        TaskManager.getInstance().addTask(new BindIdTask(TaskEntiy.TASK_TYPE_GID, Entiy.writeGid(BaseApp.getProjectId())));
+        TaskManager.getInstance().addTask(new BindIdTask(TaskEntiy.TASK_TYPE_GID, Entiy.writeGid(getProjectId())));
         TaskManager.getInstance().addTask(new ReadIdTask(TaskEntiy.TASK_READ_GID, "rgid"));
         TaskManager.getInstance().startTask();
     }
@@ -95,7 +99,7 @@ public class TaskFactory {
      * @param info
      */
     public static void createOpenTask(ControlInfo info) {
-        final String cmd = Entiy.cmdOpen(BaseApp.getProjectId(), info.getDeviceProtocalId(), info.getProtocalId());
+        final String cmd = Entiy.cmdOpen(getProjectId(), info.getDeviceProtocalId(), info.getProtocalId());
         TaskManager.getInstance().addTask(new OpenTask(TaskEntiy.TASK_OPTION_OPEN, cmd, info));
     }
 
@@ -105,7 +109,7 @@ public class TaskFactory {
      * @param info
      */
     public static void createCloseTask(ControlInfo info) {
-        final String cmd = Entiy.cmdClose(BaseApp.getProjectId(), info.getDeviceProtocalId(), info.getProtocalId());
+        final String cmd = Entiy.cmdClose(getProjectId(), info.getDeviceProtocalId(), info.getProtocalId());
         TaskManager.getInstance().addTask(new CloseTask(TaskEntiy.TASK_OPTION_ClOSE, cmd, info));
     }
 
@@ -115,7 +119,7 @@ public class TaskFactory {
      * @param info
      */
     public static void createReadTask(ControlInfo info, int type, int actionType) {
-        final String cmd = Entiy.cmdRead(BaseApp.getProjectId(), info.getDeviceProtocalId());
+        final String cmd = Entiy.cmdRead(getProjectId(), info.getDeviceProtocalId());
         TaskManager.getInstance().addTask(new ReadTask(type, cmd, info,actionType));
     }
 
@@ -125,7 +129,7 @@ public class TaskFactory {
      * @param info
      */
     public static void createReadSingleTask(ControlInfo info, int type, int actionType) {
-        final String cmd = Entiy.cmdRead(BaseApp.getProjectId(), info.getDeviceProtocalId());
+        final String cmd = Entiy.cmdRead(getProjectId(), info.getDeviceProtocalId());
         TaskManager.getInstance().addTask(new ReadSingleTask(type, cmd, info,actionType));
     }
 
@@ -449,4 +453,22 @@ public class TaskFactory {
         return list;
     }
 
+    /**
+     *
+     * @return
+     */
+    public static String getProjectId() {
+        String id = BaseApp.getProjectId();
+        if (TextUtils.isEmpty(id)) {
+            User user = UserSql.queryUserInfo();
+            if (user == null) {
+                return "";
+            }
+            id = user.getProjectId();
+        }
+        if (TextUtils.isEmpty(id)) {
+            LogUtils.e(TAG, "----------用户项目ID为空------------");
+        }
+        return id;
+    }
 }

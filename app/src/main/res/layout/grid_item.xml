@@ -32,7 +32,7 @@
                 android:background="@mipmap/lighe_1" />
 
             <TextView
-                android:id="@+id/grid_item_left_id"
+                android:id="@+id/grid_item_left_alias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/grid_item_left_image"
@@ -43,12 +43,14 @@
 
 
             <TextView
-                android:id="@+id/grid_item_left_alias"
+                android:id="@+id/grid_item_left_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/grid_item_left_image"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/text_size_14"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
                 />
 
             <TextView
@@ -127,6 +129,7 @@
                 android:layout_toLeftOf="@+id/grid_item_right_image"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/text_size_14"
+
                 />
 
 
@@ -136,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/grid_item_right_image"
                 android:textColor="@android:color/holo_red_dark"
-                android:layout_alignParentBottom="true"
+                android:layout_marginTop="20dp"
                 android:textSize="@dimen/text_size_14"
                 />
 
