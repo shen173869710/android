@@ -19,7 +19,10 @@ import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
+import com.auto.di.guan.dialog.DialogUtil;
 import com.auto.di.guan.dialog.LoadingDialog;
+import com.auto.di.guan.dialog.MainShowDialog;
+import com.auto.di.guan.dialog.MainShowDialogBg;
 import com.auto.di.guan.dialog.WaitingDialog;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskEntiy;
@@ -351,13 +354,25 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
         LogUtils.e("BaseTask == ", "is = "+is);
         if (event.getType() == TaskEntiy.TASK_READ_GID) {
             isPeroJectId = true;
-            Toast.makeText(ControlBindActivity.this, "写入项目ID成功", Toast.LENGTH_LONG).show();
+//            LogUtils.e("bind","TASK_READ_GID  event.getType()="+event.getType());
+//            Toast.makeText(ControlBindActivity.this, "写入项目ID成功", Toast.LENGTH_SHORT).show();
 //            ToastUtils.showToast("111111111111111111111111111111111");
         }else if (event.getType() == TaskEntiy.TASK_READ_BID) {
             isGroupId = true;
-            Toast.makeText(ControlBindActivity.this, "写入组ID成功", Toast.LENGTH_LONG).show();
+            LogUtils.e("bind"," TASK_READ_BID  event.getType()="+event.getType());
+//            Toast.makeText(ControlBindActivity.this, "写入组ID成功", Toast.LENGTH_SHORT).show();
 //            ToastUtils.showToast("22222222222222222222222222222222222222222");
         }
+//        LogUtils.e("bind","event.getResult()="+event.getResult());
+//        Toast.makeText(this, ""+event.getResult(), Toast.LENGTH_SHORT).show();
+//        ToastUtils.showToast(""+event.getResult());
+
+        MainShowDialogBg.ShowDialog(ControlBindActivity.this, "提示", event.getResult() + "", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

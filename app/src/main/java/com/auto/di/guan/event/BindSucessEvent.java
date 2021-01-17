@@ -6,10 +6,17 @@ package com.auto.di.guan.event;
 public class BindSucessEvent {
     private boolean isOk;
     private int type;
+    private String result;
 
     public BindSucessEvent(boolean isOk, int type) {
         this.isOk = isOk;
         this.type = type;
+    }
+
+    public BindSucessEvent(boolean isOk, int type, String result) {
+        this.isOk = isOk;
+        this.type = type;
+        this.result = result;
     }
 
     public boolean isOk() {
@@ -26,5 +33,13 @@ public class BindSucessEvent {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

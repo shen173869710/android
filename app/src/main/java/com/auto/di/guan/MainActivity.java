@@ -160,13 +160,24 @@ public class MainActivity extends SerialPortActivity {
             ToastUtils.showLongToast("错误命令" + receive);
             return;
         }
+
         if ((receive.contains("kf")
                 || receive.contains("gf")
                 || receive.contains("rs"))
                 && !receive.contains("ok")) {
-            LogUtils.e(TAG, "过滤回显信息 -------------------"+receive);
+            LogUtils.e(TAG, "过滤错误信息 -------------------"+receive);
             return;
         }
+
+        if ((receive.contains("reg")
+                || receive.contains("standby_flag")
+                || receive.contains("Adc"))
+                || receive.contains("asuring")) {
+            LogUtils.i(TAG, "过滤乱码信息 ============================="+receive);
+            return;
+        }
+
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
