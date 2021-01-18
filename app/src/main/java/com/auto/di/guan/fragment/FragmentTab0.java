@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.auto.di.guan.R;
 import com.auto.di.guan.adapter.MyGridAdapter;
@@ -13,6 +14,8 @@ import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.dialog.MainShowDialog;
 import com.auto.di.guan.entity.Entiy;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,7 @@ import java.util.List;
  *
  */
 public class FragmentTab0 extends BaseFragment {
-    private GridView mGridView;
+    private RecyclerView recyclerView;
     private View view;
     private MyGridAdapter adapter;
     private List<DeviceInfo> deviceInfos = new ArrayList<>();
@@ -29,15 +32,16 @@ public class FragmentTab0 extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_0, null);
-        mGridView = (GridView) view.findViewById(R.id.fragment_0_gridview);
+        recyclerView = (RecyclerView) view.findViewById(R.id.fragment_0_gridview);
         deviceInfos = DeviceInfoSql.queryDeviceList();
+        adapter = new MyGridAdapter(deviceInfos);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), Entiy.GUN_COLUMN));
+        recyclerView.setAdapter(adapter);
 
-        adapter = new MyGridAdapter(getActivity(), deviceInfos);
-        mGridView.setAdapter(adapter);
-        mGridView.setNumColumns(Entiy.GUN_COLUMN);
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 final DeviceInfo info = deviceInfos.get(position);
                 if (info.getDeviceStatus() == Entiy.DEVEICE_UNBIND) {
                     MainShowDialog.ShowDialog(getActivity(), "添加阀控器", "添加阀控器到当前区域", new View.OnClickListener() {
@@ -45,11 +49,10 @@ public class FragmentTab0 extends BaseFragment {
                         public void onClick(View v) {
                             info.bindDevice(info.getDeviceId());
                             DeviceInfoSql.updateDevice(info);
-                            deviceInfos = DeviceInfoSql.queryDeviceList();
-                            adapter.setData(deviceInfos);
+                            adapter.setNewData(DeviceInfoSql.queryDeviceList());
                         }
                     });
-                }else {
+                } else {
                     if (info.getValveDeviceSwitchList().get(0).getValveGroupId() > 0
                             || info.getValveDeviceSwitchList().get(1).getValveGroupId() > 0) {
                         showToast("该设备已经分组,不可以删除");
@@ -60,8 +63,8 @@ public class FragmentTab0 extends BaseFragment {
                         public void onClick(View v) {
                             info.unBindDevice(info.getDeviceId());
                             DeviceInfoSql.updateDevice(info);
-                            deviceInfos = DeviceInfoSql.queryDeviceList();
-                            adapter.setData(deviceInfos);
+                            adapter.setNewData(DeviceInfoSql.queryDeviceList());
+
                         }
                     });
                 }
@@ -74,7 +77,7 @@ public class FragmentTab0 extends BaseFragment {
     @Override
     public void refreshData() {
         if (adapter != null) {
-            adapter.setData(DeviceInfoSql.queryDeviceList());
+            adapter.setNewData(DeviceInfoSql.queryDeviceList());
         }
     }
 }
