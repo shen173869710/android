@@ -15,7 +15,7 @@ public class Entiy {
 //    /*设置项目的行数*/
 //    public static  int GUN_ROW = 5;
     /*设置项目的列数*/
-    public static  int GUN_COLUMN = 5;
+    public static  int GUN_COLUMN = 16;
     /**设置项目的通讯id**/
     public static final String GUN_ID = "00002";
     /**设置项目的名称**/
