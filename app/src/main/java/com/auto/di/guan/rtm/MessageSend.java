@@ -10,6 +10,7 @@ import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.entity.CmdStatus;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.socket.SocketResult;
+import com.auto.di.guan.utils.GzipUtil;
 import com.auto.di.guan.utils.LogUtils;
 
 import java.util.List;
@@ -18,7 +19,12 @@ public class MessageSend {
 
     private static final String TAG = "MessageSend";
     public static void send(MessageInfo info) {
-        BaseApp.getInstance().getChatManager().sendPeerMessage(info.toJson());
+        String src = info.toJson();
+        LogUtils.e(TAG, "发送数据的长度"+src.length());
+        String data = GzipUtil.gzip(info.toJson());
+//        LogUtils.e(TAG, "压缩后的数据 =="+data);
+        LogUtils.e(TAG, "压缩后的数据长度 =="+data.length());
+        BaseApp.getInstance().getChatManager().sendPeerMessage(data);
     }
 
     /**

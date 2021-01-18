@@ -25,6 +25,7 @@ import com.auto.di.guan.utils.GsonUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.SPUtils;
 import com.facebook.stetho.Stetho;
+import com.google.gson.Gson;
 import com.tencent.bugly.crashreport.CrashReport;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import java.io.File;
@@ -56,7 +57,9 @@ public class BaseApp extends Application {
     }
 
     public static void setUser(User user) {
+        LogUtils.e(TAG, "初始化用户信息" + (new Gson().toJson(user)));
         BaseApp.user = user;
+        user.setMemberId(158l);
     }
 
     private static User user;

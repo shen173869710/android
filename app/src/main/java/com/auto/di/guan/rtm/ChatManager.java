@@ -56,10 +56,14 @@ public class ChatManager {
 //                            listener.onMessageReceived(rtmMessage, peerId);
 //                        }
 //                    }
-                    LogUtils.e(TAG, "onMessageReceived   peerid = "+peerId + "message" +rtmMessage.getText());
+                    LogUtils.e(TAG, "onMessageReceived11   peerid = "+peerId + "      message" +rtmMessage.getText());
+                    LogUtils.e(TAG, "user =" + BaseApp.getUser());
+//                    LogUtils.e(TAG, "parentId =" + BaseApp.getUser().getMemberId()+ " 是否相等 =="+peerId.equals(BaseApp.getUser().getMemberId().toString()));
+
+//                    LogUtils.e(TAG, "parentId =" + BaseApp.getUser().getMemberId()+ " 是否相等 =="+peerId.equals(BaseApp.getUser().getMemberId().toString()));
                     if (!TextUtils.isEmpty(peerId)) {
                         String parentId = BaseApp.getUser().getMemberId().toString();
-                        LogUtils.e(TAG, "parentId =" + parentId + " 是否相等 =="+peerId.equals(parentId));
+                        LogUtils.e(TAG, "parentId =" + BaseApp.getUser().getMemberId()+ " 是否相等 =="+peerId.equals(BaseApp.getUser().getMemberId().toString()));
                         if (peerId.equals(parentId)) {
                             BaseApp.setWebLogin(true);
                             MessageParse.praseData(rtmMessage.getText(), peerId);
@@ -180,6 +184,8 @@ public class ChatManager {
         message.setText(content);
         SendMessageOptions option = new SendMessageOptions();
         option.enableOfflineMessaging = false;
+
+        LogUtils.e(TAG,"BaseApp.getUser().getMemberId().toString()=" + BaseApp.getUser().getMemberId().toString() );
         mRtmClient.sendMessageToPeer(BaseApp.getUser().getMemberId().toString(), message, option, new ResultCallback<Void>() {
 
             @Override

@@ -55,13 +55,13 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     @Override
     public void onClick(View v) {
         String id = userLoginName.getText().toString().trim();
-        id = "13300000000";
+//        id = "13300000000";
         if (TextUtils.isEmpty(id)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;
         }
         String pwd = userLoginPwd.getText().toString().trim();
-        pwd = "123456";
+//        pwd = "123456";
         if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
@@ -82,7 +82,8 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
             User user = (User) respone.getData();
             UserSql.updateUser(user);
             BaseApp.setUser(user);
-            Entiy.GUN_COLUMN = user.getTrunkPipeNum();
+//            Entiy.GUN_COLUMN = user.getTrunkPipeNum();
+            Entiy.GUN_COLUMN = 16;
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -92,8 +93,8 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     public void loginFail(Throwable error, Integer code, String msg) {
         LogUtils.e("msg", "doHttpTaskWithDialog==onError===" +msg);
 
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
+//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//        finish();
     }
 
     @Override
