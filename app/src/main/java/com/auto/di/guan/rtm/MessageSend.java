@@ -20,10 +20,10 @@ public class MessageSend {
     private static final String TAG = "MessageSend";
     public static void send(MessageInfo info) {
         String src = info.toJson();
-        LogUtils.e(TAG, "发送数据的长度"+src.length());
+//        LogUtils.e(TAG, "发送数据的长度"+src.length());
         String data = GzipUtil.gzip(info.toJson());
 //        LogUtils.e(TAG, "压缩后的数据 =="+data);
-        LogUtils.e(TAG, "压缩后的数据长度 =="+data.length());
+//        LogUtils.e(TAG, "压缩后的数据长度 =="+data.length());
         BaseApp.getInstance().getChatManager().sendPeerMessage(data);
     }
 

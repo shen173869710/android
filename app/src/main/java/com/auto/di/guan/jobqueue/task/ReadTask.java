@@ -104,15 +104,16 @@ public class ReadTask extends BaseTask{
     public void  doReadStatus(String receive,OptionStatus status) {
         //status = {"allCmd":"zt 102 002 1100 090\n\u0000","code":"1100","deviceId":"002","elect":"090","projectId":"102","type":"zt","status":0}
         LogUtils.e(TAG, "读取状态 ======="+"doReadStatus == " +(new Gson().toJson(status)));
-            DeviceInfo info = OptionUtils.changeStatus(status);
+            ControlInfo controlInfo = getTaskInfo();
+            String protocalId = controlInfo.getProtocalId();
+            DeviceInfo info = OptionUtils.changeStatus(status,protocalId);
             if (info == null) {
                 retryTask();
                 return;
             }
-            ControlInfo controlInfo = getTaskInfo();
-            if (controlInfo.getProtocalId().contains("0")) {
+            if (protocalId.contains("0")) {
                 doOptionControl(controlInfo, info.getValveDeviceSwitchList().get(0),0,status.elect);
-            }else if (controlInfo.getProtocalId().contains("1")) {
+            }else if (protocalId.contains("1")) {
                 doOptionControl(controlInfo, info.getValveDeviceSwitchList().get(1),1,status.elect);
             }
     }

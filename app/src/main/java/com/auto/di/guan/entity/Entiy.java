@@ -32,7 +32,7 @@ public class Entiy {
     /**
      *  发送命令的时间间隔
      **/
-    public static final int CMD_TIME = 4000;
+    public static final int CMD_TIME = 8000;
     /**
      *  施肥管理相关参数设置
      */

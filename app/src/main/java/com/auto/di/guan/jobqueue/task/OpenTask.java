@@ -51,27 +51,28 @@ public class OpenTask extends BaseTask{
          *   如果是未知的命令 如果count == 2 重试一次
          *                   如果count == 1 进入错误
          */
-        if (!receive.toLowerCase().contains("ok")) {
-            /**
-             *
-             */
-            retryTask();
-        }else {
+//        if (!receive.toLowerCase().contains("ok")) {
+//            /**
+//             *
+//             */
+//            retryTask();
+//        }else {
             /**
              *   如果数据包含kf 说明阀成功  执行下一个任务
              */
-            if(receive.toLowerCase().contains("kf") && receive.toLowerCase().contains("ok")) {
+            if(receive.toLowerCase().contains("kf") ) {
                 SendUtils.sendOpenEnd(receive, getTaskInfo());
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finishTask();
-                    }
-                },3000);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        finishTask();
+//                    }
+//                },3000);
+                finishTask();
             }else {
-                errorTask();
+                retryTask();
             }
-        }
+//        }
     }
 
     @Override

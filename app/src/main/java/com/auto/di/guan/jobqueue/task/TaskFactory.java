@@ -173,19 +173,19 @@ public class TaskFactory {
 
     public static void createGroupOpenTask(GroupInfo groupInfo) {
         // 1. 查看是否有需要关闭的组
-        List<GroupInfo> groupInfos = GroupInfoSql.queryOpenGroupList();
-        GroupInfo closeGroupInfo = null;
-        int closeGroupId = -1;
-        if (groupInfos != null) {
-            if (groupInfos.size() > 1) {
-                LogUtils.e(TAG, "当前有多组处于运行状态 异常");
-                return;
-            }
-            if (groupInfos.size() == 1) {
-                closeGroupInfo = groupInfos.get(0);
-                closeGroupId = closeGroupInfo.getGroupId();
-            }
-        }
+//        List<GroupInfo> groupInfos = GroupInfoSql.queryOpenGroupList();
+//        GroupInfo closeGroupInfo = null;
+//        int closeGroupId = -1;
+//        if (groupInfos != null) {
+//            if (groupInfos.size() > 1) {
+//                LogUtils.e(TAG, "当前有多组处于运行状态 异常");
+//                return;
+//            }
+//            if (groupInfos.size() == 1) {
+//                closeGroupInfo = groupInfos.get(0);
+//                closeGroupId = closeGroupInfo.getGroupId();
+//            }
+//        }
         LogUtils.e(TAG, "********************单组操作开始****************");
         //  2. 更新当前组的状态
             groupInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
@@ -207,14 +207,14 @@ public class TaskFactory {
                 openList.add(controlInfo1);
             }
 
-            if (closeGroupId > 0) {
-                if (controlInfo0.getValveGroupId() == closeGroupId) {
-                    closeList.add(controlInfo0);
-                }
-                if (controlInfo1.getValveGroupId() == closeGroupId) {
-                    closeList.add(controlInfo1);
-                }
-            }
+//            if (closeGroupId > 0) {
+//                if (controlInfo0.getValveGroupId() == closeGroupId) {
+//                    closeList.add(controlInfo0);
+//                }
+//                if (controlInfo1.getValveGroupId() == closeGroupId) {
+//                    closeList.add(controlInfo1);
+//                }
+//            }
         }
 
         if (openList.size() == 0) {
@@ -228,18 +228,18 @@ public class TaskFactory {
         // 6. 添加开启结束标志位
         createGroupReadEndTask(TaskEntiy.TASK_OPTION_GROUP_OPEN_READ_END,groupInfo);
 
-        if (closeGroupId > 0 && closeList.size() > 0) {
-            // 7 修改需要关闭组的状态为关闭
-            closeGroupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
-            closeGroupInfo.setGroupStop(0);
-            LogUtils.e(TAG, "********************单组操作有需要关闭的组****************");
-            // 8 添加关闭其他组task
-            addOpenGroupTask(closeList, false);
-            // 9 添加关闭状态查询task
-            addReadGroupTask(closeList, TaskEntiy.TASK_OPTION_CLOSE_READ,Entiy.ACTION_TYPE_31);
-            // 10. 添加关闭结束标志位
-            createGroupReadEndTask(TaskEntiy.TASK_OPTION_GROUP_CLOSE_READ_END,closeGroupInfo);
-        }
+//        if (closeGroupId > 0 && closeList.size() > 0) {
+//            // 7 修改需要关闭组的状态为关闭
+//            closeGroupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
+//            closeGroupInfo.setGroupStop(0);
+//            LogUtils.e(TAG, "********************单组操作有需要关闭的组****************");
+//            // 8 添加关闭其他组task
+//            addOpenGroupTask(closeList, false);
+//            // 9 添加关闭状态查询task
+//            addReadGroupTask(closeList, TaskEntiy.TASK_OPTION_CLOSE_READ,Entiy.ACTION_TYPE_31);
+//            // 10. 添加关闭结束标志位
+//            createGroupReadEndTask(TaskEntiy.TASK_OPTION_GROUP_CLOSE_READ_END,closeGroupInfo);
+//        }
     }
 
     /**

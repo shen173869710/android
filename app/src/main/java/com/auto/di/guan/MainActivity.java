@@ -160,15 +160,6 @@ public class MainActivity extends SerialPortActivity {
             ToastUtils.showLongToast("错误命令" + receive);
             return;
         }
-
-        if ((receive.contains("kf")
-                || receive.contains("gf")
-                || receive.contains("rs"))
-                && !receive.contains("ok")) {
-            LogUtils.e(TAG, "过滤错误信息 -------------------"+receive);
-            return;
-        }
-
         if ((receive.contains("reg")
                 || receive.contains("standby_flag")
                 || receive.contains("Adc"))
@@ -176,6 +167,28 @@ public class MainActivity extends SerialPortActivity {
             LogUtils.i(TAG, "过滤乱码信息 ============================="+receive);
             return;
         }
+
+
+        String cmd = "";
+        if (TaskManager.getInstance().getmTask() != null) {
+            cmd = TaskManager.getInstance().getmTask().getTaskCmd();
+        }
+        LogUtils.e(TAG, "当前任务命令 ==="+cmd);
+        if (receive.trim().equals(cmd)) {
+            LogUtils.e(TAG, "过滤回显信息 =============================");
+            return;
+        }
+
+
+//        if ((receive.contains("kf")
+//                || receive.contains("gf")
+//                || receive.contains("rs"))
+//                && !receive.contains("ok")) {
+//            LogUtils.e(TAG, "过滤错误信息 -------------------"+receive);
+//            return;
+//        }
+
+
 
 
         runOnUiThread(new Runnable() {
