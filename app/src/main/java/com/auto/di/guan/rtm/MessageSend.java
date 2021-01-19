@@ -54,7 +54,7 @@ public class MessageSend {
         LogUtils.e(TAG, "同步单个操作信息 type ="+type);
         MessageInfo info = new MessageInfo();
         info.setType(type);
-        info.setControlInfo(ControlInfoSql.findControlById(controlInfo.getValveId()));
+        info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
         send(info);
     }
 

@@ -8,6 +8,7 @@ package com.auto.di.guan.entity;
 public class CmdStatus {
     private int control_id;
     private String controlName;
+    private String controlAlias;
     private String cmd_name;
     private String cmd_start;
     private String cmd_end;
@@ -86,5 +87,13 @@ public class CmdStatus {
 
     public void setCmdType(int cmdType) {
         this.cmdType = cmdType;
+    }
+
+    public String getControlAlias() {
+        return controlAlias;
+    }
+
+    public void setControlAlias(String controlAlias) {
+        this.controlAlias = controlAlias;
     }
 }

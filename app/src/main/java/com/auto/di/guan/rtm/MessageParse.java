@@ -20,6 +20,7 @@ import com.auto.di.guan.event.ChooseGroupEvent;
 import com.auto.di.guan.event.Fragment32Event;
 import com.auto.di.guan.event.LoginEvent;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
+import com.auto.di.guan.utils.GzipUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
@@ -38,7 +39,9 @@ public class MessageParse {
     public static final String TAG = "MessageParse------web------";
 
     public static void praseData(String data, String peerId) {
-        MessageInfo info = new Gson().fromJson(data, MessageInfo.class);
+
+        String  res = GzipUtil.ungzip(data);
+        MessageInfo info = new Gson().fromJson(res, MessageInfo.class);
         if (info == null) {
             LogUtils.e(TAG, "gson 数据解析异常");
             return;

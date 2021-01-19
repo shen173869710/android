@@ -39,7 +39,19 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
 
     @Override
     protected void init() {
-
+        String id = userLoginName.getText().toString().trim();
+        id = "swlzc1";
+        if (TextUtils.isEmpty(id)) {
+            Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
+            return;
+        }
+        String pwd = userLoginPwd.getText().toString().trim();
+        pwd = "swlzc123";
+        if (TextUtils.isEmpty(pwd)) {
+            Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
+            return;
+        }
+        mPresenter.doLogin(id, pwd);
     }
 
     @Override
@@ -55,13 +67,13 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     @Override
     public void onClick(View v) {
         String id = userLoginName.getText().toString().trim();
-//        id = "13300000000";
+        id = "swlzc1";
         if (TextUtils.isEmpty(id)) {
             Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_LONG).show();
             return;
         }
         String pwd = userLoginPwd.getText().toString().trim();
-//        pwd = "123456";
+        pwd = "swlzc123";
         if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
