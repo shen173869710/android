@@ -32,39 +32,34 @@
                 android:background="@mipmap/lighe_1" />
 
             <TextView
-                android:id="@+id/grid_item_left_alias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/grid_item_left_image"
-                android:layout_alignParentBottom="true"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="@dimen/text_size_14"
-                />
-
-
-            <TextView
                 android:id="@+id/grid_item_left_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/grid_item_left_image"
+                android:layout_marginLeft="10dp"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="@dimen/text_size_14"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dp"
-                />
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/grid_item_left_alias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grid_item_left_id"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/text_size_18" />
 
             <TextView
                 android:id="@+id/grid_item_left_group"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:background="@mipmap/red_icon"
                 android:gravity="end"
-                android:paddingTop="7dp"
-                android:paddingRight="3dp"
+                android:paddingTop="15dp"
+                android:paddingRight="4dp"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_12" />
+                android:textSize="@dimen/text_size_18" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -82,24 +77,21 @@
                 android:id="@+id/grid_item_device_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:text="222"
+                android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_20" />
 
             <TextView
                 android:id="@+id/grid_item_device_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="left"
-                android:text="10%"
                 android:textColor="@android:color/holo_red_light"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_16" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -126,10 +118,9 @@
                 android:id="@+id/grid_item_right_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/grid_item_right_image"
+                android:layout_marginLeft="10dp"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="@dimen/text_size_14"
-
+                android:textSize="@dimen/text_size_16"
                 />
 
 
@@ -137,24 +128,24 @@
                 android:id="@+id/grid_item_right_alias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/grid_item_right_image"
                 android:textColor="@android:color/holo_red_dark"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:textSize="@dimen/text_size_14"
+                android:textSize="@dimen/text_size_18"
                 />
 
             <TextView
                 android:id="@+id/grid_item_right_group"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:background="@mipmap/red_icon"
                 android:gravity="end"
-                android:paddingTop="7dp"
-                android:paddingRight="3dp"
+                android:paddingTop="15dp"
+                android:paddingRight="4dp"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_12" />
+                android:textSize="@dimen/text_size_18" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -165,5 +156,6 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:textColor="@android:color/holo_red_light"
-        android:textSize="@dimen/text_size_16" />
+        android:padding="5dp"
+        android:textSize="@dimen/text_size_20" />
 </RelativeLayout>

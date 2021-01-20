@@ -15,6 +15,8 @@ import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.rtm.MessageEntiy;
+import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -426,6 +428,7 @@ public class TaskFactory {
             TaskManager.getInstance().startTask();
         } else {
             LogUtils.e(TAG, "*********************************自动轮灌完成 停止计时*****************************");
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_CLOSE);
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_FINISH));
         }
     }
