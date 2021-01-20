@@ -24,7 +24,8 @@ public class StatusAdapter extends BaseQuickAdapter<ControlInfo, BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder holder, ControlInfo info) {
-        holder.setText(R.id.group_status_name, info.getValveAlias());
+        holder.setText(R.id.group_status_name, ""+info.getValveName());
+        holder.setText(R.id.group_status_alias, ""+info.getValveAlias());
         holder.setImageResource(R.id.group_status_image, Entiy.getImageResource(info.getValveStatus()));
     }
 
