@@ -108,6 +108,7 @@ public class FloatWindowUtil {
             MessageSend.syncOptionInfo(event);
             int size = alist.size();
             boolean isHas = false;
+            int postion = 0;
             for (int i = 0; i < size; i++) {
                 CmdStatus status = alist.get(i);
                 if (status.getControl_id() == event.getControl_id()) {
@@ -134,6 +135,7 @@ public class FloatWindowUtil {
                         status.setCmd_read_end(event.getCmd_read_end());
                     }
                     isHas = true;
+                    postion = i;
                 }
             }
             if (!isHas) {
@@ -142,7 +144,7 @@ public class FloatWindowUtil {
 
             if (adapter != null && mListView != null) {
                 adapter.notifyDataSetChanged();
-                mListView.scrollToPosition(adapter.getItemCount()-1);
+                mListView.scrollToPosition(postion);
             }
 
         }

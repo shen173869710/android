@@ -34,7 +34,7 @@ public class GroupEndTask extends BaseTask{
             LogUtils.e(TAG, "分组手动开启     操作结束==========================  cmd =="+getTaskCmd());
             EventBus.getDefault().post(new Fragment31Event());
             EventBus.getDefault().post(new Fragment32Event());
-            MessageSend.syncGroup(MessageEntiy.TYPE_GROUP_OPEN,mGroupInfo);
+            MessageSend.syncGroup(MessageEntiy.TYPE_GROUP_OPEN);
         }else if (getTaskType() == TaskEntiy.TASK_OPTION_GROUP_CLOSE_READ_END) {
             if (mGroupInfo != null) {
                 mGroupInfo.setGroupStatus(0);
@@ -45,7 +45,7 @@ public class GroupEndTask extends BaseTask{
             LogUtils.e(TAG, "分组手动关闭     操作结束==========================  cmd =="+getTaskCmd());
             EventBus.getDefault().post(new Fragment31Event());
             EventBus.getDefault().post(new Fragment32Event());
-            MessageSend.syncGroup(MessageEntiy.TYPE_GROUP_CLOSE,mGroupInfo);
+            MessageSend.syncGroup(MessageEntiy.TYPE_GROUP_CLOSE);
         }
         finishTask();
     }

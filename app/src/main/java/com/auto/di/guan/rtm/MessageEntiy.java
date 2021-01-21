@@ -64,4 +64,7 @@ public class MessageEntiy {
     public static final int TYPE_ACTIVITY_STATUS_START = 100000001;
     public static final int TYPE_ACTIVITY_STATUS_FINISH = 100000002;
 
+
+    public static final int TYPE_SYNC_CONTROL = 123456;
+
 }

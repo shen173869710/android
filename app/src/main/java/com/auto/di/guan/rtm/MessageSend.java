@@ -13,6 +13,7 @@ import com.auto.di.guan.socket.SocketResult;
 import com.auto.di.guan.utils.GzipUtil;
 import com.auto.di.guan.utils.LogUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageSend {
@@ -60,15 +61,13 @@ public class MessageSend {
 
     /**
      *         更新单组
-     * @param groupInfo
      */
-    public static void syncGroup(int type, GroupInfo groupInfo) {
+    public static void syncGroup(int type) {
         LogUtils.e(TAG, "同步单组操作信息");
         MessageInfo info = new MessageInfo();
         info.setType(type);
-        info.setGroupInfo(groupInfo);
-        List<ControlInfo>controlInfos = ControlInfoSql.queryControlList(groupInfo.getGroupId());
-        info.setControlInfos(controlInfos);
+        info.setDeviceInfos(DeviceInfoSql.queryDeviceList());
+        info.setGroupInfos(GroupInfoSql.queryGroupList());
         send(info);
     }
 
@@ -169,4 +168,16 @@ public class MessageSend {
         info.setType(MessageEntiy.TYPE_ACTIVITY);
         send(info);
     }
+
+
+    /**
+     *   同步自动轮灌开关状态
+     */
+    public static void syncAutoControl(List<ControlInfo>controlInfos) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_SYNC_CONTROL);
+        info.setControlInfos(controlInfos);
+        send(info);
+    }
+
 }

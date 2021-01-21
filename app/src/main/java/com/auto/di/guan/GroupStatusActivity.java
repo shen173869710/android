@@ -23,6 +23,7 @@ import com.auto.di.guan.event.GroupStatusEvent;
 import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.rtm.MessageEntiy;
+import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.DiffStatusCallback;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
@@ -134,8 +135,10 @@ public class GroupStatusActivity extends FragmentActivity  {
             List<ControlInfo> infos = ControlInfoSql.queryControlList(groupId);
             if (status == 1) {
                 openAdapter.setData(infos);
+//               MessageSend.syncAutoControl(infos);
             }else {
                 closeAdapter.setData(infos);
+//                MessageSend.syncAutoControl(infos);
             }
         }else {
             LogUtils.e("GroupStatusActivity",  "更新设备失败     设备信息为空-----------------------------");
@@ -195,6 +198,7 @@ public class GroupStatusActivity extends FragmentActivity  {
             recyclerView.setAdapter(adapter);
             openAdapter.setData(new ArrayList<>());
             closeAdapter.setData(new ArrayList<>());
+
         }
         if (event.getGroupInfo() == null) {
             return;

@@ -359,6 +359,8 @@ public class TaskFactory {
         curInfo.setGroupStatus(Entiy.GROUP_STATUS_OPEN);
         curInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(curInfo);
+        EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_NEXT));
+        MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_STATUS);
         //  2. 获取所有组的设备
         ArrayList<ControlInfo> openList = getControlInfo(curInfo);
         if (openList.size() == 0) {
@@ -388,6 +390,7 @@ public class TaskFactory {
         groupInfo.setGroupTime(0);
         groupInfo.setGroupStop(0);
         GroupInfoSql.updateGroup(groupInfo);
+        MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_STATUS);
         //  2. 获取组的设备信息
         ArrayList<ControlInfo> closeList  = getControlInfo(groupInfo);
         if (closeList.size() == 0) {
@@ -417,19 +420,21 @@ public class TaskFactory {
         LogUtils.e(TAG, "*********************************自动轮灌 是否有下一组需要操作*****************************");
         //查看是否有下一组
         List<GroupInfo> groupList = GroupInfoSql.queryNextGroupList(groupInfo.getGroupId());
+        groupInfo.setGroupTime(0);
+        groupInfo.setGroupRunTime(0);
+        groupInfo.setGroupStop(0);
+        GroupInfoSql.updateGroup(groupInfo);
         if (groupList != null) {
             groupInfo.setGroupStatus(Entiy.GROUP_STATUS_COLSE);
-            groupInfo.setGroupTime(0);
-            groupInfo.setGroupRunTime(0);
-            groupInfo.setGroupStop(0);
             GroupInfoSql.updateGroup(groupInfo);
             createAutoGroupOpenNextTask(groupList.get(0));
             createAutoGroupCloseTask(groupInfo);
             TaskManager.getInstance().startTask();
         } else {
             LogUtils.e(TAG, "*********************************自动轮灌完成 停止计时*****************************");
-            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_CLOSE);
+
             EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_FINISH));
+            MessageSend.syncAuto(MessageEntiy.TYPE_AUTO_STATUS);
         }
     }
 
