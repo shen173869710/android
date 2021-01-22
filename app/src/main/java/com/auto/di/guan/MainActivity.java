@@ -152,7 +152,7 @@ public class MainActivity extends SerialPortActivity {
 
     @Override
     protected void onDataReceived(byte[] buffer, int size) {
-        final String receive = new String(buffer, 0, buffer.length);
+       final String receive = new String(buffer, 0, buffer.length);
         int length = receive.trim().length();
         LogUtils.e(TAG, "收到 -------------------" + receive + "    length = " + length);
 
@@ -168,28 +168,14 @@ public class MainActivity extends SerialPortActivity {
             return;
         }
 
-
         String cmd = "";
         if (TaskManager.getInstance().getmTask() != null) {
             cmd = TaskManager.getInstance().getmTask().getTaskCmd();
         }
-        LogUtils.e(TAG, "当前任务命令 ==="+cmd);
         if (receive.trim().equals(cmd)) {
             LogUtils.e(TAG, "过滤回显信息 =============================");
             return;
         }
-
-
-//        if ((receive.contains("kf")
-//                || receive.contains("gf")
-//                || receive.contains("rs"))
-//                && !receive.contains("ok")) {
-//            LogUtils.e(TAG, "过滤错误信息 -------------------"+receive);
-//            return;
-//        }
-
-
-
 
         runOnUiThread(new Runnable() {
             @Override

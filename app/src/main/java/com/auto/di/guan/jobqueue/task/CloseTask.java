@@ -60,7 +60,7 @@ public class CloseTask extends BaseTask{
                 SendUtils.sendCloseEnd(receive, getTaskInfo());
                 finishTask();
             }else {
-                errorTask();
+                retryTask();
             }
 //        }
     }

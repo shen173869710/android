@@ -65,10 +65,10 @@ public class SendUtils {
 
     //  读取失败
     public static final int OPTION_READ_CONNECT = 1000;
-    public static final String OPTION_READ_CONNECT_VALUE = "链接正常,关阀状态";
+    public static final String OPTION_READ_CONNECT_VALUE = "连接正常,关阀状态";
     //  读取失败
     public static final int OPTION_READ_RUN = 2000;
-    public static final String OPTION_READ_RUN_VALUE = "链接正常,开阀状态";
+    public static final String OPTION_READ_RUN_VALUE = "连接正常,开阀状态";
     //  读取失败
     public static final int OPTION_READ_FAILE = 3000;
     public static final String OPTION_READ_FAILE_VALUE = "读取失败,未知异常";
