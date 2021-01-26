@@ -34,6 +34,10 @@ public class Entiy {
      **/
     public static final int CMD_TIME = 8000;
     /**
+     *  发送重试命令的时间间隔
+     **/
+    public static final int CMD_RETRY_TIME = 6000;
+    /**
      *  施肥管理相关参数设置
      */
     public static String [] PUMP_PRAM = {

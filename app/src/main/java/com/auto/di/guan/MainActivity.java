@@ -121,6 +121,21 @@ public class MainActivity extends SerialPortActivity {
         chatManager.doLogin();
 
         syncData();
+
+
+        EventBus.getDefault().post(new SendCmdEvent("rs 99999 999"));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new SendCmdEvent("rs 99999 999"));
+            }
+        },4000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new SendCmdEvent("rs 99999 999"));
+            }
+        },4000);
     }
 
 
@@ -237,7 +252,9 @@ public class MainActivity extends SerialPortActivity {
             return;
         }
 
-        if (!cmd.contains("bid") && !cmd.contains("gid")) {
+        if (!cmd.contains("bid") &&
+                !cmd.contains("gid") &&
+                !cmd.contains("99999")) {
             showDialog();
         }
         LogUtils.e(TAG, "-----写入命令" + event.getCmd());

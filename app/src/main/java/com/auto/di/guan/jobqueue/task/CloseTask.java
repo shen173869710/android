@@ -3,6 +3,7 @@ package com.auto.di.guan.jobqueue.task;
 import android.os.Handler;
 
 import com.auto.di.guan.db.ControlInfo;
+import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.SendUtils;
 
@@ -72,7 +73,12 @@ public class CloseTask extends BaseTask{
             if(getTaskCount() == 2) {
             setTaskCount(1);
             SendUtils.sendCloseRet(receive, getTaskInfo());
-            writeCmd(getTaskCmd());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        writeCmd(getTaskCmd());
+                    }
+                }, Entiy.CMD_RETRY_TIME);
         }else {
             errorTask();
         }

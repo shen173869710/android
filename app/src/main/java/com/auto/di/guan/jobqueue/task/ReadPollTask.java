@@ -1,5 +1,6 @@
 package com.auto.di.guan.jobqueue.task;
 
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.auto.di.guan.R;
@@ -105,7 +106,14 @@ public class ReadPollTask extends BaseTask{
         if(getTaskCount() == 2) {
             setTaskCount(1);
             SendUtils.sendReadTryMiddle(getReceive(), getTaskInfo());
-            writeCmd(getTaskCmd());
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    writeCmd(getTaskCmd());
+                }
+            }, Entiy.CMD_RETRY_TIME);
+
         }else {
             errorTask();
         }

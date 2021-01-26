@@ -1,5 +1,6 @@
 package com.auto.di.guan.jobqueue.task;
 
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.auto.di.guan.R;
@@ -47,6 +48,7 @@ public class ReadSingleTask extends BaseTask{
     public void errorTask() {
         LogUtils.e(TAG, "读取状态 错误 ======="+"errorTask()");
         SendUtils.sendReadEnd(getTaskInfo(), getTaskType(),getActionType(),SendUtils.OPTION_READ_FAILE,true);
+        EventBus.getDefault().post(new VideoPlayEcent(Entiy.VIDEO_CLOSE_ERROR));
         finishTask();
     }
 
@@ -90,8 +92,6 @@ public class ReadSingleTask extends BaseTask{
             SendUtils.sendReadMiddle(receive, getTaskInfo());
                 // 解析通信成功的状态
             doReadStatus(info, controlInfo,status);
-            finishTask();
-
         }
     }
 
@@ -105,7 +105,12 @@ public class ReadSingleTask extends BaseTask{
         if(getTaskCount() == 2) {
             setTaskCount(1);
             SendUtils.sendReadTryMiddle(getReceive(), getTaskInfo());
-            writeCmd(getTaskCmd());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    writeCmd(getTaskCmd());
+                }
+            }, Entiy.CMD_RETRY_TIME);
         }else {
             errorTask();
         }
@@ -139,6 +144,7 @@ public class ReadSingleTask extends BaseTask{
         final DeviceInfo deviceInfo = DeviceInfoSql.queryDeviceById(taskInfo.getDeviceId());
         if (deviceInfo == null) {
             LogUtils.e(TAG, "---131---无法查询的设备id"+taskInfo.getDeviceId());
+           finishTask();
             return;
         }
         int type = -1;
@@ -185,7 +191,12 @@ public class ReadSingleTask extends BaseTask{
 
             if(type != SendUtils.OPTION_OPEN_SUCESS) {
                 // 开阀异常报警
-                EventBus.getDefault().post(new VideoPlayEcent(Entiy.VIDEO_OPEN_ERROR));
+                if (getTaskCount() == 2) {
+                    retryTask();
+                    return;
+                }else {
+                    EventBus.getDefault().post(new VideoPlayEcent(Entiy.VIDEO_OPEN_ERROR));
+                }
             }
             /**
              *   如果是关闭状态查询
@@ -226,7 +237,12 @@ public class ReadSingleTask extends BaseTask{
 
             if(type != SendUtils.OPTION_CLOSE_SUCESS) {
                 // 关阀异常报警
-                EventBus.getDefault().post(new VideoPlayEcent(Entiy.VIDEO_CLOSE_ERROR));
+                if (getTaskCount() == 2) {
+                    retryTask();
+                    return;
+                }else {
+                    EventBus.getDefault().post(new VideoPlayEcent(Entiy.VIDEO_CLOSE_ERROR));
+                }
             }
             /**
              *   如果是单独的查询
@@ -271,7 +287,12 @@ public class ReadSingleTask extends BaseTask{
                     || type == SendUtils.OPTION_READ_DIS
                     || type == SendUtils.OPTION_READ_DIS) {
                 // 异常报警
-                EventBus.getDefault().post(new VideoPlayEcent(Entiy.VIDEO_CLOSE_ERROR));
+                if (getTaskCount() == 2) {
+                    retryTask();
+                    return;
+                }else {
+                    EventBus.getDefault().post(new VideoPlayEcent(Entiy.VIDEO_READ_ERROR));
+                }
             }
         }
 
@@ -284,6 +305,7 @@ public class ReadSingleTask extends BaseTask{
 
         if (controlInfo == null) {
             LogUtils.e(TAG, "阀门设备异常 postion = "+postion);
+            finishTask();
             return;
         }
 
@@ -304,6 +326,7 @@ public class ReadSingleTask extends BaseTask{
          *  发送通信结束
          */
         SendUtils.sendReadEnd(getTaskInfo(), getTaskType(),getActionType(),type,true);
+        finishTask();
     }
 
 
