@@ -67,4 +67,9 @@ public class MessageEntiy {
 
     public static final int TYPE_SYNC_CONTROL = 123456;
 
+    // 农田信息
+    public static final int TYPE_FARMLAND = 10000;
+    /**农田信息item点击事件**/
+    public static final int TYPE_FARMLAND_CLICK= 10002;
+
 }

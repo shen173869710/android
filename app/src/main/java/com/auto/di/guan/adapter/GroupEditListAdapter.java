@@ -24,9 +24,9 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
 
     @Override
     protected void convert(BaseViewHolder holder, ControlInfo info) {
+        holder.setText(R.id.group_item_id,"阀 "+info.getValveName());
+        holder.setText(R.id.group_item_name,info.getValveAlias() + "" );
 
-        holder.setText(R.id.group_item_name,info.getValveId() + "阀控器" );
-        holder.setText(R.id.group_item_id,"名称"+info.getValveAlias());
 
         String stutes = "";
         int valveStatus = info.getValveStatus();

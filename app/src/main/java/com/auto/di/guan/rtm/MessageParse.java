@@ -1,5 +1,7 @@
 package com.auto.di.guan.rtm;
 
+import android.text.TextUtils;
+
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
@@ -12,6 +14,7 @@ import com.auto.di.guan.db.sql.LevelInfoSql;
 import com.auto.di.guan.entity.BengOptionEvent;
 import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.event.ActivityEvent;
+import com.auto.di.guan.event.ActivityItemEvent;
 import com.auto.di.guan.event.TabClickEvent;
 import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.TaskManager;
@@ -25,9 +28,7 @@ import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
 import com.auto.di.guan.utils.ToastUtils;
 import com.google.gson.Gson;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -151,6 +152,22 @@ public class MessageParse {
             case MessageEntiy.TYPE_ACTIVITY:
                 EventBus.getDefault().post(new ActivityEvent(info.getIndex()));
                 MessageSend.syncActivityEvent();
+                break;
+
+            case MessageEntiy.TYPE_FARMLAND:
+                /**
+                 *  农田信息添加
+                 */
+                if (!TextUtils.isEmpty(info.getSn())) {
+                    EventBus.getDefault().post(new ActivityItemEvent(info.getIndex(),info.getSn(), info.getSnType()));
+                }
+
+                break;
+            case MessageEntiy.TYPE_FARMLAND_CLICK:
+                /**
+                 *  农田信息item点击
+                 */
+                EventBus.getDefault().post(new ActivityItemEvent(info.getIndex()));
                 break;
         }
     }

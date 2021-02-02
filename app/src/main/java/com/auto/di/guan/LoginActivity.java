@@ -46,7 +46,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
             return;
         }
         String pwd = userLoginPwd.getText().toString().trim();
-        pwd = "swlzc123";
+        pwd = "123456";
         if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
             return;
@@ -93,6 +93,7 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
         if (respone.getData() != null) {
             User user = (User) respone.getData();
             UserSql.updateUser(user);
+            user.setPassword("123456");
             BaseApp.setUser(user);
 //            Entiy.GUN_COLUMN = user.getTrunkPipeNum();
             Entiy.GUN_COLUMN = 16;

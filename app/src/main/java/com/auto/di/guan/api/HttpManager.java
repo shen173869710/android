@@ -215,4 +215,48 @@ public class HttpManager {
                 .onTerminateDetach()// 当执行了d.dispose()方法后将解除上下游的引用
                 .subscribeWith(disposableObserver);
     }
+
+    /**
+     * 有loading 的请求
+     *
+     * @param observable
+     * @param onResultListener
+     */
+    public static void newApi(Observable observable, final OnResultListener onResultListener) {
+
+        DisposableObserver disposableObserver = new DisposableObserver() {
+            @Override
+            public void onNext(Object obj) {
+                try {
+                    BaseRespone respone = (BaseRespone) obj;
+                    if (null == respone) {
+                        onResultListener.onError(new Exception(), 500, GlobalConstant.SERVER_ERROR);
+                    } else {
+                        onResultListener.onSuccess(respone);
+                    }
+                } catch (Exception e) {
+                    LogUtils.e(TAG, e.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.e(TAG, "doHttpTaskWithDialog==onError===" + e.toString());
+                onResultListener.onError(e, 500, GlobalConstant.SERVER_ERROR);
+            }
+
+            @Override
+            public void onComplete() {
+                if (!isDisposed()) {
+                    dispose();
+                }
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onTerminateDetach()// 当执行了d.dispose()方法后将解除上下游的引用
+                .subscribeWith(disposableObserver);
+    }
 }

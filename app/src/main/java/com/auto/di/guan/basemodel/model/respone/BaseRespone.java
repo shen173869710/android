@@ -9,7 +9,15 @@ public class BaseRespone<T>{
     private int code;
     private T data;
     private String message;
+    private String token;
 
+    public boolean messageOk() {
+        if ("ok".equals(message)) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     public boolean isOk(){
         if(code == 200) {
@@ -40,5 +48,13 @@ public class BaseRespone<T>{
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

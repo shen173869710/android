@@ -1,61 +1,110 @@
 package com.auto.di.guan.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.auto.di.guan.R;
-import com.auto.di.guan.WebviewActivity;
-import com.auto.di.guan.adapter.GunManagerAdapter;
-import com.auto.di.guan.entity.GunManager;
+import com.auto.di.guan.adapter.Fragment8LeftAdapter;
+import com.auto.di.guan.adapter.Fragment8RightAdapter;
+import com.auto.di.guan.api.ApiEntiy;
+import com.auto.di.guan.api.HttpManager;
+import com.auto.di.guan.basemodel.model.respone.BaseRespone;
+import com.auto.di.guan.basemodel.model.respone.EDepthRespone;
+import com.auto.di.guan.basemodel.model.respone.EDeviceDataRespone;
+import com.auto.di.guan.basemodel.model.respone.EDeviceRespone;
+import com.auto.di.guan.basemodel.model.respone.ERespone;
+import com.auto.di.guan.basemodel.model.respone.MeteoRespone;
+import com.auto.di.guan.dialog.DialogContent;
+import com.auto.di.guan.dialog.InputDialog;
+import com.auto.di.guan.dialog.OnDialogClick;
+import com.auto.di.guan.event.ActivityItemEvent;
+import com.auto.di.guan.event.ChooseGroupEvent;
+import com.auto.di.guan.event.TabClickEvent;
+import com.auto.di.guan.rtm.MessageSend;
+import com.auto.di.guan.utils.LogUtils;
+import com.auto.di.guan.utils.NewApiUtil;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-
 public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
-	RecyclerView fragment8List;
+
 	private View view;
-	GunManagerAdapter adapter;
+	Button add_memto;
+	Button add_poi;
 
-	Button fragment_8_net;
-	Button fragment_8_local;
-	String [] titles = {
-			"地表殇情",
-			"气象信息",
-			"气温",
-			"气压",
-			"日照",
-			"风向",
-			"风速",
-			"降雨量"
+	RecyclerView recyclerViewLeft;
+	Fragment8LeftAdapter leftAdapter;
 
-	};
+	RecyclerView recyclerViewRight;
+	Fragment8RightAdapter rightAdapter;
+
+	List<MeteoRespone> meteoRespones = new ArrayList<>();
+	List<EDepthRespone> eDepthRespones = new ArrayList<>();
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_8, null);
-		List<GunManager> list = new ArrayList<>();
-		int length = titles.length;
-		for (int i = 0; i < length; i++) {
-			list.add(new GunManager(titles[i], "XXXX"));
-		}
 
-		fragment8List = view.findViewById(R.id.fragment_8_list);
+		EventBus.getDefault().register(this);
+		recyclerViewLeft = view.findViewById(R.id.fragment_8_left);
+		recyclerViewLeft.setLayoutManager(new LinearLayoutManager(getContext()));
+		leftAdapter = new Fragment8LeftAdapter(meteoRespones);
+		recyclerViewLeft.setAdapter(leftAdapter);
 
-		fragment_8_net = view.findViewById(R.id.fragment_8_net);
-		fragment_8_local= view.findViewById(R.id.fragment_8_local);
-		adapter = new GunManagerAdapter(list);
-		fragment8List.setLayoutManager(new LinearLayoutManager(getContext()));
-		fragment8List.setAdapter(adapter);
+		final MeteoRespone meteoRespone = new MeteoRespone();
+		meteoRespone.setSn("殇情图片");
+		meteoRespones.add(meteoRespone);
+		EDepthRespone eDepthRespone = new EDepthRespone();
+		eDepthRespone.setType(ApiEntiy.ITEM_TYPE_0);
+		eDepthRespones.add(eDepthRespone);
+
+		recyclerViewRight = view.findViewById(R.id.fragment_8_right);
+		recyclerViewRight.setLayoutManager(new LinearLayoutManager(getContext()));
+		rightAdapter = new Fragment8RightAdapter(eDepthRespones);
+		recyclerViewRight.setAdapter(rightAdapter);
+
+		leftAdapter.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+				onItemClickListen(position);
+			}
+		});
+
+		add_memto = view.findViewById(R.id.add_memto);
+		add_poi = view.findViewById(R.id.add_poi);
+		add_memto.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(final View v) {
+				addDevice("添加气象", "19101600107861");
+			}
+		});
 
 
-		fragment_8_net.setOnClickListener(this);
-		fragment_8_local.setOnClickListener(this);
+		add_poi.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				addDevice("添加墒情", "18121700094125");
+			}
+		});
+		/**
+		 *   首次进来同步列表信息
+		 */
+		MessageSend.syncListItem(meteoRespones, eDepthRespones);
 		return view;
 	}
 
@@ -66,6 +115,267 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		startActivity(new Intent(getContext(), WebviewActivity.class));
+//		startActivity(new Intent(getContext(), WebviewActivity.class));
+	}
+
+
+	public void addDevice(String title, String device) {
+		DialogContent dialogContent = new DialogContent();
+		dialogContent.setDesc(title);
+		dialogContent.setCancle(device);
+		InputDialog.show(getActivity(), dialogContent, new OnDialogClick() {
+			@Override
+			public void onDialogOkClick(final String value) {
+				NewApiUtil.getToken(value, new HttpManager.OnResultListener() {
+					@Override
+					public void onSuccess(BaseRespone t) {
+						if (t != null) {
+							MeteoRespone meteoRespone = (MeteoRespone) t;
+							String sn = meteoRespone.getSn();
+							int size = meteoRespones.size();
+							if (size > 1) {
+								Iterator<MeteoRespone> iterator = meteoRespones.iterator();
+								while (iterator.hasNext()) {
+									MeteoRespone mRespone = iterator.next();
+									if (sn.equals(mRespone.getSn())) {
+										iterator.remove();
+									}
+								}
+							}
+							meteoRespones.add(meteoRespone);
+							leftAdapter.notifyDataSetChanged();
+							/**
+							 * 添加列表同步
+							 */
+							MessageSend.syncListItem(meteoRespones, eDepthRespones);
+						}
+					}
+
+					@Override
+					public void onError(Throwable error, Integer code, String msg) {
+
+					}
+				});
+			}
+
+			@Override
+			public void onDialogCloseClick(String value) {
+
+			}
+		});
+	}
+
+	public void getDeviceInfo(String device, final boolean isWather) {
+		NewApiUtil.getDeviceData(device, new HttpManager.OnResultListener() {
+			@Override
+			public void onSuccess(BaseRespone t) {
+				ERespone eRespone = (ERespone) t;
+				if (eRespone != null) {
+					if (eRespone.getList() != null) {
+						int size = eRespone.getList().size();
+						eDepthRespones.clear();
+
+						EDepthRespone eDepthRespone = new EDepthRespone();
+						if (isWather) {
+							eDepthRespone.setType(ApiEntiy.ITEM_TYPE_1);
+						}else {
+							eDepthRespone.setType(ApiEntiy.ITEM_TYPE_3);
+						}
+						eDepthRespones.add(eDepthRespone);
+
+						for (int i = 0; i < size; i++) {
+							EDeviceRespone eDeviceRespone = eRespone.getList().get(i);
+							initDepth(eDeviceRespone, isWather);
+						}
+						rightAdapter.notifyDataSetChanged();
+						/**
+						 *   添加详情同步
+						 */
+						MessageSend.syncListItem(meteoRespones, eDepthRespones);
+					}
+				}
+			}
+
+			@Override
+			public void onError(Throwable error, Integer code, String msg) {
+
+			}
+		});
+	}
+
+
+	public void initDepth(EDeviceRespone eDeviceRespone, boolean isWather) {
+		EDeviceDataRespone eDeviceDataRespone = eDeviceRespone.getValues();
+		EDepthRespone depth0 = eDeviceDataRespone.getDepth0();
+		if (depth0 != null) {
+			depth0.setDatetime(eDeviceRespone.getDatetime());
+			depth0.setDapthName(ApiEntiy.DEPTH_0[0]);
+			if (isWather) {
+				depth0.setType(ApiEntiy.ITEM_TYPE_2);
+			} else {
+				depth0.setType(ApiEntiy.ITEM_TYPE_4);
+			}
+			eDepthRespones.add(depth0);
+		}
+
+		if (isWather) {
+			return;
+		}
+
+		EDepthRespone depth10 = eDeviceDataRespone.getDepth10();
+		if (depth10 != null) {
+			depth10.setDatetime(eDeviceRespone.getDatetime());
+			depth10.setDapthName(ApiEntiy.DEPTH_10[0]);
+			depth10.setType(ApiEntiy.ITEM_TYPE_4);
+			eDepthRespones.add(depth10);
+		}
+
+		EDepthRespone depth20 = eDeviceDataRespone.getDepth20();
+		if (depth20 != null) {
+			depth20.setDatetime(eDeviceRespone.getDatetime());
+			depth20.setDapthName(ApiEntiy.DEPTH_20[0]);
+			depth20.setType(ApiEntiy.ITEM_TYPE_4);
+			eDepthRespones.add(depth20);
+		}
+
+		EDepthRespone depth30 = eDeviceDataRespone.getDepth30();
+		if (depth30 != null) {
+			depth30.setDatetime(eDeviceRespone.getDatetime());
+			depth30.setDapthName(ApiEntiy.DEPTH_30[0]);
+			depth30.setType(ApiEntiy.ITEM_TYPE_4);
+			eDepthRespones.add(depth30);
+		}
+		EDepthRespone depth40 = eDeviceDataRespone.getDepth40();
+		if (depth40 != null) {
+			depth40.setDatetime(eDeviceRespone.getDatetime());
+			depth40.setDapthName(ApiEntiy.DEPTH_40[0]);
+			depth40.setType(ApiEntiy.ITEM_TYPE_4);
+			eDepthRespones.add(depth40);
+		}
+		EDepthRespone depth50 = eDeviceDataRespone.getDepth50();
+		if (depth50 != null) {
+			depth50.setDatetime(eDeviceRespone.getDatetime());
+			depth50.setDapthName(ApiEntiy.DEPTH_50[0]);
+			depth50.setType(ApiEntiy.ITEM_TYPE_4);
+			eDepthRespones.add(depth50);
+		}
+		EDepthRespone depth60 = eDeviceDataRespone.getDepth60();
+		if (depth60 != null) {
+			depth60.setDatetime(eDeviceRespone.getDatetime());
+			depth60.setDapthName(ApiEntiy.DEPTH_60[0]);
+			depth60.setType(ApiEntiy.ITEM_TYPE_4);
+			eDepthRespones.add(depth60);
+		}
+		EDepthRespone depth70 = eDeviceDataRespone.getDepth70();
+		if (depth70 != null) {
+			depth70.setDatetime(eDeviceRespone.getDatetime());
+			depth70.setDapthName(ApiEntiy.DEPTH_70[0]);
+			depth70.setType(ApiEntiy.ITEM_TYPE_4);
+			eDepthRespones.add(depth70);
+		}
+	}
+
+
+
+
+
+	public void webAddDevice(String device) {
+		NewApiUtil.getToken(device, new HttpManager.OnResultListener() {
+			@Override
+			public void onSuccess(BaseRespone t) {
+				if (t != null) {
+					MeteoRespone meteoRespone = (MeteoRespone) t;
+					String sn = meteoRespone.getSn();
+					int size = meteoRespones.size();
+					if (size > 1) {
+						Iterator<MeteoRespone> iterator = meteoRespones.iterator();
+						while (iterator.hasNext()) {
+							MeteoRespone mRespone = iterator.next();
+							if (sn.equals(mRespone.getSn())) {
+								iterator.remove();
+							}
+						}
+					}
+					meteoRespones.add(meteoRespone);
+					leftAdapter.notifyDataSetChanged();
+					/**
+					 *   同步详情信息
+					 */
+					MessageSend.syncListItem(meteoRespones, eDepthRespones);
+				}
+			}
+
+			@Override
+			public void onError(Throwable error, Integer code, String msg) {
+
+			}
+		});
+	}
+
+	/**
+	 *         处理web端相关操作
+	 * @param event
+	 */
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onActivityItemEvent(ActivityItemEvent event) {
+		LogUtils.e("FragmentTab8", "sn ="+event.getSn());
+		if (event == null) {
+			return;
+		}
+
+		/**
+		 *  item 点击事件
+		 */
+		if (TextUtils.isEmpty(event.getSn())) {
+			/**
+			 *   来自web端的点击事件
+			 */
+			onItemClickListen(event.getIndex());
+		}else {
+			webAddDevice(event.getSn());
+		}
+	};
+
+
+	public void onItemClickListen(int position) {
+		int size = meteoRespones.size();
+		if (position > size) {
+			return;
+		}
+
+		for(int i = 0; i < size; i++) {
+			if (i == position) {
+				meteoRespones.get(i).setSle(true);
+			}else {
+				meteoRespones.get(i).setSle(false);
+			}
+		}
+
+		eDepthRespones.clear();
+		if (position == 0) {
+			EDepthRespone eDepthRespone = new EDepthRespone();
+			eDepthRespone.setType(ApiEntiy.ITEM_TYPE_0);
+			eDepthRespones.add(eDepthRespone);
+			rightAdapter.notifyDataSetChanged();
+			MessageSend.syncListItem(meteoRespones, eDepthRespones);
+		} else {
+			MeteoRespone mRespone = meteoRespones.get(position);
+			boolean isWather = false;
+			if (ApiEntiy.DEVICE_TYPE.equals(mRespone.getType())) {
+				isWather = true;
+			}
+			getDeviceInfo(mRespone.getSn(), isWather);
+		}
+		rightAdapter.notifyDataSetChanged();
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onTabClickEvent(TabClickEvent event) {
+		if (event == null) {
+			return;
+		}
+		if (event.getIndex() == 8) {
+			MessageSend.syncListItem(meteoRespones, eDepthRespones);
+		}
 	}
 }

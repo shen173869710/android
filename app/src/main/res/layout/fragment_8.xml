@@ -1,51 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_8_left"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_8_right"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/fragment_8_left" />
+    <LinearLayout
+        android:id="@+id/addBtn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:padding="20dp"
-        >
+        android:orientation="horizontal">
         <Button
-            android:id="@+id/fragment_8_local"
+            android:id="@+id/add_memto"
             android:layout_width="@dimen/main_button_width"
             android:layout_height="@dimen/main_button_height"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginRight="20dp"
             android:background="@drawable/bg_red_buttom_rect"
-            android:text="网络"
+            android:text="添加气象"
             android:textColor="@color/white" />
+
         <Button
-            android:id="@+id/fragment_8_net"
+            android:id="@+id/add_poi"
             android:layout_width="@dimen/main_button_width"
             android:layout_height="@dimen/main_button_height"
-            android:layout_marginLeft="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:background="@drawable/bg_red_buttom_rect"
-            android:text="天气"
+            android:text="添加墒情"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/add_new"
+            android:layout_width="@dimen/main_button_width"
+            android:layout_height="@dimen/main_button_height"
+            android:background="@drawable/bg_red_buttom_rect"
+            android:text="添加"
+            android:layout_marginRight="20dp"
             android:textColor="@color/white" />
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="300dp"
-            android:background="@mipmap/gun_test_bg"></ImageView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_8_list"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

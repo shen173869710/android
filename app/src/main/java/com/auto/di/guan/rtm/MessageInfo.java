@@ -1,6 +1,8 @@
 package com.auto.di.guan.rtm;
 
 
+import com.auto.di.guan.basemodel.model.respone.EDepthRespone;
+import com.auto.di.guan.basemodel.model.respone.MeteoRespone;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.GroupInfo;
@@ -46,6 +48,15 @@ public class MessageInfo {
 
     private List<SocketResult> socketResults;
     private List<DeviceInfo>deviceInfos;
+
+    /**
+     * 农田信息
+     */
+    private String sn;
+    private String snType;
+    private List<MeteoRespone> meteoRespones;
+    private List<EDepthRespone> eDepthRespones;
+
 
     public ControlInfo getControlInfo() {
         return controlInfo;
@@ -153,5 +164,37 @@ public class MessageInfo {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
+    public String getSnType() {
+        return snType;
+    }
+
+    public void setSnType(String snType) {
+        this.snType = snType;
+    }
+
+    public List<MeteoRespone> getMeteoRespones() {
+        return meteoRespones;
+    }
+
+    public void setMeteoRespones(List<MeteoRespone> meteoRespones) {
+        this.meteoRespones = meteoRespones;
+    }
+
+    public List<EDepthRespone> geteDepthRespones() {
+        return eDepthRespones;
+    }
+
+    public void seteDepthRespones(List<EDepthRespone> eDepthRespones) {
+        this.eDepthRespones = eDepthRespones;
     }
 }

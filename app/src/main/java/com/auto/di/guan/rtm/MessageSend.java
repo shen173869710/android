@@ -2,6 +2,8 @@ package com.auto.di.guan.rtm;
 
 
 import com.auto.di.guan.BaseApp;
+import com.auto.di.guan.basemodel.model.respone.EDepthRespone;
+import com.auto.di.guan.basemodel.model.respone.MeteoRespone;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.ControlInfoSql;
@@ -169,7 +171,6 @@ public class MessageSend {
         send(info);
     }
 
-
     /**
      *   同步自动轮灌开关状态
      */
@@ -180,4 +181,15 @@ public class MessageSend {
         send(info);
     }
 
+    /**
+     *   同步农田信息item
+     */
+    public static void syncListItem(List<MeteoRespone>meteoRespones, List<EDepthRespone>eDepthRespones) {
+        MessageInfo info = new MessageInfo();
+        info.setType(MessageEntiy.TYPE_FARMLAND);
+        info.setMeteoRespones(meteoRespones);
+        info.seteDepthRespones(eDepthRespones);
+        send(info);
+        LogUtils.e(TAG, "同步农田信息");
+    }
 }

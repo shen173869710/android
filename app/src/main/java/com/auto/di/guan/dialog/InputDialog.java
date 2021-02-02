@@ -32,7 +32,7 @@ public class InputDialog extends Dialog {
         TextView input_title = findViewById(R.id.input_title);
         input_title.setText(content.desc);
         EditText input_edittext = findViewById(R.id.input_edittext);
-
+        input_edittext.setText(content.getCancle());
         TextView dialog_ok = findViewById(R.id.input_ok);
         dialog_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +43,7 @@ public class InputDialog extends Dialog {
                 value = input_edittext.getText().toString().trim();
                 if(!TextUtils.isEmpty(value)) {
                     onDialogClick.onDialogOkClick(value);
+                    dismiss();
                 }
             }
         });

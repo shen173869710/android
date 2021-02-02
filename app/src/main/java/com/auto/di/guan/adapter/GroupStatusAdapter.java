@@ -106,7 +106,7 @@ public class GroupStatusAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHold
                                     }
                                     info.setGroupTime(i * Entiy.RUN_TIME + info.getGroupTime());
                                     GroupInfoSql.updateGroup(info);
-                                    EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_TIME));
+//                                    EventBus.getDefault().post(new AutoTaskEvent(Entiy.RUN_DO_TIME));
                                 }
                             }
                         });
