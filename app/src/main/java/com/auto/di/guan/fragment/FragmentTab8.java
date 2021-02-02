@@ -68,6 +68,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 
 		final MeteoRespone meteoRespone = new MeteoRespone();
 		meteoRespone.setSn("殇情图片");
+		meteoRespone.setSle(true);
 		meteoRespones.add(meteoRespone);
 		EDepthRespone eDepthRespone = new EDepthRespone();
 		eDepthRespone.setType(ApiEntiy.ITEM_TYPE_0);
