@@ -54,6 +54,7 @@ public class MessageParse {
         switch (info.getType()) {
             case MessageEntiy.TYPE_LOGIN:
                 // 登录
+                LogUtils.e(TAG, "同步登陆信息 peerId = "+peerId);
                 MessageSend.syncLogin(peerId);
                 EventBus.getDefault().post(new LoginEvent(true));
                 break;
