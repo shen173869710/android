@@ -25,12 +25,14 @@ public abstract class BaseTask {
     public BaseTask(int taskType, String taskCmd) {
         this.taskType = taskType;
         this.taskCmd = taskCmd;
+        setTaskCount(RETRY_COUNT);
     }
 
     public BaseTask(int taskType, String taskCmd, ControlInfo taskInfo) {
         this.taskType = taskType;
         this.taskCmd = taskCmd;
         this.taskInfo = taskInfo;
+        setTaskCount(RETRY_COUNT);
     }
 
     /**

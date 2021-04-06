@@ -71,7 +71,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 					return;
 				}
 				String pwd = loginPwd.getText().toString().trim();
-				pwd = "123456";
+//				pwd = "123456";
 				if (pwd == null && TextUtils.isEmpty(pwd)) {
 					Toast.makeText(ActivationActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
 					return;
@@ -131,20 +131,16 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 				List<DeviceInfo> deviceInfos = lr.getValveDeviceInfos();
 				int num = deviceInfos.size();
 				for (int i = 0; i < num; i++) {
-
 					DeviceInfo deviceInfo  = CopyObject.copyData(deviceInfos.get(i));
-					deviceInfo.setDeviceStatus(1);
 					deviceInfo.setProtocalId(Entiy.createProtocalId(deviceInfo.getDeviceSort()));
 					ControlInfo controlInfo0 = deviceInfo.getValveDeviceSwitchList().get(0);
 					controlInfo0.setValveName(deviceInfo.getDeviceSort() + "_0");
-					controlInfo0.setValveStatus(1);
 					controlInfo0.setValveAlias(deviceInfo.getDeviceSort() + "_" + controlInfo0.getValveName());
 					controlInfo0.setValveId(deviceInfo.getDeviceSort() * 2 - 1);
 					controlInfo0.setProtocalId("0");
 					controlInfo0.setDeviceProtocalId(BaseApp.getUser().getProjectId());
 					ControlInfo controlInfo1 = deviceInfo.getValveDeviceSwitchList().get(1);
 					controlInfo1.setValveName(deviceInfo.getDeviceSort() + "_1");
-					controlInfo1.setValveStatus(1);
 					controlInfo1.setValveAlias(deviceInfo.getDeviceSort() + "_" + controlInfo1.getValveName());
 					controlInfo1.setValveId(deviceInfo.getDeviceSort() * 2);
 					controlInfo1.setProtocalId("1");
@@ -186,72 +182,69 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 	public void activationFail(Throwable error, Integer code, String msg) {
         LogUtils.e("---------",""+msg);
 		ToastUtils.showLongToast(""+msg);
-//		return;
-		User user = new User();
-		user.setUserId(113l);
-		user.setAvatar("");
-		user.setLoginName("13300000000");
-		user.setParentId(123456l);
-		user.setPhonenumber("13300000000");
-		user.setProjectName(Entiy.GUN_NAME);
-		user.setProjectId("10000");
-		user.setProjectGroupId("10000");
-		user.setPileOutNum(Entiy.GUN_COLUMN);
-		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
-		user.setMemberId(109l);
-		user.setPassword("123456");
-		UserSql.insertUser(user);
-		BaseApp.setUser(user);
-		int num = user.getPileOutNum()*user.getTrunkPipeNum();
-
-		Entiy.GUN_COLUMN = user.getPileOutNum();
-
-		List<DeviceInfo>deviceInfos = new ArrayList<>();
-		if(DeviceInfoSql.queryDeviceCount() <= 0) {
-			for (int i = 0 ; i < num; i++) {
-				DeviceInfo deviceInfo = new DeviceInfo();
-				deviceInfo.setDeviceName((i+1)+"");
-				deviceInfo.setDeviceStatus(1);
-				deviceInfo.setDeviceSort(i+1);
-				deviceInfo.setDeviceId(i+1);
-				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
-				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
-				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_0", 1);
-				controlInfo0.setValveId(deviceInfo.getDeviceSort()*2-1);
-				controlInfo0.setProtocalId("0");
-				controlInfo0.setDeviceProtocalId("10000");
-				controlInfo0.setValveStatus(1);
-				controlInfo0.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo0.getValveName());
-				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_1",1);
-				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo1.getValveName());
-				controlInfo1.setValveId(deviceInfo.getDeviceSort()*2);
-				controlInfo1.setProtocalId("1");
-				controlInfo1.setValveStatus(1);
-				controlInfo1.setDeviceProtocalId("10000");
-				controlInfos.add(controlInfo0);
-				controlInfos.add(controlInfo1);
-				deviceInfo.setValveDeviceSwitchList(controlInfos);
-				deviceInfos.add(deviceInfo);
-			}
-			DeviceInfoSql.insertDeviceInfoList(deviceInfos);
-		}
-
-
-		if (LevelInfoSql.queryLevelInfoList().size() == 0) {
-			List<LevelInfo> levelInfos = new ArrayList<>();
-			for (int i = 1; i < 200; i++) {
-				LevelInfo info = new LevelInfo();
-				info.setLevelId(i);
-				info.setIsGroupUse(false);
-				info.setIsLevelUse(false);
-				levelInfos.add(info);
-			}
-			LevelInfoSql.insertLevelInfoList(levelInfos);
-		}
-
-		startActivity(new Intent(ActivationActivity.this, MainActivity.class));
-		finish();
-		ToastUtils.showLongToast(""+msg);
+//		User user = new User();
+//		user.setUserId(113l);
+//		user.setAvatar("");
+//		user.setLoginName("13300000000");
+//		user.setParentId(123456l);
+//		user.setPhonenumber("13300000000");
+//		user.setProjectName(Entiy.GUN_NAME);
+//		user.setProjectId("10000");
+//		user.setProjectGroupId("10000");
+//		user.setPileOutNum(Entiy.GUN_COLUMN);
+//		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
+//		user.setMemberId(109l);
+//		user.setPassword("123456");
+//		UserSql.insertUser(user);
+//		BaseApp.setUser(user);
+//		int num = user.getPileOutNum()*user.getTrunkPipeNum();
+//
+//		Entiy.GUN_COLUMN = user.getPileOutNum();
+//
+//		List<DeviceInfo>deviceInfos = new ArrayList<>();
+//		if(DeviceInfoSql.queryDeviceCount() <= 0) {
+//			for (int i = 0 ; i < num; i++) {
+//				DeviceInfo deviceInfo = new DeviceInfo();
+//				deviceInfo.setDeviceName((i+1)+"");
+//				deviceInfo.setDeviceStatus(1);
+//				deviceInfo.setDeviceSort(i+1);
+//				deviceInfo.setDeviceId(i+1);
+//				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
+//				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
+//				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_0", 1);
+//				controlInfo0.setValveId(deviceInfo.getDeviceSort()*2-1);
+//				controlInfo0.setProtocalId("0");
+//				controlInfo0.setDeviceProtocalId("10000");
+//				controlInfo0.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo0.getValveName());
+//				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_1",1);
+//				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo1.getValveName());
+//				controlInfo1.setValveId(deviceInfo.getDeviceSort()*2);
+//				controlInfo1.setProtocalId("1");
+//				controlInfo1.setDeviceProtocalId("10000");
+//				controlInfos.add(controlInfo0);
+//				controlInfos.add(controlInfo1);
+//				deviceInfo.setValveDeviceSwitchList(controlInfos);
+//				deviceInfos.add(deviceInfo);
+//			}
+//			DeviceInfoSql.insertDeviceInfoList(deviceInfos);
+//		}
+//
+//
+//		if (LevelInfoSql.queryLevelInfoList().size() == 0) {
+//			List<LevelInfo> levelInfos = new ArrayList<>();
+//			for (int i = 1; i < 200; i++) {
+//				LevelInfo info = new LevelInfo();
+//				info.setLevelId(i);
+//				info.setIsGroupUse(false);
+//				info.setIsLevelUse(false);
+//				levelInfos.add(info);
+//			}
+//			LevelInfoSql.insertLevelInfoList(levelInfos);
+//		}
+//
+//		startActivity(new Intent(ActivationActivity.this, MainActivity.class));
+//		finish();
+//		ToastUtils.showLongToast(""+msg);
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)

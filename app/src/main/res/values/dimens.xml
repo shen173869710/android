@@ -1,6 +1,6 @@
 <resources>
 
-    <dimen name="main_grid_width">220dp</dimen>
+    <dimen name="main_grid_width">222dp</dimen>
 
 
     <dimen name="main_table_height">60dp</dimen>

@@ -36,7 +36,7 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
      * **/
     public void doDeviceActivation(String loginName,String pwd) {
 //        String mac = MacInfo.getMacAddress();
-        String mac = "EC:89:14:3A:00:70";
+        String mac = "EC:89:14:3A:00:00";
        TreeMap<String, Object> treeMap = new TreeMap<>();
        treeMap.put("loginName",loginName);
        treeMap.put("password", pwd);
@@ -67,7 +67,7 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
 //        String password = Md5Util.md5(pwd);
 //        String mac = MacInfo.getMacAddress();
 
-        String mac = "EC:89:14:3A:00:70";
+        String mac = "EC:89:14:3A:00:00";
         TreeMap<String, Object> treeMap = new TreeMap<>();
         treeMap.put("loginName",userName);
         treeMap.put("password",pwd);

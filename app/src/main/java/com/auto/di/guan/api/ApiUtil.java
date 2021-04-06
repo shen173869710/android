@@ -1,18 +1,19 @@
 package com.auto.di.guan.api;
 
-import android.text.TextUtils;
-
 import com.auto.di.guan.BuildConfig;
 import com.auto.di.guan.utils.LogUtils;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,8 +51,7 @@ public class ApiUtil {
         return retrofit.create(ApiService.class);
     }
 
-
-    public static ApiService createApiService(String url) {
+    public static ApiService createApiService(String url, Converter.Factory factory) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -72,7 +72,7 @@ public class ApiUtil {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofit.create(ApiService.class);
@@ -89,4 +89,5 @@ public class ApiUtil {
             return chain.proceed(updateRequest);
         }
     }
+
 }

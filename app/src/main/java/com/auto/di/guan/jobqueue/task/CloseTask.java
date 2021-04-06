@@ -3,6 +3,7 @@ package com.auto.di.guan.jobqueue.task;
 import android.os.Handler;
 
 import com.auto.di.guan.db.ControlInfo;
+import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.SendUtils;
 
@@ -47,22 +48,22 @@ public class CloseTask extends BaseTask{
          *   如果是未知的命令 如果count == 2 重试一次
          *                   如果count == 1 进入错误
          */
-        if (!receive.toLowerCase().contains("ok")) {
-            /**
-             *
-             */
-            retryTask();
-        }else {
+//        if (!receive.toLowerCase().contains("ok")) {
+//            /**
+//             *
+//             */
+//            retryTask();
+//        }else {
             /**g
              *   如果数据包含kf 说明阀成功  执行下一个任务
              */
-            if(receive.toLowerCase().contains("gf") && receive.toLowerCase().contains("ok")) {
+            if(receive.toLowerCase().contains("gf") ) {
                 SendUtils.sendCloseEnd(receive, getTaskInfo());
                 finishTask();
             }else {
-                errorTask();
+                retryTask();
             }
-        }
+//        }
     }
 
     @Override
@@ -72,7 +73,12 @@ public class CloseTask extends BaseTask{
             if(getTaskCount() == 2) {
             setTaskCount(1);
             SendUtils.sendCloseRet(receive, getTaskInfo());
-            writeCmd(getTaskCmd());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        writeCmd(getTaskCmd());
+                    }
+                }, Entiy.CMD_RETRY_TIME);
         }else {
             errorTask();
         }

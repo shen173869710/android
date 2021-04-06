@@ -52,8 +52,8 @@ public class OptionUtils {
                 status.status = Entiy.CONTROL_STATUS＿CONNECT;
             }
         }
-
-//        zt 108 003 1110  zt 108 003 1100 090
+         //0123456789
+//         zt 10016 003 1100 090
         /**读取控制阀**/
         if (msg.contains(ZT)) {
             status.type = ZT;
@@ -73,7 +73,7 @@ public class OptionUtils {
     // gf 012 004 0 ok
     //zt 012 004 xxxx
 
-    public static DeviceInfo changeStatus(OptionStatus status) {
+    public static DeviceInfo changeStatus(OptionStatus status,String protocalId) {
         //status = {"allCmd":"zt 102 002 1100 090\n\u0000","code":"1100","deviceId":"002","elect":"090","projectId":"102","type":"zt","status":0}
         if (status != null && !TextUtils.isEmpty(status.code)) {
             DeviceInfo info = new DeviceInfo();
@@ -139,6 +139,9 @@ public class OptionUtils {
                     valueStatus0 = Entiy.CONTROL_STATUS＿RUN;
                 }else {
                     valueStatus0 = Entiy.CONTROL_STATUS＿ERROR;
+                    if (protocalId.contains("0")) {
+                        return  null;
+                    }
                 }
                 String index1 = type.substring(3,4);
                 if ("0".equals(index1)) {
@@ -147,6 +150,9 @@ public class OptionUtils {
                     valueStatus1 = Entiy.CONTROL_STATUS＿RUN;
                 }else {
                     valueStatus1 = Entiy.CONTROL_STATUS＿ERROR;
+                    if (protocalId.contains("1")) {
+                        return  null;
+                    }
                 }
             }
             controlInfo0.setValveStatus(valueStatus0);

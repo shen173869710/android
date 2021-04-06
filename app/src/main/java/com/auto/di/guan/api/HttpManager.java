@@ -216,7 +216,6 @@ public class HttpManager {
                 .subscribeWith(disposableObserver);
     }
 
-
     /**
      * 有loading 的请求
      *
@@ -233,17 +232,7 @@ public class HttpManager {
                     if (null == respone) {
                         onResultListener.onError(new Exception(), 500, GlobalConstant.SERVER_ERROR);
                     } else {
-                        if (respone.messageOk()) {
-                            onResultListener.onSuccess(respone);
-                        } else if (respone.getCode() == 401) {
-
-                        } else {
-                            String message = respone.getMessage();
-                            if (TextUtils.isEmpty(message)) {
-                                message = GlobalConstant.SERVER_ERROR;
-                            }
-                            onResultListener.onError(new Exception(), respone.getCode(), message);
-                        }
+                        onResultListener.onSuccess(respone);
                     }
                 } catch (Exception e) {
                     LogUtils.e(TAG, e.getMessage());
@@ -270,5 +259,4 @@ public class HttpManager {
                 .onTerminateDetach()// 当执行了d.dispose()方法后将解除上下游的引用
                 .subscribeWith(disposableObserver);
     }
-
 }

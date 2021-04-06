@@ -1,7 +1,5 @@
 package com.auto.di.guan.basemodel.model.respone;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2017/6/26.
  */
@@ -12,7 +10,6 @@ public class BaseRespone<T>{
     private T data;
     private String message;
     private String token;
-    private List<T> list;
 
     public boolean messageOk() {
         if ("ok".equals(message)) {

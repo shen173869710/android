@@ -121,6 +121,21 @@ public class MainActivity extends SerialPortActivity {
         chatManager.doLogin();
 
         syncData();
+
+
+        EventBus.getDefault().post(new SendCmdEvent("rs 99999 999"));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new SendCmdEvent("rs 99999 999"));
+            }
+        },4000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new SendCmdEvent("rs 99999 999"));
+            }
+        },4000);
     }
 
 
@@ -152,7 +167,7 @@ public class MainActivity extends SerialPortActivity {
 
     @Override
     protected void onDataReceived(byte[] buffer, int size) {
-        final String receive = new String(buffer, 0, buffer.length);
+       final String receive = new String(buffer, 0, buffer.length);
         int length = receive.trim().length();
         LogUtils.e(TAG, "收到 -------------------" + receive + "    length = " + length);
 
@@ -160,13 +175,23 @@ public class MainActivity extends SerialPortActivity {
             ToastUtils.showLongToast("错误命令" + receive);
             return;
         }
-        if ((receive.contains("kf")
-                || receive.contains("gf")
-                || receive.contains("rs"))
-                && !receive.contains("ok")) {
-            LogUtils.e(TAG, "过滤回显信息 -------------------"+receive);
+        if ((receive.contains("reg")
+                || receive.contains("standby_flag")
+                || receive.contains("Adc"))
+                || receive.contains("asuring")) {
+            LogUtils.i(TAG, "过滤乱码信息 ============================="+receive);
             return;
         }
+
+        String cmd = "";
+        if (TaskManager.getInstance().getmTask() != null) {
+            cmd = TaskManager.getInstance().getmTask().getTaskCmd();
+        }
+        if (receive.trim().equals(cmd)) {
+            LogUtils.e(TAG, "过滤回显信息 =============================");
+            return;
+        }
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -227,13 +252,15 @@ public class MainActivity extends SerialPortActivity {
             return;
         }
 
-        if (!cmd.contains("bid") && !cmd.contains("gid")) {
+        if (!cmd.contains("bid") &&
+                !cmd.contains("gid") &&
+                !cmd.contains("99999")) {
             showDialog();
         }
         LogUtils.e(TAG, "-----写入命令" + event.getCmd());
         try {
             mOutputStream.write(new String(event.getCmd()).getBytes());
-            mOutputStream.write('\n');
+            mOutputStream.write("\n".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -24,7 +24,7 @@ public class ActionUtil {
 	public static void saveAction( ControlInfo info, int com_type, int optionType, String desc, int isNormal) {
 		UserAction action = new UserAction();
 		int operateResult = -1;
-		String name = info.getValveAlias();
+		String name ="阀"+info.getValveName()+" "+ info.getValveAlias();
 		if (com_type == TaskEntiy.TASK_OPTION_OPEN_READ) {
 			operateResult =1;
 			action.setActionName(name+ "开启");

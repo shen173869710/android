@@ -1,6 +1,6 @@
 package com.auto.di.guan.api;
 
-import com.auto.di.guan.basemodel.model.respone.ERespone;
+import com.auto.di.guan.basemodel.model.respone.MeteoRespone;
 import com.auto.di.guan.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -24,17 +24,17 @@ import retrofit2.Retrofit;
 /**
  *    封装加密解密过程
  */
-public class MyGsonConverterFactory extends Converter.Factory{
+public class MGsonConverterFactory extends Converter.Factory{
     private final Gson gson;
-    public static MyGsonConverterFactory create() {
+    public static MGsonConverterFactory create() {
         return create(new Gson());
     }
 
-    public static MyGsonConverterFactory create(Gson gson) {
-        return new MyGsonConverterFactory(gson);
+    public static MGsonConverterFactory create(Gson gson) {
+        return new MGsonConverterFactory(gson);
     }
 
-    private MyGsonConverterFactory(Gson gson) {
+    private MGsonConverterFactory(Gson gson) {
         if (gson == null){
             throw new NullPointerException("gson == null");
         }
@@ -117,7 +117,7 @@ public class MyGsonConverterFactory extends Converter.Factory{
                 response = response.replaceAll(ApiEntiy.DEPTH_50[0],ApiEntiy.DEPTH_50[1]);
                 response = response.replaceAll(ApiEntiy.DEPTH_60[0],ApiEntiy.DEPTH_60[1]);
                 response = response.replaceAll(ApiEntiy.DEPTH_70[0],ApiEntiy.DEPTH_70[1]);
-                return gson.fromJson(response, ERespone.class);
+                return gson.fromJson(response, MeteoRespone.class);
             }finally {
                 value.close();
             }

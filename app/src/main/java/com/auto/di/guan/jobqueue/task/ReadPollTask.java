@@ -1,5 +1,6 @@
 package com.auto.di.guan.jobqueue.task;
 
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.auto.di.guan.R;
@@ -76,14 +77,22 @@ public class ReadPollTask extends BaseTask{
             OptionStatus status = OptionUtils.receive(receive);
             // 解析失败
             if(status == null) {
+                LogUtils.e(TAG, "解析阀门信息异常重试  "+receive);
                 retryTask();
-            }else {
-                //  发送通信成功
-                SendUtils.sendReadMiddle(receive, getTaskInfo());
-                // 解析通信成功的状态
-                doReadStatus(receive,status);
-                finishTask();
+                return;
             }
+            ControlInfo controlInfo = getTaskInfo();
+            DeviceInfo info = OptionUtils.changeStatus(status,controlInfo.getProtocalId());
+            if (info == null) {
+                LogUtils.e(TAG, "解析状态信息异常重试  stauss ="+status);
+                retryTask();
+                return;
+            }
+                //  发送通信成功
+            SendUtils.sendReadMiddle(receive, getTaskInfo());
+                // 解析通信成功的状态
+            doReadStatus(info,controlInfo,status);
+            finishTask();
         }
     }
 
@@ -97,22 +106,24 @@ public class ReadPollTask extends BaseTask{
         if(getTaskCount() == 2) {
             setTaskCount(1);
             SendUtils.sendReadTryMiddle(getReceive(), getTaskInfo());
-            writeCmd(getTaskCmd());
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    writeCmd(getTaskCmd());
+                }
+            }, Entiy.CMD_RETRY_TIME);
+
         }else {
             errorTask();
         }
     }
 
 
-    public void  doReadStatus(String receive,OptionStatus status) {
+    public void  doReadStatus(DeviceInfo info, ControlInfo controlInfo,OptionStatus status) {
         //status = {"allCmd":"zt 102 002 1100 090\n\u0000","code":"1100","deviceId":"002","elect":"090","projectId":"102","type":"zt","status":0}
         LogUtils.e(TAG, "读取状态 ======="+"doReadStatus == " +(new Gson().toJson(status)));
-            DeviceInfo info = OptionUtils.changeStatus(status);
-            if (info == null) {
-                retryTask();
-                return;
-            }
-            ControlInfo controlInfo = getTaskInfo();
+
             if (controlInfo.getProtocalId().contains("0")) {
                 doOptionControl(controlInfo, info.getValveDeviceSwitchList().get(0),0,status.elect);
             }else if (controlInfo.getProtocalId().contains("1")) {

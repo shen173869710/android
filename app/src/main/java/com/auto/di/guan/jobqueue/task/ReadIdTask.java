@@ -33,11 +33,11 @@ public class ReadIdTask extends BaseTask{
         LogUtils.e(TAG, "读取 id 结束 ======="+"endTask()"+"====收到信息 =="+receive);
         if (receive.toLowerCase().contains("gid")) {
             LogUtils.e(TAG, "读取 gid 正常 =======");
-            EventBus.getDefault().post(new BindSucessEvent(true,getTaskType()));
+            EventBus.getDefault().post(new BindSucessEvent(true,getTaskType(), "写入项目ID成功"));
             finishTask();
         }else if (receive.toLowerCase().contains("bid")) {
             LogUtils.e(TAG, "读取 bid 正常 =======");
-            EventBus.getDefault().post(new BindSucessEvent(true,getTaskType()));
+            EventBus.getDefault().post(new BindSucessEvent(true,getTaskType(),"写入阀控器ID成功"));
             finishTask();
         }else {
             retryTask();

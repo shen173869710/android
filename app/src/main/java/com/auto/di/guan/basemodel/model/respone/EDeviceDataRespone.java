@@ -1,94 +1,76 @@
 package com.auto.di.guan.basemodel.model.respone;
 
 public class EDeviceDataRespone {
-    private String averageWindSpeed;
-    private String rainfall;
-    private String solarRadiationIntensity;
-    private String airTemperature;
-    private String solarRadiationAmount;
-    private String relativeHumidity;
-    private String outsideVoltage;
-    private String windDirection;
-    private String battery;
-    private String atmosphericPressure;
+    private EDepthRespone depth0;
+    private EDepthRespone depth10;
+    private EDepthRespone depth20;
+    private EDepthRespone depth30;
+    private EDepthRespone depth40;
+    private EDepthRespone depth50;
+    private EDepthRespone depth60;
+    private EDepthRespone depth70;
 
-    public String getAverageWindSpeed() {
-        return averageWindSpeed;
+    public EDepthRespone getDepth0() {
+        return depth0;
     }
 
-    public void setAverageWindSpeed(String averageWindSpeed) {
-        this.averageWindSpeed = averageWindSpeed;
+    public void setDepth0(EDepthRespone depth0) {
+        this.depth0 = depth0;
     }
 
-    public String getRainfall() {
-        return rainfall;
+    public EDepthRespone getDepth10() {
+        return depth10;
     }
 
-    public void setRainfall(String rainfall) {
-        this.rainfall = rainfall;
+    public void setDepth10(EDepthRespone depth10) {
+        this.depth10 = depth10;
     }
 
-    public String getSolarRadiationIntensity() {
-        return solarRadiationIntensity;
+    public EDepthRespone getDepth20() {
+        return depth20;
     }
 
-    public void setSolarRadiationIntensity(String solarRadiationIntensity) {
-        this.solarRadiationIntensity = solarRadiationIntensity;
+    public void setDepth20(EDepthRespone depth20) {
+        this.depth20 = depth20;
     }
 
-    public String getAirTemperature() {
-        return airTemperature;
+    public EDepthRespone getDepth30() {
+        return depth30;
     }
 
-    public void setAirTemperature(String airTemperature) {
-        this.airTemperature = airTemperature;
+    public void setDepth30(EDepthRespone depth30) {
+        this.depth30 = depth30;
     }
 
-    public String getSolarRadiationAmount() {
-        return solarRadiationAmount;
+    public EDepthRespone getDepth40() {
+        return depth40;
     }
 
-    public void setSolarRadiationAmount(String solarRadiationAmount) {
-        this.solarRadiationAmount = solarRadiationAmount;
+    public void setDepth40(EDepthRespone depth40) {
+        this.depth40 = depth40;
     }
 
-    public String getRelativeHumidity() {
-        return relativeHumidity;
+    public EDepthRespone getDepth50() {
+        return depth50;
     }
 
-    public void setRelativeHumidity(String relativeHumidity) {
-        this.relativeHumidity = relativeHumidity;
+    public void setDepth50(EDepthRespone depth50) {
+        this.depth50 = depth50;
     }
 
-    public String getOutsideVoltage() {
-        return outsideVoltage;
+    public EDepthRespone getDepth60() {
+        return depth60;
     }
 
-    public void setOutsideVoltage(String outsideVoltage) {
-        this.outsideVoltage = outsideVoltage;
+    public void setDepth60(EDepthRespone depth60) {
+        this.depth60 = depth60;
     }
 
-    public String getWindDirection() {
-        return windDirection;
+    public EDepthRespone getDepth70() {
+        return depth70;
     }
 
-    public void setWindDirection(String windDirection) {
-        this.windDirection = windDirection;
-    }
-
-    public String getBattery() {
-        return battery;
-    }
-
-    public void setBattery(String battery) {
-        this.battery = battery;
-    }
-
-    public String getAtmosphericPressure() {
-        return atmosphericPressure;
-    }
-
-    public void setAtmosphericPressure(String atmosphericPressure) {
-        this.atmosphericPressure = atmosphericPressure;
+    public void setDepth70(EDepthRespone depth70) {
+        this.depth70 = depth70;
     }
 }
