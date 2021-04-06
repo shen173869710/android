@@ -9,15 +9,17 @@ import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.R;
 import com.auto.di.guan.WebviewActivity;
 import com.auto.di.guan.adapter.GunManagerAdapter;
 import com.auto.di.guan.entity.GunManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
+public class FragmentTab8 extends BaseFragment  implements View.OnClickListener{
 	RecyclerView fragment8List;
 	private View view;
 	GunManagerAdapter adapter;

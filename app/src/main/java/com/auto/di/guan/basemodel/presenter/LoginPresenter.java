@@ -1,6 +1,9 @@
 package com.auto.di.guan.basemodel.presenter;
 
 
+import android.text.TextUtils;
+
+import com.auto.di.guan.api.ApiUtil;
 import com.auto.di.guan.api.HttpManager;
 import com.auto.di.guan.basemodel.model.request.BaseRequest;
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
@@ -26,6 +29,7 @@ import java.util.TreeMap;
  */
 
 public class LoginPresenter extends BasePresenter<ILoginView>{
+    private String TAG = "LoginPresenter";
 
     /**
      *  设备激
@@ -99,6 +103,59 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
             }
         });
 
+    }
+
+
+    public void getToken() {
+        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
+                getToken("vn8WKjFPgKhoyN0k", "iZ5QmduqPTG5CpTkvALizYlcP$TYIoQ*"), new HttpManager.OnResultListener() {
+            @Override
+            public void onSuccess(BaseRespone respone) {
+                LogUtils.e(TAG, "respone ==" +respone.getToken());
+
+                if (respone != null && !TextUtils.isEmpty(respone.getToken())) {
+                    ApiUtil.authorization = respone.getToken();
+                    getDeviceInfo();
+
+                }
+            }
+            @Override
+            public void onError(Throwable error, Integer code,String msg) {
+                LogUtils.e("----", msg);
+            }
+        });
+
+    }
+
+
+    public void getDeviceList() {
+        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
+                getDeviceList(1, 200), new HttpManager.OnResultListener() {
+            @Override
+            public void onSuccess(BaseRespone respone) {
+                LogUtils.e("----", new Gson().toJson(respone));
+            }
+            @Override
+            public void onError(Throwable error, Integer code,String msg) {
+                LogUtils.e("----", msg);
+            }
+        });
+
+    }
+
+
+    public void getDeviceInfo() {
+        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
+                getDeviceInfo("18092100088696"), new HttpManager.OnResultListener() {
+            @Override
+            public void onSuccess(BaseRespone respone) {
+                LogUtils.e("----", new Gson().toJson(respone));
+            }
+            @Override
+            public void onError(Throwable error, Integer code,String msg) {
+                LogUtils.e("----", msg);
+            }
+        });
     }
 
 }

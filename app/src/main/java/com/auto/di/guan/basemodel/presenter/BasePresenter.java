@@ -45,6 +45,20 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
         return httpManager;
     }
 
+
+    public void doNewHttpTask(Observable observable, final HttpManager.OnResultListener onResultListener) {
+        if (BaseApp.getInstance().isConnectNomarl()) {
+            httpManager.newApi(observable,onResultListener);
+        }else {
+            String error = "网络异常";
+            if (onResultListener != null) {
+                onResultListener.onError(null,500, error);
+            }
+            ToastUtils.showToast(error);
+        }
+    }
+
+
     public void doHttpTask(Observable observable, final HttpManager.OnResultListener onResultListener) {
         if (BaseApp.getInstance().isConnectNomarl()) {
             httpManager.doHttpTaskWithDialog(getBaseView(), observable,onResultListener);

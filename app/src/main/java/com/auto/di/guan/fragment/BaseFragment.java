@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public abstract class BaseFragment extends Fragment implements AdapterListener{
+public abstract class BaseFragment  extends Fragment implements AdapterListener{
 
     public Activity activity;
 

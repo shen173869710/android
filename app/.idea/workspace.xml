@@ -6,36 +6,52 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AvailableLibraryUpdateStorage">
     <last-search-timestamp>1580803204252</last-search-timestamp>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7dd5271-1711-4806-8d11-3d300b2eea4e" name="Default Changelist" comment="提交解散分组相关代码">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_agora_rtm_rtm_sdk_1_4_0_aar.xml" afterDir="false" />
+    <list default="true" id="d7dd5271-1711-4806-8d11-3d300b2eea4e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_debug_db_1_0_6_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_crashreport_3_3_9_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_9_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/model/respone/EDeviceDataRespone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/model/respone/EDeviceRespone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/utils/NewApiUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_debug_db_base_1_0_6_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_debug_db_base_1_0_6_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_birbit_android_priority_jobqueue_2_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_debug_db_encrypt_1_0_6_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_stetho_stetho_1_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_stetho_stetho_1_5_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_CymChad_BaseRecyclerViewAdapterHelper_3_0_0_beta11_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_CymChad_BaseRecyclerViewAdapterHelper_3_0_0_beta11_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_crashreport_3_2_3_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_7_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_7_471_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_lzyzsd_circleprogress_1_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_lzyzsd_circleprogress_1_2_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_bugly_nativecrashreport_3_7_471_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_yuweiguocn_GreenDaoUpgradeHelper_2_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_yuweiguocn_GreenDaoUpgradeHelper_2_2_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_drakeet_support_toastcompat_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_drakeet_support_toastcompat_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_paho_org_eclipse_paho_android_service_1_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_paho_org_eclipse_paho_client_mqttv3_1_1_0_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/GroupStatusActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/GroupStatusActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageEntiy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageEntiy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageSend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/api/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/api/ApiUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/api/ApiUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/api/HttpManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/api/HttpManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/model/respone/BaseRespone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/model/respone/BaseRespone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/presenter/BasePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/presenter/BasePresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/presenter/LoginPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/presenter/LoginPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/fragment/BaseFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/fragment/BaseFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/fragment/FragmentTab8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/fragment/FragmentTab8.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/jobqueue/task/ReadTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/jobqueue/task/ReadTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/utils/ActionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/auto/di/guan/utils/ActionUtil.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,11 +105,11 @@
   <component name="ProjectId" id="1bWcXgio0vgnZ2iYHknkhF7Aas7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="DEBUGGABLE_DEVICE" value="motorola-aosp_on_shama-127.0.0.1:62001" />
+    <property name="DEBUGGABLE_DEVICE" value="huawei-eml_al00-VED7N18321005513" />
     <property name="DEBUGGABLE_PROCESS" value="com.auto.di.guan" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="127.0.0.1:62001" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-19T10:12:27.773Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-11-01T12:04:26.080Z" />
     <property name="ExportApk.ApkPath" value="F:\guan\android\app" />
     <property name="ExportApk.BuildVariants" value="proRelease&#10;uatRelease" />
     <property name="ExportApk.SignV1" value="true" />
@@ -102,7 +118,7 @@
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="device.picker.selection" value="127.0.0.1:62001" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/res/layout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -125,11 +141,11 @@
       <recent name="F:\guan\android\app\src\main\res\drawable" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.auto.di.guan.basemodel.model.respone" />
+      <recent name="com.auto.di.guan.db" />
       <recent name="com.auto.di.guan" />
       <recent name="com.auto.di.guan.fragment" />
       <recent name="com.auto.di.guan.entity" />
-      <recent name="com.auto.di.guan.jobqueue.event" />
-      <recent name="com.auto.di.guan.adapter" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\android_gun\android\app\src\main\res\raw" />
@@ -514,7 +530,42 @@
       <option name="project" value="LOCAL" />
       <updated>1603097901606</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="提交自动轮灌修改">
+      <created>1603103199415</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1603103199415</updated>
+    </task>
+    <task id="LOCAL-00037" summary="提交代码修改">
+      <created>1603359130304</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1603359130304</updated>
+    </task>
+    <task id="LOCAL-00038" summary="提交合并代码">
+      <created>1604643432794</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1604643432794</updated>
+    </task>
+    <task id="LOCAL-00039" summary="提交bug修改">
+      <created>1604917551691</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1604917551691</updated>
+    </task>
+    <task id="LOCAL-00040" summary="提交bug修改">
+      <created>1604917687761</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1604917687761</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -572,8 +623,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="修改mqtt配置" />
-    <MESSAGE value="修改轮灌结束标志bug修改" />
     <MESSAGE value="提交悬浮窗自动滚动问题" />
     <MESSAGE value="修改token" />
     <MESSAGE value="设置自动轮灌最后一个不可见" />
@@ -595,7 +644,9 @@
     <MESSAGE value="修改轮灌分组设置相关代码" />
     <MESSAGE value="提交自动轮灌相关代码" />
     <MESSAGE value="修改tab改动" />
+    <MESSAGE value="提交自动轮灌修改" />
     <MESSAGE value="提交代码修改" />
+    <MESSAGE value="提交合并代码" />
     <MESSAGE value="提交bug修改" />
     <option name="LAST_COMMIT_MESSAGE" value="提交bug修改" />
   </component>
@@ -626,6 +677,71 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/rtm/MessageParse.java</url>
           <line>46</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/fragment/FragmentTab12.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/presenter/LoginPresenter.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/LoginActivity.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/LoginActivity.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/LoginActivity.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/db/sql/UserSql.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/ActivationActivity.java</url>
+          <line>167</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/ActivationActivity.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/db/sql/DeviceInfoSql.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/db/sql/DeviceInfoSql.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/presenter/LoginPresenter.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/basemodel/presenter/LoginPresenter.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/auto/di/guan/utils/NewApiUtil.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

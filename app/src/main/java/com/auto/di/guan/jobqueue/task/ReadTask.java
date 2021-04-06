@@ -66,21 +66,30 @@ public class ReadTask extends BaseTask{
              *  未知命令重试
              */
             retryTask();
-        }else {
+        } else {
             /**
              *    解析返回的数据
              */
             OptionStatus status = OptionUtils.receive(receive);
             // 解析失败
-            if(status == null) {
+            if (status == null) {
+                LogUtils.e(TAG, "解析数据异常");
                 retryTask();
-            }else {
-                //  发送通信成功
-                SendUtils.sendReadMiddle(receive, getTaskInfo());
-                // 解析通信成功的状态
-                doReadStatus(receive,status);
-                finishTask();
+                return;
             }
+
+            DeviceInfo info = OptionUtils.changeStatus(status);
+            if (info == null) {
+                LogUtils.e(TAG, "解析状态异常");
+                retryTask();
+                return;
+            }
+
+            //  发送通信成功
+            SendUtils.sendReadMiddle(receive, getTaskInfo());
+            // 解析通信成功的状态
+            doReadStatus(info, status);
+
         }
     }
 
@@ -101,14 +110,10 @@ public class ReadTask extends BaseTask{
     }
 
 
-    public void  doReadStatus(String receive,OptionStatus status) {
+    public void  doReadStatus(DeviceInfo info,OptionStatus status) {
         //status = {"allCmd":"zt 102 002 1100 090\n\u0000","code":"1100","deviceId":"002","elect":"090","projectId":"102","type":"zt","status":0}
         LogUtils.e(TAG, "读取状态 ======="+"doReadStatus == " +(new Gson().toJson(status)));
-            DeviceInfo info = OptionUtils.changeStatus(status);
-            if (info == null) {
-                retryTask();
-                return;
-            }
+
             ControlInfo controlInfo = getTaskInfo();
             if (controlInfo.getProtocalId().contains("0")) {
                 doOptionControl(controlInfo, info.getValveDeviceSwitchList().get(0),0,status.elect);
