@@ -374,4 +374,12 @@ public class Entiy {
         }
     }
 
+    public static int [] GROUP_IMAGE = {
+            R.mipmap.group1,
+            R.mipmap.group2,
+            R.mipmap.group3,
+            R.mipmap.group4,
+            R.mipmap.group5
+    };
+
 }

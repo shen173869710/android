@@ -17,13 +17,6 @@ public class DialogUtil {
         OptionDialog.show(context,content,onDialogClick);
     }
 
-    public static void showSaveGroup(Context context, OnDialogClick onDialogClick) {
-        DialogContent content = new DialogContent();
-        content.desc = "是否保存已经选择的分组?";
-        content.cancle = "取消";
-        content.ok = "确认";
-        OptionDialog.show(context,content,onDialogClick);
-    }
 
     /**
      *   暂停计时

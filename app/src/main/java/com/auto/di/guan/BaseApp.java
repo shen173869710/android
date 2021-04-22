@@ -9,7 +9,9 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
+
 import androidx.multidex.MultiDex;
+
 import com.auto.di.guan.basemodel.model.respone.LoginRespone;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.User;
@@ -27,7 +29,9 @@ import com.auto.di.guan.utils.SPUtils;
 import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.tencent.bugly.crashreport.CrashReport;
+
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

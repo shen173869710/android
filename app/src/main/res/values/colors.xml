@@ -2,9 +2,13 @@
 <resources>
 
 
-    <color name="login_bg">#FF1E255E</color>
+    <!--主色调-->
+    <color name="main">#50A4FE</color>
+    <color name="login_bg">#50A4FE</color>
     <color name="button_yellow">#FFFDDA24</color>
 
+    <color name="main_item_n">#31436A</color>
+    <color name="main_item_p">#212D48</color>
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -67,7 +71,7 @@
     <!-- main background -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="blue">#037bff</color>
+    <color name="blue">#50A4FE</color>
     <color name="gray_transparent">#99000000</color>
     <color name="main_bg">#f5f5f5</color>
     <color name="main_hint_color">#999999</color>

@@ -32,13 +32,15 @@ public class FragmentTab0 extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_0, null);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_0_gridview);
         deviceInfos = DeviceInfoSql.queryDeviceList();
         adapter = new MyGridAdapter(deviceInfos);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), Entiy.GUN_COLUMN));
         recyclerView.setAdapter(adapter);
-
-
+        recyclerView.setItemViewCacheSize(200);
+        recyclerView.setDrawingCacheEnabled(true);//保存绘图，提高速度
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

@@ -7,9 +7,20 @@
     android:background="@color/login_bg"
     android:orientation="vertical">
 
+
+    <ImageView
+        android:layout_width="169dp"
+        android:layout_height="48dp"
+        android:background="@mipmap/mian_logo"
+        android:layout_above="@+id/login_layout"
+        android:layout_centerHorizontal="true"
+        />
+
     <LinearLayout
+        android:id="@+id/login_layout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_item_top_normal_rect"
         android:orientation="vertical">
@@ -83,7 +94,7 @@
                 android:layout_height="@dimen/main_button_height"
                 android:background="@drawable/login_button_sel"
                 android:text="登录"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/size_24" />
         </LinearLayout>
     </LinearLayout>

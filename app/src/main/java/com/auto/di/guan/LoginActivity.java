@@ -106,8 +106,8 @@ public class LoginActivity extends IBaseActivity<LoginPresenter> implements ILog
     public void loginFail(Throwable error, Integer code, String msg) {
         LogUtils.e("msg", "doHttpTaskWithDialog==onError===" +msg);
 
-//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//        finish();
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override

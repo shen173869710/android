@@ -1,26 +1,17 @@
 package com.auto.di.guan.basemodel.presenter;
 
 
-import android.text.TextUtils;
-
-import com.auto.di.guan.api.ApiUtil;
 import com.auto.di.guan.api.HttpManager;
 import com.auto.di.guan.basemodel.model.request.BaseRequest;
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
 import com.auto.di.guan.basemodel.view.ILoginView;
-import com.auto.di.guan.db.DeviceInfo;
-import com.auto.di.guan.db.GroupInfo;
-import com.auto.di.guan.db.UserAction;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.UserActionSql;
 import com.auto.di.guan.entity.SyncData;
 import com.auto.di.guan.utils.LogUtils;
-import com.auto.di.guan.utils.MacInfo;
-import com.auto.di.guan.utils.Md5Util;
 import com.google.gson.Gson;
 
-import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -106,56 +97,56 @@ public class LoginPresenter extends BasePresenter<ILoginView>{
     }
 
 
-    public void getToken() {
-        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
-                getToken("vn8WKjFPgKhoyN0k", "iZ5QmduqPTG5CpTkvALizYlcP$TYIoQ*"), new HttpManager.OnResultListener() {
-            @Override
-            public void onSuccess(BaseRespone respone) {
-                LogUtils.e(TAG, "respone ==" +respone.getToken());
-
-                if (respone != null && !TextUtils.isEmpty(respone.getToken())) {
-                    ApiUtil.authorization = respone.getToken();
-                    getDeviceInfo();
-
-                }
-            }
-            @Override
-            public void onError(Throwable error, Integer code,String msg) {
-                LogUtils.e("----", msg);
-            }
-        });
-
-    }
-
-
-    public void getDeviceList() {
-        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
-                getDeviceList(1, 200), new HttpManager.OnResultListener() {
-            @Override
-            public void onSuccess(BaseRespone respone) {
-                LogUtils.e("----", new Gson().toJson(respone));
-            }
-            @Override
-            public void onError(Throwable error, Integer code,String msg) {
-                LogUtils.e("----", msg);
-            }
-        });
-
-    }
-
-
-    public void getDeviceInfo() {
-        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
-                getDeviceInfo("18092100088696"), new HttpManager.OnResultListener() {
-            @Override
-            public void onSuccess(BaseRespone respone) {
-                LogUtils.e("----", new Gson().toJson(respone));
-            }
-            @Override
-            public void onError(Throwable error, Integer code,String msg) {
-                LogUtils.e("----", msg);
-            }
-        });
-    }
+//    public void getToken() {
+//        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
+//                getToken("vn8WKjFPgKhoyN0k", "iZ5QmduqPTG5CpTkvALizYlcP$TYIoQ*"), new HttpManager.OnResultListener() {
+//            @Override
+//            public void onSuccess(BaseRespone respone) {
+//                LogUtils.e(TAG, "respone ==" +respone.getToken());
+//
+//                if (respone != null && !TextUtils.isEmpty(respone.getToken())) {
+//                    ApiUtil.authorization = respone.getToken();
+//                    getDeviceInfo();
+//
+//                }
+//            }
+//            @Override
+//            public void onError(Throwable error, Integer code,String msg) {
+//                LogUtils.e("----", msg);
+//            }
+//        });
+//
+//    }
+//
+//
+//    public void getDeviceList() {
+//        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
+//                getDeviceList(1, 200), new HttpManager.OnResultListener() {
+//            @Override
+//            public void onSuccess(BaseRespone respone) {
+//                LogUtils.e("----", new Gson().toJson(respone));
+//            }
+//            @Override
+//            public void onError(Throwable error, Integer code,String msg) {
+//                LogUtils.e("----", msg);
+//            }
+//        });
+//
+//    }
+//
+//
+//    public void getDeviceInfo() {
+//        doNewHttpTask(ApiUtil.createApiService("http://openapi.ecois.info").
+//                getDeviceInfo("18092100088696"), new HttpManager.OnResultListener() {
+//            @Override
+//            public void onSuccess(BaseRespone respone) {
+//                LogUtils.e("----", new Gson().toJson(respone));
+//            }
+//            @Override
+//            public void onError(Throwable error, Integer code,String msg) {
+//                LogUtils.e("----", msg);
+//            }
+//        });
+//    }
 
 }
