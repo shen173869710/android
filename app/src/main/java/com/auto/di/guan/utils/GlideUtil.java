@@ -18,14 +18,14 @@ public class GlideUtil {
      * @param deviceInfo
      */
     public  static void loadDeviceImage(Context context, ImageView imageView, DeviceInfo deviceInfo) {
-        int resId = R.drawable.device_run;
+        int resId = R.drawable.device_stop;
         if (deviceInfo.getDeviceStatus() == 0) {
             return;
         }
 
         if (deviceInfo.getValveDeviceSwitchList().get(0).getValveStatus() == Entiy.CONTROL_STATUS＿RUN
                 || deviceInfo.getValveDeviceSwitchList().get(1).getValveStatus() == Entiy.CONTROL_STATUS＿RUN) {
-            resId = R.drawable.device_stop;
+            resId = R.drawable.device_run;
         }
         Glide.with(BaseApp.getContext()).asGif().load(resId).into(imageView);
 //        try {

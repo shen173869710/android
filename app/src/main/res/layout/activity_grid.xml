@@ -10,7 +10,6 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@mipmap/lighe_bg"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"

@@ -4,8 +4,6 @@
     android:layout_width="@dimen/main_grid_width"
     android:layout_height="@dimen/main_grid_width"
     android:background="@drawable/mian_item_bg">
-
-
         <RelativeLayout
             android:id="@+id/grid_item_left_layout"
             android:layout_width="match_parent"
@@ -48,23 +46,25 @@
         <RelativeLayout
             android:id="@+id/grid_item_mid"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="35dp"
             android:layout_centerInParent="true"
             >
             <ImageView
                 android:id="@+id/grid_item_device"
                 android:layout_width="match_parent"
                 android:scaleType="fitXY"
-                android:layout_height="50dp" />
+                android:layout_height="35dp" />
             <TextView
                 android:id="@+id/grid_item_device_name"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_20" />
+
             <TextView
                 android:id="@+id/grid_item_device_value"
                 android:layout_width="wrap_content"
@@ -74,6 +74,16 @@
                 android:gravity="left"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_16" />
+
+            <ImageView
+                android:id="@+id/grid_item_device_value_icon"
+                android:layout_width="27dp"
+                android:layout_height="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="70dp"
+                android:background="@mipmap/ic_dian_liang"
+                android:visibility="gone"
+                 />
         </RelativeLayout>
 
         <RelativeLayout

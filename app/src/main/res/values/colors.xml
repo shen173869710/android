@@ -6,6 +6,8 @@
     <color name="main">#50A4FE</color>
     <color name="login_bg">#50A4FE</color>
     <color name="button_yellow">#FFFDDA24</color>
+    <color name="layout_bg">#E7F0F2</color>
+    <color name="line">#E8E8E8</color>
 
     <color name="main_item_n">#31436A</color>
     <color name="main_item_p">#212D48</color>

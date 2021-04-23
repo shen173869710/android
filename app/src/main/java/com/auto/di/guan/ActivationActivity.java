@@ -133,14 +133,14 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 					DeviceInfo deviceInfo  = CopyObject.copyData(deviceInfos.get(i));
 					deviceInfo.setProtocalId(Entiy.createProtocalId(deviceInfo.getDeviceSort()));
 					ControlInfo controlInfo0 = deviceInfo.getValveDeviceSwitchList().get(0);
-					controlInfo0.setValveName(deviceInfo.getDeviceSort() + "_0");
-					controlInfo0.setValveAlias(deviceInfo.getDeviceSort() + "_" + controlInfo0.getValveName());
+					controlInfo0.setValveName(deviceInfo.getDeviceSort() + "_1");
+//					controlInfo0.setValveAlias(deviceInfo.getDeviceSort() + "_" + controlInfo0.getValveName());
 					controlInfo0.setValveId(deviceInfo.getDeviceSort() * 2 - 1);
 					controlInfo0.setProtocalId("0");
 					controlInfo0.setDeviceProtocalId(BaseApp.getUser().getProjectId());
 					ControlInfo controlInfo1 = deviceInfo.getValveDeviceSwitchList().get(1);
-					controlInfo1.setValveName(deviceInfo.getDeviceSort() + "_1");
-					controlInfo1.setValveAlias(deviceInfo.getDeviceSort() + "_" + controlInfo1.getValveName());
+					controlInfo1.setValveName(deviceInfo.getDeviceSort() + "_2");
+//					controlInfo1.setValveAlias(deviceInfo.getDeviceSort() + "_" + controlInfo1.getValveName());
 					controlInfo1.setValveId(deviceInfo.getDeviceSort() * 2);
 					controlInfo1.setProtocalId("1");
 					controlInfo1.setDeviceProtocalId(BaseApp.getUser().getProjectId());
@@ -204,18 +204,18 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		if(DeviceInfoSql.queryDeviceCount() <= 0) {
 			for (int i = 0 ; i < num; i++) {
 				DeviceInfo deviceInfo = new DeviceInfo();
-				deviceInfo.setDeviceName((i+1)+"");
+				deviceInfo.setDeviceName("设备_"+(i+1));
 				deviceInfo.setDeviceStatus(1);
 				deviceInfo.setDeviceSort(i+1);
 				deviceInfo.setDeviceId(i+1);
 				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
 				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
-				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_0", 1);
+				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"-1", 1);
 				controlInfo0.setValveId(deviceInfo.getDeviceSort()*2-1);
 				controlInfo0.setProtocalId("0");
 				controlInfo0.setDeviceProtocalId("10000");
 				controlInfo0.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo0.getValveName());
-				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_1",1);
+				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"-2",1);
 				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo1.getValveName());
 				controlInfo1.setValveId(deviceInfo.getDeviceSort()*2);
 				controlInfo1.setProtocalId("1");
@@ -224,6 +224,17 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 				controlInfos.add(controlInfo1);
 				deviceInfo.setValveDeviceSwitchList(controlInfos);
 				deviceInfos.add(deviceInfo);
+				if (i < 9) {
+					controlInfo0.setValveStatus(2);
+					controlInfo1.setValveStatus(2);
+				}
+
+				if(i == 1 || i == 3 || i == 5 || i == 11) {
+					deviceInfo.setElectricQuantity(i);
+				}else {
+					deviceInfo.setElectricQuantity(88);
+				}
+
 			}
 			DeviceInfoSql.insertDeviceInfoList(deviceInfos);
 		}

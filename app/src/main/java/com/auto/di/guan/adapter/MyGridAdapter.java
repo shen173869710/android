@@ -50,6 +50,8 @@ public class MyGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHolder> 
         TextView grid_item_right_alias = holder.findView(R.id.grid_item_right_alias);
         TextView grid_item_right_id = holder.findView(R.id.grid_item_right_id);
         ImageView grid_item_right_group = holder.findView(R.id.grid_item_right_group);
+        ImageView grid_item_device_value_icon = holder.findView(R.id.grid_item_device_value_icon);
+
         /******设备未绑定******/
         if (deviceInfo.getDeviceStatus() == Entiy.DEVEICE_UNBIND) {
             grid_item_device_name.setVisibility(View.INVISIBLE);
@@ -66,7 +68,11 @@ public class MyGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHolder> 
             grid_item_device_id.setVisibility(View.VISIBLE);
             grid_item_device.setVisibility(View.VISIBLE);
             grid_item_device_value.setVisibility(View.VISIBLE);
-            grid_item_device_value.setText(deviceInfo.getElectricQuantity() + "%");
+            grid_item_device_value.setText("电量"+deviceInfo.getElectricQuantity() + "%");
+            grid_item_device_value_icon.setVisibility(View.GONE);
+            if (deviceInfo.getElectricQuantity() < 20) {
+                grid_item_device_value_icon.setVisibility(View.VISIBLE);
+            }
             grid_item_left_layout.setVisibility(View.VISIBLE);
             grid_item_left_sel.setVisibility(View.GONE);
 

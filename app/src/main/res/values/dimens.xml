@@ -94,4 +94,8 @@
     <dimen name="size_48">48sp</dimen>
     <dimen name="size_50">50sp</dimen>
 
+
+    <dimen name="dialog_title_height">50dp</dimen>
+    <dimen name="dialog_button_height">50dp</dimen>
+
 </resources>

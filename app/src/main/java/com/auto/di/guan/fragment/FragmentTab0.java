@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.R;
 import com.auto.di.guan.adapter.MyGridAdapter;
 import com.auto.di.guan.db.DeviceInfo;
@@ -16,7 +14,6 @@ import com.auto.di.guan.dialog.MainShowDialog;
 import com.auto.di.guan.entity.Entiy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-
 import java.util.ArrayList;
 import java.util.List;
 

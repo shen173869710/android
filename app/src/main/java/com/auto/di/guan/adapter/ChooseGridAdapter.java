@@ -10,6 +10,7 @@ import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.utils.GlideUtil;
 import com.auto.di.guan.utils.NoFastClickUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -40,7 +41,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
         ImageView grid_item_left_image = holder.findView(R.id.grid_item_left_image);
         TextView grid_item_left_alias = holder.findView(R.id.grid_item_left_alias);
         TextView grid_item_left_id = holder.findView(R.id.grid_item_left_id);
-        TextView grid_item_left_group = holder.findView(R.id.grid_item_left_group);
+        ImageView grid_item_left_group = holder.findView(R.id.grid_item_left_group);
 
 
         RelativeLayout grid_item_right_layout = holder.findView(R.id.grid_item_right_layout);
@@ -48,7 +49,7 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
         ImageView grid_item_right_image = holder.findView(R.id.grid_item_right_image);
         TextView grid_item_right_alias = holder.findView(R.id.grid_item_right_alias);
         TextView grid_item_right_id = holder.findView(R.id.grid_item_right_id);
-        TextView grid_item_right_group = holder.findView(R.id.grid_item_right_group);
+        ImageView grid_item_right_group = holder.findView(R.id.grid_item_right_group);
 
 
         if (deviceInfo.getDeviceStatus() == Entiy.DEVEICE_UNBIND) {
@@ -86,7 +87,8 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
                     grid_item_left_group.setVisibility(View.INVISIBLE);
                 } else {
                     grid_item_left_group.setVisibility(View.VISIBLE);
-                    grid_item_left_group.setText(info1.getValveGroupId() + "");
+//                    grid_item_left_group.setText(info1.getValveGroupId() + "");
+                    GlideUtil.loadGroupImage(grid_item_left_group, info1.getValveGroupId());
                 }
 
                 if (info1.getValveGroupId() > 0) {
@@ -127,7 +129,8 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
                     grid_item_right_group.setVisibility(View.INVISIBLE);
                 } else {
                     grid_item_right_group.setVisibility(View.VISIBLE);
-                    grid_item_right_group.setText(info2.getValveGroupId() + "");
+//                    grid_item_right_group.setText(info2.getValveGroupId() + "");
+                    GlideUtil.loadGroupImage(grid_item_left_group, info2.getValveGroupId());
                 }
 
                 if (info2.getValveGroupId() > 0) {

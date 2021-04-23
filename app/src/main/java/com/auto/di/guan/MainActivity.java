@@ -259,8 +259,10 @@ public class MainActivity extends SerialPortActivity {
         }
         LogUtils.e(TAG, "-----写入命令" + event.getCmd());
         try {
-            mOutputStream.write(new String(event.getCmd()).getBytes());
-            mOutputStream.write("\n".getBytes());
+            if (mOutputStream != null) {
+                mOutputStream.write(new String(event.getCmd()).getBytes());
+                mOutputStream.write("\n".getBytes());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

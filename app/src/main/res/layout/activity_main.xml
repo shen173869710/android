@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/layout_bg"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +45,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            >
     </LinearLayout>
     </LinearLayout>
 </LinearLayout>

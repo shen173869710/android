@@ -71,6 +71,7 @@ public class ArticleListFragment extends ListFragment {
 		transaction.add(R.id.right, fragments.get(0), Entiy.TAB_TITLE[0]).show(fragments.get(0));
 		transaction.commitAllowingStateLoss();
 		adapter.setSelectedPosition(0);
+		activity.setTitle(Entiy.TAB_TITLE[0]);
 	}
 
 	@Override

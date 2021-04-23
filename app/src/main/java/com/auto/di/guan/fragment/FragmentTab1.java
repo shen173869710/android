@@ -41,6 +41,9 @@ public class FragmentTab1 extends BaseFragment {
         adapter = new MyGridAdapter(deviceInfos);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), Entiy.GUN_COLUMN));
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemViewCacheSize(200);
+        recyclerView.setDrawingCacheEnabled(true);//保存绘图，提高速度
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
