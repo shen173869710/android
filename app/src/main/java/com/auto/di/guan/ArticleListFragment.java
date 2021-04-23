@@ -54,6 +54,7 @@ public class ArticleListFragment extends ListFragment {
 		EventBus.getDefault().register(this);
 		adapter = new MyListAdapter(activity, Entiy.TAB_TITLE);
 		setListAdapter(adapter);
+		fragments.add(new FragmentTab8());
 		fragments.add(new FragmentTab0());
 		fragments.add(new FragmentTab1());
 		fragments.add(new FragmentTab2());
@@ -62,7 +63,6 @@ public class ArticleListFragment extends ListFragment {
 		fragments.add(new FragmentTab5());
 		fragments.add(new FragmentTab6());
 		fragments.add(new FragmentTab7());
-		fragments.add(new FragmentTab8());
 		fragments.add(new FragmentTab9());
 		fragments.add(new FragmentTab10());
 		fragments.add(new FragmentTab11());
@@ -79,7 +79,6 @@ public class ArticleListFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 		activity.setTitle(Entiy.TAB_TITLE[position]);
 		adapter.setSelectedPosition(position);
-
 		showFragment(fragments.get(position));
 		adapter.notifyDataSetChanged();
 	}
@@ -134,7 +133,6 @@ public class ArticleListFragment extends ListFragment {
 			showFragment(fragments.get(postion));
 			adapter.setSelectedPosition(postion);
 			adapter.notifyDataSetChanged();
-
 			View view = getView();
 			if (view != null) {
 				ListView mListView=(ListView) view.findViewById(android.R.id.list);
@@ -142,7 +140,6 @@ public class ArticleListFragment extends ListFragment {
 					mListView.smoothScrollToPosition(postion);
 				}
 			}
-
 		}
 	}
 }

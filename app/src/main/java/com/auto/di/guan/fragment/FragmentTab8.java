@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.auto.di.guan.R;
 import com.auto.di.guan.adapter.Fragment8LeftAdapter;
 import com.auto.di.guan.adapter.Fragment8RightAdapter;
@@ -25,7 +25,6 @@ import com.auto.di.guan.dialog.DialogContent;
 import com.auto.di.guan.dialog.InputDialog;
 import com.auto.di.guan.dialog.OnDialogClick;
 import com.auto.di.guan.event.ActivityItemEvent;
-import com.auto.di.guan.event.ChooseGroupEvent;
 import com.auto.di.guan.event.TabClickEvent;
 import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.LogUtils;
@@ -375,7 +374,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		if (event == null) {
 			return;
 		}
-		if (event.getIndex() == 8) {
+		if (event.getIndex() == 0) {
 			MessageSend.syncListItem(meteoRespones, eDepthRespones);
 		}
 	}

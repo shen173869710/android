@@ -324,4 +324,14 @@
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/line</item>
     </style>
+
+
+    <style name="all_button">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/bg_red_buttom_rect</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18px</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

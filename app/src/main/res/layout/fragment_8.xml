@@ -20,35 +20,29 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_toEndOf="@+id/fragment_8_left"
         android:gravity="center"
         android:orientation="horizontal">
         <Button
             android:id="@+id/add_memto"
-            android:layout_width="@dimen/main_button_width"
-            android:layout_height="@dimen/main_button_height"
+            style="@style/all_button"
             android:layout_marginRight="20dp"
-            android:background="@drawable/bg_red_buttom_rect"
             android:text="添加气象"
-            android:textColor="@color/white" />
+            />
 
         <Button
             android:id="@+id/add_poi"
-            android:layout_width="@dimen/main_button_width"
-            android:layout_height="@dimen/main_button_height"
-            android:background="@drawable/bg_red_buttom_rect"
+            style="@style/all_button"
             android:text="添加墒情"
             android:layout_marginRight="20dp"
-            android:textColor="@color/white" />
+             />
 
         <Button
             android:id="@+id/add_new"
-            android:layout_width="@dimen/main_button_width"
-            android:layout_height="@dimen/main_button_height"
-            android:background="@drawable/bg_red_buttom_rect"
+            style="@style/all_button"
             android:text="添加"
             android:layout_marginRight="20dp"
-            android:textColor="@color/white" />
+             />
     </LinearLayout>
 
 </RelativeLayout>
