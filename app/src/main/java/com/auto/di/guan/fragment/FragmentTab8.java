@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.R;
 import com.auto.di.guan.adapter.Fragment8LeftAdapter;
 import com.auto.di.guan.adapter.Fragment8RightAdapter;

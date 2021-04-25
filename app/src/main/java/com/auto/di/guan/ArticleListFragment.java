@@ -125,7 +125,6 @@ public class ArticleListFragment extends ListFragment {
 		}
 	}
 
-
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onTabClickEvent(TabClickEvent event) {
 		if (fragments != null) {

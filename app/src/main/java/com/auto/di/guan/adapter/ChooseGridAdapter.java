@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.DeviceInfo;
@@ -60,13 +59,13 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             grid_item_device_value.setVisibility(View.INVISIBLE);
         } else {
             grid_item_device.setVisibility(View.VISIBLE);
+            GlideUtil.loadDeviceImage(getContext(),grid_item_device, deviceInfo);
             if (!TextUtils.isEmpty(deviceInfo.getDeviceName())) {
                 grid_item_device_name.setText(deviceInfo.getDeviceName() + "");
                 grid_item_device_name.setVisibility(View.VISIBLE);
             }
             grid_item_device_value.setText(deviceInfo.getElectricQuantity() + "%");
             ControlInfo info1 = deviceInfo.getValveDeviceSwitchList().get(0);
-
             if (info1.getValveStatus() == 0) {
                 grid_item_left_layout.setVisibility(View.INVISIBLE);
                 grid_item_left_layout.setOnClickListener(null);
