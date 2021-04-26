@@ -46,7 +46,7 @@
             app:x_showPwdDrawable="@mipmap/edittext_show" />
 
         <View
-            style="@style/PersonalProfileLayoutDivider"
+            style="@style/line"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
