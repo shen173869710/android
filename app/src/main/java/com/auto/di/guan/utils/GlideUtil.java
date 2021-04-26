@@ -99,7 +99,41 @@ public class GlideUtil {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+    }
 
+
+    /**
+     * 加载单独的设备图片
+     *
+     * @param info
+     */
+    public static void loadControlExpand(Context context, ImageView imageView, ControlInfo info) {
+        if (info == null || info.getValveStatus() == 0) {
+            return;
+        }
+
+        int resId = -1;
+        boolean isUp = false;
+        if ("0".equals(info.getProtocalId())) {
+            isUp = true;
+        }
+        switch (info.getValveStatus()) {
+            case Entiy.CONTROL_STATUS＿CONNECT:
+                resId = R.mipmap.lighe_1;
+                break;
+            case Entiy.CONTROL_STATUS＿RUN:
+                resId = R.mipmap.lighe_2;
+
+                break;
+            case Entiy.CONTROL_STATUS＿ERROR:
+            case Entiy.CONTROL_STATUS＿NOTCLOSE:
+                resId = R.mipmap.lighe_3;
+                break;
+        }
+        if (resId == -1) {
+            return;
+        }
+        Glide.with(context).asGif().load(resId).into(imageView);
     }
 
 }

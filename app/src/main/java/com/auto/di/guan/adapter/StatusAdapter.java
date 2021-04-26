@@ -3,6 +3,7 @@ package com.auto.di.guan.adapter;
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.entity.Entiy;
+import com.auto.di.guan.utils.GlideUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -26,7 +27,8 @@ public class StatusAdapter extends BaseQuickAdapter<ControlInfo, BaseViewHolder>
     protected void convert(BaseViewHolder holder, ControlInfo info) {
         holder.setText(R.id.group_status_name, ""+info.getValveName());
         holder.setText(R.id.group_status_alias, ""+info.getValveAlias());
-        holder.setImageResource(R.id.group_status_image, Entiy.getImageResource(info.getValveStatus()));
+//        holder.setImageResource(R.id.group_status_image, Entiy.getImageResource(info.getValveStatus()));
+        GlideUtil.loadControlExpand(getContext(), holder.getView(R.id.group_status_image), info);
     }
 
 

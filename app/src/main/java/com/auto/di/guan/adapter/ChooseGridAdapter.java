@@ -72,7 +72,8 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             } else {
                 grid_item_left_layout.setVisibility(View.VISIBLE);
                 grid_item_left_image.setVisibility(View.VISIBLE);
-                grid_item_left_image.setImageResource(Entiy.getImageResource(info1.getValveStatus()));
+//                grid_item_left_image.setImageResource(Entiy.getImageResource(info1.getValveStatus()));
+                GlideUtil.loadControlExpand(getContext(), grid_item_left_image, info1);
                 grid_item_left_sel.setVisibility(View.VISIBLE);
                 grid_item_left_id.setText(info1.getValveName() + "");
                 grid_item_left_alias.setText(info1.getValveAlias() + "");
@@ -113,7 +114,8 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             } else {
                 grid_item_right_layout.setVisibility(View.VISIBLE);
                 grid_item_right_image.setVisibility(View.VISIBLE);
-                grid_item_right_image.setImageResource(Entiy.getImageResource(info2.getValveStatus()));
+//                grid_item_right_image.setImageResource(Entiy.getImageResource(info2.getValveStatus()));
+                GlideUtil.loadControlExpand(getContext(), grid_item_right_image, info2);
                 grid_item_right_sel.setVisibility(View.VISIBLE);
                 grid_item_right_id.setText(info2.getValveName() + "");
                 grid_item_right_alias.setText(info2.getValveAlias() + "");
