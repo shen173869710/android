@@ -1,47 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    >
+    <ImageView
+        android:id="@+id/fragment_8_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:background="@mipmap/gun_test_bg"
+        android:visibility="gone"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_8_left"
         android:layout_width="100dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_8_right"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/fragment_8_left" />
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/fragment_8_left"
+        />
+
     <LinearLayout
         android:id="@+id/addBtn_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/fragment_8_left"
         android:gravity="center"
         android:orientation="horizontal">
-        <Button
+        <ImageButton
             android:id="@+id/add_memto"
-            style="@style/all_button"
-            android:layout_marginRight="20dp"
-            android:text="添加气象"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="50dp"
+            android:background="@mipmap/add_meteo"
             />
 
-        <Button
+        <ImageButton
             android:id="@+id/add_poi"
-            style="@style/all_button"
-            android:text="添加墒情"
-            android:layout_marginRight="20dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="50dp"
+            android:background="@mipmap/add_moisture"
              />
 
         <Button
             android:id="@+id/add_new"
-            style="@style/all_button"
-            android:text="添加"
-            android:layout_marginRight="20dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="50dp"
+            android:background="@mipmap/add_flow"
              />
     </LinearLayout>
 

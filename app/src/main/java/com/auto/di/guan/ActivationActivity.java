@@ -31,7 +31,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 /**
  * 设备激活
@@ -231,6 +230,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 
 				if(i == 1 || i == 3 || i == 5 || i == 11) {
 					deviceInfo.setElectricQuantity(i);
+					controlInfo1.setValveStatus(3);
 				}else {
 					deviceInfo.setElectricQuantity(88);
 				}

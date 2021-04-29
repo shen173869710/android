@@ -51,7 +51,6 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
     private EditText bind_control_nick_1;
     private CheckBox bind_control_sel_1;
 
-    private TextView bind_control_num_2;
     private View bind_control_id_2;
     private View bind_control_alias_2;
     private EditText bind_control_nick_2;

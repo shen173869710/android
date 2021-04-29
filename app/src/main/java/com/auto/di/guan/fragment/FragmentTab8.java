@@ -6,6 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.auto.di.guan.R;
@@ -29,6 +34,7 @@ import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NewApiUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,9 +47,12 @@ import java.util.List;
 public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 
 	private View view;
-	Button add_memto;
-	Button add_poi;
 
+	LinearLayout addBtn_layout;
+	ImageButton add_memto;
+	ImageButton add_poi;
+
+	ImageView fragment_8_image;
 	RecyclerView recyclerViewLeft;
 	Fragment8LeftAdapter leftAdapter;
 
@@ -58,6 +67,10 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		view = inflater.inflate(R.layout.fragment_8, null);
 
 		EventBus.getDefault().register(this);
+		fragment_8_image = view.findViewById(R.id.fragment_8_image);
+		fragment_8_image.setVisibility(View.VISIBLE);
+		addBtn_layout = view.findViewById(R.id.addBtn_layout);
+		addBtn_layout.setVisibility(View.VISIBLE);
 		recyclerViewLeft = view.findViewById(R.id.fragment_8_left);
 		recyclerViewLeft.setLayoutManager(new LinearLayoutManager(getContext()));
 		leftAdapter = new Fragment8LeftAdapter(meteoRespones);
@@ -80,6 +93,13 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 			@Override
 			public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 				onItemClickListen(position);
+				if (position == 0) {
+					fragment_8_image.setVisibility(View.VISIBLE);
+					addBtn_layout.setVisibility(View.VISIBLE);
+				}else {
+					fragment_8_image.setVisibility(View.GONE);
+					addBtn_layout.setVisibility(View.GONE);
+				}
 			}
 		});
 
@@ -340,15 +360,6 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		if (position > size) {
 			return;
 		}
-
-		for(int i = 0; i < size; i++) {
-			if (i == position) {
-				meteoRespones.get(i).setSle(true);
-			}else {
-				meteoRespones.get(i).setSle(false);
-			}
-		}
-
 		eDepthRespones.clear();
 		if (position == 0) {
 			EDepthRespone eDepthRespone = new EDepthRespone();
@@ -364,7 +375,17 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 			}
 			getDeviceInfo(mRespone.getSn(), isWather);
 		}
-		rightAdapter.notifyDataSetChanged();
+
+		for(int i = 0; i < size; i++) {
+			if (i == position) {
+				meteoRespones.get(i).setSle(true);
+			}else {
+				meteoRespones.get(i).setSle(false);
+			}
+		}
+
+		LogUtils.e("--", ""+new Gson().toJson(meteoRespones));
+		leftAdapter.notifyDataSetChanged();
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)

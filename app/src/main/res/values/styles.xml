@@ -298,19 +298,19 @@
     <!--主设备风格-->
 
     <style name="control_image">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">73dp</item>
+        <item name="android:layout_width">54dp</item>
+        <item name="android:layout_height">75dp</item>
     </style>
     <style name="control_id">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18px</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:color">@color/black</item>
     </style>
     <style name="control_alias">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20px</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:color">@color/black</item>
     </style>
     <style name="control_group">
@@ -334,4 +334,6 @@
         <item name="android:textSize">18px</item>
         <item name="android:gravity">center</item>
     </style>
+
+
 </resources>

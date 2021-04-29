@@ -32,9 +32,10 @@ public class Fragment8LeftAdapter extends BaseQuickAdapter<MeteoRespone, BaseVie
         }
 
         if (respone.isSle()) {
-            holder.setBackgroundResource(R.id.item_layout,R.drawable.main_poi_bg);
-        }else {
             holder.setBackgroundResource(R.id.item_layout,R.drawable.main_poi_bg_sel);
+
+        }else {
+            holder.setBackgroundResource(R.id.item_layout,R.drawable.main_poi_bg);
         }
     }
 }
