@@ -54,10 +54,10 @@
     <dimen name="main_item_width">300dp</dimen>
     <dimen name="main_item_height">60dp</dimen>
 
-    <dimen name="main_text_18">26sp</dimen>
-    <dimen name="main_text_16">22sp</dimen>
-    <dimen name="main_text_14">16sp</dimen>
-    <dimen name="main_text_12">16sp</dimen>
+    <dimen name="main_text_18">18sp</dimen>
+    <dimen name="main_text_16">16sp</dimen>
+    <dimen name="main_text_14">14sp</dimen>
+    <dimen name="main_text_12">12sp</dimen>
 
 
     <dimen name="main_button_width">150dp</dimen>

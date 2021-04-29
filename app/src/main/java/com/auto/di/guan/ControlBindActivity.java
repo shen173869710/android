@@ -1,6 +1,5 @@
 package com.auto.di.guan;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -19,19 +18,15 @@ import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.User;
 import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
-import com.auto.di.guan.dialog.DialogUtil;
 import com.auto.di.guan.dialog.LoadingDialog;
-import com.auto.di.guan.dialog.MainShowDialog;
 import com.auto.di.guan.dialog.MainShowDialogBg;
-import com.auto.di.guan.dialog.WaitingDialog;
 import com.auto.di.guan.entity.Entiy;
-import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.event.BindIdEvent;
 import com.auto.di.guan.event.BindSucessEvent;
+import com.auto.di.guan.jobqueue.TaskEntiy;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.Task;
-import com.auto.di.guan.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,34 +34,29 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-/**
- *
- */
+
 public class ControlBindActivity extends FragmentActivity implements View.OnClickListener, IUrlRequestCallBack {
     private View view;
     private TextView textView;
     private DeviceInfo info;
-
+    private EditText bind_device_name;
     private View bind_deivce_item;
     private View bind_group_item;
-
-
-    private View bind_control_title_1;
+    /**
+     *   阀门1
+     */
     private View bind_control_id_1;
     private View bind_control_alias_1;
+    private TextView bind_control_name_1;
     private EditText bind_control_nick_1;
-    private EditText bind_control_name_1;
     private CheckBox bind_control_sel_1;
 
-    private View bind_control_title_2;
+    private TextView bind_control_num_2;
     private View bind_control_id_2;
     private View bind_control_alias_2;
     private EditText bind_control_nick_2;
-    private EditText bind_control_name_2;
+    private TextView bind_control_name_2;
     private CheckBox bind_control_sel_2;
-
-    private String text1;
-    private String text2;
 
     private Button bind_deivce_id;
     private Button bind_deivce_group_id;
@@ -81,11 +71,7 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
     /***是否写入组ID**/
     private boolean isGroupId;
     private boolean isGroupClick;
-    /*** 是否是第一个控制阀写入****/
-    private int controlOnclick = 0;
 
-    private View bind_deivce_name;
-    private EditText bind_deivce_name_edit;
 
     private User mUser;
 
@@ -94,7 +80,6 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_bind);
-
         isPeroJectId = false;
         isGroupId = false;
         init();
@@ -117,51 +102,14 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
         });
         info = (DeviceInfo) getIntent().getSerializableExtra("info");
 
-
-        bind_deivce_name = findViewById(R.id.bind_deivce_name);
-        bind_deivce_name_edit = (EditText) bind_deivce_name.findViewById(R.id.item_desc);
-        ((TextView) (bind_deivce_name.findViewById(R.id.item_title))).setText("设备名称");
+        bind_device_name = (EditText) findViewById(R.id.bind_device_name);
         bind_deivce_item = findViewById(R.id.bind_deivce_item);
         ((TextView) (bind_deivce_item.findViewById(R.id.item_title))).setText("项目ID");
-
         ((TextView) (bind_deivce_item.findViewById(R.id.item_desc))).setText(BaseApp.getUser().getProjectId() + "");
-
         bind_group_item = findViewById(R.id.bind_group_item);
         ((TextView) (bind_group_item.findViewById(R.id.item_title))).setText("阀控器ID");
         ((TextView) (bind_group_item.findViewById(R.id.item_desc))).setText(info.getProtocalId() + "");
-
-
-        bind_control_title_1 = findViewById(R.id.bind_control_title_1);
-        bind_control_id_1 = findViewById(R.id.bind_control_id_1);
-        ((TextView) (bind_control_title_1.findViewById(R.id.item_title))).setText("阀门");
-        ((TextView) (bind_control_title_1.findViewById(R.id.item_desc))).setText("1");
-        ((TextView) (bind_control_id_1.findViewById(R.id.item_title))).setText("阀门编号");
-//		((EditText)(bind_control_id_1.findViewById(R.id.item_desc))).setText(Entiy.getBid(info.getDeviceId()+"")+"-"+"1");
-        bind_control_name_1 = ((EditText) bind_control_id_1.findViewById(R.id.item_desc));
-        bind_control_sel_1 = (CheckBox) findViewById(R.id.bind_control_sel_1);
-
-        bind_control_alias_1 = findViewById(R.id.bind_control_alias_1);
-        ((TextView) (bind_control_alias_1.findViewById(R.id.item_title))).setText("阀门简称");
-        bind_control_nick_1 = bind_control_alias_1.findViewById(R.id.item_desc);
-        bind_control_alias_2 = findViewById(R.id.bind_control_alias_2);
-        ((TextView) (bind_control_alias_2.findViewById(R.id.item_title))).setText("阀门简称");
-        bind_control_nick_2 = bind_control_alias_2.findViewById(R.id.item_desc);
-
-
-        bind_control_title_2 = findViewById(R.id.bind_control_title_2);
-        bind_control_id_2 = findViewById(R.id.bind_control_id_2);
-        ((TextView) (bind_control_title_2.findViewById(R.id.item_title))).setText("阀门");
-        ((TextView) (bind_control_title_2.findViewById(R.id.item_desc))).setText("2");
-        ((TextView) (bind_control_id_2.findViewById(R.id.item_title))).setText("阀门编号");
-        bind_control_name_2 = ((EditText) (bind_control_id_2.findViewById(R.id.item_desc)));
-        bind_control_sel_2 = (CheckBox) findViewById(R.id.bind_control_sel_2);
-
-
-        bind_cantrol_save = (Button) findViewById(R.id.bind_cantrol_save);
-        bind_deivce_id = (Button) findViewById(R.id.bind_deivce_id);
-        bind_deivce_group_id = (Button) findViewById(R.id.bind_deivce_control_id);
-
-        bind_deivce_name_edit.addTextChangedListener(new TextWatcher() {
+        bind_device_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -177,9 +125,39 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                 if (!TextUtils.isEmpty(s)) {
                     bind_control_name_1.setText(s + "_1");
                     bind_control_name_2.setText(s + "_2");
+                }else {
+                    bind_control_name_1.setText("");
+                    bind_control_name_2.setText("");
                 }
             }
         });
+
+        // 阀门1
+        ((TextView) findViewById(R.id.bind_control_num_1)).setText("1");
+        bind_control_sel_1 = (CheckBox) findViewById(R.id.bind_control_sel_1);
+        // 阀门编号
+        bind_control_id_1 = findViewById(R.id.bind_control_id_1);
+        ((TextView) (bind_control_id_1.findViewById(R.id.item_title))).setText("阀门编号");
+        bind_control_name_1 = ((TextView) bind_control_id_1.findViewById(R.id.item_desc));
+        // 阀门别名
+        bind_control_alias_1 = findViewById(R.id.bind_control_alias_1);
+        ((TextView) (bind_control_alias_1.findViewById(R.id.item_title))).setText("阀门别名");
+        bind_control_nick_1 = bind_control_alias_1.findViewById(R.id.item_desc);
+        // 阀门1
+        ((TextView)findViewById(R.id.bind_control_num_2)).setText("2");
+        bind_control_sel_2 = (CheckBox) findViewById(R.id.bind_control_sel_2);
+        // 阀门编号
+        bind_control_id_2 = findViewById(R.id.bind_control_id_2);
+        ((TextView) (bind_control_id_2.findViewById(R.id.item_title))).setText("阀门编号");
+        bind_control_name_2 = ((TextView) bind_control_id_2.findViewById(R.id.item_desc));
+        // 阀门别名
+        bind_control_alias_2 = findViewById(R.id.bind_control_alias_2);
+        ((TextView) (bind_control_alias_2.findViewById(R.id.item_title))).setText("阀门别名");
+        bind_control_nick_2 = bind_control_alias_2.findViewById(R.id.item_desc);
+
+        bind_cantrol_save = (Button) findViewById(R.id.bind_cantrol_save);
+        bind_deivce_id = (Button) findViewById(R.id.bind_deivce_id);
+        bind_deivce_group_id = (Button) findViewById(R.id.bind_deivce_control_id);
     }
 
 
@@ -195,24 +173,30 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
             case R.id.bind_cantrol_save:
                 String controlName1 = bind_control_name_1.getText().toString().trim();
                 String controlName2 = bind_control_name_2.getText().toString().trim();
-                String deviceName = bind_deivce_name_edit.getText().toString().trim();
+                String deviceName = bind_device_name.getText().toString().trim();
 
                 String nick1 = bind_control_nick_1.getText().toString().trim();
                 String nick2 = bind_control_nick_2.getText().toString().trim();
+
+                if (!isPeroJectId) {
+                    showToastLongMsg("项目ID未写入");
+                    return;
+                }
+                if (!isGroupId) {
+                    showToastLongMsg("组ID未写入");
+                    return;
+                }
+
+                if(!bind_control_sel_1.isChecked() && !bind_control_sel_1.isChecked()) {
+                    showToastLongMsg("没有选中阀门");
+                    return;
+                }
 
                 if (TextUtils.isEmpty(deviceName)) {
                     showToastLongMsg("请输入设备的名称");
                     return;
                 }
 
-                if (TextUtils.isEmpty(controlName1) && bind_control_sel_1.isChecked()) {
-                    showToastLongMsg("请输入控制阀 1 的名称");
-                    return;
-                }
-                if (TextUtils.isEmpty(controlName2) && bind_control_sel_2.isChecked()) {
-                    showToastLongMsg("请输入控制阀 2 的名称");
-                    return;
-                }
 
                 if (TextUtils.isEmpty(nick1) && bind_control_sel_1.isChecked()) {
                     showToastLongMsg("请输入控制阀 1 的别名");
@@ -222,16 +206,9 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                     showToastLongMsg("请输入控制阀 2 的别名");
                     return;
                 }
-
-				if (!isPeroJectId) {
-					showToastLongMsg("项目ID未写入");
-					return;
-				}
-				if (!isGroupId) {
-					showToastLongMsg("组ID未写入");
-					return;
-				}
                 info.setDeviceName(deviceName);
+                info.setDeviceStatus(1);
+
                 ControlInfo controlInfo_0 = info.getValveDeviceSwitchList().get(0);
                 ControlInfo controlInfo_1 = info.getValveDeviceSwitchList().get(1);
                 if (bind_control_sel_1.isChecked()) {
@@ -242,21 +219,10 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                     controlInfo_0.setValveId(info.getDeviceSort() * 2 - 1);
                     controlInfo_0.setProtocalId("0");
                     controlInfo_0.setDeviceProtocalId(info.getProtocalId());
-//					controlInfo_0.imageId = R.mipmap.lighe_1;
-//					controlInfo_0.status = Entiy.DEVEICE_BIND;
-//					controlInfo_0.controId = Integer.valueOf(info.getDeviceId())*2-1;
-//					controlInfo_0.deviceId = Entiy.getBid(info.getDeviceId()+"");
-//					controlInfo_0.controlName = controlName1;
-//					controlInfo_0.showName = info.getControl_1();
-//					controlInfo_0.nickName = nick1;
-//					controlInfo_0.bindId = info.getDeviceId();
                     DeviceInfoSql.updateDevice(info);
                 } else {
                     controlInfo_0.setValveStatus(0);
                     controlInfo_0.setValveId(0);
-//					controlInfo_0.imageId = 0;
-//					controlInfo_0.status = 0;
-//					controlInfo_0.controId = 0;
                 }
                 if (bind_control_sel_2.isChecked()) {
                     controlInfo_1.setValveStatus(Entiy.CONTROL_STATUS＿CONNECT);
@@ -266,14 +232,6 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                     controlInfo_1.setValveId(info.getDeviceId() * 2);
                     controlInfo_1.setDeviceProtocalId(info.getProtocalId());
                     controlInfo_1.setProtocalId("1");
-//					controlInfo_1.imageId = R.mipmap.lighe_1;
-//					controlInfo_1.status = Entiy.DEVEICE_BIND;
-//					controlInfo_1.controId = Integer.valueOf(info.getDeviceId())*2;
-//					controlInfo_1.deviceId = Entiy.getBid(info.getDeviceId()+"");
-//					controlInfo_1.controlName = controlName2;
-//					controlInfo_1.showName = info.getControl_2();
-//					controlInfo_1.nickName = nick2;
-//					controlInfo_1.bindId = info.getDeviceId();
                     DeviceInfoSql.updateDevice(info);
                 } else {
                     controlInfo_1.setValveStatus(0);
@@ -286,20 +244,11 @@ public class ControlBindActivity extends FragmentActivity implements View.OnClic
                 isGroupClick = true;
                 showWaitingDialog();
                 TaskFactory.createGidTak();
-//				EventBus.getDefault().post(new ReadEvent(Entiy.writeGid(groupName),0));
-//                BindEvent event = new BindEvent("ok");
-//                onControlStatusEvent(event);
                 break;
             case R.id.bind_deivce_control_id:
                 showWaitingDialog();
                 isGroupClick = false;
                 TaskFactory.createBidTak(info.getProtocalId());
-//				EventBus.getDefault().post(new ReadEvent(Entiy.writeBid(info.getDeviceId()+""),1));
-//					if(dialog != null && !dialog.isShowing()) {
-//						dialog.show();
-//					}
-//                BindEvent event1 = new BindEvent("ok");
-//                onControlStatusEvent(event1);
                 break;
         }
     }

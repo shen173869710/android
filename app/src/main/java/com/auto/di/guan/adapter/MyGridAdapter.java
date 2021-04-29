@@ -1,5 +1,6 @@
 package com.auto.di.guan.adapter;
 
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ public class MyGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHolder> 
         grid_item_device_id.setText(deviceInfo.getDeviceSort()+"");
         grid_item_device_id.setVisibility(View.VISIBLE);
         TextView grid_item_device_name = holder.findView(R.id.grid_item_device_name);
+        grid_item_device_name.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         ImageView grid_item_device = holder.findView(R.id.grid_item_device);
         TextView grid_item_device_value = holder.findView(R.id.grid_item_device_value);
 

@@ -205,10 +205,10 @@
 
     <style  name="main_item_title">
         <item name="android:textColor">@color/main_item_title_color</item>
-        <item name="android:textSize">@dimen/main_text_14</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/main_text_16</item>
+        <item name="android:layout_height">50dp</item>
         <item name="android:layout_width">80dp</item>
-        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:gravity">center_vertical|end</item>
         <item name="android:layout_gravity">center_vertical|start</item>
     </style>
 

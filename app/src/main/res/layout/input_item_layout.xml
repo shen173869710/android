@@ -12,13 +12,16 @@
 
     <EditText
         android:id="@+id/item_desc"
-        android:layout_width="150dp"
-        android:layout_height="36dip"
-        android:background="@drawable/bg_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/input_bg"
         android:textColorHint="@color/main_item_desc_color"
-        android:textSize="@dimen/main_text_14"
+        android:textColor="@color/main_tab_title_color"
+        android:textSize="@dimen/main_text_16"
         android:singleLine="true"
+        android:layout_marginLeft="10dp"
         android:maxLength="8"
-        android:hint="请输入..."
+        android:hint="请输入"
+        android:paddingLeft="10dp"
         />
 </LinearLayout>
