@@ -123,11 +123,11 @@ public class FragmentTab32 extends BaseFragment {
 		int groupStatus;
         if (isSatrt) {
             status = Entiy.CONTROL_STATUS＿RUN;
-            imageId = R.mipmap.lighe_2;
+            imageId = R.mipmap.light_2;
 			groupStatus = Entiy.GROUP_STATUS_OPEN;
         }else {
             status = Entiy.CONTROL_STATUS＿CONNECT;
-            imageId = R.mipmap.lighe_1;
+            imageId = R.mipmap.light_1;
 			groupStatus = Entiy.GROUP_STATUS_COLSE;
 		}
 		groupInfo.setGroupStatus(groupStatus);

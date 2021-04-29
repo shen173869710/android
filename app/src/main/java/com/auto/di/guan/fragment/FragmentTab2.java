@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  *   控制阀分组
  */
 public class FragmentTab2 extends BaseFragment {

@@ -124,22 +124,22 @@ public class Entiy {
     /**
      * 根据状态获取图片信息
      */
-    public static int getImageResource(int status) {
-        int resourceId = 0;
-        switch (status) {
-            case CONTROL_STATUS＿CONNECT:
-                resourceId = R.mipmap.lighe_1;
-                break;
-            case CONTROL_STATUS＿RUN:
-                resourceId = R.mipmap.lighe_2;
-                break;
-            case CONTROL_STATUS＿NOTCLOSE:
-            case CONTROL_STATUS＿ERROR:
-                resourceId = R.mipmap.lighe_3;
-                break;
-        }
-        return resourceId;
-    }
+//    public static int getImageResource(int status) {
+//        int resourceId = 0;
+//        switch (status) {
+//            case CONTROL_STATUS＿CONNECT:
+//                resourceId = R.mipmap.light_1;
+//                break;
+//            case CONTROL_STATUS＿RUN:
+//                resourceId = R.mipmap.lighe_2;
+//                break;
+//            case CONTROL_STATUS＿NOTCLOSE:
+//            case CONTROL_STATUS＿ERROR:
+//                resourceId = R.mipmap.lighe_3;
+//                break;
+//        }
+//        return resourceId;
+//    }
 
     public static String[] TAB_TITLE =
             {

@@ -40,16 +40,16 @@
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_20">20sp</dimen>
 
-    <dimen name="expand_list_group_height">27dip</dimen>
-    <dimen name="expand_list_group_margin">10dip</dimen>
-    <dimen name="expand_list_child_height">60dip</dimen>
-    <dimen name="expand_list_child_bottom">33dip</dimen>
+    <dimen name="expand_list_group_height">27dp</dimen>
+    <dimen name="expand_list_group_margin">10dp</dimen>
+    <dimen name="expand_list_child_height">60dp</dimen>
+    <dimen name="expand_list_child_bottom">33dp</dimen>
     <dimen name="expand_list_child_image">60dp</dimen>
     <dimen name="expand_list_child_check">30dp</dimen>
     <dimen name="main_button_magin_bottom">20dp</dimen>
-    <dimen name="main_expand_height">70dp</dimen>
+    <dimen name="main_expand_height">50dp</dimen>
     <dimen name="main_expand_group_height">70dp</dimen>
-    <dimen name="main_expand_group_child">50dp</dimen>
+    <dimen name="main_expand_group_child">60dp</dimen>
     <dimen name="main_edittex_width">200dp</dimen>
     <dimen name="main_item_width">300dp</dimen>
     <dimen name="main_item_height">60dp</dimen>

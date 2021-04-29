@@ -36,6 +36,7 @@ public class GroupExpandableListViewaAdapter2 extends BaseExpandableListAdapter 
         this.groupLists = groupLists;
         notifyDataSetChanged();
     }
+
     /*-----------------Child */
     @Override
     public Object getChild(int groupPosition, int childPosition) {
@@ -64,7 +65,7 @@ public class GroupExpandableListViewaAdapter2 extends BaseExpandableListAdapter 
             holder.group_item_icon = (ImageView) convertView.
                     findViewById(R.id.group_item_icon);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ChildHolder) convertView.getTag();
         }
         bindChildView(holder, groupPosition, childPosition);
@@ -73,13 +74,12 @@ public class GroupExpandableListViewaAdapter2 extends BaseExpandableListAdapter 
 
     private void bindChildView(final ChildHolder holder, final int groupPosition, int childPosition) {
         ControlInfo controlInfo = groupLists.get(groupPosition).controlInfos.get(childPosition);
-        holder.group_item_name.setText(controlInfo.getValveName()+" 号控制阀");
+        holder.group_item_name.setText(controlInfo.getValveName() + " 号控制阀");
 //        holder.group_item_icon.setImageResource(Entiy.getImageResource(controlInfo.getValveStatus()));
 
         GlideUtil.loadControlExpand(context, holder.group_item_icon, controlInfo);
-        holder.group_item_type.setText("名称  "+controlInfo.getValveAlias());
+        holder.group_item_type.setText("别名 " + controlInfo.getValveAlias());
     }
-
 
 
     @Override
@@ -117,19 +117,17 @@ public class GroupExpandableListViewaAdapter2 extends BaseExpandableListAdapter 
         } else {
             holder = (GroupHolder) convertView.getTag();
         }
-
         if (isExpanded) {
             holder.expand_list_group_icon.setBackgroundResource(R.mipmap.expand_group_p);
         } else {
             holder.expand_list_group_icon.setBackgroundResource(R.mipmap.expand_group_n);
         }
-
         bindGroupView(holder, groupPosition);
         return convertView;
     }
 
     private void bindGroupView(GroupHolder holder, final int groupPosition) {
-        holder.expand_list_group_num.setText("第 "+groupLists.get(groupPosition).groupInfo.getGroupName()+"组");
+        holder.expand_list_group_num.setText("第 " + groupLists.get(groupPosition).groupInfo.getGroupName() + "组");
 
 //        String txt = "    轮灌优先级第"+groupLists.get(groupPosition).groupInfo.getGroupLevel()+
 //                     "    轮灌时长"+groupLists.get(groupPosition).groupInfo.getGroupTime()+"分钟";
@@ -138,16 +136,16 @@ public class GroupExpandableListViewaAdapter2 extends BaseExpandableListAdapter 
 //        if (groupLists.get(groupPosition).groupInfo.getGroupStatus() == 0) {
 //            holder.expand_list_group_state.setText("关闭中");
 //        }else {
-            holder.expand_list_group_state.setText("编辑分组");
+        holder.expand_list_group_state.setText("编辑分组");
 //        }
         holder.expand_list_group_state.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NoFastClickUtils.isFastClick()){
+                if (NoFastClickUtils.isFastClick()) {
                     return;
                 }
                 Intent intent = new Intent(context, GroupEditctivity.class);
-                intent.putExtra("groupId",groupLists.get(groupPosition).groupInfo.getGroupId());
+                intent.putExtra("groupId", groupLists.get(groupPosition).groupInfo.getGroupId());
                 context.startActivity(intent);
             }
         });

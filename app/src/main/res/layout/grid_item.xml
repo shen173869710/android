@@ -4,13 +4,10 @@
     android:layout_width="@dimen/main_grid_width"
     android:layout_height="@dimen/main_grid_width"
     android:background="@drawable/mian_item_bg">
-
-
-
         <RelativeLayout
             android:id="@+id/grid_item_left_layout"
             android:layout_width="match_parent"
-            android:layout_height="86dp"
+            android:layout_height="93.5dp"
             android:layout_above="@+id/grid_item_mid"
             >
             <ImageView
@@ -47,13 +44,11 @@
                 android:layout_alignParentBottom="true" />
         </RelativeLayout>
 
-
-
         <RelativeLayout
             android:id="@+id/grid_item_right_layout"
             android:layout_width="match_parent"
             android:layout_below="@+id/grid_item_mid"
-            android:layout_height="86dp"
+            android:layout_height="93.5dp"
             >
             <ImageView
                 android:id="@+id/grid_item_right_image"
@@ -84,8 +79,7 @@
                 style="@style/control_group"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:paddingTop="15dp"
-                android:paddingRight="4dp" />
+                />
         </RelativeLayout>
 
     <RelativeLayout

@@ -148,7 +148,6 @@ public class ReadPollTask extends BaseTask{
         int code = info.getValveStatus();
         int taskType = getTaskType();
         int valveStatus = 0;
-        int imageId = 0;
         /**
          *   如果是开启状态查询
          */
@@ -157,31 +156,26 @@ public class ReadPollTask extends BaseTask{
                 case Entiy.CONTROL_STATUS＿CONNECT:
                     //   设备处于链接状态, 说明打开开关失败
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_OPEN_FAILE;
                     break;
                 case Entiy.CONTROL_STATUS＿RUN:
                     //   如果设备处于运行状态  说明状态正常
                     valveStatus = Entiy.CONTROL_STATUS＿RUN;
-                    imageId = R.mipmap.lighe_2;
                     type = SendUtils.OPTION_OPEN_SUCESS;
                     break;
                 case Entiy.CONTROL_STATUS＿NOTCLOSE:
                     //   如果设备处于运行状态  说明设备无法打开
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_OPEN_ERROR;
                     break;
                 case Entiy.CONTROL_STATUS＿DISCONNECT:
                     //   阀门线未连接
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_OPEN_DIS;
                     break;
                  default:
                      //   其他异常
                      valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                     imageId = R.mipmap.lighe_3;
                      type = SendUtils.OPTION_OPEN_OTHER;
                     break;
             }
@@ -198,31 +192,26 @@ public class ReadPollTask extends BaseTask{
                 case Entiy.CONTROL_STATUS＿CONNECT:
                     //   设备处于链接状态, 说明关闭成功
                     valveStatus = Entiy.CONTROL_STATUS＿CONNECT;
-                    imageId = R.mipmap.lighe_1;
                     type = SendUtils.OPTION_CLOSE_SUCESS;
                     break;
                 case Entiy.CONTROL_STATUS＿RUN:
                     //   如果设备处于运行状态  关闭失败
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_CLOSE_FAILE;
                     break;
                 case Entiy.CONTROL_STATUS＿NOTCLOSE:
                     //   如果设备处于其他状态, 说明设备无法关闭
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_CLOSE_ERROR;
                     break;
                 case Entiy.CONTROL_STATUS＿DISCONNECT:
                     //   阀门线未连接
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_CLOSE_DIS;
                     break;
                 default:
                     //   其他异常
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_CLOSE_OTHER;
                     break;
             }
@@ -239,31 +228,26 @@ public class ReadPollTask extends BaseTask{
                 case Entiy.CONTROL_STATUS＿CONNECT:
                     //   设备处于链接状态
                     valveStatus = Entiy.CONTROL_STATUS＿CONNECT;
-                    imageId = R.mipmap.lighe_1;
                     type = SendUtils.OPTION_READ_CONNECT;
                     break;
                 case Entiy.CONTROL_STATUS＿RUN:
                     //   如果设备处于运行状态
                     valveStatus = Entiy.CONTROL_STATUS＿RUN;
-                    imageId = R.mipmap.lighe_2;
                     type = SendUtils.OPTION_READ_RUN;
                     break;
                 case Entiy.CONTROL_STATUS＿NOTCLOSE:
                     //  阀门无法关闭
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_READ_ERROR;
                     break;
                 case Entiy.CONTROL_STATUS＿DISCONNECT:
                     //   阀门线未连接
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_READ_DIS;
                     break;
                 default:
                     //   其他异常
                     valveStatus = Entiy.CONTROL_STATUS＿ERROR;
-                    imageId = R.mipmap.lighe_3;
                     type = SendUtils.OPTION_READ_FAILE;
                     break;
             }

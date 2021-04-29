@@ -86,8 +86,7 @@ public class GlideUtil {
                 }else {
                     resId = R.mipmap.control_down_error;
                 }
-
-                Glide.with(context).load(resId).into(imageView);
+                Glide.with(context).asGif().load(resId).into(imageView);
                 break;
         }
 //        if (resId == -1) {
@@ -108,32 +107,23 @@ public class GlideUtil {
      * @param info
      */
     public static void loadControlExpand(Context context, ImageView imageView, ControlInfo info) {
-        if (info == null || info.getValveStatus() == 0) {
-            return;
-        }
-
         int resId = -1;
-        boolean isUp = false;
-        if ("0".equals(info.getProtocalId())) {
-            isUp = true;
-        }
         switch (info.getValveStatus()) {
             case Entiy.CONTROL_STATUS＿CONNECT:
-                resId = R.mipmap.lighe_1;
+                resId = R.mipmap.light_1;
                 break;
             case Entiy.CONTROL_STATUS＿RUN:
-                resId = R.mipmap.lighe_2;
-
+                resId = R.mipmap.light_2;
                 break;
             case Entiy.CONTROL_STATUS＿ERROR:
             case Entiy.CONTROL_STATUS＿NOTCLOSE:
-                resId = R.mipmap.lighe_3;
+                resId = R.mipmap.light_3;
                 break;
         }
         if (resId == -1) {
             return;
         }
-        Glide.with(context).asGif().load(resId).into(imageView);
+        Glide.with(context).load(resId).into(imageView);
     }
 
 }

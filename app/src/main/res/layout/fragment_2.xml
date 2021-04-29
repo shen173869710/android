@@ -2,13 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    android:background="@color/white"
+    android:padding="10dp"
+     >
 
     <ExpandableListView
         android:id ="@+id/expandableListView"
         android:layout_width ="match_parent"
         android:layout_height ="match_parent"
         android:layout_above="@+id/addBtn_layout"
+        android:background="@drawable/main_poi_bg"
         >
     </ExpandableListView>
 
@@ -20,25 +23,19 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         >
         <Button
             android:id="@+id/addBtn"
-            android:layout_width="@dimen/main_button_width"
-            android:layout_height="@dimen/main_button_height"
+            style="@style/all_button"
             android:text="新增分组"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_red_buttom_rect"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="30dp"
             />
         <Button
             android:id="@+id/delBtn"
-            android:layout_width="@dimen/main_button_width"
-            android:layout_height="@dimen/main_button_height"
+            style="@style/all_button_del"
             android:text="删除所有分组"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_red_buttom_rect"
             />
     </LinearLayout>
 
