@@ -3,10 +3,8 @@ package com.auto.di.guan.utils;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.GroupStatusActivity;
 import com.auto.di.guan.MainActivity;

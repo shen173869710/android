@@ -3,9 +3,9 @@ package com.auto.di.guan.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import com.auto.di.guan.utils.LogUtils;
 
 public abstract class BaseFragment  extends Fragment implements AdapterListener{
 
@@ -25,7 +25,9 @@ public abstract class BaseFragment  extends Fragment implements AdapterListener{
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            long time = System.currentTimeMillis();
             refreshData();
+            LogUtils.e(""+this.getClass().getSimpleName(), "refreshData time = "+(System.currentTimeMillis()-time));
         }
     }
 

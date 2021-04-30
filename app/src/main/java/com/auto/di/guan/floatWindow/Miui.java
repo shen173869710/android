@@ -12,7 +12,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.auto.di.guan.floatWindow.Rom.isIntentAvailable;
 
 
 /**
@@ -124,7 +123,7 @@ class Miui {
         Uri uri = Uri.fromParts("package", packageName, null);
         intent.setData(uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (isIntentAvailable(intent, context)) {
+        if (Rom.isIntentAvailable(intent, context)) {
             context.startActivity(intent);
         } else {
             LogUtil.e("intent is not available!");
@@ -137,7 +136,7 @@ class Miui {
                 "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
         intent.putExtra("extra_pkgname", context.getPackageName());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (isIntentAvailable(intent, context)) {
+        if (Rom.isIntentAvailable(intent, context)) {
             context.startActivity(intent);
         } else {
             LogUtil.e("intent is not available!");
@@ -149,14 +148,14 @@ class Miui {
         intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
         intent.putExtra("extra_pkgname", context.getPackageName());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (isIntentAvailable(intent, context)) {
+        if (Rom.isIntentAvailable(intent, context)) {
             context.startActivity(intent);
         } else {
             intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
             intent.setPackage("com.miui.securitycenter");
             intent.putExtra("extra_pkgname", context.getPackageName());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if (isIntentAvailable(intent, context)) {
+            if (Rom.isIntentAvailable(intent, context)) {
                 context.startActivity(intent);
             } else {
                 LogUtil.e("intent is not available!");

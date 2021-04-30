@@ -35,6 +35,7 @@ import com.auto.di.guan.jobqueue.TaskManager;
 import com.auto.di.guan.jobqueue.task.TaskFactory;
 import com.auto.di.guan.rtm.ChatManager;
 import com.auto.di.guan.rtm.MessageEntiy;
+import com.auto.di.guan.utils.FloatStatusUtil;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.PollingUtils;
@@ -136,6 +137,9 @@ public class MainActivity extends SerialPortActivity {
                 EventBus.getDefault().post(new SendCmdEvent("rs 99999 999"));
             }
         },4000);
+
+
+        FloatStatusUtil.getInstance().show();
     }
 
 

@@ -81,7 +81,7 @@ class FloatPhone extends FloatView {
             }
         } else {
             try {
-                mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+                mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;
                 mWindowManager.addView(mView, mLayoutParams);
             } catch (Exception e) {
                 mWindowManager.removeView(mView);
@@ -92,13 +92,17 @@ class FloatPhone extends FloatView {
     }
 
     private void req() {
-
-        mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        }
         FloatActivity.request(mContext, new PermissionListener() {
             @Override
             public void onSuccess() {
-                mWindowManager.addView(mView, mLayoutParams);
+                if(!mView.isAttachedToWindow()) {
+                    mWindowManager.addView(mView, mLayoutParams);
+                }
                 if (mPermissionListener != null) {
                     mPermissionListener.onSuccess();
                 }
@@ -116,7 +120,10 @@ class FloatPhone extends FloatView {
     @Override
     public void dismiss() {
         isRemove = true;
-        mWindowManager.removeView(mView);
+        //如果已经添加到window 则remove
+        if(mView.isAttachedToWindow()) {
+            mWindowManager.removeView(mView);
+        }
     }
 
     @Override

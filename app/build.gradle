@@ -159,7 +159,6 @@ dependencies {
     implementation 'io.github.yuweiguocn:GreenDaoUpgradeHelper:2.2.1'
     implementation 'net.zetetic:android-database-sqlcipher:4.2.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
@@ -186,4 +185,6 @@ dependencies {
     implementation 'io.agora.rtm:rtm-sdk:1.4.0'
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.github.princekin-f:EasyFloat:2.0.2'
 }

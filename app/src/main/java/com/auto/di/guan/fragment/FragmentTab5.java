@@ -37,6 +37,8 @@ public class FragmentTab5 extends BaseFragment {
 	private GroupExpandableListViewaAdapter31 adapter;
 	private List<GroupList> groupLists = new ArrayList<>();
 	private  List<GroupInfo> groupInfos = new ArrayList<>();
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_5, null);
@@ -59,7 +61,6 @@ public class FragmentTab5 extends BaseFragment {
 		}else {
 			title = "当前分组处于运行状态";
 		}
-
 		Main31Dialog.ShowDialog(getActivity(),title, new Main31Dialog.ItemClick(){
 
 			@Override

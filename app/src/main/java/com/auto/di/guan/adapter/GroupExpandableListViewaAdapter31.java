@@ -77,7 +77,6 @@ public class GroupExpandableListViewaAdapter31 extends BaseExpandableListAdapter
         holder.group_item_name.setText(controlInfo.getValveName()+" 号控制阀");
 //        holder.group_item_icon.setImageResource(Entiy.getImageResource(controlInfo.getValveStatus()));
         GlideUtil.loadControlExpand(context, holder.group_item_icon, controlInfo);
-
         holder.group_item_type.setText(controlInfo.getValveAlias());
     }
 

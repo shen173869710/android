@@ -2,6 +2,7 @@ package com.auto.di.guan.floatWindow;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,10 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import io.reactivex.annotations.Nullable;
 
 /**
  * Created by yhao on 2017/12/22.
@@ -63,7 +63,6 @@ public class FloatWindow {
         int mWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
         int mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
         int gravity = Gravity.TOP | Gravity.START;
-
         int xOffset;
         int yOffset;
         boolean mShow = true;
@@ -75,8 +74,11 @@ public class FloatWindow {
         TimeInterpolator mInterpolator;
         private String mTag = mDefaultTag;
         boolean mDesktopShow;
+        boolean mHomeShow = true;
         PermissionListener mPermissionListener;
         ViewStateListener mViewStateListener;
+        View.OnLongClickListener mLongClickListener;
+        boolean isSync;
 
         private B() {
 
@@ -194,6 +196,11 @@ public class FloatWindow {
             return this;
         }
 
+        public B setHomeShow(boolean show) {
+            mHomeShow = show;
+            return this;
+        }
+
         public B setPermissionListener(PermissionListener listener) {
             mPermissionListener = listener;
             return this;
@@ -201,6 +208,16 @@ public class FloatWindow {
 
         public B setViewStateListener(ViewStateListener listener) {
             mViewStateListener = listener;
+            return this;
+        }
+
+        public B setSync(boolean sync) {
+            this.isSync = sync;
+            return this;
+        }
+
+        public B setLongClickListener(View.OnLongClickListener longClickListener){
+            this.mLongClickListener = longClickListener;
             return this;
         }
 
@@ -220,5 +237,8 @@ public class FloatWindow {
             IFloatWindow floatWindowImpl = new IFloatWindowImpl(this);
             mFloatWindowMap.put(mTag, floatWindowImpl);
         }
+
+
+
     }
 }

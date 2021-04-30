@@ -1,4 +1,6 @@
 <resources>
+    <dimen name="float_status_size">120dp</dimen>
+    <dimen name="float_status_bg">60dp</dimen>
 
     <dimen name="main_grid_width">222dp</dimen>
 

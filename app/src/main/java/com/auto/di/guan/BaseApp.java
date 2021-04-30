@@ -22,6 +22,7 @@ import com.auto.di.guan.db.sql.UserSql;
 import com.auto.di.guan.db.update.MySQLiteOpenHelper;
 import com.auto.di.guan.rtm.ChatManager;
 import com.auto.di.guan.utils.CrashHandler;
+import com.auto.di.guan.utils.FloatStatusUtil;
 import com.auto.di.guan.utils.FloatWindowUtil;
 import com.auto.di.guan.utils.GsonUtil;
 import com.auto.di.guan.utils.LogUtils;
@@ -87,6 +88,7 @@ public class BaseApp extends Application {
         mSerialPortFinder = new SerialPortFinder();
         LogUtils.setFilterLevel(LogUtils.ALL);
         FloatWindowUtil.getInstance().initFloatWindow(this);
+        FloatStatusUtil.getInstance().initFloatWindow(this);
         CrashReport.initCrashReport(getApplicationContext(), "d1930c180d", false);
 
         CrashHandler.getInstance().init(this);

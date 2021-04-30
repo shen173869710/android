@@ -40,7 +40,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical|right"
-            android:text="阀门名"
+            android:text="阀门编号"
             android:textColor="@color/black"
             android:textSize="16sp" />
 

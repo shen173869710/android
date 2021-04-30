@@ -209,13 +209,13 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 				deviceInfo.setDeviceId(i+1);
 				deviceInfo.setProtocalId(Entiy.createProtocalId(i+1));
 				ArrayList<ControlInfo>controlInfos = new ArrayList<>();
-				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"-1", 1);
+				ControlInfo controlInfo0 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_1", 1);
 				controlInfo0.setValveId(deviceInfo.getDeviceSort()*2-1);
 				controlInfo0.setProtocalId("0");
 				controlInfo0.setDeviceProtocalId("10000");
 				controlInfo0.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo0.getValveName());
-				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"-2",1);
-				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"-"+controlInfo1.getValveName());
+				ControlInfo controlInfo1 = new ControlInfo(deviceInfo.getDeviceId(),deviceInfo.getDeviceSort()+"_2",1);
+				controlInfo1.setValveAlias(deviceInfo.getDeviceSort()+"_"+controlInfo1.getValveName());
 				controlInfo1.setValveId(deviceInfo.getDeviceSort()*2);
 				controlInfo1.setProtocalId("1");
 				controlInfo1.setDeviceProtocalId("10000");

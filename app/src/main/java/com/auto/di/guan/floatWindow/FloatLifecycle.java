@@ -1,6 +1,7 @@
 package com.auto.di.guan.floatWindow;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,6 +9,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+
+
+import com.auto.di.guan.BaseApp;
+
+import java.util.List;
 
 /**
  * Created by yhao on 17-12-1.
@@ -32,6 +39,7 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
     private LifecycleListener mLifecycleListener;
     private static ResumedListener sResumedListener;
     private static int num = 0;
+    private boolean isShowHome = true;
 
 
     FloatLifecycle(Context applicationContext, boolean showFlag, Class[] activities, LifecycleListener lifecycleListener) {
@@ -42,6 +50,10 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
         mHandler = new Handler();
         ((Application) applicationContext).registerActivityLifecycleCallbacks(this);
         applicationContext.registerReceiver(this, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+    }
+
+    public void setIsShowHome(boolean isShowHome) {
+        this.isShowHome = isShowHome;
     }
 
     public static void setResumedListener(ResumedListener resumedListener) {
@@ -60,7 +72,6 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
         return !showFlag;
     }
 
-
     @Override
     public void onActivityResumed(Activity activity) {
         if (sResumedListener != null) {
@@ -71,6 +82,7 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
             }
         }
         resumeCount++;
+        Log.e("FloatLifecycle", "onActivityResumed resumeCount:" + resumeCount + " activity:" + activity.getClass().getSimpleName());
         if (needShow(activity)) {
             mLifecycleListener.onShow();
         } else {
@@ -84,38 +96,64 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
     @Override
     public void onActivityPaused(final Activity activity) {
         resumeCount--;
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (resumeCount == 0) {
-                    appBackground = true;
-                    mLifecycleListener.onBackToDesktop();
+        Log.e("FloatLifecycle", "onActivityPaused resumeCount:" + resumeCount + " activity:" + activity.getClass().getSimpleName());
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("FloatLifecycle", "onActivityPaused exec: resumeCount:" + resumeCount);
+                    if (resumeCount == 0) {
+                        appBackground = true;
+                        mLifecycleListener.onBackToDesktop();
+                    }
                 }
-            }
-        }, delay);
-
+            }, delay);
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
         startCount++;
-    }
-
-
-    @Override
-    public void onActivityStopped(Activity activity) {
-        startCount--;
-        if (startCount == 0) {
-            mLifecycleListener.onBackToDesktop();
+        Log.e("FloatLifecycle", "onActivityStarted startCount:" + startCount + " activity:" + activity.getClass().getSimpleName());
+        if (isRunningForeground()) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mLifecycleListener.onShow();
+                }
+            }, 100);
         }
     }
 
+    @Override
+    public void onActivityStopped(Activity activity) {
+        if (startCount == 0) {
+            mLifecycleListener.onBackToDesktop();
+        }
+
+        //返回到桌面不需要显示
+        if (!isShowHome) {
+            if (!isRunningForeground()) {
+                mLifecycleListener.onHide();
+            }
+        }
+    }
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (action != null && action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
             String reason = intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY);
             if (SYSTEM_DIALOG_REASON_HOME_KEY.equals(reason)) {
+                //返回到桌面不需要显示
+                if (!isShowHome) {
+                    Log.e("FloatLifecycle", "onBackToDesktop");
+                    if(mHandler != null) {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mLifecycleListener.onHide();
+                            }
+                        });
+                    }
+                }
                 mLifecycleListener.onBackToDesktop();
             }
         }
@@ -138,5 +176,19 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
 
     }
 
-
+    public boolean isRunningForeground() {
+        ActivityManager activityManager = (ActivityManager) BaseApp.getInstance().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcessInfos = activityManager.getRunningAppProcesses();
+        // 枚举进程
+        for (ActivityManager.RunningAppProcessInfo appProcessInfo : appProcessInfos) {
+            if (appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                if (appProcessInfo.processName.equals(BaseApp.getInstance().getApplicationInfo().processName)) {
+                    Log.d("FloatLifecycle", "EntryActivity isRunningForeGround");
+                    return true;
+                }
+            }
+        }
+        Log.d("FloatLifecycle", "EntryActivity isRunningBackGround");
+        return false;
+    }
 }

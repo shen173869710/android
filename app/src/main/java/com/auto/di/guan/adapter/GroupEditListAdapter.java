@@ -24,10 +24,8 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
 
     @Override
     protected void convert(BaseViewHolder holder, ControlInfo info) {
-        holder.setText(R.id.group_item_id,"阀 "+info.getValveName());
-        holder.setText(R.id.group_item_name,info.getValveAlias() + "" );
-
-
+        holder.setText(R.id.group_item_id,"阀门"+info.getValveName());
+        holder.setText(R.id.group_item_name,"别名"+info.getValveAlias());
         String stutes = "";
         int valveStatus = info.getValveStatus();
         if (valveStatus == Entiy.CONTROL_STATUS＿RUN) {
@@ -51,7 +49,6 @@ public class GroupEditListAdapter extends BaseQuickAdapter<ControlInfo, BaseView
                                 Toast.makeText(getContext(), "当前小组只有一个阀控器, 如果要退出, 请点击解散分组", Toast.LENGTH_LONG).show();
                                 return;
                             }
-
                             info.setValveGroupId(0);
                             info.setSelect(false);
                             getData().remove(holder.getAdapterPosition());

@@ -8,6 +8,8 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -22,7 +24,7 @@ public class IFloatWindowImpl extends IFloatWindow {
 
 
     private FloatWindow.B mB;
-    private FloatView mFloatView;
+    public FloatView mFloatView;
     private FloatLifecycle mFloatLifecycle;
     private boolean isShow;
     private boolean once = true;
@@ -34,7 +36,6 @@ public class IFloatWindowImpl extends IFloatWindow {
     private float upY;
     private boolean mClick = false;
     private int mSlop;
-
 
     private IFloatWindowImpl() {
 
@@ -69,6 +70,7 @@ public class IFloatWindowImpl extends IFloatWindow {
             @Override
             public void onBackToDesktop() {
                 if (!mB.mDesktopShow) {
+                    Log.e("FloatLifecycle","onBackToDesktop");
                     hide();
                 }
                 if (mB.mViewStateListener != null) {
@@ -76,10 +78,12 @@ public class IFloatWindowImpl extends IFloatWindow {
                 }
             }
         });
+        mFloatLifecycle.setIsShowHome(mB.mHomeShow);
     }
 
     @Override
     public void show() {
+        Log.e("FloatLifecycle","show isShow:"+isShow);
         if (once) {
             mFloatView.init();
             once = false;
@@ -98,6 +102,7 @@ public class IFloatWindowImpl extends IFloatWindow {
 
     @Override
     public void hide() {
+        Log.e("FloatLifecycle","hide: isShow:"+isShow);
         if (once || !isShow) {
             return;
         }
@@ -120,6 +125,11 @@ public class IFloatWindowImpl extends IFloatWindow {
         if (mB.mViewStateListener != null) {
             mB.mViewStateListener.onDismiss();
         }
+    }
+
+    @Override
+    public void setSize(int width, int height) {
+        mFloatView.setSize(mB.mWidth, mB.mHeight);
     }
 
     @Override
@@ -180,28 +190,7 @@ public class IFloatWindowImpl extends IFloatWindow {
         }
     }
 
-
-    /**
-     * 判断是否超出范围，根据自己需求设置比例大小，我自己设置的是0.025和0.975
-     * @param x event.getRawX()
-     * @param y event.getRawY()
-     * @return
-     */
-    private boolean isOutOfRange(float x, float y) {
-        boolean b = true;
-        float screenWidth = Util.getScreenWidth(mB.mApplicationContext);
-        float screenHeight = Util.getScreenHeight(mB.mApplicationContext);
-        float widthRate, heightRate;
-        widthRate = (screenWidth - x) / screenWidth;
-        heightRate = (screenHeight - y) / screenHeight;
-        if (widthRate > 0.025 && widthRate < 0.975 && heightRate > 0.025 && heightRate < 0.975) {
-            b = false;
-        } else {
-            b = true;
-        }
-        return b;
-    }
-
+    Handler mHandler = new Handler();
 
     private void initTouchEvent() {
         switch (mB.mMoveType) {
@@ -215,7 +204,9 @@ public class IFloatWindowImpl extends IFloatWindow {
                     @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-
+                        int PRESSREANGE = 1000;
+                        int CLICKRANGE = 100;
+//                        Log.e("IFloatWindowImpl","action:"+event.getAction());
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
                                 downX = event.getRawX();
@@ -223,38 +214,56 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 lastX = event.getRawX();
                                 lastY = event.getRawY();
                                 cancelAnimator();
+
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.e("IFloatWindowImpl", "long");
+                                       if(mB.mLongClickListener != null){
+                                           mB.mLongClickListener.onLongClick(v);
+                                       }
+                                    }
+                                }, PRESSREANGE);
                                 break;
                             case MotionEvent.ACTION_MOVE:
+
                                 changeX = event.getRawX() - lastX;
                                 changeY = event.getRawY() - lastY;
                                 newX = (int) (mFloatView.getX() + changeX);
                                 newY = (int) (mFloatView.getY() + changeY);
 
-                                if (newY < 10) {
-                                    newY = 10;
-                                }
-                                int y = Util.getScreenHeight(mB.mApplicationContext) - 10;
-                                if (newY > y) {
-                                    newY = y;
-                                }
 
+                                if (newY < 0) {
+                                    newY = 0 ;
+                                }
                                 if (newX < 0) {
-                                    newX = 0;
+                                    newX = 0 ;
                                 }
 
-                                int x = Util.getScreenHeight(mB.mApplicationContext) - 10;
-                                if (newX > x) {
-                                    newX = x;
+                                int x =  Util.getScreenWidth(mB.mApplicationContext) - 100;
+                                if (newX >  x) {
+                                    newX = x ;
                                 }
 
+//                                Log.e("IFloatWindowImpl", "newX = "+newX + "newY = "+newY);
+                                int i = Util.getScreenHeight(mB.mApplicationContext) - Util.getStatusBarHeight(mB.mApplicationContext) -  v.getHeight();
+                                if (newY > i) {
+                                    newY = i;
+                                }
                                 mFloatView.updateXY(newX, newY);
                                 if (mB.mViewStateListener != null) {
                                     mB.mViewStateListener.onPositionUpdate(newX, newY);
                                 }
                                 lastX = event.getRawX();
                                 lastY = event.getRawY();
+
+                                if (Math.abs(lastX - downX) > CLICKRANGE || Math.abs(lastY - downY) > CLICKRANGE) {
+                                    Log.e("IFloatWindowImpl", "remove");
+                                    mHandler.removeCallbacksAndMessages(null);
+                                }
                                 break;
                             case MotionEvent.ACTION_UP:
+                                mHandler.removeCallbacksAndMessages(null);
                                 upX = event.getRawX();
                                 upY = event.getRawY();
                                 mClick = (Math.abs(upX - downX) > mSlop) || (Math.abs(upY - downY) > mSlop);

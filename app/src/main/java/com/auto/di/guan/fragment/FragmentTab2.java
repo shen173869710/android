@@ -146,7 +146,6 @@ public class FragmentTab2 extends BaseFragment {
 
 	@Override
 	public void refreshData() {
-		LogUtils.e("-------------", "222222");
 		initData();
 
 	}

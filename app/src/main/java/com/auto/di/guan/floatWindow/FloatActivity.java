@@ -39,7 +39,6 @@ public class FloatActivity extends Activity {
         startActivityForResult(intent, 756232212);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

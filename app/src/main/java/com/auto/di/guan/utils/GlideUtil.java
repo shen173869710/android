@@ -2,7 +2,6 @@ package com.auto.di.guan.utils;
 
 import android.content.Context;
 import android.widget.ImageView;
-
 import com.auto.di.guan.BaseApp;
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
@@ -11,7 +10,6 @@ import com.auto.di.guan.entity.Entiy;
 import com.bumptech.glide.Glide;
 
 public class GlideUtil {
-
     /**
      *        加载设备图片
      * @param imageView
