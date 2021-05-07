@@ -8,15 +8,15 @@
     >
     <LinearLayout
         android:id="@+id/success_layout"
-        android:layout_width="400dp"
-        android:layout_height="240dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:background="@drawable/main_dialog_bg">
 
         <TextView
             android:id="@+id/input_title"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -29,27 +29,29 @@
         <EditText
             android:id="@+id/input_edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:theme="@style/MyEditText"
             android:gravity="center"
             android:singleLine="true"
             android:inputType="numberDecimal"
             android:focusable="true"
             android:text=""
+            android:background="@drawable/input_bg"
             android:focusableInTouchMode="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/size_24"
+            android:textSize="@dimen/size_20"
             />
         <TextView
             android:id="@+id/input_ok"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="确定"
             style="@style/DialogBtnOK"
+            android:layout_marginBottom="20dp"
             />
     </LinearLayout>
 </LinearLayout>

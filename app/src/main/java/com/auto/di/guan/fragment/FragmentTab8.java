@@ -77,7 +77,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		recyclerViewLeft.setAdapter(leftAdapter);
 
 		final MeteoRespone meteoRespone = new MeteoRespone();
-		meteoRespone.setSn("殇情图片");
+		meteoRespone.setSn("殇情信息");
 		meteoRespone.setSle(true);
 		meteoRespones.add(meteoRespone);
 		EDepthRespone eDepthRespone = new EDepthRespone();
@@ -108,7 +108,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		add_memto.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				addDevice("添加气象", "19101600107861");
+				addDevice("添加气象信息", "19101600107861");
 			}
 		});
 
@@ -116,7 +116,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		add_poi.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				addDevice("添加墒情", "18121700094125");
+				addDevice("添加墒情信息", "18121700094125");
 			}
 		});
 		/**

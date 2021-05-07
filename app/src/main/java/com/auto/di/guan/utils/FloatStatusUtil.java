@@ -53,7 +53,19 @@ public class FloatStatusUtil {
 
         linearLayout = view.findViewById(R.id.layout_list);
         textView = view.findViewById(R.id.text);
-        textView.setText("");
+//        textView.setText("");
+
+        donutProgress.setMax(120);
+        donutProgress.setProgress(90);
+
+        List<ControlInfo> list = ControlInfoSql.queryControlList();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getValveStatus() > 1) {
+                if (i <  8) {
+                    infos.add(list.get(i));
+                }
+            }
+        }
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

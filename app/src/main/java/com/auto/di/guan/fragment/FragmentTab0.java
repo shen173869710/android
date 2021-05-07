@@ -11,6 +11,7 @@ import com.auto.di.guan.adapter.MyGridAdapter;
 import com.auto.di.guan.db.DeviceInfo;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.dialog.MainShowDialog;
+import com.auto.di.guan.dialog.MainShowInputDialog;
 import com.auto.di.guan.entity.Entiy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -57,13 +58,12 @@ public class FragmentTab0 extends BaseFragment {
                         showToast("该设备已经分组,不可以删除");
                         return;
                     }
-                    MainShowDialog.ShowDialog(getActivity(), "删除阀控器", "是删除当前区域阀控器", new View.OnClickListener() {
+                    MainShowInputDialog.ShowDialog(getActivity(),  new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             info.unBindDevice(info.getDeviceId());
                             DeviceInfoSql.updateDevice(info);
                             adapter.setNewData(DeviceInfoSql.queryDeviceList());
-
                         }
                     });
                 }
