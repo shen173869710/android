@@ -74,14 +74,15 @@ public class QuareUserAdapter extends BaseAdapter {
 		int type = action.getActionType();
 		int color = 0;
 		 if (type == Entiy.ACTION_TYPE_4) {
-			color = ctx.getResources().getColor(R.color.check_btn_sel);
+			color = ctx.getResources().getColor(R.color.action_option_1);
 		}else if (type == Entiy.ACTION_TYPE_31) {
-			color = ctx.getResources().getColor(R.color.check_btn_no);
+			color = ctx.getResources().getColor(R.color.action_option_2);
 		}else if (type == Entiy.ACTION_TYPE_32) {
-			color = ctx.getResources().getColor(R.color.none_transparent);
+			color = ctx.getResources().getColor(R.color.action_option_3);
 		}
+
 		 if (action.getActionStatus() == 0){
-			 color = ctx.getResources().getColor(R.color.red);
+			 color = ctx.getResources().getColor(R.color.action_option_error);
 		 }
 
 		vHolder.quare_user_layout.setBackgroundColor(color);

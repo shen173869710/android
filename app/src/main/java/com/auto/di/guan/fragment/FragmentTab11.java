@@ -23,9 +23,7 @@ import com.auto.di.guan.utils.NoFastClickUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
+
 public class FragmentTab11 extends BaseFragment {
     private TextView requeryByTime, requeryById;
     private View view;
@@ -44,14 +42,7 @@ public class FragmentTab11 extends BaseFragment {
         listView = (ListView) view.findViewById(R.id.querylistview);
         adapter = new QuareUserAdapter(getActivity(), userActions);
         listView.setAdapter(adapter);
-//		requeryByName.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				showChooseDialog(requeryByName);
-//			}
-//
-//
-//		});
+
         requeryByTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

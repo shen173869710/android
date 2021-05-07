@@ -50,8 +50,6 @@ public class FloatStatusUtil {
         view.setFocusableInTouchMode(true);
         mListView = (RecyclerView) view.findViewById(R.id.list);
         donutProgress = view.findViewById(R.id.progress);
-        donutProgress.setMax(120);
-        donutProgress.setProgress(90);
 
         linearLayout = view.findViewById(R.id.layout_list);
         textView = view.findViewById(R.id.text);

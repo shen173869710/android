@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/main_dialog_all_bg"
     android:orientation="vertical" 
     >
     <LinearLayout
@@ -37,9 +37,8 @@
         android:layout_height="0dip"
         android:layout_weight="1"
         android:gravity="center"
-         android:cacheColorHint="#00000000" 
         android:fadingEdge="none"
-        android:divider="@color/main_divider"
+        android:divider="@color/line"
         android:dividerHeight="@dimen/main_divider_width"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dip"
@@ -66,9 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="取消"
-                android:textColor="@color/blue"
-                android:textSize="16sp" 
-                android:background="@drawable/bg_dialog_left_pressed"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:background="@drawable/main_cancle_bg"
                 />
         </LinearLayout>
 		<View 
@@ -88,9 +87,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="确定"
-                android:textColor="@color/blue"
-                android:background="@drawable/bg_dialog_right_pressed"
-                android:textSize="16sp" />
+                android:textColor="@color/white"
+                android:background="@drawable/main_ok_bg"
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

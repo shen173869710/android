@@ -30,13 +30,13 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             custom:progress_current="0"
             custom:progress_reached_bar_height="20dp"
-            custom:progress_reached_color="#3498DB"
-            custom:progress_text_color="#3498DB"
+            custom:progress_reached_color="#50A4FE"
+            custom:progress_text_color="#50A4FE"
             custom:progress_text_offset="1dp"
             custom:progress_text_size="14sp"
             custom:progress_text_visibility="visible"
             custom:progress_unreached_bar_height="20dp"
-            custom:progress_unreached_color="#CCCCCC" />
+            custom:progress_unreached_color="#D8D8D8" />
 
         <TextView
             android:id="@+id/status_stop"
@@ -68,7 +68,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:padding="10dp"
             android:text="轮灌完成"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="#E66800"
             android:visibility="gone" />
 
         <RelativeLayout

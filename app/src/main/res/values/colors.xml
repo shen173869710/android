@@ -102,4 +102,13 @@
     <color name="main_tab_title_color">#000000</color>
     <color name="main_item_title_color">#333333</color>
     <color name="main_item_desc_color">#999999</color>
+
+
+
+    <!--action -->
+
+    <color name="action_option_1">#DEFFBC</color>
+    <color name="action_option_2">#BFE9FF</color>
+    <color name="action_option_3">#FFEBCA</color>
+    <color name="action_option_error">#D0021B</color>
 </resources>
