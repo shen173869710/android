@@ -51,13 +51,13 @@ public class GroupStatusActivity extends FragmentActivity  {
 
     private View group_status_view;
 
-    private StatusAdapter openAdapter;
-    private RecyclerView openList;
-    private StatusAdapter closeAdapter;
-    private RecyclerView closeList;
+//    private StatusAdapter openAdapter;
+//    private RecyclerView openList;
+//    private StatusAdapter closeAdapter;
+//    private RecyclerView closeList;
+//    private List<ControlInfo> openInfos = new ArrayList<>();
+//    private List<ControlInfo> closeInfos = new ArrayList<>();
 
-    private List<ControlInfo> openInfos = new ArrayList<>();
-    private List<ControlInfo> closeInfos = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,17 +99,6 @@ public class GroupStatusActivity extends FragmentActivity  {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        openList = findViewById(R.id.group_option_open);
-        openList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
-        openAdapter = new StatusAdapter(openInfos);
-        openList.setAdapter(openAdapter);
-
-        closeList = findViewById(R.id.group_option_close);
-        closeList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
-        closeAdapter = new StatusAdapter(closeInfos);
-        closeList.setAdapter(closeAdapter);
-
         group_status_view = findViewById(R.id.group_status_view);
         if (BaseApp.isWebLogin()) {
             group_status_view.setVisibility(View.VISIBLE);
@@ -121,27 +110,6 @@ public class GroupStatusActivity extends FragmentActivity  {
             });
         }else {
             group_status_view.setVisibility(View.GONE);
-        }
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGroupStatusEvent(GroupStatusEvent event) {
-        LogUtils.e("GroupStatusActivity",  "更新设备-----------------------------\n"+(new Gson().toJson(event)));
-        if (event != null && event.getGroupInfo() != null) {
-            GroupInfo info = event.getGroupInfo();
-            int status = info.getGroupStatus();
-            int groupId = info.getGroupId();
-            List<ControlInfo> infos = ControlInfoSql.queryControlList(groupId);
-            if (status == 1) {
-                openAdapter.setData(infos);
-//               MessageSend.syncAutoControl(infos);
-            }else {
-                closeAdapter.setData(infos);
-//                MessageSend.syncAutoControl(infos);
-            }
-        }else {
-            LogUtils.e("GroupStatusActivity",  "更新设备失败     设备信息为空-----------------------------");
         }
     }
 
@@ -196,9 +164,6 @@ public class GroupStatusActivity extends FragmentActivity  {
             groupInfos = GroupInfoSql.queryGroupSettingList();
             adapter = new GroupStatusAdapter(groupInfos);
             recyclerView.setAdapter(adapter);
-            openAdapter.setData(new ArrayList<>());
-            closeAdapter.setData(new ArrayList<>());
-
         }
         if (event.getGroupInfo() == null) {
             return;
@@ -234,10 +199,10 @@ public class GroupStatusActivity extends FragmentActivity  {
             }
             adapter.getData().set(position, groupInfo);
             adapter.notifyItemChanged(position, position);
-            if (openInfos != null && openInfos.size() == 0) {
-                GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);
-                onGroupStatusEvent(groupStatusEvent);
-            }
+//            if (openInfos != null && openInfos.size() == 0) {
+//                GroupStatusEvent groupStatusEvent = new GroupStatusEvent(groupInfo);
+//                onGroupStatusEvent(groupStatusEvent);
+//            }
         }
     }
 

@@ -2,7 +2,6 @@ package com.auto.di.guan.adapter;
 
 import com.auto.di.guan.R;
 import com.auto.di.guan.db.ControlInfo;
-import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.utils.GlideUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;

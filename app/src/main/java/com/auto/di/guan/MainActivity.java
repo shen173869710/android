@@ -15,7 +15,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.auto.di.guan.api.ApiUtil;
 import com.auto.di.guan.api.HttpManager;
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
+import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupInfo;
+import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.UserActionSql;
@@ -27,6 +29,7 @@ import com.auto.di.guan.entity.SyncData;
 import com.auto.di.guan.event.ActivityEvent;
 import com.auto.di.guan.event.AutoCountEvent;
 import com.auto.di.guan.event.AutoTaskEvent;
+import com.auto.di.guan.event.GroupStatusEvent;
 import com.auto.di.guan.event.LoginEvent;
 import com.auto.di.guan.event.SendCmdEvent;
 import com.auto.di.guan.event.UserStatusEvent;
@@ -440,6 +443,29 @@ public class MainActivity extends SerialPortActivity {
                 LogUtils.e(TAG, "同步数据失败");
             }
         });
+    }
 
+    /**
+     *  自动轮灌设备更新
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGroupStatusEvent(GroupStatusEvent event) {
+        LogUtils.e("GroupStatusActivity",  "更新设备-----------------------------\n"+(new Gson().toJson(event)));
+        if (event != null && event.getGroupInfo() != null) {
+           FloatStatusUtil.getInstance().onGroupStatusEvent(event.getGroupInfo());
+        }
+    }
+
+    /**
+     *  自动轮灌设记时
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAutoCountEvent(AutoCountEvent event) {
+        LogUtils.e("GroupStatusActivity",  "更新设备-----------------------------\n"+(new Gson().toJson(event)));
+        if (event != null && event.getGroupInfo() != null) {
+            FloatStatusUtil.getInstance().onGroupStatusEvent(event.getGroupInfo());
+        }
     }
 }

@@ -16,49 +16,52 @@
             android:id="@+id/option_switch"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
-            android:background="@mipmap/select_bg_gray"
-            />
+            android:layout_marginLeft="20dp"
+            android:background="@mipmap/select_bg_gray" />
 
         <TextView
             android:id="@+id/option_name"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-             />
+            android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="轮灌时长"
-             />
+            android:textColor="@color/black" />
+
         <EditText
             android:id="@+id/option_time"
             android:layout_width="80dp"
-            android:layout_height="36dip"
+            android:layout_height="36dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:background="@drawable/bg_edittext"
             android:hint="请输入分钟"
             android:inputType="numberDecimal"
-            android:maxLength="3"
+            android:maxLength="5"
             android:singleLine="true"
+            android:textColor="@color/black"
             android:textColorHint="@color/main_item_desc_color"
             android:textSize="@dimen/main_text_14" />
+
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="轮灌优先级"
-             />
+            android:textColor="@color/black" />
+
         <EditText
             android:id="@+id/option_level"
             android:layout_width="80dp"
-            android:layout_height="36dip"
+            android:layout_height="36dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:background="@drawable/bg_edittext"
@@ -67,7 +70,7 @@
             android:maxLength="2"
             android:singleLine="true"
             android:textColorHint="@color/main_item_desc_color"
-            android:textSize="@dimen/main_text_14" />
+            android:textSize="@dimen/main_text_16" />
 
         <TextView
             android:id="@+id/option_time_value"
@@ -76,7 +79,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:text=""
-            />
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_text_16" />
 
         <TextView
             android:id="@+id/option_level_value"
@@ -85,7 +89,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:text=""
-             />
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_text_16" />
     </LinearLayout>
 
     <View

@@ -22,8 +22,8 @@
     </LinearLayout>
     <View
         style="@style/line"
-        android:layout_marginLeft="12dip"
-        android:layout_marginRight="12dip"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
          />
 
     <LinearLayout
@@ -58,8 +58,8 @@
     </LinearLayout>
     <View
         style="@style/line"
-        android:layout_marginLeft="12dip"
-        android:layout_marginRight="12dip"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,8 +93,8 @@
     </LinearLayout>
     <View
         style="@style/line"
-        android:layout_marginLeft="12dip"
-        android:layout_marginRight="12dip"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,8 +128,8 @@
     </LinearLayout>
     <View
         style="@style/line"
-        android:layout_marginLeft="12dip"
-        android:layout_marginRight="12dip"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -161,7 +161,11 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
-
+    <View
+        style="@style/line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -20,19 +20,23 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
-
+    <View style="@style/line" />
     <TextView
         android:id="@+id/main_custom_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:padding="20dp"
+        android:padding="15dp"
+        android:layout_marginTop="5dp"
         android:text="111"
         android:textColor="#000000"
         android:textSize="20sp" />
 
 
+    <View style="@style/line"
+        android:layout_marginTop="5dp"
+        ></View>
     <LinearLayout
         android:id="@+id/main_custom_bottom"
         android:layout_width="match_parent"

@@ -1,9 +1,7 @@
 package com.auto.di.guan.adapter;
 
 import android.text.TextUtils;
-
 import androidx.annotation.Nullable;
-
 import com.auto.di.guan.R;
 import com.auto.di.guan.socket.SocketEntiy;
 import com.auto.di.guan.socket.SocketResult;
