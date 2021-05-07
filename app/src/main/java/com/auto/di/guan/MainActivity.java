@@ -465,7 +465,7 @@ public class MainActivity extends SerialPortActivity {
     public void onAutoCountEvent(AutoCountEvent event) {
         LogUtils.e("GroupStatusActivity",  "更新设备-----------------------------\n"+(new Gson().toJson(event)));
         if (event != null && event.getGroupInfo() != null) {
-            FloatStatusUtil.getInstance().onGroupStatusEvent(event.getGroupInfo());
+            FloatStatusUtil.getInstance().onAutoCountEvent(event.getGroupInfo());
         }
     }
 }

@@ -39,8 +39,6 @@ public class InputPasswordDialog extends Dialog {
         setCancelable(false);
         linearLayout = findViewById(R.id.hondover_input_password_LinearLayout);
         XEditText xEditText = findViewById(R.id.handover_input_password_edittext);
-//        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(xEditText.getWindowToken(),0);
         xEditText.clearFocus();
         TextView ok = findViewById(R.id.handover_input_password_ok);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -51,12 +49,12 @@ public class InputPasswordDialog extends Dialog {
                 }
 
                 inputPassword = xEditText.getTextTrimmed();
-                if (TextUtils.isEmpty(inputPassword.trim())) {
+                if (TextUtils.isEmpty(inputPassword)) {
                     ToastUtils.showToast("登录密码不能为空");
                     return;
                 }
                 //隐藏软键盘
-                if(!inputPassword.trim().equals(BaseApp.getUser().getPassword())) {
+                if(!inputPassword.equals(BaseApp.getUser().getPassword())) {
                     ToastUtils.showToast("登录密码错误");
                     return;
                 }
