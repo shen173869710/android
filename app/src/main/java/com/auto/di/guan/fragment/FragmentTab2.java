@@ -20,6 +20,7 @@ import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.LevelInfoSql;
 import com.auto.di.guan.dialog.MainShowDialog;
+import com.auto.di.guan.dialog.MainShowInputDialog;
 import com.auto.di.guan.event.ChooseGroupEvent;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NoFastClickUtils;
@@ -71,7 +72,7 @@ public class FragmentTab2 extends BaseFragment {
 				if(NoFastClickUtils.isFastClick()){
 					return;
 				}
-				MainShowDialog.ShowDialog(getActivity(), "删所有分组除", "当前操作会删除所有的分组", new View.OnClickListener() {
+				MainShowInputDialog.ShowDialog(getActivity(), "删所有分组除",  new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						List<DeviceInfo> deviceInfos = DeviceInfoSql.queryDeviceList();

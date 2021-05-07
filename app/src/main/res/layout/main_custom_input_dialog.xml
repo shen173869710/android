@@ -35,7 +35,7 @@
         android:background="@drawable/input_bg"
         android:focusableInTouchMode="true"
         android:gravity="center"
-        android:hint="如要本机操作,请输入密码登陆"
+        android:hint="进行删除操作,请输入登陆密码"
         android:inputType="textPassword"
         android:maxLength="32"
         android:maxLines="16"

@@ -58,7 +58,7 @@ public class FragmentTab0 extends BaseFragment {
                         showToast("该设备已经分组,不可以删除");
                         return;
                     }
-                    MainShowInputDialog.ShowDialog(getActivity(),  new View.OnClickListener() {
+                    MainShowInputDialog.ShowDialog(getActivity(), "删除阀控器", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             info.unBindDevice(info.getDeviceId());

@@ -66,8 +66,9 @@ public class MainShowInputDialog extends Dialog {
     }
 
 
-    public static void ShowDialog(final Activity context, final View.OnClickListener listener) {
+    public static void ShowDialog(final Activity context, String title ,final View.OnClickListener listener) {
         final MainShowInputDialog dialog = new MainShowInputDialog(context);
+        dialog.main_custom_title.setText(title);
         dialog.setOnPositiveListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
