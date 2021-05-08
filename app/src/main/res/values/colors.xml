@@ -111,4 +111,6 @@
     <color name="action_option_2">#BFE9FF</color>
     <color name="action_option_3">#FFEBCA</color>
     <color name="action_option_error">#D0021B</color>
+
+    <color name="fragment0_tab_n">#99000000</color>
 </resources>

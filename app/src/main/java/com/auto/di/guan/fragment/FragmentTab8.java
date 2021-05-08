@@ -1,5 +1,6 @@
 package com.auto.di.guan.fragment;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -76,6 +77,8 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		leftAdapter = new Fragment8LeftAdapter(meteoRespones);
 		recyclerViewLeft.setAdapter(leftAdapter);
 
+		recyclerViewLeft.addItemDecoration(new SpacesItemDecoration(30));
+
 		final MeteoRespone meteoRespone = new MeteoRespone();
 		meteoRespone.setSn("殇情信息");
 		meteoRespone.setSle(true);
@@ -88,6 +91,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		recyclerViewRight.setLayoutManager(new LinearLayoutManager(getContext()));
 		rightAdapter = new Fragment8RightAdapter(eDepthRespones);
 		recyclerViewRight.setAdapter(rightAdapter);
+
 
 		leftAdapter.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -397,4 +401,21 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 			MessageSend.syncListItem(meteoRespones, eDepthRespones);
 		}
 	}
+
+
+	public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+		private int space;
+
+		public SpacesItemDecoration(int space) {
+			this.space = space;
+		}
+
+		@Override
+		public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+			// Add top margin only for the first item to avoid double space between items
+			if (parent.getChildPosition(view) != 0)
+				outRect.top = space;
+		}
+	}
+
 }

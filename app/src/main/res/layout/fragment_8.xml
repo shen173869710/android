@@ -11,18 +11,24 @@
         android:background="@mipmap/gun_test_bg"
         android:visibility="gone"
         />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_8_left"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        />
+
+    <RelativeLayout
+        android:id="@+id/fragment_8_right_layout"
+        android:layout_width="160dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_8_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_8_right"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/fragment_8_left"
+        android:layout_toRightOf="@+id/fragment_8_right_layout"
         />
 
     <LinearLayout
@@ -33,7 +39,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/fragment_8_left"
         android:gravity="center"
         android:orientation="horizontal">
         <ImageButton
