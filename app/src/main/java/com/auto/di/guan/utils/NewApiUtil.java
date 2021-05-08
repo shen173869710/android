@@ -3,6 +3,7 @@ package com.auto.di.guan.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.auto.di.guan.MainActivity;
 import com.auto.di.guan.api.ApiUtil;
 import com.auto.di.guan.api.HttpManager;
 import com.auto.di.guan.api.MGsonConverterFactory;
@@ -21,6 +22,25 @@ public class NewApiUtil {
                 if (respone != null && !TextUtils.isEmpty(respone.getToken())) {
                     ApiUtil.authorization = respone.getToken();
                     getDeviceInfo(device, onResultListener);
+                }
+            }
+            @Override
+            public void onError(Throwable error, Integer code,String msg) {
+                Log.e("----", msg);
+
+            }
+        });
+    }
+
+
+    public static void initToken( final HttpManager.OnResultListener onResultListener) {
+        HttpManager.newApi(ApiUtil.createApiService("http://openapi.ecois.info", MyGsonConverterFactory.create()).
+                getToken("vn8WKjFPgKhoyN0k", "iZ5QmduqPTG5CpTkvALizYlcP$TYIoQ*"), new HttpManager.OnResultListener() {
+            @Override
+            public void onSuccess(BaseRespone respone) {
+                Log.e(TAG, "respone ==" +respone.getToken());
+                if (respone != null && !TextUtils.isEmpty(respone.getToken())) {
+                    ApiUtil.authorization = respone.getToken();
                 }
             }
             @Override

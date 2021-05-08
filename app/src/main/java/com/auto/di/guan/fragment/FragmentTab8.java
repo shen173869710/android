@@ -1,5 +1,6 @@
 package com.auto.di.guan.fragment;
 
+import android.app.Dialog;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ import com.auto.di.guan.basemodel.model.respone.ERespone;
 import com.auto.di.guan.basemodel.model.respone.MeteoRespone;
 import com.auto.di.guan.dialog.DialogContent;
 import com.auto.di.guan.dialog.InputDialog;
+import com.auto.di.guan.dialog.LoadingDialog;
 import com.auto.di.guan.dialog.OnDialogClick;
 import com.auto.di.guan.event.ActivityItemEvent;
 import com.auto.di.guan.event.TabClickEvent;
@@ -50,6 +52,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
+
+
+	private LoadingDialog mLoadingDailog;
 
 	private View view;
 
@@ -103,6 +108,18 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 					}
 				}
 			}
+			NewApiUtil.initToken(new HttpManager.OnResultListener() {
+				@Override
+				public void onSuccess(BaseRespone t) {
+
+				}
+
+				@Override
+				public void onError(Throwable error, Integer code, String msg) {
+
+				}
+			});
+
 		}
 
 		leftAdapter = new Fragment8LeftAdapter(meteoRespones);
@@ -209,9 +226,11 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 	}
 
 	public void getDeviceInfo(String device, final boolean isWather) {
+		showDialog();
 		NewApiUtil.getDeviceData(device, new HttpManager.OnResultListener() {
 			@Override
 			public void onSuccess(BaseRespone t) {
+				dismissDialog();
 				ERespone eRespone = (ERespone) t;
 				if (eRespone != null) {
 					if (eRespone.getList() != null) {
@@ -241,7 +260,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 
 			@Override
 			public void onError(Throwable error, Integer code, String msg) {
-
+				dismissDialog();
 			}
 		});
 	}
@@ -318,14 +337,12 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		}
 	}
 
-
-
-
-
 	public void webAddDevice(String device) {
+		showDialog();
 		NewApiUtil.getToken(device, new HttpManager.OnResultListener() {
 			@Override
 			public void onSuccess(BaseRespone t) {
+				dismissDialog();
 				if (t != null) {
 					MeteoRespone meteoRespone = (MeteoRespone) t;
 					String sn = meteoRespone.getSn();
@@ -350,7 +367,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 
 			@Override
 			public void onError(Throwable error, Integer code, String msg) {
-
+				dismissDialog();
 			}
 		});
 	}
@@ -436,6 +453,38 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 			// Add top margin only for the first item to avoid double space between items
 			if (parent.getChildPosition(view) != 0)
 				outRect.top = space;
+		}
+	}
+
+
+	public void showDialog() {
+		if (null == mLoadingDailog) {
+			showWaitingDialog("");
+		}
+		if (!mLoadingDailog.isShowing()) {
+			mLoadingDailog.show();
+		}
+	}
+
+	/**
+	 * 显示等待提示框
+	 */
+	public Dialog showWaitingDialog(String tip) {
+		mLoadingDailog = new LoadingDialog(activity, R.style.CustomDialog);
+		return mLoadingDailog;
+	}
+
+	public void dismissDialog() {
+		hideWaitingDialog();
+	}
+
+	/**
+	 * 隐藏等待提示框
+	 */
+	public void hideWaitingDialog() {
+		if (mLoadingDailog != null && mLoadingDailog.isShowing()) {
+			mLoadingDailog.dismiss();
+			mLoadingDailog = null;
 		}
 	}
 

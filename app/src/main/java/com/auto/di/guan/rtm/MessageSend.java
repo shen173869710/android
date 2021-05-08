@@ -187,8 +187,6 @@ public class MessageSend {
      *   同步农田信息item
      */
     public static void syncListItem(List<MeteoRespone>meteoRespones, List<EDepthRespone>eDepthRespones) {
-
-
         ShareUtil.setFragmentTab0List(new Gson().toJson(meteoRespones));
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_FARMLAND);
