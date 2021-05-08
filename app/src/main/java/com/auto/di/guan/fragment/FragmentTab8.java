@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,14 +34,17 @@ import com.auto.di.guan.event.TabClickEvent;
 import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.LogUtils;
 import com.auto.di.guan.utils.NewApiUtil;
+import com.auto.di.guan.utils.ShareUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -74,25 +78,42 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		addBtn_layout.setVisibility(View.VISIBLE);
 		recyclerViewLeft = view.findViewById(R.id.fragment_8_left);
 		recyclerViewLeft.setLayoutManager(new LinearLayoutManager(getContext()));
+
+		String local = ShareUtil.getFragmentTab0List();
+		if (TextUtils.isEmpty(local)) {
+			final MeteoRespone meteoRespone = new MeteoRespone();
+			meteoRespone.setSn("殇情信息");
+			meteoRespone.setSle(true);
+			meteoRespones.add(meteoRespone);
+			EDepthRespone eDepthRespone = new EDepthRespone();
+			eDepthRespone.setType(ApiEntiy.ITEM_TYPE_0);
+			eDepthRespones.add(eDepthRespone);
+		}else {
+			eDepthRespones.clear();
+			LogUtils.e("fragment8", local);
+			List<MeteoRespone> list = new Gson().fromJson(local, new TypeToken<List<MeteoRespone>>() {}.getType());
+			if (list != null) {
+				meteoRespones.addAll(list);
+				int size= meteoRespones.size();
+				for (int i = 0; i < size; i++) {
+					if (i == 0) {
+						meteoRespones.get(0).setSle(true);
+					}else {
+						meteoRespones.get(0).setSle(false);
+					}
+				}
+			}
+		}
+
 		leftAdapter = new Fragment8LeftAdapter(meteoRespones);
 		recyclerViewLeft.setAdapter(leftAdapter);
 
 		recyclerViewLeft.addItemDecoration(new SpacesItemDecoration(30));
 
-		final MeteoRespone meteoRespone = new MeteoRespone();
-		meteoRespone.setSn("殇情信息");
-		meteoRespone.setSle(true);
-		meteoRespones.add(meteoRespone);
-		EDepthRespone eDepthRespone = new EDepthRespone();
-		eDepthRespone.setType(ApiEntiy.ITEM_TYPE_0);
-		eDepthRespones.add(eDepthRespone);
-
 		recyclerViewRight = view.findViewById(R.id.fragment_8_right);
 		recyclerViewRight.setLayoutManager(new LinearLayoutManager(getContext()));
 		rightAdapter = new Fragment8RightAdapter(eDepthRespones);
 		recyclerViewRight.setAdapter(rightAdapter);
-
-
 		leftAdapter.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

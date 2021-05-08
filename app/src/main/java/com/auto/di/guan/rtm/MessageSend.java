@@ -14,6 +14,8 @@ import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.socket.SocketResult;
 import com.auto.di.guan.utils.GzipUtil;
 import com.auto.di.guan.utils.LogUtils;
+import com.auto.di.guan.utils.ShareUtil;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,6 +187,9 @@ public class MessageSend {
      *   同步农田信息item
      */
     public static void syncListItem(List<MeteoRespone>meteoRespones, List<EDepthRespone>eDepthRespones) {
+
+
+        ShareUtil.setFragmentTab0List(new Gson().toJson(meteoRespones));
         MessageInfo info = new MessageInfo();
         info.setType(MessageEntiy.TYPE_FARMLAND);
         info.setMeteoRespones(meteoRespones);
