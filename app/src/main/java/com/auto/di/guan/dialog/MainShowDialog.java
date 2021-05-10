@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.auto.di.guan.R;
@@ -23,10 +21,7 @@ public class MainShowDialog extends Dialog {
 	public Button main_custom_sure;
 	public TextView main_custom_msg;
 	public TextView main_custom_title;
-	public LinearLayout main_custom_name_layout;
-	public LinearLayout main_custom_phone_layout;
-	public EditText main_custom_edit_name;
-	public EditText main_custom_edit_phone;
+
 
 	public MainShowDialog(Context context) {
 		super(context, R.style.UpdateDialog);

@@ -72,7 +72,6 @@ public class ChooseGridAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHold
             } else {
                 grid_item_left_layout.setVisibility(View.VISIBLE);
                 grid_item_left_image.setVisibility(View.VISIBLE);
-//                grid_item_left_image.setImageResource(Entiy.getImageResource(info1.getValveStatus()));
                 GlideUtil.loadControlImage(getContext(), grid_item_left_image, info1);
                 grid_item_left_sel.setVisibility(View.VISIBLE);
                 grid_item_left_id.setText(info1.getValveName() + "");

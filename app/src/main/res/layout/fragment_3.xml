@@ -2,13 +2,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:background="@color/white">
+
 
         <ExpandableListView
             android:id="@+id/fragment_3_expand"
@@ -26,5 +24,4 @@
             android:background="@drawable/bg_red_buttom_rect"
             android:text="轮灌设置"
             android:textColor="@color/white" />
-    </RelativeLayout>
 </RelativeLayout>

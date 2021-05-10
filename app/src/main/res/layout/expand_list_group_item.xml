@@ -14,7 +14,7 @@
 		    android:layout_height="20dp"
 		    android:background="@mipmap/expand_group_n"
 		    android:layout_centerVertical="true"
-            android:layout_marginLeft="5dip"
+            android:layout_marginLeft="5dp"
 		    android:scaleType="centerCrop"
 		    />
         <TextView
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dip"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/expand_list_group_num"
             android:textColor="@color/main_title_color"
             android:textSize="@dimen/text_size_16" />
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dip"
+                android:layout_marginRight="15dp"
                 android:textColor="@color/main_item_color"
                 android:textSize="@dimen/text_size_16" />
 

@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.auto.di.guan.BaseApp;
+import com.auto.di.guan.MainActivity;
 import com.auto.di.guan.R;
 import com.auto.di.guan.adapter.Fragment8LeftAdapter;
 import com.auto.di.guan.adapter.Fragment8RightAdapter;
@@ -29,9 +32,11 @@ import com.auto.di.guan.basemodel.model.respone.ERespone;
 import com.auto.di.guan.basemodel.model.respone.MeteoRespone;
 import com.auto.di.guan.dialog.DialogContent;
 import com.auto.di.guan.dialog.InputDialog;
+import com.auto.di.guan.dialog.InputPasswordDialog;
 import com.auto.di.guan.dialog.LoadingDialog;
 import com.auto.di.guan.dialog.OnDialogClick;
 import com.auto.di.guan.event.ActivityItemEvent;
+import com.auto.di.guan.event.LoginEvent;
 import com.auto.di.guan.event.TabClickEvent;
 import com.auto.di.guan.rtm.MessageSend;
 import com.auto.di.guan.utils.LogUtils;
@@ -61,8 +66,8 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 	LinearLayout addBtn_layout;
 	ImageButton add_memto;
 	ImageButton add_poi;
-
 	ImageView fragment_8_image;
+
 	RecyclerView recyclerViewLeft;
 	Fragment8LeftAdapter leftAdapter;
 
@@ -134,7 +139,6 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		leftAdapter.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-				onItemClickListen(position);
 				if (position == 0) {
 					fragment_8_image.setVisibility(View.VISIBLE);
 					addBtn_layout.setVisibility(View.VISIBLE);
@@ -142,6 +146,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 					fragment_8_image.setVisibility(View.GONE);
 					addBtn_layout.setVisibility(View.GONE);
 				}
+				onItemClickListen(position);
 			}
 		});
 
@@ -408,7 +413,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 			eDepthRespone.setType(ApiEntiy.ITEM_TYPE_0);
 			eDepthRespones.add(eDepthRespone);
 			rightAdapter.notifyDataSetChanged();
-			MessageSend.syncListItem(meteoRespones, eDepthRespones);
+
 		} else {
 			MeteoRespone mRespone = meteoRespones.get(position);
 			boolean isWather = false;
@@ -430,15 +435,7 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		leftAdapter.notifyDataSetChanged();
 	}
 
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	public void onTabClickEvent(TabClickEvent event) {
-		if (event == null) {
-			return;
-		}
-		if (event.getIndex() == 0) {
-			MessageSend.syncListItem(meteoRespones, eDepthRespones);
-		}
-	}
+
 
 
 	public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
@@ -485,6 +482,31 @@ public class FragmentTab8 extends BaseFragment implements View.OnClickListener{
 		if (mLoadingDailog != null && mLoadingDailog.isShowing()) {
 			mLoadingDailog.dismiss();
 			mLoadingDailog = null;
+		}
+	}
+
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onTabClickEvent(TabClickEvent event) {
+		if (event == null) {
+			return;
+		}
+
+		if (event.getIndex() == 0) {
+			MessageSend.syncListItem(meteoRespones, eDepthRespones);
+			fragment_8_image.setVisibility(View.VISIBLE);
+			addBtn_layout.setVisibility(View.VISIBLE);
+		}else {
+			fragment_8_image.setVisibility(View.GONE);
+			addBtn_layout.setVisibility(View.GONE);
+		}
+	}
+
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onLoginEvent(LoginEvent event) {
+		if (event != null && event.isLogin()) {
+			MessageSend.syncListItem(meteoRespones, eDepthRespones);
 		}
 	}
 

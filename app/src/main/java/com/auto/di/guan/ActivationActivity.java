@@ -181,7 +181,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
         LogUtils.e("---------",""+msg);
 //		ToastUtils.showLongToast(""+msg);
 		User user = new User();
-		user.setUserId(113l);
+		user.setUserId(155l);
 		user.setAvatar("");
 		user.setLoginName("13300000000");
 		user.setParentId(123456l);
@@ -191,7 +191,7 @@ public class ActivationActivity extends IBaseActivity<LoginPresenter> implements
 		user.setProjectGroupId("10000");
 		user.setPileOutNum(Entiy.GUN_COLUMN);
 		user.setTrunkPipeNum(Entiy.GUN_COLUMN);
-		user.setMemberId(109l);
+		user.setMemberId(152l);
 		user.setPassword("123456");
 		UserSql.insertUser(user);
 		BaseApp.setUser(user);

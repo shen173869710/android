@@ -46,25 +46,25 @@ public class GroupOptionActivity extends Activity  {
 		groupInfos = GroupInfoSql.queryGroupList();
 		String local = SPUtils.getInstance().getString(SPUtils.DEVICE_OPTION);
 		LogUtils.e(TAG, "local  = "+ local);
-		if (!TextUtils.isEmpty(local)) {
-			List<GroupInfo> localGroup = new Gson().fromJson(local, new TypeToken<List<GroupInfo>>(){}.getType());
-			if (localGroup != null) {
-				int size = localGroup.size();
-				for (int i = 0; i < size; i++) {
-					int length = groupInfos.size();
-					GroupInfo localInfo = localGroup.get(i);
-					for (int j = 0; j < length; j++) {
-						GroupInfo info = groupInfos.get(j);
-						if (localInfo.getGroupId() == info.getGroupId()) {
-							info.setGroupIsJoin(localInfo.getGroupIsJoin());
-							info.setGroupRunTime(0);
-							info.setGroupTime(localInfo.getGroupTime());
-							info.setGroupLevel(localInfo.getGroupLevel());
-						}
-					}
-				}
-			}
-		}
+//		if (!TextUtils.isEmpty(local)) {
+//			List<GroupInfo> localGroup = new Gson().fromJson(local, new TypeToken<List<GroupInfo>>(){}.getType());
+//			if (localGroup != null) {
+//				int size = localGroup.size();
+//				for (int i = 0; i < size; i++) {
+//					int length = groupInfos.size();
+//					GroupInfo localInfo = localGroup.get(i);
+//					for (int j = 0; j < length; j++) {
+//						GroupInfo info = groupInfos.get(j);
+//						if (localInfo.getGroupId() == info.getGroupId()) {
+//							info.setGroupIsJoin(localInfo.getGroupIsJoin());
+//							info.setGroupRunTime(0);
+//							info.setGroupTime(localInfo.getGroupTime());
+//							info.setGroupLevel(localInfo.getGroupLevel());
+//						}
+//					}
+//				}
+//			}
+//		}
 
 		textView = (TextView)view.findViewById(R.id.title_bar_title);
 		textView.setText("自动轮灌设置");

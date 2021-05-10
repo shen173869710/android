@@ -15,9 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.auto.di.guan.api.ApiUtil;
 import com.auto.di.guan.api.HttpManager;
 import com.auto.di.guan.basemodel.model.respone.BaseRespone;
-import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupInfo;
-import com.auto.di.guan.db.sql.ControlInfoSql;
 import com.auto.di.guan.db.sql.DeviceInfoSql;
 import com.auto.di.guan.db.sql.GroupInfoSql;
 import com.auto.di.guan.db.sql.UserActionSql;
@@ -237,10 +235,19 @@ public class MainActivity extends SerialPortActivity {
         InputPasswordDialog.dismiss(this);
     }
 
-
+    /**
+     *        单个设备的变化
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStatsuEvent(CmdStatus event) {
         FloatWindowUtil.getInstance().onStatsuEvent(event);
+        /**
+         *  悬浮球单个设备状态变化
+         */
+        if (TextUtils.isEmpty(event.getCmd_read_end())) {
+            FloatWindowUtil.getInstance().onStatsuEvent(event);
+        }
     }
 
     public static boolean isOpen = false;

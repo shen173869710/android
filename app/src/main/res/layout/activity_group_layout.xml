@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="70dp"
             android:cacheColorHint="#00000000"
-            android:divider="@color/layout_bg"
+            android:divider="@color/line"
             android:fadingEdge="none"
             android:listSelector="@drawable/dialogue_listview_selector"
             android:scrollbars="none" />

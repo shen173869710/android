@@ -15,6 +15,9 @@ import com.auto.di.guan.adapter.FloatStatusAdapter;
 import com.auto.di.guan.db.ControlInfo;
 import com.auto.di.guan.db.GroupInfo;
 import com.auto.di.guan.db.sql.ControlInfoSql;
+import com.auto.di.guan.db.sql.GroupInfoSql;
+import com.auto.di.guan.entity.CmdStatus;
+import com.auto.di.guan.entity.Entiy;
 import com.auto.di.guan.floatWindow.FloatWindow;
 import com.auto.di.guan.floatWindow.MoveType;
 import com.auto.di.guan.floatWindow.Screen;
@@ -24,18 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018/7/25.
- * 悬浮窗显示状态
+ *  显示当前正在运行的阀门
  */
 
 public class FloatStatusUtil {
     private static FloatStatusUtil instance = new FloatStatusUtil();
     private RecyclerView mListView;
     private FloatStatusAdapter adapter;
-    private ArrayList<ControlInfo> infos = new ArrayList<>();
+    private ArrayList<ControlInfo> controlInfos = new ArrayList<>();
     private View view;
     private TextView textView;
     private DonutProgress donutProgress;
+    private GroupInfo groupInfo;
 
     LinearLayout linearLayout;
 
@@ -53,22 +56,22 @@ public class FloatStatusUtil {
 
         linearLayout = view.findViewById(R.id.layout_list);
         textView = view.findViewById(R.id.text);
-//        textView.setText("");
 
-        donutProgress.setMax(120);
-        donutProgress.setProgress(90);
+        if (groupInfo != null && groupInfo.getGroupStatus() == Entiy.GROUP_STATUS_OPEN) {
+            List<ControlInfo> list = ControlInfoSql.queryControlList(groupInfo.getGroupId());
+            controlInfos.clear();
+            controlInfos.addAll(list);
 
-        List<ControlInfo> list = ControlInfoSql.queryControlList();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getValveStatus() > 1) {
-                if (i <  8) {
-                    infos.add(list.get(i));
-                }
-            }
         }
+        initProgess(groupInfo);
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (controlInfos.size() == 0) {
+                    ToastUtils.showLongToast("当前没有运行的设备");
+                    return;
+                }
                 if (mListView.getVisibility() == View.VISIBLE) {
                     mListView.setVisibility(View.GONE);
                     linearLayout.setVisibility(View.GONE);
@@ -80,7 +83,7 @@ public class FloatStatusUtil {
                 }
             }
         });
-        adapter = new FloatStatusAdapter(infos);
+        adapter = new FloatStatusAdapter(controlInfos);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         mListView.setLayoutManager(layoutManager);
         mListView.setAdapter(adapter);
@@ -88,7 +91,7 @@ public class FloatStatusUtil {
 
     public void cleanList() {
         if (adapter != null) {
-            infos.clear();
+            controlInfos.clear();
             adapter.notifyDataSetChanged();
         }
     }
@@ -122,37 +125,63 @@ public class FloatStatusUtil {
     }
 
     public void distory() {
-        infos.clear();
+        controlInfos.clear();
         adapter.notifyDataSetChanged();
         FloatWindow.destroy(TAG);
     }
 
+    /**
+     *       单个阀门的开启
+     * @param event
+     */
+    public void onStatsuEvent(CmdStatus event) {
+        List<GroupInfo> groupInfos = GroupInfoSql.queryOpenGroupList();
+        if (groupInfos != null && groupInfos.size() > 0) {
+            onGroupStatusEvent(groupInfos.get(0));
+        }
+    }
+
     public void onGroupStatusEvent(GroupInfo info) {
-        List<ControlInfo> infos = ControlInfoSql.queryControlList(info.getGroupId());
-        if (info.getGroupStatus() == 1) {
-            List<ControlInfo> list = ControlInfoSql.queryControlList();
-            int size = list.size();
+        if (info != null && info.getGroupStatus() == Entiy.GROUP_STATUS_OPEN) {
+            List<ControlInfo> controlInfoList = ControlInfoSql.queryControlList(info.getGroupId());
+            int size = controlInfoList.size();
             if (size > 0) {
-                infos.clear();
-                infos.addAll(list);
+                controlInfos.clear();
+                controlInfos.addAll(controlInfoList);
                 if (adapter != null) {
                     adapter.notifyDataSetChanged();
                 }
             }
+        }
+        initProgess(info);
+    }
+    /**
+     *        计算当前运行的时间
+     * @param info
+     */
+    public void onAutoCountEvent(GroupInfo info) {
+        initProgess(info);
+    }
+
+    /**
+     *         初始化进度条
+     * @param info
+     */
+    public void initProgess(GroupInfo info) {
+        if (info != null && info.getGroupStatus() == Entiy.GROUP_STATUS_OPEN) {
+            groupInfo = info;
             if (donutProgress != null) {
-                donutProgress.setMax(info.getGroupTime());
-                donutProgress.setProgress(info.getGroupRunTime());
-                textView.setText("时长:" + info.getGroupTime() + "\n运行:" + info.getGroupRunTime());
+                donutProgress.setVisibility(View.VISIBLE);
+                donutProgress.setMax(groupInfo.getGroupTime());
+                donutProgress.setProgress(groupInfo.getGroupRunTime());
+                textView.setText("时长:" + groupInfo.getGroupTime() + "\n运行:" + info.getGroupRunTime());
+            }
+        }else {
+            controlInfos.clear();
+            if (donutProgress != null) {
+                textView.setText("无设备运行");
+                donutProgress.setVisibility(View.INVISIBLE);
             }
         }
     }
-
-    public void onAutoCountEvent(GroupInfo info) {
-        if (donutProgress != null) {
-            donutProgress.setMax(info.getGroupTime());
-            donutProgress.setProgress(info.getGroupRunTime());
-            textView.setText("时长:" + info.getGroupTime() + "\n运行:" + info.getGroupRunTime());
-        }
-    }
-
 }

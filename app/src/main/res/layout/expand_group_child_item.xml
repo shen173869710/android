@@ -13,7 +13,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="center_vertical|left"
-        android:textColor="@color/black"
+        android:textColor="@color/main_item_color"
         android:textSize="@dimen/text_size_18" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/main_item_color"
         android:textSize="@dimen/text_size_18" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/main_item_color"
         android:textSize="@dimen/text_size_18" />
 
     <RelativeLayout
