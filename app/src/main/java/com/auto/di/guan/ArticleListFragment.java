@@ -130,6 +130,7 @@ public class ArticleListFragment extends ListFragment {
 		if (fragments != null) {
 			int postion = event.getIndex();
 			showFragment(fragments.get(postion));
+			activity.setTitle(Entiy.TAB_TITLE[postion]);
 			adapter.setSelectedPosition(postion);
 			adapter.notifyDataSetChanged();
 			View view = getView();

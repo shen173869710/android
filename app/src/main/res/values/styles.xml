@@ -228,8 +228,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:windowBackground">@mipmap/welcome_bg</item>
-
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <!--将Activity的Theme设置成透明-->
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
 
